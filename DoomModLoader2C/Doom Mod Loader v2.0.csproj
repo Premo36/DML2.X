@@ -65,7 +65,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\PathName.cs" />
-    <Compile Include="Entity\WAD.cs" />
     <Compile Include="FormMod.cs">
       <SubType>Form</SubType>
     </Compile>

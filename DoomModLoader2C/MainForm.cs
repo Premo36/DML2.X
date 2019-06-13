@@ -152,6 +152,8 @@ namespace DoomModLoader2
                             MessageBox.Show("\"" + Path.GetFileName(p) + "\" is not an IWAD!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
+
+                  
                 }
             }
         }
@@ -160,7 +162,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "EXE files (*.EXE)|*.EXE";
+                openFileDialog.Filter = "*.exe|*.exe";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -169,6 +171,7 @@ namespace DoomModLoader2
                     foreach (string p in path)
                     {
                         UpdateConfig(p, cfgPORT);
+                        cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().LastOrDefault();
                     }
                 }
             }
@@ -178,7 +181,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Configuration files (*.INI)|*.INI";
+                openFileDialog.Filter = ".ini|*.ini";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -187,6 +190,7 @@ namespace DoomModLoader2
                     foreach (string p in path)
                     {
                         UpdateConfig(p, cfgPORT_CONFIG);
+                        cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().LastOrDefault();
                     }
                 }
             }
@@ -225,7 +229,14 @@ namespace DoomModLoader2
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
 
-                openFileDialog.Filter = "WAD (*.WAD)|*.WAD|PK3 (*.PK3)|*.PK3";
+                openFileDialog.Filter = "Where's All the Data? (*.wad)|*.wad|" +
+                                        "ZIP archive (*.pk3)|*.pk3|" +
+                                        "ZIP archive (*.zip)|*.zip|" +
+                                        "ZIP archive (*.pak)|*.pak|" +
+                                        "7z archive (*.pk7)|*.pk7)|" +
+                                        "7z archive (*.7z)| *.7z)|" +
+                                        "Build Engine file (*.grp)|*.grp|" +
+                                        "Blood file (*.rff)|*.rff";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -651,6 +662,8 @@ namespace DoomModLoader2
                                 "The following path has already been added:" + Environment.NewLine +
                                 "\"" + ItemPath + "\"", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+
+
 
         }
 
