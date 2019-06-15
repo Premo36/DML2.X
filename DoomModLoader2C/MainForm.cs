@@ -146,6 +146,7 @@ namespace DoomModLoader2
                         if (CheckIWAD(p))
                         {
                             UpdateConfig(p, cfgIWAD);
+                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
                         }
                         else
                         {
@@ -233,8 +234,8 @@ namespace DoomModLoader2
                                         "ZIP archive (*.pk3)|*.pk3|" +
                                         "ZIP archive (*.zip)|*.zip|" +
                                         "ZIP archive (*.pak)|*.pak|" +
-                                        "7z archive (*.pk7)|*.pk7)|" +
-                                        "7z archive (*.7z)| *.7z)|" +
+                                        "7z archive (*.pk7)|*.pk7|" +
+                                        "7z archive (*.7z)| *.7z|" +
                                         "Build Engine file (*.grp)|*.grp|" +
                                         "Blood file (*.rff)|*.rff";
                 openFileDialog.RestoreDirectory = true;
