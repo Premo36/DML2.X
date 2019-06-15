@@ -79,6 +79,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SharedVar.cs" />
+    <Compile Include="VersionForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="VersionForm.Designer.cs">
+      <DependentUpon>VersionForm.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="FormMod.resx">
       <DependentUpon>FormMod.cs</DependentUpon>
     </EmbeddedResource>
@@ -95,6 +102,9 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="VersionForm.resx">
+      <DependentUpon>VersionForm.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="Properties\DataSources\DoomModLoader2.Entity.PathName.datasource" />
     <None Include="Properties\DataSources\DoomModLoader2.Entity.SourcePort.datasource" />
     <None Include="Properties\DataSources\DoomModLoader2.Entity.WAD.datasource" />

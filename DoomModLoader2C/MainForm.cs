@@ -34,6 +34,10 @@ namespace DoomModLoader2
             CaricaCFG();
             txtMap_TextChanged(null, null);
             chkCustomConfiguration_CheckedChanged(null, null);
+            if (SharedVar.CHECK_FOR_UPDATE)
+            {
+                CheckUpdate(true);
+            }
         }
 
 
@@ -83,46 +87,50 @@ namespace DoomModLoader2
 
         private void cmdSavePreset_Click(object sender, EventArgs e)
         {
-
-            if (lstPWAD.SelectedItems != null && lstPWAD.SelectedItems.Count > 0)
+            try
             {
-                string name = Interaction.InputBox("Enter a preset name");
-                if (name.Length > 0)
+                if (lstPWAD.SelectedItems != null && lstPWAD.SelectedItems.Count > 0)
                 {
-                    string path = Path.Combine(foldPRESET, name + ".dml");
-                    FileStream f = File.Create(path);
-                    f.Dispose();
-                    foreach (PathName p in lstPWAD.SelectedItems)
+                    string name = Interaction.InputBox("Enter a preset name");
+                    if (name.Length > 0)
                     {
-                        File.AppendAllText(p.path, path + Environment.NewLine);
-                        UpdateConfig(p.path, path);
+                        name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
+                        string path = Path.Combine(foldPRESET, name + ".dml");
+                        FileStream f = File.Create(path);
+                        f.Dispose();
+                        foreach (PathName p in lstPWAD.SelectedItems)
+                        {
+                            File.AppendAllText(p.path, path + Environment.NewLine);
+                            UpdateConfig(p.path, path);
+                        }
+                        //LoadConfiguration(); 
+                        CaricaPreset();
+                        cmbPreset.SelectedItem = cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals(name.ToUpper())).FirstOrDefault();
                     }
-                    LoadConfiguration();
+                }
+                else
+                {
+                    MessageBox.Show("No mods selected!" + Environment.NewLine + "Please select at least 1 mod.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 }
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("No mods selected!" + Environment.NewLine + "Please select at least 1 mod.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Something went wrong while tryng to save your mod preset..." + Environment.NewLine +
+                                "ERROR: \"" + ex.Message + "\"" + Environment.NewLine +
+                                "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void chkNoMonster_CheckedChanged(object sender, EventArgs e)
         {
-            bool isEnable = true;
-            if (chkNoMonster.Checked)
-                isEnable = false;
-
-            chkFast.Enabled = isEnable;
-            chkRespawn.Enabled = isEnable;
-
+            chkFast.Enabled = !chkNoMonster.Checked;
+            chkRespawn.Enabled = !chkNoMonster.Checked;
         }
 
         private void txtMap_TextChanged(object sender, EventArgs e)
         {
-            bool isEnable = true;
-            if (txtMap.Text == string.Empty)
-                isEnable = false;
-
+            bool isEnable = !txtMap.Text.Equals(string.Empty);
+           
             chkFast.Enabled = isEnable;
             chkRespawn.Enabled = isEnable;
             cmbSkill.Enabled = isEnable;
@@ -134,7 +142,14 @@ namespace DoomModLoader2
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
 
-                openFileDialog.Filter = "WAD files (*.WAD)|*.WAD";
+                openFileDialog.Filter = "Where's All the Data? (*.wad)|*.wad|" +
+                                        "ZIP archive (*.pk3)|*.pk3|" +
+                                        "ZIP archive (*.zip)|*.zip|" +
+                                        "ZIP archive (*.pak)|*.pak|" +
+                                        "7z archive (*.pk7)|*.pk7|" +
+                                        "7z archive (*.7z)| *.7z|" +
+                                        "Build Engine file (*.grp)|*.grp|" +
+                                        "Blood file (*.rff)|*.rff";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -154,7 +169,7 @@ namespace DoomModLoader2
                         }
                     }
 
-                  
+
                 }
             }
         }
@@ -289,6 +304,22 @@ namespace DoomModLoader2
             }
 
         }
+
+        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            CheckUpdate();
+        }
+
+        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            //Carica menu "about"
+        }
+
         #endregion
 
         #region METODI
@@ -306,7 +337,8 @@ namespace DoomModLoader2
         {
             string[] pathPreset = Directory.GetFiles(foldPRESET);
             List<PathName> presets = new List<PathName>();
-
+          
+            presets = presets.Where(p => p.name != "NONE").ToList();
             foreach (string p in pathPreset)
             {
                 PathName preset = new PathName();
@@ -432,15 +464,29 @@ namespace DoomModLoader2
                     {
                         cmb_vidrender.SelectedIndex = int.Parse(cfg[9]);
                     }
+
+                    if (cfg[10].Equals("0"))
+                    {
+                        SharedVar.CHECK_FOR_UPDATE = false;
+                    }
+                    else
+                    {
+                        SharedVar.CHECK_FOR_UPDATE = true;
+                    }
+
+
                 }
                 else
                 {
                     cmb_vidrender.SelectedIndex = 0;
+                    SharedVar.CHECK_FOR_UPDATE = true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                cmb_vidrender.SelectedIndex = 0;
+                SharedVar.CHECK_FOR_UPDATE = true;
             }
         }
 
@@ -545,7 +591,6 @@ namespace DoomModLoader2
                     byte[] wadData = File.ReadAllBytes(path).Take(4).ToArray();
                     string s = Encoding.ASCII.GetString(wadData);
                     return s.Equals("IWAD") ? true : false;
-
                 }
             }
             catch
@@ -553,6 +598,8 @@ namespace DoomModLoader2
                 return false;
             }
         }
+
+
 
         private string GetParameters()
         {
@@ -650,7 +697,7 @@ namespace DoomModLoader2
 
         private void UpdateConfig(string ItemPath, string cfgPath)
         {
-
+            //Aggiungere try catch
             string s = File.ReadAllLines(cfgPath).Where(P => P == ItemPath).FirstOrDefault();
             if (s == null)
             {
@@ -670,6 +717,7 @@ namespace DoomModLoader2
 
         private void RemoveConfig(PathName PN, string cfgPath)
         {
+            //Aggiungere try catch
             if (PN != null)
             {
                 DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + PN.name + "\""
@@ -689,6 +737,7 @@ namespace DoomModLoader2
 
         private void cmdRemovePreset_Click(object sender, EventArgs e)
         {
+            //Aggiungere try catch
             PathName pn = (PathName)cmbPreset.SelectedItem;
             if (pn != null && !pn.name.Equals("NONE"))
             {
@@ -710,6 +759,7 @@ namespace DoomModLoader2
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
+
             string[] EXIT_MESSAGES = new string[] {
                 //DOOM
                 "Please don't leave, there's more demons to toast!",
@@ -738,6 +788,7 @@ namespace DoomModLoader2
 
         private void SavePreferences()
         {
+            //Aggiungere try catch
             StringBuilder preferences = new StringBuilder();
 
 
@@ -832,13 +883,36 @@ namespace DoomModLoader2
 
             preferences.AppendLine(cmb_vidrender.SelectedIndex.ToString());
 
+            if (SharedVar.CHECK_FOR_UPDATE)
+            {
+                preferences.AppendLine("1");
+            }
+            else
+            {
+                preferences.AppendLine("0");
+            }
 
             File.WriteAllText(cfgPreference, preferences.ToString());
         }
 
+        private void CheckUpdate(bool start = false)
+        {
+            VersionForm vf = new VersionForm();
+            if (start)
+            {
+                if (!vf.isLatestVersion())
+                {
+                    vf.ShowDialog();
+                }
+            }
+            else
+            {
+                vf.ShowDialog();
+            }
+
+        }
+
 
         #endregion
-
-
     }
 }
