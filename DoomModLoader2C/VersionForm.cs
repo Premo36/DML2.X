@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -13,81 +14,93 @@ namespace DoomModLoader2
 {
     public partial class VersionForm : Form
     {
-        private static string urlDownloadChangeLog;
+        private string urlDownloadChangeLog;
+        private string urlDownloadLatestVersion;
+
         public VersionForm()
         {
             InitializeComponent();
-           
-           
+
+
         }
-       
-        public bool isLatestVersion() {
+
+        public bool isLatestVersion()
+        {
             return GetLatestVersionInfo().Equals(SharedVar.LOCAL_VERSION) ? true : false;
         }
         private string GetLatestVersionInfo()
         {
-              string serverVersion;
-            try
-            {
-                //VERSION NUMBER AND CHANGELOG URL DOWNLOAD
-                WebRequest webRequest = WebRequest.Create(SharedVar.UrlVersion);
 
-                using (var response = webRequest.GetResponse())
+            string serverVersion;
+
+            //VERSION NUMBER, CHANGELOG URL AND DOWNLOAD URL
+            WebRequest webRequest = WebRequest.Create(SharedVar.UrlVersion);
+            using (var response = webRequest.GetResponse())
+            {
+                using (var content = response.GetResponseStream())
                 {
-                    using (var content = response.GetResponseStream())
+                    using (var reader = new StreamReader(content))
                     {
-                        using (var reader = new StreamReader(content))
-                        {
-                            string[] versionInfo  = reader.ReadToEnd().Split(';');
-                            lblServerVersion.Text = versionInfo[0];//Version
-                            serverVersion = versionInfo[0];
-                            urlDownloadChangeLog = versionInfo[1];//Url to download changelog
-                        }
+                        string[] versionInfo = reader.ReadToEnd().Split(';');
+                        lblServerVersion.Text = versionInfo[0];//Version
+                        serverVersion = versionInfo[0];
+                        urlDownloadChangeLog = versionInfo[1];//Url to download changelog
+                        urlDownloadLatestVersion = versionInfo[2];
                     }
                 }
+            }
 
-             
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-                return null;
-            }
+
 
             return serverVersion;
         }
 
         private void VersionForm_Load(object sender, EventArgs e)
         {
-            lblLocalVersion.Text = SharedVar.LOCAL_VERSION;
-            chkUpdate.Checked = SharedVar.CHECK_FOR_UPDATE;
-            GetLatestVersionInfo();
-            //CHANGELOG
-            if (urlDownloadChangeLog != string.Empty && urlDownloadChangeLog != null)
+            try
             {
-                WebRequest webRequest = WebRequest.Create(urlDownloadChangeLog);
-                using (var response = webRequest.GetResponse())
+                lblLocalVersion.Text = SharedVar.LOCAL_VERSION;
+                chkUpdate.Checked = SharedVar.CHECK_FOR_UPDATE;
+                GetLatestVersionInfo();
+                //CHANGELOG
+                if (urlDownloadChangeLog != string.Empty && urlDownloadChangeLog != null)
                 {
-                    using (var content = response.GetResponseStream())
+                    WebRequest webRequest = WebRequest.Create(urlDownloadChangeLog);
+                    using (var response = webRequest.GetResponse())
                     {
-                        using (var reader = new StreamReader(content))
+                        using (var content = response.GetResponseStream())
                         {
-                            string[] changelogRaw = reader.ReadToEnd().Split('\n');
-                            StringBuilder changeLog = new StringBuilder();
-                            foreach (string s in changelogRaw)
+                            using (var reader = new StreamReader(content))
                             {
-                                changeLog.AppendLine(s);
+                                string[] changelogRaw = reader.ReadToEnd().Split('\n');
+                                StringBuilder changeLog = new StringBuilder();
+                                foreach (string s in changelogRaw)
+                                {
+                                    changeLog.AppendLine(s);
+                                }
+                                txtChangeLog.Text = changeLog.ToString();
                             }
-                            txtChangeLog.Text = changeLog.ToString();
                         }
                     }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
+                                "Please check your internet connection..." + Environment.NewLine +
+                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
         private void chkUpdate_CheckedChanged(object sender, EventArgs e)
         {
             SharedVar.CHECK_FOR_UPDATE = chkUpdate.Checked;
+        }
+
+        private void cmdOpenDownload_Click(object sender, EventArgs e)
+        {
+            Process.Start(urlDownloadLatestVersion);
         }
     }
 }

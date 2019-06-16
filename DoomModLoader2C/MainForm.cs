@@ -12,7 +12,8 @@ using DoomModLoader2.Entity;
 using Microsoft.VisualBasic;
 namespace DoomModLoader2
 {
-
+    //todo list
+    //fix bug when reloading resorces
     public partial class MainForm : Form
     {
         private string fold_APPDATA;
@@ -36,11 +37,19 @@ namespace DoomModLoader2
             chkCustomConfiguration_CheckedChanged(null, null);
             if (SharedVar.CHECK_FOR_UPDATE)
             {
-                CheckUpdate(true);
+                try
+                {
+                    CheckUpdate(true);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
+                                    "Please check your internet connection..." + Environment.NewLine +
+                                    "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+                }
             }
         }
-
-
 
         private void cmdPlay_Click(object sender, EventArgs e)
         {
@@ -130,7 +139,7 @@ namespace DoomModLoader2
         private void txtMap_TextChanged(object sender, EventArgs e)
         {
             bool isEnable = !txtMap.Text.Equals(string.Empty);
-           
+
             chkFast.Enabled = isEnable;
             chkRespawn.Enabled = isEnable;
             cmbSkill.Enabled = isEnable;
@@ -312,7 +321,17 @@ namespace DoomModLoader2
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckUpdate();
+            try
+            {
+                CheckUpdate();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
+                                "Please check your internet connection..." + Environment.NewLine +
+                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+
+            }
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -337,7 +356,7 @@ namespace DoomModLoader2
         {
             string[] pathPreset = Directory.GetFiles(foldPRESET);
             List<PathName> presets = new List<PathName>();
-          
+
             presets = presets.Where(p => p.name != "NONE").ToList();
             foreach (string p in pathPreset)
             {
@@ -492,18 +511,18 @@ namespace DoomModLoader2
 
         private void InitializeConfiguration()
         {
-
-            fold_APPDATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            fold_P36SOFTWARE = Path.Combine(fold_APPDATA, @"P36_Software");
-            fold_DMLv2 = Path.Combine(fold_P36SOFTWARE, @"DMLv2");
-            foldPRESET = Path.Combine(fold_DMLv2, @"Presets");
-            cfgPreference = Path.Combine(fold_DMLv2, @"DMLv2.cfg");
-            cfgIWAD = Path.Combine(fold_DMLv2, @"IWAD.cfg");
-            cfgPWAD = Path.Combine(fold_DMLv2, @"PWAD.cfg");
-            cfgPORT = Path.Combine(fold_DMLv2, @"PORT.cfg");
-            cfgPORT_CONFIG = Path.Combine(fold_DMLv2, @"PORT_CONFIG_PATH.cfg");
             try
             {
+                fold_APPDATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+                fold_P36SOFTWARE = Path.Combine(fold_APPDATA, @"P36_Software");
+                fold_DMLv2 = Path.Combine(fold_P36SOFTWARE, @"DMLv2");
+                foldPRESET = Path.Combine(fold_DMLv2, @"Presets");
+                cfgPreference = Path.Combine(fold_DMLv2, @"DMLv2.cfg");
+                cfgIWAD = Path.Combine(fold_DMLv2, @"IWAD.cfg");
+                cfgPWAD = Path.Combine(fold_DMLv2, @"PWAD.cfg");
+                cfgPORT = Path.Combine(fold_DMLv2, @"PORT.cfg");
+                cfgPORT_CONFIG = Path.Combine(fold_DMLv2, @"PORT_CONFIG_PATH.cfg");
+
                 if (!Directory.Exists(fold_P36SOFTWARE))
                     Directory.CreateDirectory(fold_P36SOFTWARE);
 
@@ -598,8 +617,6 @@ namespace DoomModLoader2
                 return false;
             }
         }
-
-
 
         private string GetParameters()
         {
@@ -697,65 +714,94 @@ namespace DoomModLoader2
 
         private void UpdateConfig(string ItemPath, string cfgPath)
         {
-            //Aggiungere try catch
-            string s = File.ReadAllLines(cfgPath).Where(P => P == ItemPath).FirstOrDefault();
-            if (s == null)
-            {
-                File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
-                LoadConfiguration();
-            }
-            else
-            {
-                MessageBox.Show("Cannot add the same file multiple time!" + Environment.NewLine +
-                                "The following path has already been added:" + Environment.NewLine +
-                                "\"" + ItemPath + "\"", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
 
+            try
+            {
+                string s = File.ReadAllLines(cfgPath).Where(P => P == ItemPath).FirstOrDefault();
+                if (s == null)
+                {
+                    File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
+                    LoadConfiguration();
+                }
+                else
+                {
+                    MessageBox.Show("Cannot add the same file multiple time!" + Environment.NewLine +
+                                    "The following path has already been added:" + Environment.NewLine +
+                                    "\"" + ItemPath + "\"", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                UpdateRemoveConfigError(ex, cfgPath);
+            }
 
 
         }
 
         private void RemoveConfig(PathName PN, string cfgPath)
         {
-            //Aggiungere try catch
-            if (PN != null)
+            try
             {
-                DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + PN.name + "\""
-                                   + Environment.NewLine
-                                   + "(Path: \"" + PN.path + "\")"
-                                   , "REMOVE " + PN.name.ToUpper(), MessageBoxButtons.OKCancel);
-
-                if (ris == DialogResult.OK)
+                if (PN != null)
                 {
-                    string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
+                    DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + PN.name + "\""
+                                       + Environment.NewLine
+                                       + "(Path: \"" + PN.path + "\")"
+                                       , "REMOVE " + PN.name.ToUpper(), MessageBoxButtons.OKCancel);
 
-                    File.WriteAllLines(cfgPath, s);
-                    LoadConfiguration();
+                    if (ris == DialogResult.OK)
+                    {
+                        string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
+
+                        File.WriteAllLines(cfgPath, s);
+                        LoadConfiguration();
+                    }
                 }
             }
+            catch (Exception ex)
+            {
+                UpdateRemoveConfigError(ex, cfgPath);
+            }
+        }
+
+        private void UpdateRemoveConfigError(Exception ex, string cfgPath)
+        {
+            StringBuilder errore = new StringBuilder();
+            errore.AppendLine("Something went wrong while trying to update a configuration file...");
+            errore.AppendLine("Please check if your account have the permission to write in:");
+            errore.AppendLine(@"""" + cfgPath + @"""");
+            errore.AppendLine();
+            errore.AppendLine("Error Message:");
+            errore.AppendLine(ex.Message);
+
+            MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         private void cmdRemovePreset_Click(object sender, EventArgs e)
         {
-            //Aggiungere try catch
-            PathName pn = (PathName)cmbPreset.SelectedItem;
-            if (pn != null && !pn.name.Equals("NONE"))
+            try
             {
-                DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
-                                   + Environment.NewLine
-                                   + "(Path: \"" + pn.path + "\")"
-                                   , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
-
-                if (ris == DialogResult.OK)
+                PathName pn = (PathName)cmbPreset.SelectedItem;
+                if (pn != null && !pn.name.Equals("NONE"))
                 {
-                    File.Delete(pn.path);
-                    CaricaPreset();
-                }
+                    DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
+                                       + Environment.NewLine
+                                       + "(Path: \"" + pn.path + "\")"
+                                       , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
 
+                    if (ris == DialogResult.OK)
+                    {
+                        File.Delete(pn.path);
+                        CaricaPreset();
+                    }
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                UpdateRemoveConfigError(Ex, foldPRESET);
             }
         }
-
-
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -788,128 +834,140 @@ namespace DoomModLoader2
 
         private void SavePreferences()
         {
-            //Aggiungere try catch
-            StringBuilder preferences = new StringBuilder();
-
-
-
-            //Audio 1 0
-            if (radAudioAllSounds.Checked)
+            try
             {
-                preferences.AppendLine("0");
-            }
-            else
-                if (radAudioNoMusic.Checked)
-            {
-                preferences.AppendLine("1");
-            }
-            else
-                if (radAudioNoSFX.Checked)
-            {
-                preferences.AppendLine("2");
-            }
-            else
-                if (radAudioNoSounds.Checked)
-            {
-                preferences.AppendLine("3");
-            }
-
-            //Video 2 2
-            if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
-            {
-                preferences.AppendLine(txtScreenWidth.Text);
-                preferences.AppendLine(txtScreenHeight.Text);
-            }
-            else
-            {
-                preferences.AppendLine("0");
-                preferences.AppendLine("");
-            }
-
-            //fullscreen 1 3
-            if (chkFullscreen.Checked)
-            {
-                preferences.AppendLine("1");
-            }
-            else
-            {
-                preferences.AppendLine("0");
-            }
-
-            //Config 2 5
-            if (chkCustomConfiguration.Checked)
-            {
-                preferences.AppendLine("1");
-                PathName p = (PathName)cmbPortConfig.SelectedItem;
-                if (p != null)
+                StringBuilder preferences = new StringBuilder();
+                //Audio 1 0
+                if (radAudioAllSounds.Checked)
                 {
-                    preferences.AppendLine(p.path);
+                    preferences.AppendLine("0");
                 }
+                else
+                    if (radAudioNoMusic.Checked)
+                {
+                    preferences.AppendLine("1");
+                }
+                else
+                    if (radAudioNoSFX.Checked)
+                {
+                    preferences.AppendLine("2");
+                }
+                else
+                    if (radAudioNoSounds.Checked)
+                {
+                    preferences.AppendLine("3");
+                }
+
+                //Video 2 2
+                if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
+                {
+                    preferences.AppendLine(txtScreenWidth.Text);
+                    preferences.AppendLine(txtScreenHeight.Text);
+                }
+                else
+                {
+                    preferences.AppendLine("0");
+                    preferences.AppendLine("");
+                }
+
+                //fullscreen 1 3
+                if (chkFullscreen.Checked)
+                {
+                    preferences.AppendLine("1");
+                }
+                else
+                {
+                    preferences.AppendLine("0");
+                }
+
+                //Config 2 5
+                if (chkCustomConfiguration.Checked)
+                {
+                    preferences.AppendLine("1");
+                    PathName p = (PathName)cmbPortConfig.SelectedItem;
+                    if (p != null)
+                    {
+                        preferences.AppendLine(p.path);
+                    }
+                }
+                else
+                {
+                    preferences.AppendLine("0");
+                    preferences.AppendLine("");
+                }
+
+                //txtCommand 1 6
+                preferences.AppendLine(txtCommandLine.Text);
+
+                //iwad 1 7
+                PathName iwad = (PathName)cmbIWAD.SelectedItem;
+
+                //pwad 1 8
+                PathName port = (PathName)cmbSourcePort.SelectedItem;
+
+                if (iwad != null)
+                {
+                    preferences.AppendLine(iwad.path);
+                }
+                else
+                {
+                    preferences.AppendLine("NULL");
+                }
+
+
+                if (port != null)
+                {
+                    preferences.AppendLine(port.path);
+                }
+                else
+                {
+                    preferences.AppendLine("NULL");
+                }
+
+
+                preferences.AppendLine(cmb_vidrender.SelectedIndex.ToString());
+
+                if (SharedVar.CHECK_FOR_UPDATE)
+                {
+                    preferences.AppendLine("1");
+                }
+                else
+                {
+                    preferences.AppendLine("0");
+                }
+
+                File.WriteAllText(cfgPreference, preferences.ToString());
             }
-            else
+            catch (Exception ex)
             {
-                preferences.AppendLine("0");
-                preferences.AppendLine("");
+                UpdateRemoveConfigError(ex, cfgPreference);
             }
-
-            //txtCommand 1 6
-            preferences.AppendLine(txtCommandLine.Text);
-
-            //iwad 1 7
-            PathName iwad = (PathName)cmbIWAD.SelectedItem;
-
-            //pwad 1 8
-            PathName port = (PathName)cmbSourcePort.SelectedItem;
-
-            if (iwad != null)
-            {
-                preferences.AppendLine(iwad.path);
-            }
-            else
-            {
-                preferences.AppendLine("NULL");
-            }
-
-
-            if (port != null)
-            {
-                preferences.AppendLine(port.path);
-            }
-            else
-            {
-                preferences.AppendLine("NULL");
-            }
-
-
-            preferences.AppendLine(cmb_vidrender.SelectedIndex.ToString());
-
-            if (SharedVar.CHECK_FOR_UPDATE)
-            {
-                preferences.AppendLine("1");
-            }
-            else
-            {
-                preferences.AppendLine("0");
-            }
-
-            File.WriteAllText(cfgPreference, preferences.ToString());
         }
 
         private void CheckUpdate(bool start = false)
         {
-            VersionForm vf = new VersionForm();
-            if (start)
+            try
             {
-                if (!vf.isLatestVersion())
+                VersionForm vf = new VersionForm();
+                if (start)
+                {
+                    if (!vf.isLatestVersion())
+                    {
+                        vf.ShowDialog();
+                    }
+                }
+                else
                 {
                     vf.ShowDialog();
                 }
             }
-            else
+            catch (Exception ex)
             {
-                vf.ShowDialog();
-            }
+                MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
+                                "Please check your internet connection..." + Environment.NewLine +
+                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
+            }
         }
 
 

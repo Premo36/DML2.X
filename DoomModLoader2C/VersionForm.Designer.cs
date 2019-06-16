@@ -80,6 +80,7 @@
             this.txtChangeLog.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.txtChangeLog.Size = new System.Drawing.Size(389, 265);
             this.txtChangeLog.TabIndex = 4;
+            this.txtChangeLog.TabStop = false;
             // 
             // chkUpdate
             // 
@@ -100,6 +101,7 @@
             this.cmdOpenDownload.TabIndex = 6;
             this.cmdOpenDownload.Text = "Open Download Page";
             this.cmdOpenDownload.UseVisualStyleBackColor = true;
+            this.cmdOpenDownload.Click += new System.EventHandler(this.cmdOpenDownload_Click);
             // 
             // VersionForm
             // 
