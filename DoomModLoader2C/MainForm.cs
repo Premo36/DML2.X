@@ -6,14 +6,15 @@ using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using DoomModLoader2.Entity;
 using Microsoft.VisualBasic;
 namespace DoomModLoader2
 {
-    //todo list
-    //fix bug when reloading resorces
+    //TODO
+    //add about form
     public partial class MainForm : Form
     {
         private string fold_APPDATA;
@@ -35,6 +36,7 @@ namespace DoomModLoader2
             CaricaCFG();
             txtMap_TextChanged(null, null);
             chkCustomConfiguration_CheckedChanged(null, null);
+            cmbSkill.SelectedIndex = 3;
             if (SharedVar.CHECK_FOR_UPDATE)
             {
                 try
@@ -167,14 +169,23 @@ namespace DoomModLoader2
                     string[] path = openFileDialog.FileNames;
                     foreach (string p in path)
                     {
-                        if (CheckIWAD(p))
+                        DialogResult resp;
+                        if (!CheckIWAD(p))
                         {
-                            UpdateConfig(p, cfgIWAD);
-                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
+                            resp = MessageBox.Show("\"" + Path.GetFileName(p) + "\" does not look like an IWAD..." + Environment.NewLine +
+                                             "This means that it's indeed a mod (so should be loaded as \"PWAD\"), or it does not follow the iwad standard (First four bytes conveted to ASCII = \"iwad\")," + Environment.NewLine +
+                                             "do you still want to load it as an IWAD?", "Load IWAD?",  MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         }
                         else
                         {
-                            MessageBox.Show("\"" + Path.GetFileName(p) + "\" is not an IWAD!", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            resp = DialogResult.Yes;
+                        }
+
+                        if (resp == DialogResult.Yes)
+                        {
+                            UpdateConfig(p, cfgIWAD);
+                            CaricaIWAD();
+                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
                         }
                     }
 
@@ -196,6 +207,7 @@ namespace DoomModLoader2
                     foreach (string p in path)
                     {
                         UpdateConfig(p, cfgPORT);
+                        CaricaPort();
                         cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().LastOrDefault();
                     }
                 }
@@ -215,6 +227,7 @@ namespace DoomModLoader2
                     foreach (string p in path)
                     {
                         UpdateConfig(p, cfgPORT_CONFIG);
+                        CaricaPortConfig();
                         cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().LastOrDefault();
                     }
                 }
@@ -232,21 +245,25 @@ namespace DoomModLoader2
         private void cmdRemoveIWAD_Click(object sender, EventArgs e)
         {
             PathName wad = (PathName)cmbIWAD.SelectedItem;
-
             RemoveConfig(wad, cfgIWAD);
-
+            cmbIWAD.Text = "";
+            CaricaIWAD();
         }
 
         private void cmdRemoveSourcePort_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbSourcePort.SelectedItem;
             RemoveConfig(PN, cfgPORT);
+            cmbSourcePort.Text = "";
+            CaricaPort();
         }
 
         private void cmdRemoveConfiguration_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbPortConfig.SelectedItem;
             RemoveConfig(PN, cfgPORT_CONFIG);
+            cmbPortConfig.Text = "";
+            CaricaPortConfig();
         }
 
         private void cmdAddPWAD_Click(object sender, EventArgs e)
@@ -271,6 +288,7 @@ namespace DoomModLoader2
                     foreach (string p in path)
                     {
                         UpdateConfig(p, cfgPWAD);
+                        CaricaPreset();
                     }
                 }
             }
@@ -282,12 +300,14 @@ namespace DoomModLoader2
             foreach (PathName p in items)
             {
                 RemoveConfig(p, cfgPWAD);
+                CaricaPWAD();
             }
 
         }
 
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
+            try { 
             PathName preset = (PathName)cmbPreset.SelectedItem;
 
             string[] path = File.ReadAllLines(preset.path);
@@ -310,6 +330,12 @@ namespace DoomModLoader2
                         break;
                     }
                 }
+            }
+
+            } catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while trying to load your preset..." + Environment.NewLine +                
+                               "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
         }
@@ -419,14 +445,12 @@ namespace DoomModLoader2
             List<PathName> wads = new List<PathName>();
             foreach (string p in pathIWAD)
             {
-                if (CheckIWAD(p))
-                {
                     PathName wad = new PathName();
                     wad.path = p;
                     wad.name = Path.GetFileNameWithoutExtension(p).ToUpper();
                     wads.Add(wad);
-                }
             }
+
             cmbIWAD.DataSource = wads;
         }
 
@@ -721,7 +745,7 @@ namespace DoomModLoader2
                 if (s == null)
                 {
                     File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
-                    LoadConfiguration();
+                    //LoadConfiguration();
                 }
                 else
                 {
@@ -754,7 +778,7 @@ namespace DoomModLoader2
                         string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
 
                         File.WriteAllLines(cfgPath, s);
-                        LoadConfiguration();
+                        //LoadConfiguration();
                     }
                 }
             }
