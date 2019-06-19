@@ -117,8 +117,15 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LOGOQUAD" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\LOGOQUAD.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>Doom Mod Loader 2.0
+ (C) P36 Software (Matteo P.)  2016 - 2019 
+
+
+E-MAIL: p36software@gmail.com
+
+WEBSITE: p36software.jimdo.com
+
+To check if a new version is aviable, click on "Check for update...."</value>
   </data>
 </root>

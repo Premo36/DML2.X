@@ -59,5 +59,15 @@ namespace DoomModLoader2.Properties {
                 resourceCulture = value;
             }
         }
+        
+        /// <summary>
+        ///   Cerca una risorsa localizzata di tipo System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap LOGOQUAD {
+            get {
+                object obj = ResourceManager.GetObject("LOGOQUAD", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
     }
 }

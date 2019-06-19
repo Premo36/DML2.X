@@ -7,7 +7,7 @@
     <ProjectGuid>{D86B9D07-2536-422F-8CEA-50207AFCA132}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DoomModLoader2</RootNamespace>
-    <AssemblyName>Doom Mod Loader 2.0</AssemblyName>
+    <AssemblyName>Doom Mod Loader</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -51,6 +51,12 @@
   <PropertyGroup>
     <GenerateManifests>true</GenerateManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <TargetZone>LocalIntranet</TargetZone>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
     <Reference Include="System" />
@@ -65,6 +71,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entity\PathName.cs" />
+    <Compile Include="AboutForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AboutForm.Designer.cs">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormMod.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -86,6 +98,9 @@
     <Compile Include="VersionForm.Designer.cs">
       <DependentUpon>VersionForm.cs</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="AboutForm.resx">
+      <DependentUpon>AboutForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FormMod.resx">
       <DependentUpon>FormMod.cs</DependentUpon>
     </EmbeddedResource>
@@ -105,6 +120,7 @@
     <EmbeddedResource Include="VersionForm.resx">
       <DependentUpon>VersionForm.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="Properties\app.manifest" />
     <None Include="Properties\DataSources\DoomModLoader2.Entity.PathName.datasource" />
     <None Include="Properties\DataSources\DoomModLoader2.Entity.SourcePort.datasource" />
     <None Include="Properties\DataSources\DoomModLoader2.Entity.WAD.datasource" />
@@ -118,7 +134,9 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\LOGOQUAD.png" />
+  </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>

@@ -14,7 +14,7 @@ using Microsoft.VisualBasic;
 namespace DoomModLoader2
 {
     //TODO
-    //add about form
+    //change cfg save from positional to key : value
     public partial class MainForm : Form
     {
         private string fold_APPDATA;
@@ -362,7 +362,8 @@ namespace DoomModLoader2
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            //Carica menu "about"
+            AboutForm ab = new AboutForm();
+            ab.ShowDialog();
         }
 
         #endregion
@@ -778,7 +779,6 @@ namespace DoomModLoader2
                         string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
 
                         File.WriteAllLines(cfgPath, s);
-                        //LoadConfiguration();
                     }
                 }
             }
@@ -993,8 +993,8 @@ namespace DoomModLoader2
 
             }
         }
-
-
         #endregion
+
+       
     }
 }
