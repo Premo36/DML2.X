@@ -11,6 +11,8 @@ using System.Text;
 using System.Windows.Forms;
 using DoomModLoader2.Entity;
 using Microsoft.VisualBasic;
+using P36_UTILITIES;
+
 namespace DoomModLoader2
 {
     //TODO
@@ -30,6 +32,8 @@ namespace DoomModLoader2
         #region FORM 
         public MainForm()
         {
+            Storage storage = new Storage(@"C:\Users\Matteo\Desktop\test.txt");
+            MessageBox.Show(storage.ReadValue("nome"));
             InitializeComponent();
             InitializeConfiguration();
             LoadConfiguration();

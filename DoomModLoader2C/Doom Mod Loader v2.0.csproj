@@ -144,5 +144,11 @@
       <Install>true</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\P36_UTILITIES\P36_UTILITIES.csproj">
+      <Project>{efd6895f-810f-4429-ac73-5e572f1fc31e}</Project>
+      <Name>P36_UTILITIES</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
