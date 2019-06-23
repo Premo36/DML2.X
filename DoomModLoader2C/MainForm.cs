@@ -32,8 +32,6 @@ namespace DoomModLoader2
         #region FORM 
         public MainForm()
         {
-            Storage storage = new Storage(@"C:\Users\Matteo\Desktop\test.txt");
-            MessageBox.Show(storage.ReadValue("nome"));
             InitializeComponent();
             InitializeConfiguration();
             LoadConfiguration();
@@ -77,7 +75,7 @@ namespace DoomModLoader2
                 var items = lstPWAD.SelectedItems;
                 string param = GetParameters();
 
-                //If the user select less than 2 mods it's usless display the mod order dialog
+                //If the user select less than 2 mods it's useless display the mod order dialog
                 if (items != null && items.Count > 1)
                 {
                     List<PathName> pwads = new List<PathName>();
@@ -178,7 +176,7 @@ namespace DoomModLoader2
                         {
                             resp = MessageBox.Show("\"" + Path.GetFileName(p) + "\" does not look like an IWAD..." + Environment.NewLine +
                                              "This means that it's indeed a mod (so should be loaded as \"PWAD\"), or it does not follow the iwad standard (First four bytes conveted to ASCII = \"iwad\")," + Environment.NewLine +
-                                             "do you still want to load it as an IWAD?", "Load IWAD?",  MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                                             "do you still want to load it as an IWAD?", "Load IWAD?", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                         }
                         else
                         {
@@ -311,34 +309,36 @@ namespace DoomModLoader2
 
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
-            try { 
-            PathName preset = (PathName)cmbPreset.SelectedItem;
-
-            string[] path = File.ReadAllLines(preset.path);
-
-            for (int i = 0; i < lstPWAD.Items.Count; i++)
+            try
             {
-                lstPWAD.SetSelected(i, false);
-            }
+                PathName preset = (PathName)cmbPreset.SelectedItem;
 
+                string[] path = File.ReadAllLines(preset.path);
 
-
-            foreach (string s in path)
-            {
-                foreach (PathName p in lstPWAD.Items)
+                for (int i = 0; i < lstPWAD.Items.Count; i++)
                 {
-                    if (p.path.Contains(s))
+                    lstPWAD.SetSelected(i, false);
+                }
+
+
+
+                foreach (string s in path)
+                {
+                    foreach (PathName p in lstPWAD.Items)
                     {
-                        int i = lstPWAD.Items.IndexOf(p);
-                        lstPWAD.SetSelected(i, true);
-                        break;
+                        if (p.path.Contains(s))
+                        {
+                            int i = lstPWAD.Items.IndexOf(p);
+                            lstPWAD.SetSelected(i, true);
+                            break;
+                        }
                     }
                 }
-            }
 
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong while trying to load your preset..." + Environment.NewLine +                
+                MessageBox.Show("Something went wrong while trying to load your preset..." + Environment.NewLine +
                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
@@ -450,10 +450,10 @@ namespace DoomModLoader2
             List<PathName> wads = new List<PathName>();
             foreach (string p in pathIWAD)
             {
-                    PathName wad = new PathName();
-                    wad.path = p;
-                    wad.name = Path.GetFileNameWithoutExtension(p).ToUpper();
-                    wads.Add(wad);
+                PathName wad = new PathName();
+                wad.path = p;
+                wad.name = Path.GetFileNameWithoutExtension(p).ToUpper();
+                wads.Add(wad);
             }
 
             cmbIWAD.DataSource = wads;
@@ -461,68 +461,123 @@ namespace DoomModLoader2
 
         private void CaricaCFG()
         {
+            #region old cfg system
+            //try
+            //{
+            //    string[] cfg = File.ReadAllLines(cfgPreference);
+
+            //    if (cfg.Length > 0)
+            //    {
+            //        if (!cfg[0].Equals("0"))
+            //        {
+            //            if (cfg[0].Equals("1"))
+            //            {
+            //                radAudioNoMusic.Checked = true;
+            //            }
+            //            else
+            //            if (cfg[0].Equals("2"))
+            //            {
+            //                radAudioNoSFX.Checked = true;
+            //            }
+            //            else
+            //            if (cfg[0].Equals("3"))
+            //            {
+            //                radAudioNoSounds.Checked = true;
+            //            }
+            //        }
+
+
+
+            //        if (!cfg[1].Equals("0"))
+            //        {
+            //            txtScreenWidth.Text = cfg[1];
+            //            txtScreenHeight.Text = cfg[2];
+
+            //        }
+
+            //        chkFullscreen.Checked = cfg[3].Equals("1") ? true : false;
+
+
+
+            //        if (cfg[4].Equals("1"))
+            //        {
+            //            chkCustomConfiguration.Checked = true;
+            //            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == cfg[5]).FirstOrDefault();
+            //        }
+
+            //        txtCommandLine.Text = cfg[6];
+            //        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path == cfg[7]).FirstOrDefault();
+            //        cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path == cfg[8]).FirstOrDefault();
+
+            //        if (!cfg[9].Equals("-1"))
+            //        {
+            //            cmb_vidrender.SelectedIndex = int.Parse(cfg[9]);
+            //        }
+
+            //        if (cfg[10].Equals("0"))
+            //        {
+            //            SharedVar.CHECK_FOR_UPDATE = false;
+            //        }
+            //        else
+            //        {
+            //            SharedVar.CHECK_FOR_UPDATE = true;
+            //        }
+
+
+            //    }
+            //    else
+            //    {
+            //        cmb_vidrender.SelectedIndex = 0;
+            //        SharedVar.CHECK_FOR_UPDATE = true;
+            //    }
+            //}
+            //catch (Exception ex)
+            //{
+            //    MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            //    cmb_vidrender.SelectedIndex = 0;
+            //    SharedVar.CHECK_FOR_UPDATE = true;
+            //}
+            #endregion
             try
             {
-                string[] cfg = File.ReadAllLines(cfgPreference);
+                Storage storage = new Storage(cfgPreference);
 
-                if (cfg.Length > 0)
+                Dictionary<string, string> cfg = storage.ReadAllValues();
+
+                if (cfg.Count > 0)
                 {
-                    if (!cfg[0].Equals("0"))
+                    switch (cfg["AUDIO"])
                     {
-                        if (cfg[0].Equals("1"))
-                        {
+                        case "1":
                             radAudioNoMusic.Checked = true;
-                        }
-                        else
-                        if (cfg[0].Equals("2"))
-                        {
+                            break;
+                        case "2":
                             radAudioNoSFX.Checked = true;
-                        }
-                        else
-                        if (cfg[0].Equals("3"))
-                        {
+                            break;
+                        case "3":
                             radAudioNoSounds.Checked = true;
-                        }
+                            break;
                     }
 
 
-
-                    if (!cfg[1].Equals("0"))
-                    {
-                        txtScreenWidth.Text = cfg[1];
-                        txtScreenHeight.Text = cfg[2];
-
-                    }
-
-                    chkFullscreen.Checked = cfg[3].Equals("1") ? true : false;
+                    txtScreenWidth.Text = cfg["SCREEN_WIDTH"];
+                    txtScreenHeight.Text = cfg["SCREEN_HEIGHT"];
 
 
 
-                    if (cfg[4].Equals("1"))
-                    {
-                        chkCustomConfiguration.Checked = true;
-                        cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == cfg[5]).FirstOrDefault();
-                    }
+                    chkFullscreen.Checked = Convert.ToBoolean(cfg["FULLSCREEN"]);
 
-                    txtCommandLine.Text = cfg[6];
-                    cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path == cfg[7]).FirstOrDefault();
-                    cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path == cfg[8]).FirstOrDefault();
-
-                    if (!cfg[9].Equals("-1"))
-                    {
-                        cmb_vidrender.SelectedIndex = int.Parse(cfg[9]);
-                    }
-
-                    if (cfg[10].Equals("0"))
-                    {
-                        SharedVar.CHECK_FOR_UPDATE = false;
-                    }
-                    else
-                    {
-                        SharedVar.CHECK_FOR_UPDATE = true;
-                    }
+                    chkCustomConfiguration.Checked = Convert.ToBoolean(cfg["CUSTOM_PORT_CFG"]);
+                    cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == cfg["CUSTOM_PORT_PATH"]).FirstOrDefault();
 
 
+                    txtCommandLine.Text = cfg["COMMANDLINE"];
+                    cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path.Equals(cfg["IWAD"])).FirstOrDefault();
+                    cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path.Equals(cfg["PORT"].ToString())).FirstOrDefault();
+
+
+                    cmb_vidrender.SelectedIndex = Convert.ToInt32(cfg["RENDERER"]);
+                    SharedVar.CHECK_FOR_UPDATE = Convert.ToBoolean(cfg["CHECK_FOR_UPDATE"]);
                 }
                 else
                 {
@@ -862,109 +917,217 @@ namespace DoomModLoader2
 
         private void SavePreferences()
         {
+            #region old cfg system
+            //try
+            //{
+            //    StringBuilder preferences = new StringBuilder();
+            //    //Audio 1 0
+            //    if (radAudioAllSounds.Checked)
+            //    {
+            //        preferences.AppendLine("0");
+            //    }
+            //    else
+            //        if (radAudioNoMusic.Checked)
+            //    {
+            //        preferences.AppendLine("1");
+            //    }
+            //    else
+            //        if (radAudioNoSFX.Checked)
+            //    {
+            //        preferences.AppendLine("2");
+            //    }
+            //    else
+            //        if (radAudioNoSounds.Checked)
+            //    {
+            //        preferences.AppendLine("3");
+            //    }
+
+            //    //Video 2 2
+            //    if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
+            //    {
+            //        preferences.AppendLine(txtScreenWidth.Text);
+            //        preferences.AppendLine(txtScreenHeight.Text);
+            //    }
+            //    else
+            //    {
+            //        preferences.AppendLine("0");
+            //        preferences.AppendLine("");
+            //    }
+
+            //    //fullscreen 1 3
+            //    if (chkFullscreen.Checked)
+            //    {
+            //        preferences.AppendLine("1");
+            //    }
+            //    else
+            //    {
+            //        preferences.AppendLine("0");
+            //    }
+
+            //    //Config 2 5
+            //    if (chkCustomConfiguration.Checked)
+            //    {
+            //        preferences.AppendLine("1");
+            //        PathName p = (PathName)cmbPortConfig.SelectedItem;
+            //        if (p != null)
+            //        {
+            //            preferences.AppendLine(p.path);
+            //        }
+            //    }
+            //    else
+            //    {
+            //        preferences.AppendLine("0");
+            //        preferences.AppendLine("");
+            //    }
+
+            //    //txtCommand 1 6
+            //    preferences.AppendLine(txtCommandLine.Text);
+
+            //    //iwad 1 7
+            //    PathName iwad = (PathName)cmbIWAD.SelectedItem;
+
+            //    //pwad 1 8
+            //    PathName port = (PathName)cmbSourcePort.SelectedItem;
+
+            //    if (iwad != null)
+            //    {
+            //        preferences.AppendLine(iwad.path);
+            //    }
+            //    else
+            //    {
+            //        preferences.AppendLine("NULL");
+            //    }
+
+
+            //    if (port != null)
+            //    {
+            //        preferences.AppendLine(port.path);
+            //    }
+            //    else
+            //    {
+            //        preferences.AppendLine("NULL");
+            //    }
+
+
+            //    preferences.AppendLine(cmb_vidrender.SelectedIndex.ToString());
+
+            //    if (SharedVar.CHECK_FOR_UPDATE)
+            //    {
+            //        preferences.AppendLine("1");
+            //    }
+            //    else
+            //    {
+            //        preferences.AppendLine("0");
+            //    }
+
+            //    File.WriteAllText(cfgPreference, preferences.ToString());
+            //}
+            //catch (Exception ex)
+            //{
+            //    UpdateRemoveConfigError(ex, cfgPreference);
+            //}
+            #endregion
+
             try
             {
-                StringBuilder preferences = new StringBuilder();
-                //Audio 1 0
+                Dictionary<string, string> preferences = new Dictionary<string, string>();
+                Storage storage = new Storage(cfgPreference);
+
                 if (radAudioAllSounds.Checked)
                 {
-                    preferences.AppendLine("0");
+                    preferences.Add("AUDIO", "0");
                 }
                 else
                     if (radAudioNoMusic.Checked)
                 {
-                    preferences.AppendLine("1");
+                    preferences.Add("AUDIO", "1");
                 }
                 else
                     if (radAudioNoSFX.Checked)
                 {
-                    preferences.AppendLine("2");
+                    preferences.Add("AUDIO", "2");
                 }
                 else
                     if (radAudioNoSounds.Checked)
                 {
-                    preferences.AppendLine("3");
+                    preferences.Add("AUDIO", "3");
                 }
 
                 //Video 2 2
                 if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
                 {
-                    preferences.AppendLine(txtScreenWidth.Text);
-                    preferences.AppendLine(txtScreenHeight.Text);
+                    preferences.Add("SCREEN_WIDTH", txtScreenWidth.Text);
+                    preferences.Add("SCREEN_HEIGHT", txtScreenHeight.Text);
                 }
                 else
                 {
-                    preferences.AppendLine("0");
-                    preferences.AppendLine("");
+                    preferences.Add("SCREEN_WIDTH", "");
+                    preferences.Add("SCREEN_HEIGHT", "");
                 }
 
                 //fullscreen 1 3
                 if (chkFullscreen.Checked)
                 {
-                    preferences.AppendLine("1");
+                    preferences.Add("FULLSCREEN", "TRUE");
                 }
                 else
                 {
-                    preferences.AppendLine("0");
+                    preferences.Add("FULLSCREEN", "FALSE");
                 }
 
-                //Config 2 5
+           
                 if (chkCustomConfiguration.Checked)
                 {
-                    preferences.AppendLine("1");
+                    preferences.Add("CUSTOM_PORT_CFG", "TRUE");
                     PathName p = (PathName)cmbPortConfig.SelectedItem;
                     if (p != null)
                     {
-                        preferences.AppendLine(p.path);
+                        preferences.Add("CUSTOM_PORT_PATH", p.path);
+                    } else
+                    {
+                        preferences.Add("CUSTOM_PORT_PATH", "");
                     }
                 }
                 else
                 {
-                    preferences.AppendLine("0");
-                    preferences.AppendLine("");
+                    preferences.Add("CUSTOM_PORT_CFG", "FALSE");
+                    preferences.Add("CUSTOM_PORT_PATH", "");
                 }
 
-                //txtCommand 1 6
-                preferences.AppendLine(txtCommandLine.Text);
+             
+                preferences.Add("COMMANDLINE", txtCommandLine.Text);
 
-                //iwad 1 7
+           
                 PathName iwad = (PathName)cmbIWAD.SelectedItem;
 
-                //pwad 1 8
+                
                 PathName port = (PathName)cmbSourcePort.SelectedItem;
 
                 if (iwad != null)
                 {
-                    preferences.AppendLine(iwad.path);
+                    preferences.Add("IWAD", iwad.path);
                 }
                 else
                 {
-                    preferences.AppendLine("NULL");
+                    preferences.Add("IWAD", "");
                 }
 
 
                 if (port != null)
                 {
-                    preferences.AppendLine(port.path);
+                    preferences.Add("PORT", port.path);
                 }
                 else
                 {
-                    preferences.AppendLine("NULL");
+                    preferences.Add("PORT", "");
                 }
 
+                preferences.Add("RENDERER", cmb_vidrender.SelectedIndex.ToString());
 
-                preferences.AppendLine(cmb_vidrender.SelectedIndex.ToString());
+                preferences.Add("CHECK_FOR_UPDATE", SharedVar.CHECK_FOR_UPDATE.ToString().ToUpper());
 
-                if (SharedVar.CHECK_FOR_UPDATE)
-                {
-                    preferences.AppendLine("1");
-                }
-                else
-                {
-                    preferences.AppendLine("0");
-                }
 
-                File.WriteAllText(cfgPreference, preferences.ToString());
+                storage.SaveValues(preferences, true);
             }
             catch (Exception ex)
             {
@@ -999,6 +1162,6 @@ namespace DoomModLoader2
         }
         #endregion
 
-       
+
     }
 }

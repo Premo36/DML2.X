@@ -31,21 +31,54 @@ namespace P36_UTILITIES
             }
         }
 
-        public string ReadValue(string key)
+        public void SaveValues(Dictionary<string, string> values, bool overwrite = false)
         {
-            Dictionary<string, string> values = new Dictionary<string, string>();
             try
             {
+                StringBuilder lineToSave = new StringBuilder();
+                foreach (var v in values)
+                {
+                    lineToSave.AppendFormat("{0}:{1}", v.Key, v.Value);
+                    lineToSave.AppendLine();
+                }
 
-                values = ReadAllValues();
-                
+                if (overwrite)
+                {
+                    File.WriteAllText(filePath, lineToSave.ToString());
+                }
+                else
+                {
+                    File.AppendAllText(filePath, lineToSave.ToString());
+                }
             }
             catch (Exception ex)
             {
-                
+
+            }
+        }
+
+        public void DeleteValue(string key)
+        {
+            Dictionary<string, string> values = new Dictionary<string, string>();
+            values = ReadAllValues();
+            values = values.Where(P => P.Key != key).ToDictionary(p => p.Key, p => p.Value);
+            SaveValues(values, true);
+        }
+        public string ReadValue(string key)
+        {
+            Dictionary<string, string> values = new Dictionary<string, string>();
+            string result = "";
+            try
+            {
+                values = ReadAllValues();
+                result = values.Where(p => p.Key == key).FirstOrDefault().Value;
+            }
+            catch (Exception ex)
+            {
+
             }
 
-            return values.Where(p=> p.Key == key).FirstOrDefault().Value;
+            return result;
         }
 
 
@@ -54,7 +87,7 @@ namespace P36_UTILITIES
             Dictionary<string, string> values = new Dictionary<string, string>();
             try
             {
-               
+
 
                 //Ottengo tutte le righe dal file
                 string[] rows = File.ReadAllLines(filePath);
@@ -70,12 +103,11 @@ namespace P36_UTILITIES
             return values;
         }
 
-
-
-
+       
         #endregion
 
     }
+
     #region text parser
     public static class TextParser
     {
@@ -90,7 +122,8 @@ namespace P36_UTILITIES
                 bool isReadingValue = false;
                 foreach (char c in row)
                 {
-                    if (c.Equals(':')) { 
+                    if (c.Equals(':') && !isReadingValue)
+                    {
                         isReadingValue = true;
                         continue;
                     }
@@ -106,8 +139,8 @@ namespace P36_UTILITIES
                 }
 
                 //Controllo se è entrato in fase di lettura del valore, in caso contrario vuol dire che mancavano i ":" e quindi scarto la riga.
-                if(isReadingValue)
-                values.Add(key, value);
+                if (isReadingValue)
+                    values.Add(key.Trim(), value.Trim());
             }
 
             return values;
