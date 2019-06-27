@@ -22,7 +22,7 @@
     <UpdateIntervalUnits>Days</UpdateIntervalUnits>
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
+    <MapFileExtensions>false</MapFileExtensions>
     <ApplicationRevision>0</ApplicationRevision>
     <ApplicationVersion>1.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
@@ -145,7 +145,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\P36_UTILITIES\P36_UTILITIES.csproj">
+    <ProjectReference Include="..\..\P36_Utilities\P36_UTILITIES.csproj">
       <Project>{efd6895f-810f-4429-ac73-5e572f1fc31e}</Project>
       <Name>P36_UTILITIES</Name>
     </ProjectReference>

@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2016
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Doom Mod Loader v2.0", "DoomModLoader2C\Doom Mod Loader v2.0.csproj", "{D86B9D07-2536-422F-8CEA-50207AFCA132}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P36_UTILITIES", "P36_UTILITIES\P36_UTILITIES.csproj", "{EFD6895F-810F-4429-AC73-5E572F1FC31E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "P36_UTILITIES", "..\P36_Utilities\P36_UTILITIES.csproj", "{EFD6895F-810F-4429-AC73-5E572F1FC31E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
