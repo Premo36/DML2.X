@@ -109,16 +109,25 @@ namespace DoomModLoader2
                     {
                         name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
                         string path = Path.Combine(foldPRESET, name + ".dml");
-                        FileStream f = File.Create(path);
-                        f.Dispose();
-                        foreach (PathName p in lstPWAD.SelectedItems)
+                        DialogResult answer = DialogResult.Yes;
+                        if (File.Exists(path))
                         {
-                            File.AppendAllText(p.path, path + Environment.NewLine);
-                            UpdateConfig(p.path, path);
+                            answer = MessageBox.Show("Esiste già", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         }
-                        //LoadConfiguration(); 
-                        CaricaPreset();
-                        cmbPreset.SelectedItem = cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals(name.ToUpper())).FirstOrDefault();
+
+                        if (answer == DialogResult.Yes)
+                        {
+                            FileStream f = File.Create(path);
+                            f.Dispose();
+                            foreach (PathName p in lstPWAD.SelectedItems)
+                            {
+                                File.AppendAllText(p.path, path + Environment.NewLine);
+                                UpdateConfig(p.path, path);
+                            }
+                            //LoadConfiguration(); 
+                            CaricaPreset();
+                            cmbPreset.SelectedItem = cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals(name.ToUpper())).FirstOrDefault();
+                        }
                     }
                 }
                 else
@@ -1075,7 +1084,7 @@ namespace DoomModLoader2
                     preferences.Add("FULLSCREEN", "FALSE");
                 }
 
-           
+
                 if (chkCustomConfiguration.Checked)
                 {
                     preferences.Add("CUSTOM_PORT_CFG", "TRUE");
@@ -1083,7 +1092,8 @@ namespace DoomModLoader2
                     if (p != null)
                     {
                         preferences.Add("CUSTOM_PORT_PATH", p.path);
-                    } else
+                    }
+                    else
                     {
                         preferences.Add("CUSTOM_PORT_PATH", "");
                     }
@@ -1094,13 +1104,13 @@ namespace DoomModLoader2
                     preferences.Add("CUSTOM_PORT_PATH", "");
                 }
 
-             
+
                 preferences.Add("COMMANDLINE", txtCommandLine.Text);
 
-           
+
                 PathName iwad = (PathName)cmbIWAD.SelectedItem;
 
-                
+
                 PathName port = (PathName)cmbSourcePort.SelectedItem;
 
                 if (iwad != null)
