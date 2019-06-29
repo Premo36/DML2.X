@@ -108,11 +108,16 @@ namespace DoomModLoader2
                     if (name.Length > 0)
                     {
                         name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
+                        if (name.ToUpper().Equals("-"))
+                        {
+                            throw new Exception("'-' is not a valid name!");
+                        }
                         string path = Path.Combine(foldPRESET, name + ".dml");
                         DialogResult answer = DialogResult.Yes;
                         if (File.Exists(path))
                         {
-                            answer = MessageBox.Show("Esiste già", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                            answer = MessageBox.Show("A presets named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
+                                                     "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         }
 
                         if (answer == DialogResult.Yes)
@@ -397,7 +402,7 @@ namespace DoomModLoader2
             string[] pathPreset = Directory.GetFiles(foldPRESET);
             List<PathName> presets = new List<PathName>();
 
-            presets = presets.Where(p => p.name != "NONE").ToList();
+            presets = presets.Where(p => p.name != "-").ToList();
             foreach (string p in pathPreset)
             {
                 PathName preset = new PathName();
@@ -406,8 +411,8 @@ namespace DoomModLoader2
                 presets.Add(preset);
             }
             cmbPreset.DataSource = presets;
-            cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("NONE")).FirstOrDefault();
-            //lstPWAD.SetSelected(0, false);
+            cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+            
 
         }
 
@@ -470,83 +475,6 @@ namespace DoomModLoader2
 
         private void CaricaCFG()
         {
-            #region old cfg system
-            //try
-            //{
-            //    string[] cfg = File.ReadAllLines(cfgPreference);
-
-            //    if (cfg.Length > 0)
-            //    {
-            //        if (!cfg[0].Equals("0"))
-            //        {
-            //            if (cfg[0].Equals("1"))
-            //            {
-            //                radAudioNoMusic.Checked = true;
-            //            }
-            //            else
-            //            if (cfg[0].Equals("2"))
-            //            {
-            //                radAudioNoSFX.Checked = true;
-            //            }
-            //            else
-            //            if (cfg[0].Equals("3"))
-            //            {
-            //                radAudioNoSounds.Checked = true;
-            //            }
-            //        }
-
-
-
-            //        if (!cfg[1].Equals("0"))
-            //        {
-            //            txtScreenWidth.Text = cfg[1];
-            //            txtScreenHeight.Text = cfg[2];
-
-            //        }
-
-            //        chkFullscreen.Checked = cfg[3].Equals("1") ? true : false;
-
-
-
-            //        if (cfg[4].Equals("1"))
-            //        {
-            //            chkCustomConfiguration.Checked = true;
-            //            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == cfg[5]).FirstOrDefault();
-            //        }
-
-            //        txtCommandLine.Text = cfg[6];
-            //        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path == cfg[7]).FirstOrDefault();
-            //        cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path == cfg[8]).FirstOrDefault();
-
-            //        if (!cfg[9].Equals("-1"))
-            //        {
-            //            cmb_vidrender.SelectedIndex = int.Parse(cfg[9]);
-            //        }
-
-            //        if (cfg[10].Equals("0"))
-            //        {
-            //            SharedVar.CHECK_FOR_UPDATE = false;
-            //        }
-            //        else
-            //        {
-            //            SharedVar.CHECK_FOR_UPDATE = true;
-            //        }
-
-
-            //    }
-            //    else
-            //    {
-            //        cmb_vidrender.SelectedIndex = 0;
-            //        SharedVar.CHECK_FOR_UPDATE = true;
-            //    }
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            //    cmb_vidrender.SelectedIndex = 0;
-            //    SharedVar.CHECK_FOR_UPDATE = true;
-            //}
-            #endregion
             try
             {
                 Storage storage = new Storage(cfgPreference);
@@ -596,7 +524,7 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cmb_vidrender.SelectedIndex = 0;
                 SharedVar.CHECK_FOR_UPDATE = true;
             }
@@ -610,11 +538,11 @@ namespace DoomModLoader2
                 fold_P36SOFTWARE = Path.Combine(fold_APPDATA, @"P36_Software");
                 fold_DMLv2 = Path.Combine(fold_P36SOFTWARE, @"DMLv2");
                 foldPRESET = Path.Combine(fold_DMLv2, @"Presets");
-                cfgPreference = Path.Combine(fold_DMLv2, @"DMLv2.cfg");
-                cfgIWAD = Path.Combine(fold_DMLv2, @"IWAD.cfg");
-                cfgPWAD = Path.Combine(fold_DMLv2, @"PWAD.cfg");
-                cfgPORT = Path.Combine(fold_DMLv2, @"PORT.cfg");
-                cfgPORT_CONFIG = Path.Combine(fold_DMLv2, @"PORT_CONFIG_PATH.cfg");
+                cfgPreference = Path.Combine(fold_DMLv2, @"DMLv2.ini");
+                cfgIWAD = Path.Combine(fold_DMLv2, @"IWAD.ini");
+                cfgPWAD = Path.Combine(fold_DMLv2, @"PWAD.ini");
+                cfgPORT = Path.Combine(fold_DMLv2, @"PORT.ini");
+                cfgPORT_CONFIG = Path.Combine(fold_DMLv2, @"PORT_CONFIG_PATH.ini");
 
                 if (!Directory.Exists(fold_P36SOFTWARE))
                     Directory.CreateDirectory(fold_P36SOFTWARE);
@@ -625,7 +553,7 @@ namespace DoomModLoader2
                 if (!Directory.Exists(foldPRESET))
                     Directory.CreateDirectory(foldPRESET);
 
-                string placeholder = Path.Combine(foldPRESET, "NONE.dml");
+                string placeholder = Path.Combine(foldPRESET, "-.dml");
                 if (!File.Exists(placeholder))
                 {
                     FileStream F = File.Create(placeholder);
@@ -724,8 +652,8 @@ namespace DoomModLoader2
             //RESOLUTION  (Seems broken in gzdoom)
             if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
             {
-                parm.AppendFormat(" -width {0} ", txtScreenWidth.Text);
-                parm.AppendFormat(" -height {0} ", txtScreenHeight.Text);
+                parm.AppendFormat(" +width {0} ", txtScreenWidth.Text);
+                parm.AppendFormat(" +height {0} ", txtScreenHeight.Text);
             }
 
             //FULLSCREEN?
@@ -874,7 +802,7 @@ namespace DoomModLoader2
             try
             {
                 PathName pn = (PathName)cmbPreset.SelectedItem;
-                if (pn != null && !pn.name.Equals("NONE"))
+                if (pn != null && !pn.name.Equals("-"))
                 {
                     DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
                                        + Environment.NewLine

@@ -13,18 +13,20 @@ namespace DoomModLoader2
         [STAThread]
         static void Main()
         {
-            //try
-            //{
+            try
+            {
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
                 Application.Run(new MainForm());
-
-            //}
-            //catch (Exception ex)
-            //{
-            //    MessageBox.Show("Sorry, an unexpected error occured..." + Environment.NewLine + "ERROR: " + ex.Message);
-            //    Application.Exit();
-            //}
+  
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Sorry, an unexpected error occured... the software will close." + Environment.NewLine + 
+                                "ERROR: " + ex.Message + Environment.NewLine +
+                                "Please send an email to 'p36software@mail.com' with object 'unexpected error'. In the mail write the error message, and how to recreate it. Thank you!");
+                Application.Exit();
+            }
         }
     }
 }
