@@ -234,7 +234,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = ".ini|*.ini";
+                openFileDialog.Filter = "Initialization file |*.ini | Configuration file| *.cfg";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -304,7 +304,7 @@ namespace DoomModLoader2
                     foreach (string p in path)
                     {
                         UpdateConfig(p, cfgPWAD);
-                        CaricaPreset();
+                        CaricaPWAD();
                     }
                 }
             }
@@ -412,7 +412,7 @@ namespace DoomModLoader2
             }
             cmbPreset.DataSource = presets;
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
-            
+
 
         }
 
@@ -456,6 +456,7 @@ namespace DoomModLoader2
                 wads.Add(wad);
             }
             lstPWAD.DataSource = wads;
+            lstPWAD.SelectedItem = null;
         }
 
         private void CaricaIWAD()
@@ -652,8 +653,8 @@ namespace DoomModLoader2
             //RESOLUTION  (Seems broken in gzdoom)
             if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
             {
-                parm.AppendFormat(" +width {0} ", txtScreenWidth.Text);
-                parm.AppendFormat(" +height {0} ", txtScreenHeight.Text);
+                parm.AppendFormat(" -width {0} ", txtScreenWidth.Text);
+                parm.AppendFormat(" -height {0} ", txtScreenHeight.Text);
             }
 
             //FULLSCREEN?
@@ -709,7 +710,10 @@ namespace DoomModLoader2
             if (chkCustomConfiguration.Checked)
             {
                 PathName p = (PathName)cmbPortConfig.SelectedItem;
-                parm.AppendFormat(@" -config ""{0}""", p.path);
+                if (p != null)
+                {
+                    parm.AppendFormat(@" -config ""{0}""", p.path);
+                }
             }
 
             parm.AppendFormat(" +vid_rendermode {0} ", cmb_vidrender.SelectedIndex);
@@ -742,7 +746,6 @@ namespace DoomModLoader2
                 if (s == null)
                 {
                     File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
-                    //LoadConfiguration();
                 }
                 else
                 {

@@ -113,6 +113,7 @@
             // 
             this.cmbPreset.DataSource = this.PathBinding;
             this.cmbPreset.DisplayMember = "name";
+            this.cmbPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPreset.FormattingEnabled = true;
             this.cmbPreset.Location = new System.Drawing.Point(6, 482);
             this.cmbPreset.Name = "cmbPreset";
@@ -201,7 +202,7 @@
             this.groupBox9.Size = new System.Drawing.Size(549, 81);
             this.groupBox9.TabIndex = 15;
             this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "Game";
+            this.groupBox9.Text = "Alternative sourceport .ini/.cfg";
             // 
             // chkCustomConfiguration
             // 
@@ -238,6 +239,7 @@
             // 
             this.cmbPortConfig.DataSource = this.PathBinding;
             this.cmbPortConfig.DisplayMember = "name";
+            this.cmbPortConfig.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPortConfig.FormattingEnabled = true;
             this.cmbPortConfig.Location = new System.Drawing.Point(6, 48);
             this.cmbPortConfig.Name = "cmbPortConfig";
@@ -340,6 +342,7 @@
             // 
             this.cmbIWAD.DataSource = this.PathBinding;
             this.cmbIWAD.DisplayMember = "name";
+            this.cmbIWAD.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbIWAD.FormattingEnabled = true;
             this.cmbIWAD.Location = new System.Drawing.Point(238, 41);
             this.cmbIWAD.Name = "cmbIWAD";
@@ -350,6 +353,7 @@
             // 
             this.cmbSourcePort.DataSource = this.PathBinding;
             this.cmbSourcePort.DisplayMember = "name";
+            this.cmbSourcePort.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSourcePort.FormattingEnabled = true;
             this.cmbSourcePort.Location = new System.Drawing.Point(6, 41);
             this.cmbSourcePort.Name = "cmbSourcePort";
@@ -374,6 +378,7 @@
             // 
             // cmbSkill
             // 
+            this.cmbSkill.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbSkill.FormattingEnabled = true;
             this.cmbSkill.Items.AddRange(new object[] {
             "I\'m too young to die",
@@ -457,6 +462,7 @@
             // 
             // cmb_vidrender
             // 
+            this.cmb_vidrender.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmb_vidrender.FormattingEnabled = true;
             this.cmb_vidrender.Items.AddRange(new object[] {
             "DOOM SOFTWARE RENDERER",
@@ -709,17 +715,17 @@
         private System.Windows.Forms.Button cmdRemovePWAD;
         private System.Windows.Forms.ComboBox cmbSkill;
         private System.Windows.Forms.TextBox txtMap;
-        private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Button cmdAddConfiguration;
-        private System.Windows.Forms.Button cmdRemoveConfiguration;
-        private System.Windows.Forms.ComboBox cmbPortConfig;
         private System.Windows.Forms.BindingSource PathBinding;
-        private System.Windows.Forms.CheckBox chkCustomConfiguration;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmb_vidrender;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem checkForUpdateToolStripMenuItem;
+        private System.Windows.Forms.GroupBox groupBox9;
+        private System.Windows.Forms.CheckBox chkCustomConfiguration;
+        private System.Windows.Forms.Button cmdAddConfiguration;
+        private System.Windows.Forms.Button cmdRemoveConfiguration;
+        private System.Windows.Forms.ComboBox cmbPortConfig;
     }
 }
 
