@@ -47,8 +47,7 @@ namespace DoomModLoader2
                 catch (Exception ex)
                 {
                     MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                    "Please check your internet connection..." + Environment.NewLine +
-                                    "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    "Please check your internet connection...","ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
             }
@@ -293,7 +292,8 @@ namespace DoomModLoader2
                                         "7z archive (*.pk7)|*.pk7|" +
                                         "7z archive (*.7z)| *.7z|" +
                                         "Build Engine file (*.grp)|*.grp|" +
-                                        "Blood file (*.rff)|*.rff";
+                                        "Blood file (*.rff)|*.rff|" +
+                                        "Dehacked file (*.deh)|*.deh";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -1095,8 +1095,7 @@ namespace DoomModLoader2
             catch (Exception ex)
             {
                 MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                "Please check your internet connection..." + Environment.NewLine +
-                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Please check your internet connection...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
             }
         }
