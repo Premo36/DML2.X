@@ -15,8 +15,7 @@ using P36_UTILITIES;
 
 namespace DoomModLoader2
 {
-    //TODO
-    //change cfg save from positional to key : value
+   
     public partial class MainForm : Form
     {
         private string fold_APPDATA;

@@ -32,7 +32,7 @@ namespace DoomModLoader2
         {
 
             string serverVersion;
-
+            lblServerVersion.Text = "???";
             //VERSION NUMBER, CHANGELOG URL AND DOWNLOAD URL
             WebRequest webRequest = WebRequest.Create(SharedVar.UrlVersion);
             using (var response = webRequest.GetResponse())
@@ -87,9 +87,9 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
+                cmdOpenDownload.Enabled = false;
                 MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                "Please check your internet connection..." + Environment.NewLine +
-                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "Please check your internet connection...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -100,7 +100,9 @@ namespace DoomModLoader2
 
         private void cmdOpenDownload_Click(object sender, EventArgs e)
         {
+          
             Process.Start(urlDownloadLatestVersion);
+          
         }
     }
 }

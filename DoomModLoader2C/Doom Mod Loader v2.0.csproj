@@ -7,7 +7,7 @@
     <ProjectGuid>{D86B9D07-2536-422F-8CEA-50207AFCA132}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>DoomModLoader2</RootNamespace>
-    <AssemblyName>Doom Mod Loader</AssemblyName>
+    <AssemblyName>Doom Mod Loader 2</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -23,8 +23,10 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>false</MapFileExtensions>
+    <ProductName>Doom Mod Loader</ProductName>
+    <PublisherName>P36 Software</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.0</ApplicationVersion>
+    <ApplicationVersion>2.0.0.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>
@@ -58,8 +60,9 @@
   <PropertyGroup>
     <ApplicationIcon>DML2.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup />
   <PropertyGroup>
-    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
+    <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.VisualBasic" />
@@ -156,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DML2.ico" />
+    <None Include="Resources\DML2_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
