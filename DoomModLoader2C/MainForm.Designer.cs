@@ -107,7 +107,7 @@
             this.groupBox1.Size = new System.Drawing.Size(314, 509);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
-            this.groupBox1.Text = "MOD(-PWAD)";
+            this.groupBox1.Text = "MODS (-file / -deh)";
             // 
             // cmbPreset
             // 
