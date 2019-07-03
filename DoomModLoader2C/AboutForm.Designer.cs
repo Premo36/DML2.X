@@ -40,7 +40,7 @@
             // 
             this.pictureBox1.Image = global::DoomModLoader2.Properties.Resources.LOGOQUAD;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Location = new System.Drawing.Point(188, 160);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(170, 173);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -49,20 +49,22 @@
             // 
             // textBox1
             // 
-            this.textBox1.Location = new System.Drawing.Point(188, 12);
+            this.textBox1.Location = new System.Drawing.Point(12, 12);
             this.textBox1.Multiline = true;
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(226, 173);
+            this.textBox1.Size = new System.Drawing.Size(346, 142);
             this.textBox1.TabIndex = 1;
             this.textBox1.TabStop = false;
-            this.textBox1.Text = resources.GetString("textBox1.Text");
+            this.textBox1.Text = "Doom Mod Loader v2.0\r\nCopyright © P36 Software (Matteo P.)  2016 - 2019 \r\n\r\n\r\nE-M" +
+    "AIL: p36software@mail.com\r\n\r\n\r\nTo check if a new version is aviable, click on \"C" +
+    "heck for update....\"";
             // 
             // pictureBox2
             // 
             this.pictureBox2.Image = global::DoomModLoader2.Properties.Resources.DML2_logo;
             this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(420, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 160);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(170, 173);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -74,7 +76,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(600, 197);
+            this.ClientSize = new System.Drawing.Size(373, 342);
             this.Controls.Add(this.pictureBox2);
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.pictureBox1);
