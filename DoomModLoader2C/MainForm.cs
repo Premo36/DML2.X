@@ -232,7 +232,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Initialization file |*.ini | Configuration file| *.cfg";
+                openFileDialog.Filter = "Initialization file |*.ini| Configuration file| *.cfg";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
