@@ -31,7 +31,9 @@ namespace DoomModLoader2
         #region FORM 
         public MainForm()
         {
+
             InitializeComponent();
+            this.Text = "Doom Mod Loader v" + SharedVar.LOCAL_VERSION;
             InitializeConfiguration();
             LoadConfiguration();
             CaricaCFG();
@@ -51,6 +53,8 @@ namespace DoomModLoader2
 
                 }
             }
+
+           
         }
 
         private void cmdPlay_Click(object sender, EventArgs e)
@@ -125,7 +129,8 @@ namespace DoomModLoader2
                             foreach (PathName p in lstPWAD.SelectedItems)
                             {
                                 File.AppendAllText(p.path, path + Environment.NewLine);
-                                UpdateConfig(p.path, path);
+                                Storage storage = new Storage(path);
+                                storage.UpdateConfig(p.path);
                             }
                             //LoadConfiguration(); 
                             CaricaPreset();
@@ -197,7 +202,8 @@ namespace DoomModLoader2
 
                         if (resp == DialogResult.Yes)
                         {
-                            UpdateConfig(p, cfgIWAD);
+                            Storage storage = new Storage(cfgIWAD);
+                            storage.UpdateConfig(p);
                             CaricaIWAD();
                             cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
                         }
@@ -220,7 +226,8 @@ namespace DoomModLoader2
                     string[] path = openFileDialog.FileNames;
                     foreach (string p in path)
                     {
-                        UpdateConfig(p, cfgPORT);
+                        Storage storage = new Storage(cfgPORT);
+                        storage.UpdateConfig(p);
                         CaricaPort();
                         cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().LastOrDefault();
                     }
@@ -240,7 +247,8 @@ namespace DoomModLoader2
                     string[] path = openFileDialog.FileNames;
                     foreach (string p in path)
                     {
-                        UpdateConfig(p, cfgPORT_CONFIG);
+                        Storage storage = new Storage(cfgPORT_CONFIG);
+                        storage.UpdateConfig(p);
                         CaricaPortConfig();
                         cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().LastOrDefault();
                     }
@@ -259,7 +267,8 @@ namespace DoomModLoader2
         private void cmdRemoveIWAD_Click(object sender, EventArgs e)
         {
             PathName wad = (PathName)cmbIWAD.SelectedItem;
-            RemoveConfig(wad, cfgIWAD);
+            Storage storage = new Storage(cfgIWAD);
+            storage.RemoveConfig(wad.path);
             cmbIWAD.Text = "";
             CaricaIWAD();
         }
@@ -267,7 +276,8 @@ namespace DoomModLoader2
         private void cmdRemoveSourcePort_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbSourcePort.SelectedItem;
-            RemoveConfig(PN, cfgPORT);
+            Storage storage = new Storage(cfgPORT);
+            storage.RemoveConfig(PN.path);
             cmbSourcePort.Text = "";
             CaricaPort();
         }
@@ -275,50 +285,14 @@ namespace DoomModLoader2
         private void cmdRemoveConfiguration_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbPortConfig.SelectedItem;
-            RemoveConfig(PN, cfgPORT_CONFIG);
+            Storage storage = new Storage(cfgPORT_CONFIG);
+            storage.RemoveConfig(PN.path);
             cmbPortConfig.Text = "";
             CaricaPortConfig();
         }
 
-        private void cmdAddPWAD_Click(object sender, EventArgs e)
-        {
-            using (OpenFileDialog openFileDialog = new OpenFileDialog())
-            {
-
-                openFileDialog.Filter = "Where's All the Data? (*.wad)|*.wad|" +
-                                        "ZIP archive (*.pk3)|*.pk3|" +
-                                        "ZIP archive (*.zip)|*.zip|" +
-                                        "ZIP archive (*.pak)|*.pak|" +
-                                        "7z archive (*.pk7)|*.pk7|" +
-                                        "7z archive (*.7z)| *.7z|" +
-                                        "Build Engine file (*.grp)|*.grp|" +
-                                        "Blood file (*.rff)|*.rff|" +
-                                        "Dehacked file (*.deh)|*.deh";
-                openFileDialog.RestoreDirectory = true;
-                openFileDialog.Multiselect = true;
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-
-                    string[] path = openFileDialog.FileNames;
-                    foreach (string p in path)
-                    {
-                        UpdateConfig(p, cfgPWAD);
-                        CaricaPWAD();
-                    }
-                }
-            }
-        }
-
-        private void cmdRemovePWAD_Click(object sender, EventArgs e)
-        {
-            var items = lstPWAD.SelectedItems;
-            foreach (PathName p in items)
-            {
-                RemoveConfig(p, cfgPWAD);
-                CaricaPWAD();
-            }
-
-        }
+       
+       
 
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -381,6 +355,13 @@ namespace DoomModLoader2
         {
             AboutForm ab = new AboutForm();
             ab.ShowDialog();
+        }
+
+        private void cmdOpenFileManager_Click(object sender, EventArgs e)
+        {
+            var fm = new FileManager(cfgPWAD);
+            fm.ShowDialog();
+            CaricaPWAD();
         }
 
         #endregion
@@ -449,10 +430,22 @@ namespace DoomModLoader2
             List<PathName> wads = new List<PathName>();
             foreach (string p in pathPWAD)
             {
+                if (File.Exists(p)) { 
                 PathName wad = new PathName();
                 wad.path = p;
                 wad.name = Path.GetFileName(p).ToUpper();
                 wads.Add(wad);
+                } else if (Directory.Exists(p))
+                {
+                    string[] files = Directory.GetFiles(p);
+                    foreach(string file in files)
+                    {
+                        PathName wad = new PathName();
+                        wad.path = file;
+                        wad.name = Path.GetFileName(file).ToUpper();
+                        wads.Add(wad);
+                    }
+                }
             }
             lstPWAD.DataSource = wads;
             lstPWAD.SelectedItem = null;
@@ -736,74 +729,75 @@ namespace DoomModLoader2
             }
         }
 
-        private void UpdateConfig(string ItemPath, string cfgPath)
-        {
+        //private void UpdateConfig(string ItemPath, string cfgPath)
+        //{
 
-            try
-            {
-                string s = File.ReadAllLines(cfgPath).Where(P => P == ItemPath).FirstOrDefault();
-                if (s == null)
-                {
-                    File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
-                }
-                else
-                {
-                    MessageBox.Show("Cannot add the same file multiple time!" + Environment.NewLine +
-                                    "The following path has already been added:" + Environment.NewLine +
-                                    "\"" + ItemPath + "\"", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                UpdateRemoveConfigError(ex, cfgPath);
-            }
+        //    try
+        //    {
+        //        string s = File.ReadAllLines(cfgPath).Where(P => P == ItemPath).FirstOrDefault();
+        //        if (s == null)
+        //        {
+        //            File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("Cannot add the same file multiple time!" + Environment.NewLine +
+        //                            "The following path has already been added:" + Environment.NewLine +
+        //                            "\"" + ItemPath + "\"", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        UpdateRemoveConfigError(ex, cfgPath);
+        //    }
 
 
-        }
+        //}
 
-        private void RemoveConfig(PathName PN, string cfgPath)
-        {
-            try
-            {
-                if (PN != null)
-                {
-                    DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + PN.name + "\""
-                                       + Environment.NewLine
-                                       + "(Path: \"" + PN.path + "\")"
-                                       , "REMOVE " + PN.name.ToUpper(), MessageBoxButtons.OKCancel);
+        //private void RemoveConfig(PathName PN, string cfgPath)
+        //{
+        //    try
+        //    {
+        //        if (PN != null)
+        //        {
+        //            DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + PN.name + "\""
+        //                               + Environment.NewLine
+        //                               + "(Path: \"" + PN.path + "\")"
+        //                               , "REMOVE " + PN.name.ToUpper(), MessageBoxButtons.OKCancel);
 
-                    if (ris == DialogResult.OK)
-                    {
-                        string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
+        //            if (ris == DialogResult.OK)
+        //            {
+        //                string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
 
-                        File.WriteAllLines(cfgPath, s);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                UpdateRemoveConfigError(ex, cfgPath);
-            }
-        }
+        //                File.WriteAllLines(cfgPath, s);
+        //            }
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        UpdateRemoveConfigError(ex, cfgPath);
+        //    }
+        //}
 
-        private void UpdateRemoveConfigError(Exception ex, string cfgPath)
-        {
-            StringBuilder errore = new StringBuilder();
-            errore.AppendLine("Something went wrong while trying to update a configuration file...");
-            errore.AppendLine("Please check if your account have the permission to write in:");
-            errore.AppendLine(@"""" + cfgPath + @"""");
-            errore.AppendLine();
-            errore.AppendLine("Error Message:");
-            errore.AppendLine(ex.Message);
+        //private void UpdateRemoveConfigError(Exception ex, string cfgPath)
+        //{
+        //    StringBuilder errore = new StringBuilder();
+        //    errore.AppendLine("Something went wrong while trying to update a configuration file...");
+        //    errore.AppendLine("Please check if your account have the permission to write in:");
+        //    errore.AppendLine(@"""" + cfgPath + @"""");
+        //    errore.AppendLine();
+        //    errore.AppendLine("Error Message:");
+        //    errore.AppendLine(ex.Message);
 
-            MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
+        //    MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //}
 
         private void cmdRemovePreset_Click(object sender, EventArgs e)
         {
+            PathName pn = (PathName)cmbPreset.SelectedItem;
             try
             {
-                PathName pn = (PathName)cmbPreset.SelectedItem;
+               
                 if (pn != null && !pn.name.Equals("-"))
                 {
                     DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
@@ -821,7 +815,15 @@ namespace DoomModLoader2
             }
             catch (Exception Ex)
             {
-                UpdateRemoveConfigError(Ex, foldPRESET);
+                StringBuilder errore = new StringBuilder();
+                errore.AppendLine("Something went wrong while trying to delete a preset...");
+                errore.AppendLine("Please check if your account have the permission to write in:");
+                errore.AppendLine(@"""" + pn.path  + @"""");
+                errore.AppendLine();
+                errore.AppendLine("Error Message:");
+                errore.AppendLine(Ex.Message);
+
+                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1071,7 +1073,7 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-                UpdateRemoveConfigError(ex, cfgPreference);
+               //GESTIRE?
             }
         }
 
@@ -1099,8 +1101,9 @@ namespace DoomModLoader2
 
             }
         }
+
         #endregion
 
-
+       
     }
 }

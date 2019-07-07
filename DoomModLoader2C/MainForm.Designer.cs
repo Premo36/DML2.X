@@ -31,12 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmdOpenFileManager = new System.Windows.Forms.Button();
             this.cmbPreset = new System.Windows.Forms.ComboBox();
             this.PathBinding = new System.Windows.Forms.BindingSource(this.components);
             this.cmdSavePreset = new System.Windows.Forms.Button();
             this.cmdRemovePreset = new System.Windows.Forms.Button();
-            this.cmdRemovePWAD = new System.Windows.Forms.Button();
-            this.cmdAddPWAD = new System.Windows.Forms.Button();
             this.lstPWAD = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -96,11 +95,10 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cmdOpenFileManager);
             this.groupBox1.Controls.Add(this.cmbPreset);
             this.groupBox1.Controls.Add(this.cmdSavePreset);
             this.groupBox1.Controls.Add(this.cmdRemovePreset);
-            this.groupBox1.Controls.Add(this.cmdRemovePWAD);
-            this.groupBox1.Controls.Add(this.cmdAddPWAD);
             this.groupBox1.Controls.Add(this.lstPWAD);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
@@ -108,6 +106,16 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MODS (-file / -deh)";
+            // 
+            // cmdOpenFileManager
+            // 
+            this.cmdOpenFileManager.Location = new System.Drawing.Point(6, 19);
+            this.cmdOpenFileManager.Name = "cmdOpenFileManager";
+            this.cmdOpenFileManager.Size = new System.Drawing.Size(301, 23);
+            this.cmdOpenFileManager.TabIndex = 20;
+            this.cmdOpenFileManager.Text = "Open file manager...";
+            this.cmdOpenFileManager.UseVisualStyleBackColor = true;
+            this.cmdOpenFileManager.Click += new System.EventHandler(this.cmdOpenFileManager_Click);
             // 
             // cmbPreset
             // 
@@ -144,26 +152,6 @@
             this.cmdRemovePreset.Text = "REMOVE...";
             this.cmdRemovePreset.UseVisualStyleBackColor = true;
             this.cmdRemovePreset.Click += new System.EventHandler(this.cmdRemovePreset_Click);
-            // 
-            // cmdRemovePWAD
-            // 
-            this.cmdRemovePWAD.Location = new System.Drawing.Point(170, 18);
-            this.cmdRemovePWAD.Name = "cmdRemovePWAD";
-            this.cmdRemovePWAD.Size = new System.Drawing.Size(138, 24);
-            this.cmdRemovePWAD.TabIndex = 19;
-            this.cmdRemovePWAD.Text = "REMOVE...";
-            this.cmdRemovePWAD.UseVisualStyleBackColor = true;
-            this.cmdRemovePWAD.Click += new System.EventHandler(this.cmdRemovePWAD_Click);
-            // 
-            // cmdAddPWAD
-            // 
-            this.cmdAddPWAD.Location = new System.Drawing.Point(6, 19);
-            this.cmdAddPWAD.Name = "cmdAddPWAD";
-            this.cmdAddPWAD.Size = new System.Drawing.Size(138, 23);
-            this.cmdAddPWAD.TabIndex = 16;
-            this.cmdAddPWAD.Text = "ADD...";
-            this.cmdAddPWAD.UseVisualStyleBackColor = true;
-            this.cmdAddPWAD.Click += new System.EventHandler(this.cmdAddPWAD_Click);
             // 
             // lstPWAD
             // 
@@ -708,11 +696,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbPreset;
         private System.Windows.Forms.Button cmdSavePreset;
-        private System.Windows.Forms.Button cmdAddPWAD;
         private System.Windows.Forms.Button cmdRemovePreset;
         private System.Windows.Forms.Button cmdAddSourcePort;
         private System.Windows.Forms.Button cmdAddIWAD;
-        private System.Windows.Forms.Button cmdRemovePWAD;
         private System.Windows.Forms.ComboBox cmbSkill;
         private System.Windows.Forms.TextBox txtMap;
         private System.Windows.Forms.BindingSource PathBinding;
@@ -726,6 +712,7 @@
         private System.Windows.Forms.Button cmdAddConfiguration;
         private System.Windows.Forms.Button cmdRemoveConfiguration;
         private System.Windows.Forms.ComboBox cmbPortConfig;
+        private System.Windows.Forms.Button cmdOpenFileManager;
     }
 }
 
