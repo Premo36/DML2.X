@@ -81,7 +81,7 @@ namespace DoomModLoader2
                 if (items != null && items.Count > 1)
                 {
                     List<PathName> pwads = new List<PathName>();
-                    FormMod formMod = new FormMod();
+                    FormMod formMod = new FormMod(foldPRESET);
                     formMod.parameters = param;
                     foreach (PathName p in items)
                         pwads.Add(p);
@@ -102,53 +102,53 @@ namespace DoomModLoader2
 
         private void cmdSavePreset_Click(object sender, EventArgs e)
         {
-            try
-            {
-                if (lstPWAD.SelectedItems != null && lstPWAD.SelectedItems.Count > 0)
-                {
-                    string name = Interaction.InputBox("Enter a preset name");
-                    if (name.Length > 0)
-                    {
-                        name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
-                        if (name.ToUpper().Equals("-"))
-                        {
-                            throw new Exception("'-' is not a valid name!");
-                        }
-                        string path = Path.Combine(foldPRESET, name + ".dml");
-                        DialogResult answer = DialogResult.Yes;
-                        if (File.Exists(path))
-                        {
-                            answer = MessageBox.Show("A presets named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
-                                                     "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                        }
+        //    try
+        //    {
+        //        if (lstPWAD.SelectedItems != null && lstPWAD.SelectedItems.Count > 0)
+        //        {
+        //            string name = Interaction.InputBox("Enter a preset name");
+        //            if (name.Length > 0)
+        //            {
+        //                name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
+        //                if (name.ToUpper().Equals("-"))
+        //                {
+        //                    throw new Exception("'-' is not a valid name!");
+        //                }
+        //                string path = Path.Combine(foldPRESET, name + ".dml");
+        //                DialogResult answer = DialogResult.Yes;
+        //                if (File.Exists(path))
+        //                {
+        //                    answer = MessageBox.Show("A presets named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
+        //                                             "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+        //                }
 
-                        if (answer == DialogResult.Yes)
-                        {
-                            FileStream f = File.Create(path);
-                            f.Dispose();
-                            foreach (PathName p in lstPWAD.SelectedItems)
-                            {
-                                File.AppendAllText(p.path, path + Environment.NewLine);
-                                Storage storage = new Storage(path);
-                                storage.UpdateConfig(p.path);
-                            }
-                            //LoadConfiguration(); 
-                            CaricaPreset();
-                            cmbPreset.SelectedItem = cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals(name.ToUpper())).FirstOrDefault();
-                        }
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("No mods selected!" + Environment.NewLine + "Please select at least 1 mod.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Something went wrong while tryng to save your mod preset..." + Environment.NewLine +
-                                "ERROR: \"" + ex.Message + "\"" + Environment.NewLine +
-                                "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        //                if (answer == DialogResult.Yes)
+        //                {
+        //                    FileStream f = File.Create(path);
+        //                    f.Dispose();
+        //                    foreach (PathName p in lstPWAD.SelectedItems)
+        //                    {
+        //                        File.AppendAllText(p.path, path + Environment.NewLine);
+        //                        Storage storage = new Storage(path);
+        //                        storage.UpdateConfig(p.path);
+        //                    }
+        //                    //LoadConfiguration(); 
+        //                    CaricaPreset();
+        //                    cmbPreset.SelectedItem = cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals(name.ToUpper())).FirstOrDefault();
+        //                }
+        //            }
+        //        }
+        //        else
+        //        {
+        //            MessageBox.Show("No mods selected!" + Environment.NewLine + "Please select at least 1 mod.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        MessageBox.Show("Something went wrong while tryng to save your mod preset..." + Environment.NewLine +
+        //                        "ERROR: \"" + ex.Message + "\"" + Environment.NewLine +
+        //                        "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        //    }
         }
 
         private void chkNoMonster_CheckedChanged(object sender, EventArgs e)
@@ -300,8 +300,10 @@ namespace DoomModLoader2
             {
                 PathName preset = (PathName)cmbPreset.SelectedItem;
 
-                string[] path = File.ReadAllLines(preset.path);
+                //string[] path = File.ReadAllLines(preset.path);
 
+                Storage storage = new Storage(preset.path);
+                Dictionary<string, string> values = storage.ReadAllValues();
                 for (int i = 0; i < lstPWAD.Items.Count; i++)
                 {
                     lstPWAD.SetSelected(i, false);
@@ -309,13 +311,14 @@ namespace DoomModLoader2
 
 
 
-                foreach (string s in path)
+                foreach (KeyValuePair<string,string> s in values)
                 {
                     foreach (PathName p in lstPWAD.Items)
                     {
-                        if (p.path.Contains(s))
+                        if (p.path.Contains(s.Value))
                         {
                             int i = lstPWAD.Items.IndexOf(p);
+                            p.loadOrder = int.Parse(s.Key);
                             lstPWAD.SetSelected(i, true);
                             break;
                         }

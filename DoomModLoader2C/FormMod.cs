@@ -1,4 +1,5 @@
 ﻿using DoomModLoader2.Entity;
+using P36_UTILITIES;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,19 +16,22 @@ namespace DoomModLoader2
 {
     public partial class FormMod : Form
     {
+        //TODO: Make all properties private and initialize them trough the constructor
         public string parameters;
         public List<PathName> pwads;
         public PathName sourcePort;
-
-        public FormMod()
+        private string presetPath;
+        public FormMod(string _presetPath)
         {
             InitializeComponent();
+            presetPath = _presetPath;
         }
 
 
 
         private void FormMod_Load(object sender, EventArgs e)
         {
+            pwads = pwads.OrderBy(P => P.loadOrder).ToList();
             lstPwad.DataSource = pwads;
         }
 
@@ -67,7 +71,7 @@ namespace DoomModLoader2
                 lst[i + 1] = y;
 
                 lstPwad.DataSource = lst;
-
+                
                 lstPwad.SelectedItem = y;
             }
             else
@@ -81,7 +85,8 @@ namespace DoomModLoader2
             //parameters += "";
             foreach (PathName p in lstPwad.Items)
             {
-                if (Path.GetExtension(p.path).ToUpper().Equals(".DEH")) {
+                if (Path.GetExtension(p.path).ToUpper().Equals(".DEH"))
+                {
                     parameters += "-deh \"" + p.path + "\" ";
                 }
                 else
@@ -91,6 +96,53 @@ namespace DoomModLoader2
             }
             Process.Start(sourcePort.path, parameters);
 
+        }
+
+        private void cmdSavePreset_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                string name = "test"; // nteraction.InputBox("Enter a preset name");
+                if (name.Length > 0)
+                {
+                    name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
+                    if (name.ToUpper().Equals("-"))
+                    {
+                        throw new Exception("'-' is not a valid name!");
+                    }
+                    string path = Path.Combine(presetPath, name + ".dml");
+                    DialogResult answer = DialogResult.Yes;
+                    if (File.Exists(path))
+                    {
+                        answer = MessageBox.Show("A presets named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
+                                                 "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    }
+
+                    if (answer == DialogResult.Yes)
+                    {
+                        FileStream f = File.Create(path);
+                        f.Dispose();
+                        Storage storage = new Storage(path);
+                        Dictionary<string, string> values = new Dictionary<string, string>();
+                        int C = 0;
+                        foreach (PathName p in lstPwad.Items)
+                        { 
+                            values.Add(C.ToString(), p.path);
+                            C++;
+                        }
+
+                        storage.SaveValues(values, true);
+                    }
+                }
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while tryng to save your mod preset..." + Environment.NewLine +
+                                "ERROR: \"" + ex.Message + "\"" + Environment.NewLine +
+                                "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
