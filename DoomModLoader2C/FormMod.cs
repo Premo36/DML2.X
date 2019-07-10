@@ -16,10 +16,12 @@ namespace DoomModLoader2
 {
     public partial class FormMod : Form
     {
+        public string presetName;
         //TODO: Make all properties private and initialize them trough the constructor
         public string parameters;
         public List<PathName> pwads;
         public PathName sourcePort;
+        
         private string presetPath;
         public FormMod(string _presetPath)
         {
@@ -33,6 +35,7 @@ namespace DoomModLoader2
         {
             pwads = pwads.OrderBy(P => P.loadOrder).ToList();
             lstPwad.DataSource = pwads;
+            txtPresetName.Text = presetName;
         }
 
         private void cmdUp_Click(object sender, EventArgs e)
@@ -103,13 +106,15 @@ namespace DoomModLoader2
             try
             {
 
-                string name = "test"; // nteraction.InputBox("Enter a preset name");
+                string name = txtPresetName.Text;
                 if (name.Length > 0)
                 {
                     name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
                     if (name.ToUpper().Equals("-"))
                     {
+                        txtPresetName.Text = "";
                         throw new Exception("'-' is not a valid name!");
+                        
                     }
                     string path = Path.Combine(presetPath, name + ".dml");
                     DialogResult answer = DialogResult.Yes;
@@ -135,7 +140,7 @@ namespace DoomModLoader2
                         storage.SaveValues(values, true);
                     }
                 }
-
+                txtPresetName.Text = name;
             }
             catch (Exception ex)
             {

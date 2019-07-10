@@ -10,7 +10,6 @@ using System.Reflection;
 using System.Text;
 using System.Windows.Forms;
 using DoomModLoader2.Entity;
-using Microsoft.VisualBasic;
 using P36_UTILITIES;
 
 namespace DoomModLoader2
@@ -76,18 +75,26 @@ namespace DoomModLoader2
             {
                 var items = lstPWAD.SelectedItems;
                 string param = GetParameters();
-
+                
                 //If the user select less than 2 mods it's useless display the mod order dialog
                 if (items != null && items.Count > 1)
                 {
                     List<PathName> pwads = new List<PathName>();
                     FormMod formMod = new FormMod(foldPRESET);
                     formMod.parameters = param;
+
                     foreach (PathName p in items)
                         pwads.Add(p);
+
                     formMod.pwads = pwads;
                     formMod.sourcePort = (PathName)cmbSourcePort.SelectedItem;
+                    PathName selectedPreset = (PathName)cmbPreset.SelectedItem;
+
+                    if(!selectedPreset.name.Trim().Equals("-"))
+                        formMod.presetName = selectedPreset.name;
                     formMod.ShowDialog();
+
+                    CaricaPreset();
                 }
                 else
                 {
@@ -100,56 +107,7 @@ namespace DoomModLoader2
 
         }
 
-        private void cmdSavePreset_Click(object sender, EventArgs e)
-        {
-        //    try
-        //    {
-        //        if (lstPWAD.SelectedItems != null && lstPWAD.SelectedItems.Count > 0)
-        //        {
-        //            string name = Interaction.InputBox("Enter a preset name");
-        //            if (name.Length > 0)
-        //            {
-        //                name = string.Join("_", name.Split(Path.GetInvalidFileNameChars()));
-        //                if (name.ToUpper().Equals("-"))
-        //                {
-        //                    throw new Exception("'-' is not a valid name!");
-        //                }
-        //                string path = Path.Combine(foldPRESET, name + ".dml");
-        //                DialogResult answer = DialogResult.Yes;
-        //                if (File.Exists(path))
-        //                {
-        //                    answer = MessageBox.Show("A presets named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
-        //                                             "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-        //                }
-
-        //                if (answer == DialogResult.Yes)
-        //                {
-        //                    FileStream f = File.Create(path);
-        //                    f.Dispose();
-        //                    foreach (PathName p in lstPWAD.SelectedItems)
-        //                    {
-        //                        File.AppendAllText(p.path, path + Environment.NewLine);
-        //                        Storage storage = new Storage(path);
-        //                        storage.UpdateConfig(p.path);
-        //                    }
-        //                    //LoadConfiguration(); 
-        //                    CaricaPreset();
-        //                    cmbPreset.SelectedItem = cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals(name.ToUpper())).FirstOrDefault();
-        //                }
-        //            }
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("No mods selected!" + Environment.NewLine + "Please select at least 1 mod.", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        MessageBox.Show("Something went wrong while tryng to save your mod preset..." + Environment.NewLine +
-        //                        "ERROR: \"" + ex.Message + "\"" + Environment.NewLine +
-        //                        "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //    }
-        }
+     
 
         private void chkNoMonster_CheckedChanged(object sender, EventArgs e)
         {
@@ -296,6 +254,17 @@ namespace DoomModLoader2
 
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
+            for (int i = 0; i < lstPWAD.Items.Count; i++)
+            {
+                lstPWAD.SetSelected(i, false);
+            }
+            PathName selectedItem = (PathName) cmbPreset.SelectedItem;
+            if (selectedItem.name.Trim().Equals("-"))
+            {
+
+                cmdRemovePreset.Enabled = false;
+            } else
+            {
             try
             {
                 PathName preset = (PathName)cmbPreset.SelectedItem;
@@ -304,10 +273,7 @@ namespace DoomModLoader2
 
                 Storage storage = new Storage(preset.path);
                 Dictionary<string, string> values = storage.ReadAllValues();
-                for (int i = 0; i < lstPWAD.Items.Count; i++)
-                {
-                    lstPWAD.SetSelected(i, false);
-                }
+               
 
 
 
@@ -324,12 +290,15 @@ namespace DoomModLoader2
                         }
                     }
                 }
+                    cmdRemovePreset.Enabled = true;
 
-            }
+                }
             catch (Exception ex)
             {
                 MessageBox.Show("Something went wrong while trying to load your preset..." + Environment.NewLine +
                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+               
             }
 
         }
@@ -440,7 +409,8 @@ namespace DoomModLoader2
                 wads.Add(wad);
                 } else if (Directory.Exists(p))
                 {
-                    string[] files = Directory.GetFiles(p);
+                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff"};
+                    string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
                     foreach(string file in files)
                     {
                         PathName wad = new PathName();

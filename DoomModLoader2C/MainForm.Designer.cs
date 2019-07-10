@@ -34,7 +34,6 @@
             this.cmdOpenFileManager = new System.Windows.Forms.Button();
             this.cmbPreset = new System.Windows.Forms.ComboBox();
             this.PathBinding = new System.Windows.Forms.BindingSource(this.components);
-            this.cmdSavePreset = new System.Windows.Forms.Button();
             this.cmdRemovePreset = new System.Windows.Forms.Button();
             this.lstPWAD = new System.Windows.Forms.ListBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -97,7 +96,6 @@
             // 
             this.groupBox1.Controls.Add(this.cmdOpenFileManager);
             this.groupBox1.Controls.Add(this.cmbPreset);
-            this.groupBox1.Controls.Add(this.cmdSavePreset);
             this.groupBox1.Controls.Add(this.cmdRemovePreset);
             this.groupBox1.Controls.Add(this.lstPWAD);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
@@ -123,7 +121,7 @@
             this.cmbPreset.DisplayMember = "name";
             this.cmbPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPreset.FormattingEnabled = true;
-            this.cmbPreset.Location = new System.Drawing.Point(6, 482);
+            this.cmbPreset.Location = new System.Drawing.Point(6, 458);
             this.cmbPreset.Name = "cmbPreset";
             this.cmbPreset.Size = new System.Drawing.Size(302, 21);
             this.cmbPreset.TabIndex = 18;
@@ -133,23 +131,13 @@
             // 
             this.PathBinding.DataSource = typeof(DoomModLoader2.Entity.PathName);
             // 
-            // cmdSavePreset
-            // 
-            this.cmdSavePreset.Location = new System.Drawing.Point(6, 453);
-            this.cmdSavePreset.Name = "cmdSavePreset";
-            this.cmdSavePreset.Size = new System.Drawing.Size(220, 23);
-            this.cmdSavePreset.TabIndex = 17;
-            this.cmdSavePreset.Text = "SAVE PRESET";
-            this.cmdSavePreset.UseVisualStyleBackColor = true;
-            this.cmdSavePreset.Click += new System.EventHandler(this.cmdSavePreset_Click);
-            // 
             // cmdRemovePreset
             // 
-            this.cmdRemovePreset.Location = new System.Drawing.Point(232, 452);
+            this.cmdRemovePreset.Location = new System.Drawing.Point(6, 482);
             this.cmdRemovePreset.Name = "cmdRemovePreset";
-            this.cmdRemovePreset.Size = new System.Drawing.Size(76, 24);
+            this.cmdRemovePreset.Size = new System.Drawing.Size(302, 21);
             this.cmdRemovePreset.TabIndex = 15;
-            this.cmdRemovePreset.Text = "REMOVE...";
+            this.cmdRemovePreset.Text = "REMOVE SELECTED PRESET...";
             this.cmdRemovePreset.UseVisualStyleBackColor = true;
             this.cmdRemovePreset.Click += new System.EventHandler(this.cmdRemovePreset_Click);
             // 
@@ -161,7 +149,7 @@
             this.lstPWAD.Location = new System.Drawing.Point(6, 45);
             this.lstPWAD.Name = "lstPWAD";
             this.lstPWAD.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstPWAD.Size = new System.Drawing.Size(302, 394);
+            this.lstPWAD.Size = new System.Drawing.Size(302, 407);
             this.lstPWAD.TabIndex = 0;
             // 
             // groupBox2
@@ -695,7 +683,6 @@
         private System.Windows.Forms.Button cmdRemoveSourcePort;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmbPreset;
-        private System.Windows.Forms.Button cmdSavePreset;
         private System.Windows.Forms.Button cmdRemovePreset;
         private System.Windows.Forms.Button cmdAddSourcePort;
         private System.Windows.Forms.Button cmdAddIWAD;

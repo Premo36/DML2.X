@@ -36,6 +36,7 @@
             this.lstPwad = new System.Windows.Forms.ListBox();
             this.PathNameSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmdSavePreset = new System.Windows.Forms.Button();
+            this.txtPresetName = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -64,9 +65,9 @@
             // cmdPlay
             // 
             this.cmdPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPlay.Location = new System.Drawing.Point(411, 178);
+            this.cmdPlay.Location = new System.Drawing.Point(12, 283);
             this.cmdPlay.Name = "cmdPlay";
-            this.cmdPlay.Size = new System.Drawing.Size(158, 111);
+            this.cmdPlay.Size = new System.Drawing.Size(553, 61);
             this.cmdPlay.TabIndex = 2;
             this.cmdPlay.Text = "PLAY";
             this.cmdPlay.UseVisualStyleBackColor = true;
@@ -79,7 +80,7 @@
             this.lstPwad.FormattingEnabled = true;
             this.lstPwad.Location = new System.Drawing.Point(12, 12);
             this.lstPwad.Name = "lstPwad";
-            this.lstPwad.Size = new System.Drawing.Size(393, 277);
+            this.lstPwad.Size = new System.Drawing.Size(393, 225);
             this.lstPwad.TabIndex = 3;
             // 
             // PathNameSource
@@ -88,20 +89,28 @@
             // 
             // cmdSavePreset
             // 
-            this.cmdSavePreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSavePreset.Location = new System.Drawing.Point(12, 295);
+            this.cmdSavePreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSavePreset.Location = new System.Drawing.Point(12, 243);
             this.cmdSavePreset.Name = "cmdSavePreset";
-            this.cmdSavePreset.Size = new System.Drawing.Size(393, 46);
+            this.cmdSavePreset.Size = new System.Drawing.Size(167, 34);
             this.cmdSavePreset.TabIndex = 4;
-            this.cmdSavePreset.Text = "SAVE PRESET...";
+            this.cmdSavePreset.Text = "SAVE PRESET";
             this.cmdSavePreset.UseVisualStyleBackColor = true;
             this.cmdSavePreset.Click += new System.EventHandler(this.cmdSavePreset_Click);
+            // 
+            // txtPresetName
+            // 
+            this.txtPresetName.Location = new System.Drawing.Point(185, 252);
+            this.txtPresetName.Name = "txtPresetName";
+            this.txtPresetName.Size = new System.Drawing.Size(380, 20);
+            this.txtPresetName.TabIndex = 5;
             // 
             // FormMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 351);
+            this.ClientSize = new System.Drawing.Size(577, 352);
+            this.Controls.Add(this.txtPresetName);
             this.Controls.Add(this.cmdSavePreset);
             this.Controls.Add(this.lstPwad);
             this.Controls.Add(this.cmdPlay);
@@ -116,6 +125,7 @@
             this.Load += new System.EventHandler(this.FormMod_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -127,5 +137,6 @@
         private System.Windows.Forms.ListBox lstPwad;
         private System.Windows.Forms.BindingSource PathNameSource;
         private System.Windows.Forms.Button cmdSavePreset;
+        private System.Windows.Forms.TextBox txtPresetName;
     }
 }
