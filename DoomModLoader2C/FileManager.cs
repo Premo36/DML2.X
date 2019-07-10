@@ -25,7 +25,7 @@ namespace DoomModLoader2
         {
 
             LoadList();
-           
+
         }
 
 
@@ -78,7 +78,7 @@ namespace DoomModLoader2
 
         private void cmdRemove_Click(object sender, EventArgs e)
         {
- 
+
             foreach (string p in lstPath.SelectedItems)
             {
                 Storage storage = new Storage(cfgPWAD);
@@ -88,15 +88,35 @@ namespace DoomModLoader2
 
         }
 
+        //TODO: add try catch
         private void cmdAddFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
             {
                 if (openFolderDialog.ShowDialog() == DialogResult.OK)
-                {                 
-                        Storage storage = new Storage(cfgPWAD);
+                {
+                    string[] folders = Directory.GetDirectories(openFolderDialog.SelectedPath, "*", SearchOption.AllDirectories);
+
+
+                    DialogResult dialogResult = DialogResult.No;
+                    if(folders.Length > 1)
+                    {
+                        dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + openFolderDialog.SelectedPath + "'","DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
+                    }
+
+                    Storage storage = new Storage(cfgPWAD);
+                    
+                    if (dialogResult == DialogResult.No)
+                    {
                         storage.UpdateConfig(openFolderDialog.SelectedPath);
-                        LoadList();
+                    } else
+                    {
+                        foreach(string f in folders)
+                        {
+                            storage.UpdateConfig(f);
+                        }
+                    }
+                    LoadList();
                 }
             }
         }
