@@ -59,7 +59,7 @@
             // lblLocalVersion
             // 
             this.lblLocalVersion.AutoSize = true;
-            this.lblLocalVersion.Location = new System.Drawing.Point(105, 13);
+            this.lblLocalVersion.Location = new System.Drawing.Point(90, 13);
             this.lblLocalVersion.Name = "lblLocalVersion";
             this.lblLocalVersion.Size = new System.Drawing.Size(0, 13);
             this.lblLocalVersion.TabIndex = 2;
@@ -67,7 +67,7 @@
             // lblServerVersion
             // 
             this.lblServerVersion.AutoSize = true;
-            this.lblServerVersion.Location = new System.Drawing.Point(105, 35);
+            this.lblServerVersion.Location = new System.Drawing.Point(90, 35);
             this.lblServerVersion.Name = "lblServerVersion";
             this.lblServerVersion.Size = new System.Drawing.Size(0, 13);
             this.lblServerVersion.TabIndex = 3;

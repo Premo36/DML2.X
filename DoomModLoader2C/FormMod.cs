@@ -120,7 +120,7 @@ namespace DoomModLoader2
                     DialogResult answer = DialogResult.Yes;
                     if (File.Exists(path))
                     {
-                        answer = MessageBox.Show("A presets named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
+                        answer = MessageBox.Show("A preset named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
                                                  "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     }
 
@@ -138,9 +138,12 @@ namespace DoomModLoader2
                         }
 
                         storage.SaveValues(values, true);
+                        txtPresetName.Text = name;
+                        presetName = name;
+                        MessageBox.Show("Preset '" + name + "' has been saved.", "DML", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-                txtPresetName.Text = name;
+               
             }
             catch (Exception ex)
             {

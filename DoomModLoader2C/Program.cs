@@ -27,7 +27,7 @@ namespace DoomModLoader2
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
             MessageBox.Show("Sorry, an unexpected error occured... the software will close." + Environment.NewLine +
-                                "ERROR: " + e.Exception.Message + Environment.NewLine +
+                                "ERROR MESSAGE: " + e.Exception.ToString() + Environment.NewLine +
                                 "Please send an email to 'p36software@mail.com' with object 'unexpected error'. In the mail write the error message, and how to recreate it. Thank you!");
             Environment.Exit(1);
         }

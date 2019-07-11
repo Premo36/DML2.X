@@ -99,17 +99,15 @@ namespace DoomModLoader2
 
 
                     DialogResult dialogResult = DialogResult.No;
-                    if(folders.Length > 1)
+                    if(folders.Length > 0)
                     {
                         dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + openFolderDialog.SelectedPath + "'","DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
                     }
 
                     Storage storage = new Storage(cfgPWAD);
-                    
-                    if (dialogResult == DialogResult.No)
-                    {
-                        storage.UpdateConfig(openFolderDialog.SelectedPath);
-                    } else
+
+                    storage.UpdateConfig(openFolderDialog.SelectedPath);
+                    if (dialogResult == DialogResult.Yes)
                     {
                         foreach(string f in folders)
                         {

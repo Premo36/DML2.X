@@ -14,7 +14,7 @@ using P36_UTILITIES;
 
 namespace DoomModLoader2
 {
-   
+
     public partial class MainForm : Form
     {
         private string fold_APPDATA;
@@ -48,12 +48,12 @@ namespace DoomModLoader2
                 catch (Exception ex)
                 {
                     MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                    "Please check your internet connection...","ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    "Please check your internet connection...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
                 }
             }
 
-           
+
         }
 
         private void cmdPlay_Click(object sender, EventArgs e)
@@ -75,7 +75,7 @@ namespace DoomModLoader2
             {
                 var items = lstPWAD.SelectedItems;
                 string param = GetParameters();
-                
+
                 //If the user select less than 2 mods it's useless display the mod order dialog
                 if (items != null && items.Count > 1)
                 {
@@ -90,11 +90,14 @@ namespace DoomModLoader2
                     formMod.sourcePort = (PathName)cmbSourcePort.SelectedItem;
                     PathName selectedPreset = (PathName)cmbPreset.SelectedItem;
 
-                    if(!selectedPreset.name.Trim().Equals("-"))
+                    if (!selectedPreset.name.Trim().Equals("-"))
                         formMod.presetName = selectedPreset.name;
                     formMod.ShowDialog();
 
                     CaricaPreset();
+                    PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName.ToUpper()).FirstOrDefault();
+                    if (pn != null)
+                        cmbPreset.SelectedItem = pn;
                 }
                 else
                 {
@@ -107,7 +110,7 @@ namespace DoomModLoader2
 
         }
 
-     
+
 
         private void chkNoMonster_CheckedChanged(object sender, EventArgs e)
         {
@@ -249,8 +252,8 @@ namespace DoomModLoader2
             CaricaPortConfig();
         }
 
-       
-       
+
+
 
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -258,47 +261,45 @@ namespace DoomModLoader2
             {
                 lstPWAD.SetSelected(i, false);
             }
-            PathName selectedItem = (PathName) cmbPreset.SelectedItem;
+            PathName selectedItem = (PathName)cmbPreset.SelectedItem;
             if (selectedItem.name.Trim().Equals("-"))
             {
 
                 cmdRemovePreset.Enabled = false;
-            } else
+            }
+            else
             {
-            try
-            {
-                PathName preset = (PathName)cmbPreset.SelectedItem;
-
-                //string[] path = File.ReadAllLines(preset.path);
-
-                Storage storage = new Storage(preset.path);
-                Dictionary<string, string> values = storage.ReadAllValues();
-               
-
-
-
-                foreach (KeyValuePair<string,string> s in values)
+                try
                 {
-                    foreach (PathName p in lstPWAD.Items)
+                    PathName preset = (PathName)cmbPreset.SelectedItem;
+                    Storage storage = new Storage(preset.path);
+                    Dictionary<string, string> values = storage.ReadAllValues();
+
+
+
+
+                    foreach (KeyValuePair<string, string> s in values)
                     {
-                        if (p.path.Contains(s.Value))
+                        foreach (PathName p in lstPWAD.Items)
                         {
-                            int i = lstPWAD.Items.IndexOf(p);
-                            p.loadOrder = int.Parse(s.Key);
-                            lstPWAD.SetSelected(i, true);
-                            break;
+                            if (p.path.Contains(s.Value))
+                            {
+                                int i = lstPWAD.Items.IndexOf(p);
+                                p.loadOrder = int.Parse(s.Key);
+                                lstPWAD.SetSelected(i, true);
+                                break;
+                            }
                         }
                     }
-                }
                     cmdRemovePreset.Enabled = true;
 
                 }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Something went wrong while trying to load your preset..." + Environment.NewLine +
-                               "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-               
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Something went wrong while trying to load your preset..." + Environment.NewLine +
+                                   "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
             }
 
         }
@@ -402,16 +403,18 @@ namespace DoomModLoader2
             List<PathName> wads = new List<PathName>();
             foreach (string p in pathPWAD)
             {
-                if (File.Exists(p)) { 
-                PathName wad = new PathName();
-                wad.path = p;
-                wad.name = Path.GetFileName(p).ToUpper();
-                wads.Add(wad);
-                } else if (Directory.Exists(p))
+                if (File.Exists(p))
                 {
-                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff"};
+                    PathName wad = new PathName();
+                    wad.path = p;
+                    wad.name = Path.GetFileName(p).ToUpper();
+                    wads.Add(wad);
+                }
+                else if (Directory.Exists(p))
+                {
+                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff" };
                     string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
-                    foreach(string file in files)
+                    foreach (string file in files)
                     {
                         PathName wad = new PathName();
                         wad.path = file;
@@ -770,7 +773,7 @@ namespace DoomModLoader2
             PathName pn = (PathName)cmbPreset.SelectedItem;
             try
             {
-               
+
                 if (pn != null && !pn.name.Equals("-"))
                 {
                     DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
@@ -791,7 +794,7 @@ namespace DoomModLoader2
                 StringBuilder errore = new StringBuilder();
                 errore.AppendLine("Something went wrong while trying to delete a preset...");
                 errore.AppendLine("Please check if your account have the permission to write in:");
-                errore.AppendLine(@"""" + pn.path  + @"""");
+                errore.AppendLine(@"""" + pn.path + @"""");
                 errore.AppendLine();
                 errore.AppendLine("Error Message:");
                 errore.AppendLine(Ex.Message);
@@ -1046,7 +1049,7 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-               //GESTIRE?
+                //GESTIRE?
             }
         }
 
@@ -1077,6 +1080,6 @@ namespace DoomModLoader2
 
         #endregion
 
-       
+
     }
 }
