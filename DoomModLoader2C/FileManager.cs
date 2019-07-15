@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
+//TODO: Check dropped file extension before add them
 namespace DoomModLoader2
 {
     public partial class FileManager : Form
@@ -59,14 +60,8 @@ namespace DoomModLoader2
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-
-                    string[] path = openFileDialog.FileNames;
-                    foreach (string p in path)
-                    {
-                        Storage storage = new Storage(cfgPWAD);
-                        storage.UpdateConfig(p);
-                        LoadList();
-                    }
+                    AddFiles(openFileDialog.FileNames);
+                 
                 }
             }
         }
@@ -88,35 +83,89 @@ namespace DoomModLoader2
 
         }
 
-        //TODO: add try catch
+      
         private void cmdAddFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
             {
                 if (openFolderDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string[] folders = Directory.GetDirectories(openFolderDialog.SelectedPath, "*", SearchOption.AllDirectories);
-
-
-                    DialogResult dialogResult = DialogResult.No;
-                    if(folders.Length > 0)
-                    {
-                        dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + openFolderDialog.SelectedPath + "'","DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
-                    }
-
-                    Storage storage = new Storage(cfgPWAD);
-
-                    storage.UpdateConfig(openFolderDialog.SelectedPath);
-                    if (dialogResult == DialogResult.Yes)
-                    {
-                        foreach(string f in folders)
-                        {
-                            storage.UpdateConfig(f);
-                        }
-                    }
-                    LoadList();
+                    AddFolder(openFolderDialog.SelectedPath);
                 }
+            }
+        }
+
+        private void lstPath_DragDrop(object sender, DragEventArgs e)
+        {
+            string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
+            foreach(string p in paths)
+            {
+                if (File.Exists(p))
+                {
+                    AddFiles(new string[] { p });
+                }
+                else if (Directory.Exists(p))
+                {
+                    AddFolder(p);
+                }
+            }
+        }
+
+        private void lstPath_DragEnter(object sender, DragEventArgs e)
+        {
+            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+                e.Effect = DragDropEffects.All;
+            else
+                e.Effect = DragDropEffects.None;
+        }
+
+        #region LOGIC
+        private void AddFiles(string[] paths)
+        {
+            foreach (string p in paths)
+            {
+                Storage storage = new Storage(cfgPWAD);
+                storage.UpdateConfig(p);
+                LoadList();
+            }
+        }
+
+        private void AddFolder(string path)
+        {
+            try { 
+            string[] folders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
+
+
+            DialogResult dialogResult = DialogResult.No;
+            if (folders.Length > 0)
+            {
+                dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + path + "'", "DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
+            }
+
+            Storage storage = new Storage(cfgPWAD);
+
+            storage.UpdateConfig(path);
+            if (dialogResult == DialogResult.Yes)
+            {
+                foreach (string f in folders)
+                {
+                    storage.UpdateConfig(f);
+                }
+            }
+            LoadList();
+            } catch (Exception ex)
+            {
+                StringBuilder errore = new StringBuilder();
+                errore.AppendLine("Something went wrong while trying to read the following folder (or a subfolder of it)");
+                errore.AppendLine("Please check if your account have the permission to read from (including subfolders):");
+                errore.AppendLine(@"""" + path + @"""");
+                errore.AppendLine();
+                errore.AppendLine("Error Message:");
+                errore.AppendLine(ex.Message);
+
+                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }
 }
+#endregion

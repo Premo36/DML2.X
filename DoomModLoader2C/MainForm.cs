@@ -95,9 +95,12 @@ namespace DoomModLoader2
                     formMod.ShowDialog();
 
                     CaricaPreset();
-                    PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName.ToUpper()).FirstOrDefault();
-                    if (pn != null)
-                        cmbPreset.SelectedItem = pn;
+                    if (formMod.presetName != null)
+                    {
+                        PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName.ToUpper()).FirstOrDefault();
+                        if (pn != null)
+                            cmbPreset.SelectedItem = pn;
+                    }
                 }
                 else
                 {
@@ -412,7 +415,7 @@ namespace DoomModLoader2
                 }
                 else if (Directory.Exists(p))
                 {
-                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff" };
+                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
                     string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
                     foreach (string file in files)
                     {
@@ -834,117 +837,6 @@ namespace DoomModLoader2
 
         private void SavePreferences()
         {
-            #region old cfg system
-            //try
-            //{
-            //    StringBuilder preferences = new StringBuilder();
-            //    //Audio 1 0
-            //    if (radAudioAllSounds.Checked)
-            //    {
-            //        preferences.AppendLine("0");
-            //    }
-            //    else
-            //        if (radAudioNoMusic.Checked)
-            //    {
-            //        preferences.AppendLine("1");
-            //    }
-            //    else
-            //        if (radAudioNoSFX.Checked)
-            //    {
-            //        preferences.AppendLine("2");
-            //    }
-            //    else
-            //        if (radAudioNoSounds.Checked)
-            //    {
-            //        preferences.AppendLine("3");
-            //    }
-
-            //    //Video 2 2
-            //    if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
-            //    {
-            //        preferences.AppendLine(txtScreenWidth.Text);
-            //        preferences.AppendLine(txtScreenHeight.Text);
-            //    }
-            //    else
-            //    {
-            //        preferences.AppendLine("0");
-            //        preferences.AppendLine("");
-            //    }
-
-            //    //fullscreen 1 3
-            //    if (chkFullscreen.Checked)
-            //    {
-            //        preferences.AppendLine("1");
-            //    }
-            //    else
-            //    {
-            //        preferences.AppendLine("0");
-            //    }
-
-            //    //Config 2 5
-            //    if (chkCustomConfiguration.Checked)
-            //    {
-            //        preferences.AppendLine("1");
-            //        PathName p = (PathName)cmbPortConfig.SelectedItem;
-            //        if (p != null)
-            //        {
-            //            preferences.AppendLine(p.path);
-            //        }
-            //    }
-            //    else
-            //    {
-            //        preferences.AppendLine("0");
-            //        preferences.AppendLine("");
-            //    }
-
-            //    //txtCommand 1 6
-            //    preferences.AppendLine(txtCommandLine.Text);
-
-            //    //iwad 1 7
-            //    PathName iwad = (PathName)cmbIWAD.SelectedItem;
-
-            //    //pwad 1 8
-            //    PathName port = (PathName)cmbSourcePort.SelectedItem;
-
-            //    if (iwad != null)
-            //    {
-            //        preferences.AppendLine(iwad.path);
-            //    }
-            //    else
-            //    {
-            //        preferences.AppendLine("NULL");
-            //    }
-
-
-            //    if (port != null)
-            //    {
-            //        preferences.AppendLine(port.path);
-            //    }
-            //    else
-            //    {
-            //        preferences.AppendLine("NULL");
-            //    }
-
-
-            //    preferences.AppendLine(cmb_vidrender.SelectedIndex.ToString());
-
-            //    if (SharedVar.CHECK_FOR_UPDATE)
-            //    {
-            //        preferences.AppendLine("1");
-            //    }
-            //    else
-            //    {
-            //        preferences.AppendLine("0");
-            //    }
-
-            //    File.WriteAllText(cfgPreference, preferences.ToString());
-            //}
-            //catch (Exception ex)
-            //{
-            //    UpdateRemoveConfigError(ex, cfgPreference);
-            //}
-            #endregion
-
             try
             {
                 Dictionary<string, string> preferences = new Dictionary<string, string>();

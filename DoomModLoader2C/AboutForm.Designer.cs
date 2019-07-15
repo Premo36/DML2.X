@@ -56,7 +56,7 @@
             this.textBox1.Size = new System.Drawing.Size(346, 142);
             this.textBox1.TabIndex = 1;
             this.textBox1.TabStop = false;
-            this.textBox1.Text = "Doom Mod Loader v2.0\r\nCopyright © P36 Software (Matteo P.)  2016 - 2019 \r\n\r\n\r\nE-M" +
+            this.textBox1.Text = "Doom Mod Loader v2.1\r\nCopyright © P36 Software (Matteo P.)  2016 - 2019 \r\n\r\n\r\nE-M" +
     "AIL: p36software@mail.com\r\n\r\n\r\nTo check if a new version is aviable, click on \"C" +
     "heck for update....\"";
             // 
