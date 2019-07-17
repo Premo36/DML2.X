@@ -61,7 +61,7 @@ namespace DoomModLoader2
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     AddFiles(openFileDialog.FileNames);
-                 
+
                 }
             }
         }
@@ -83,7 +83,7 @@ namespace DoomModLoader2
 
         }
 
-      
+
         private void cmdAddFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
@@ -98,11 +98,17 @@ namespace DoomModLoader2
         private void lstPath_DragDrop(object sender, DragEventArgs e)
         {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
-            foreach(string p in paths)
+            foreach (string p in paths)
             {
                 if (File.Exists(p))
                 {
-                    AddFiles(new string[] { p });
+                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+                    if (validExtensions.Contains(Path.GetExtension(p).ToLower())) { 
+                        AddFiles(new string[] { p });
+                    } else
+                    {
+                        //Messagebox?
+                    }
                 }
                 else if (Directory.Exists(p))
                 {
@@ -132,28 +138,30 @@ namespace DoomModLoader2
 
         private void AddFolder(string path)
         {
-            try { 
-            string[] folders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
-
-
-            DialogResult dialogResult = DialogResult.No;
-            if (folders.Length > 0)
+            try
             {
-                dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + path + "'", "DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
-            }
+                string[] folders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
 
-            Storage storage = new Storage(cfgPWAD);
 
-            storage.UpdateConfig(path);
-            if (dialogResult == DialogResult.Yes)
-            {
-                foreach (string f in folders)
+                DialogResult dialogResult = DialogResult.No;
+                if (folders.Length > 0)
                 {
-                    storage.UpdateConfig(f);
+                    dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + path + "'", "DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
                 }
+
+                Storage storage = new Storage(cfgPWAD);
+
+                storage.UpdateConfig(path);
+                if (dialogResult == DialogResult.Yes)
+                {
+                    foreach (string f in folders)
+                    {
+                        storage.UpdateConfig(f);
+                    }
+                }
+                LoadList();
             }
-            LoadList();
-            } catch (Exception ex)
+            catch (Exception ex)
             {
                 StringBuilder errore = new StringBuilder();
                 errore.AppendLine("Something went wrong while trying to read the following folder (or a subfolder of it)");
