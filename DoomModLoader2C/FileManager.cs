@@ -47,7 +47,8 @@ namespace DoomModLoader2
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
 
-                openFileDialog.Filter = "Where's All the Data? (*.wad)|*.wad|" +
+                openFileDialog.Filter = "All files|*.wad;*.pk3;*.zip;*.pak;*.pk7;*.grp;*.rff;*.deh|" +
+                                        "Where's All the Data? (*.wad)|*.wad|" +
                                         "ZIP archive (*.pk3)|*.pk3|" +
                                         "ZIP archive (*.zip)|*.zip|" +
                                         "ZIP archive (*.pak)|*.pak|" +

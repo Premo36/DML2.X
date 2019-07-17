@@ -11,17 +11,17 @@ namespace DMLfilePatcher
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("==================================================================");
-            Console.WriteLine("==========PATCHING UTILITY FOR UPGRADE FROM v2.0 to V2.1==========");
-            Console.WriteLine("==================================================================");
-            Console.WriteLine("Hello, this utilty will patch all incompatible file from version 2.0 to make it compatible with 2.1.");
+            Console.WriteLine("=================================================================");
+            Console.WriteLine("====PATCHING UTILITY FOR UPGRADE FROM v2.0b to V2.1====");
+            Console.WriteLine("=================================================================");
+            Console.WriteLine("Hello, this utilty will patch all incompatible file from version 2.0b (and also 2.0) in order to make it compatible with 2.1.");
             Console.WriteLine();
             Console.WriteLine("WARNING:");
-            //            Console.WriteLine("Do not run this utility if you skipped a version (The paching is from last version to current, Run in order all the patching utility till this one)");
+            //Console.WriteLine("Do not run this utility if you skipped a version (The patching is from last version to current, run in order all the patching utility till this one)");
             Console.WriteLine("Do not run this utility twice on the same files!");
-            Console.WriteLine("Do not run this utility on files genereted with version above or below 2.0!");
+            Console.WriteLine("Do not run this utility on files genereted with any version different from 2.0/2.0b!");
             Console.WriteLine("Do not run this utility on files that you've already patched by hand!");
-            Console.WriteLine("If you have any file that clonficts with the above statments, temporary move it somewhere else and restart this utility");
+            Console.WriteLine("If you have any file that conflicts with the above statments, temporary move it somewhere else and restart this utility");
             Console.WriteLine();
             Console.WriteLine("Old presets have to be patched in order to be correctly read again:");
 
@@ -54,10 +54,12 @@ namespace DMLfilePatcher
                 Dictionary<string, string> values = new Dictionary<string, string>();
                 string[] rows = File.ReadAllLines(s);
                 int C = 0;
+                
                 foreach (string row in rows)
                 {
                     values.Add(C.ToString(), row);
                     C++;
+               
                 }
                 storage.SaveValues(values, true);
                 Console.WriteLine("Patching SUCCEDED!");
