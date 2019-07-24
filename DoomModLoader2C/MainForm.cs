@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -34,8 +35,7 @@ namespace DoomModLoader2
             InitializeComponent();
             this.Text = "Doom Mod Loader v" + SharedVar.LOCAL_VERSION;
             InitializeConfiguration();
-            LoadConfiguration();
-            CaricaCFG();
+            LoadResources();
             txtMap_TextChanged(null, null);
             chkCustomConfiguration_CheckedChanged(null, null);
             cmbSkill.SelectedIndex = 3;
@@ -55,6 +55,12 @@ namespace DoomModLoader2
 
 
         }
+
+        private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadResources();
+        }
+
 
         private void cmdPlay_Click(object sender, EventArgs e)
         {
@@ -344,13 +350,14 @@ namespace DoomModLoader2
 
         #region METODI
 
-        private void LoadConfiguration()
+        private void LoadResources()
         {
             CaricaIWAD();
-            CaricaPWAD();
             CaricaPort();
             CaricaPortConfig();
             CaricaPreset();
+            CaricaCFG();
+            CaricaPWAD();
         }
 
         private void CaricaPreset()
@@ -402,32 +409,60 @@ namespace DoomModLoader2
 
         private void CaricaPWAD()
         {
-            string[] pathPWAD = File.ReadAllLines(cfgPWAD);
-            List<PathName> wads = new List<PathName>();
-            foreach (string p in pathPWAD)
+            try
             {
-                if (File.Exists(p))
+                string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+                string[] pathPWAD = File.ReadAllLines(cfgPWAD);
+                List<PathName> wads = new List<PathName>();
+                foreach (string p in pathPWAD)
                 {
-                    PathName wad = new PathName();
-                    wad.path = p;
-                    wad.name = Path.GetFileName(p).ToUpper();
-                    wads.Add(wad);
-                }
-                else if (Directory.Exists(p))
-                {
-                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
-                    string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
-                    foreach (string file in files)
+                    if (File.Exists(p))
                     {
                         PathName wad = new PathName();
-                        wad.path = file;
-                        wad.name = Path.GetFileName(file).ToUpper();
+                        wad.path = p;
+                        wad.name = Path.GetFileName(p).ToUpper();
                         wads.Add(wad);
                     }
+                    else if (Directory.Exists(p))
+                    {
+                        string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                        foreach (string file in files)
+                        {
+                            PathName wad = new PathName();
+                            wad.path = file;
+                            wad.name = Path.GetFileName(file).ToUpper();
+                            wads.Add(wad);
+                        }
+                        if (SharedVar.LOAD_SUBFOLDERS)
+                        {
+                            string[] folders = Directory.GetDirectories(p, "*", SearchOption.AllDirectories);
+                            foreach (string f in folders)
+                            {
+                                files = Directory.GetFiles(f).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                                foreach (string file in files)
+                                {
+                                    PathName wad = new PathName();
+                                    wad.path = file;
+                                    wad.name = Path.GetFileName(file).ToUpper();
+                                    wads.Add(wad);
+                                }
+                            }
+                        }
+
+                    }
+                }
+                if (wads != null && wads.Count > 0)
+                {
+                    lstPWAD.DataSource = wads.GroupBy(p => p.path)
+                                        .Select(g => g.First())
+                                        .ToList();
+                    lstPWAD.SelectedItem = null;
                 }
             }
-            lstPWAD.DataSource = wads;
-            lstPWAD.SelectedItem = null;
+            catch (Exception ex)
+            {
+                MessageBox.Show("Something went wrong while trying to load your mods..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void CaricaIWAD()
@@ -969,6 +1004,7 @@ namespace DoomModLoader2
 
             }
         }
+
 
         #endregion
 

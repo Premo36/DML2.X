@@ -11,5 +11,7 @@ namespace DoomModLoader2.Entity
         public string path { get; set; }
 
         public int loadOrder { get; set; }
+
+     
     }
 }

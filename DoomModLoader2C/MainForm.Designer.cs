@@ -79,6 +79,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -588,7 +589,8 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
-            this.checkForUpdateToolStripMenuItem});
+            this.checkForUpdateToolStripMenuItem,
+            this.reloadResourcesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(907, 24);
@@ -608,6 +610,13 @@
             this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
             this.checkForUpdateToolStripMenuItem.Text = "Check for update...";
             this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // reloadResourcesToolStripMenuItem
+            // 
+            this.reloadResourcesToolStripMenuItem.Name = "reloadResourcesToolStripMenuItem";
+            this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
+            this.reloadResourcesToolStripMenuItem.Text = "Reload Resources";
+            this.reloadResourcesToolStripMenuItem.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -700,6 +709,7 @@
         private System.Windows.Forms.Button cmdRemoveConfiguration;
         private System.Windows.Forms.ComboBox cmbPortConfig;
         private System.Windows.Forms.Button cmdOpenFileManager;
+        private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem;
     }
 }
 
