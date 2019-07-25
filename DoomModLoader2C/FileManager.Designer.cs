@@ -34,6 +34,7 @@
             this.cmdClose = new System.Windows.Forms.Button();
             this.cmdRemove = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.chkSubfolder = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // lstPath
@@ -99,12 +100,24 @@
             this.label1.Text = "Add you mod files. You can also drag \'n drop your file/s or folder/s.\r\nSupported " +
     "files; \".wad\", \".pk3\", \".zip\", \".pak\", \".pk7\", \".grp\", \".rff\" and \".deh\" ";
             // 
+            // chkSubfolder
+            // 
+            this.chkSubfolder.AutoSize = true;
+            this.chkSubfolder.Location = new System.Drawing.Point(503, 12);
+            this.chkSubfolder.Name = "chkSubfolder";
+            this.chkSubfolder.Size = new System.Drawing.Size(124, 17);
+            this.chkSubfolder.TabIndex = 25;
+            this.chkSubfolder.Text = "Scan also subfolders";
+            this.chkSubfolder.UseVisualStyleBackColor = true;
+            this.chkSubfolder.CheckedChanged += new System.EventHandler(this.chkSubfolder_CheckedChanged);
+            // 
             // FileManager
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(654, 397);
             this.ControlBox = false;
+            this.Controls.Add(this.chkSubfolder);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.cmdRemove);
@@ -128,5 +141,6 @@
         private System.Windows.Forms.Button cmdClose;
         private System.Windows.Forms.Button cmdRemove;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.CheckBox chkSubfolder;
     }
 }

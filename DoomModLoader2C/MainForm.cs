@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -55,12 +54,6 @@ namespace DoomModLoader2
 
 
         }
-
-        private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            LoadResources();
-        }
-
 
         private void cmdPlay_Click(object sender, EventArgs e)
         {
@@ -341,9 +334,14 @@ namespace DoomModLoader2
 
         private void cmdOpenFileManager_Click(object sender, EventArgs e)
         {
-            var fm = new FileManager(cfgPWAD);
+            var fm = new FileManager(cfgPWAD, cfgPreference);
             fm.ShowDialog();
             CaricaPWAD();
+        }
+
+        private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            LoadResources();
         }
 
         #endregion
@@ -451,13 +449,19 @@ namespace DoomModLoader2
 
                     }
                 }
+                
+                lstPWAD.DataSource = new List<PathName>();
+
+
                 if (wads != null && wads.Count > 0)
                 {
                     lstPWAD.DataSource = wads.GroupBy(p => p.path)
                                         .Select(g => g.First())
                                         .ToList();
-                    lstPWAD.SelectedItem = null;
+
                 }
+
+                lstPWAD.SelectedItem = null;
             }
             catch (Exception ex)
             {
@@ -522,11 +526,13 @@ namespace DoomModLoader2
 
                     cmb_vidrender.SelectedIndex = Convert.ToInt32(cfg["RENDERER"]);
                     SharedVar.CHECK_FOR_UPDATE = Convert.ToBoolean(cfg["CHECK_FOR_UPDATE"]);
+                    SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(cfg["LOAD_SUBFOLDERS"]);
                 }
                 else
                 {
                     cmb_vidrender.SelectedIndex = 0;
                     SharedVar.CHECK_FOR_UPDATE = true;
+                    SharedVar.LOAD_SUBFOLDERS = false;
                 }
             }
             catch (Exception ex)
@@ -534,6 +540,7 @@ namespace DoomModLoader2
                 MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cmb_vidrender.SelectedIndex = 0;
                 SharedVar.CHECK_FOR_UPDATE = true;
+                SharedVar.LOAD_SUBFOLDERS = false;
             }
         }
 
@@ -971,7 +978,7 @@ namespace DoomModLoader2
 
                 preferences.Add("CHECK_FOR_UPDATE", SharedVar.CHECK_FOR_UPDATE.ToString().ToUpper());
 
-
+                preferences.Add("LOAD_SUBFOLDERS", SharedVar.LOAD_SUBFOLDERS.ToString().ToUpper());
                 storage.SaveValues(preferences, true);
             }
             catch (Exception ex)
@@ -1007,7 +1014,5 @@ namespace DoomModLoader2
 
 
         #endregion
-
-
     }
 }

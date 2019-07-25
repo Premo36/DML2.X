@@ -15,16 +15,19 @@ namespace DoomModLoader2
 {
     public partial class FileManager : Form
     {
+        private string cfgPreference;
         private string cfgPWAD;
-        public FileManager(string path)
+        public FileManager(string modsPath, string preferencesPath)
         {
             InitializeComponent();
-            cfgPWAD = path;
+            cfgPreference = preferencesPath;
+            cfgPWAD = modsPath;
+            chkSubfolder.Checked = SharedVar.LOAD_SUBFOLDERS;
         }
 
         private void FileManager_Load(object sender, EventArgs e)
         {
-
+           
             LoadList();
 
         }
@@ -33,6 +36,7 @@ namespace DoomModLoader2
         private void LoadList()
         {
             lstPath.Items.Clear();
+            
             string[] pathPWAD = File.ReadAllLines(cfgPWAD);
 
             foreach (string p in pathPWAD)
@@ -41,7 +45,7 @@ namespace DoomModLoader2
                 lstPath.Items.Add(p);
             }
         }
-
+       
         private void cmdAddSingleFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -141,25 +145,25 @@ namespace DoomModLoader2
         {
             try
             {
-                string[] folders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
+                //string[] folders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
 
 
-                DialogResult dialogResult = DialogResult.No;
-                if (folders.Length > 0)
-                {
-                    dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + path + "'", "DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
-                }
+                //DialogResult dialogResult = DialogResult.No;
+                //if (folders.Length > 0)
+                //{
+                //    dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + path + "'", "DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
+                //}
 
                 Storage storage = new Storage(cfgPWAD);
 
-                storage.UpdateConfig(path);
-                if (dialogResult == DialogResult.Yes)
-                {
-                    foreach (string f in folders)
-                    {
-                        storage.UpdateConfig(f);
-                    }
-                }
+                storage.UpdateConfig(path, true);
+                //if (SharedVar.LOAD_SUBFOLDERS)
+                //{
+                //    foreach (string f in folders)
+                //    {
+                //        storage.UpdateConfig(f,true);
+                //    }
+                //}
                 LoadList();
             }
             catch (Exception ex)
@@ -174,6 +178,16 @@ namespace DoomModLoader2
 
                 MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void chkSubfolder_CheckedChanged(object sender, EventArgs e)
+        {
+            SharedVar.LOAD_SUBFOLDERS = chkSubfolder.Checked;
+
+            Storage storage = new Storage(cfgPreference);
+            storage.DeleteValue("LOAD_SUBFOLDERS");
+            storage.SaveValue("LOAD_SUBFOLDERS", chkSubfolder.Checked.ToString());
+
         }
     }
 }

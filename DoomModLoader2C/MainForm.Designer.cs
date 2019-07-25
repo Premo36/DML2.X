@@ -614,8 +614,8 @@
             // reloadResourcesToolStripMenuItem
             // 
             this.reloadResourcesToolStripMenuItem.Name = "reloadResourcesToolStripMenuItem";
-            this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(111, 20);
-            this.reloadResourcesToolStripMenuItem.Text = "Reload Resources";
+            this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
+            this.reloadResourcesToolStripMenuItem.Text = "Reload resources";
             this.reloadResourcesToolStripMenuItem.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem_Click);
             // 
             // MainForm
