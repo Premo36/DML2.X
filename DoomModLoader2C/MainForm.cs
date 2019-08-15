@@ -32,7 +32,7 @@ namespace DoomModLoader2
         {
 
             InitializeComponent();
-            this.Text = "Doom Mod Loader v" + SharedVar.LOCAL_VERSION;
+            this.Text += " v" + SharedVar.LOCAL_VERSION;
             InitializeConfiguration();
             LoadResources();
             txtMap_TextChanged(null, null);
@@ -334,8 +334,10 @@ namespace DoomModLoader2
 
         private void cmdOpenFileManager_Click(object sender, EventArgs e)
         {
-            var fm = new FileManager(cfgPWAD, cfgPreference);
+            FileManager fm = new FileManager(cfgPWAD, cfgPreference);
+            this.Hide();
             fm.ShowDialog();
+            this.Show();
             CaricaPWAD();
         }
 
@@ -449,7 +451,7 @@ namespace DoomModLoader2
 
                     }
                 }
-                
+
                 lstPWAD.DataSource = new List<PathName>();
 
 
@@ -488,6 +490,7 @@ namespace DoomModLoader2
         {
             try
             {
+                string value;
                 Storage storage = new Storage(cfgPreference);
 
                 Dictionary<string, string> cfg = storage.ReadAllValues();
@@ -526,21 +529,28 @@ namespace DoomModLoader2
 
                     cmb_vidrender.SelectedIndex = Convert.ToInt32(cfg["RENDERER"]);
                     SharedVar.CHECK_FOR_UPDATE = Convert.ToBoolean(cfg["CHECK_FOR_UPDATE"]);
-                    SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(cfg["LOAD_SUBFOLDERS"]);
+
+                    cfg.TryGetValue("SHOW_END_MESSAGE", out value);
+                    SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(value);
+
+                    cfg.TryGetValue("SHOW_END_MESSAGE", out value);
+                    SharedVar.SHOW_END_MESSAGE = Convert.ToBoolean(value);
                 }
                 else
                 {
-                    cmb_vidrender.SelectedIndex = 0;
+                    cmb_vidrender.SelectedIndex = 5;
                     SharedVar.CHECK_FOR_UPDATE = true;
                     SharedVar.LOAD_SUBFOLDERS = false;
+                    SharedVar.SHOW_END_MESSAGE = true;
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cmb_vidrender.SelectedIndex = 0;
+                cmb_vidrender.SelectedIndex = 5;
                 SharedVar.CHECK_FOR_UPDATE = true;
                 SharedVar.LOAD_SUBFOLDERS = false;
+                SharedVar.SHOW_END_MESSAGE = true;
             }
         }
 
@@ -619,7 +629,7 @@ namespace DoomModLoader2
                 errore.AppendLine(ex.Message);
 
                 MessageBox.Show(errore.ToString(), "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Environment.Exit(1);
+                Environment.Exit(-1);
             }
 
         }
@@ -729,8 +739,11 @@ namespace DoomModLoader2
                 }
             }
 
+            //RENDERER
+            if(cmb_vidrender.SelectedIndex != 5)
             parm.AppendFormat(" +vid_rendermode {0} ", cmb_vidrender.SelectedIndex);
 
+            //CUSTOM COMMAND
             parm.Append(" " + txtCommandLine.Text + " ");
             return parm.ToString();
 
@@ -850,8 +863,9 @@ namespace DoomModLoader2
 
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
-
-            string[] EXIT_MESSAGES = new string[] {
+            if (SharedVar.SHOW_END_MESSAGE)
+            {
+                string[] EXIT_MESSAGES = new string[] {
                 //DOOM
                 "Please don't leave, there's more demons to toast!",
                 "Let's beat it -- This is turning into a bloodbath!",
@@ -863,18 +877,18 @@ namespace DoomModLoader2
                 "Are you sure you want to quit this great game? ",
             };
 
-            Random R = new Random();
+                Random R = new Random();
 
-            DialogResult ris = MessageBox.Show(EXIT_MESSAGES[R.Next(0, EXIT_MESSAGES.Length)], "QUIT?", MessageBoxButtons.YesNo);
+                DialogResult ris = MessageBox.Show(EXIT_MESSAGES[R.Next(0, EXIT_MESSAGES.Length)], "QUIT?", MessageBoxButtons.YesNo);
 
-            if (ris == DialogResult.No)
-            {
-                e.Cancel = true;
+                if (ris == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
             }
-            else
-            {
-                SavePreferences();
-            }
+
+            SavePreferences();
+
         }
 
         private void SavePreferences()
@@ -979,6 +993,8 @@ namespace DoomModLoader2
                 preferences.Add("CHECK_FOR_UPDATE", SharedVar.CHECK_FOR_UPDATE.ToString().ToUpper());
 
                 preferences.Add("LOAD_SUBFOLDERS", SharedVar.LOAD_SUBFOLDERS.ToString().ToUpper());
+
+                preferences.Add("SHOW_END_MESSAGE", SharedVar.SHOW_END_MESSAGE.ToString().ToUpper());
                 storage.SaveValues(preferences, true);
             }
             catch (Exception ex)

@@ -126,7 +126,7 @@
             this.Controls.Add(this.lstPath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Name = "FileManager";
-            this.Text = "DML 2.1 - File Manager";
+            this.Text = "File Manager";
             this.Load += new System.EventHandler(this.FileManager_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

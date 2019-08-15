@@ -446,7 +446,8 @@
             "TRUE COLOR SOFTWARE RENDERER",
             "SOFTPOLY RENDERER",
             "TRUE COLOR SOFTPOLY",
-            "HARDWARE ACCELERATED"});
+            "HARDWARE ACCELERATED",
+            "[DON\'T OVERRIDE]"});
             this.cmb_vidrender.Location = new System.Drawing.Point(5, 97);
             this.cmb_vidrender.Name = "cmb_vidrender";
             this.cmb_vidrender.Size = new System.Drawing.Size(538, 21);
@@ -632,7 +633,7 @@
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";
-            this.Text = "Doom Mod Loader 2.0";
+            this.Text = "Doom Mod Loader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).EndInit();

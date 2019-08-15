@@ -121,7 +121,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "VersionForm";
-            this.Text = "DML 2.1 - Check for update";
+            this.Text = "Check for updates";
             this.Load += new System.EventHandler(this.VersionForm_Load);
             this.ResumeLayout(false);
             this.PerformLayout();

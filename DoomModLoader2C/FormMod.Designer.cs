@@ -121,7 +121,7 @@
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMod";
-            this.Text = "DML 2.1 - Mod Loading Order";
+            this.Text = "Mod Loading Order";
             this.Load += new System.EventHandler(this.FormMod_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).EndInit();
             this.ResumeLayout(false);

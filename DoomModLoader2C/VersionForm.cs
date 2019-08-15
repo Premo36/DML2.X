@@ -20,7 +20,7 @@ namespace DoomModLoader2
         public VersionForm()
         {
             InitializeComponent();
-
+            this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
 
         }
 

@@ -15,6 +15,7 @@ namespace DoomModLoader2
         public AboutForm()
         {
             InitializeComponent();
+            this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

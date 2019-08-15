@@ -27,6 +27,7 @@ namespace DoomModLoader2
         {
             InitializeComponent();
             presetPath = _presetPath;
+            this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
         }
 
 

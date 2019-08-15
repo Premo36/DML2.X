@@ -29,13 +29,13 @@ namespace DoomModLoader2
             MessageBox.Show("Sorry, an unexpected error occured... the software will close." + Environment.NewLine +
                                 "ERROR MESSAGE: " + e.Exception.ToString() + Environment.NewLine +
                                 "Please send an email to 'p36software@mail.com' with object 'unexpected error'. In the mail write the error message, and how to recreate it. Thank you!");
-            Environment.Exit(1);
+            Environment.Exit(-1);
         }
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
             MessageBox.Show("Sorry, an unexpected error occured... the software will close.");
-            Environment.Exit(1);
+            Environment.Exit(-1);
         }
     }
 }

@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 
-//TODO: Check dropped file extension before add them
+
 namespace DoomModLoader2
 {
     public partial class FileManager : Form
@@ -20,6 +20,7 @@ namespace DoomModLoader2
         public FileManager(string modsPath, string preferencesPath)
         {
             InitializeComponent();
+            this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             cfgPreference = preferencesPath;
             cfgPWAD = modsPath;
             chkSubfolder.Checked = SharedVar.LOAD_SUBFOLDERS;
