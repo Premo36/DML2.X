@@ -21,7 +21,9 @@ namespace DoomModLoader2
         public string parameters;
         public List<PathName> pwads;
         public PathName sourcePort;
-        
+
+        private string files;
+
         private string presetPath;
         public FormMod(string _presetPath)
         {
@@ -75,7 +77,7 @@ namespace DoomModLoader2
                 lst[i + 1] = y;
 
                 lstPwad.DataSource = lst;
-                
+
                 lstPwad.SelectedItem = y;
             }
             else
@@ -86,19 +88,22 @@ namespace DoomModLoader2
 
         private void cmdPlay_Click(object sender, EventArgs e)
         {
+            files = "";
             //parameters += "";
             foreach (PathName p in lstPwad.Items)
             {
                 if (Path.GetExtension(p.path).ToUpper().Equals(".DEH"))
                 {
-                    parameters += "-deh \"" + p.path + "\" ";
+                    files += "-deh \"" + p.path + "\" ";
                 }
                 else
                 {
-                    parameters += "-file \"" + p.path + "\" ";
+                    files += "-file \"" + p.path + "\" ";
                 }
             }
-            Process.Start(sourcePort.path, parameters);
+
+            files = parameters + " " + files;
+            Process.Start(sourcePort.path, files);
 
         }
 
@@ -115,16 +120,23 @@ namespace DoomModLoader2
                     {
                         txtPresetName.Text = "";
                         throw new Exception("'-' is not a valid name!");
-                        
-                    }
-                    string path = Path.Combine(presetPath, name + ".dml");
-                    DialogResult answer = DialogResult.Yes;
-                    if (File.Exists(path))
-                    {
-                        answer = MessageBox.Show("A preset named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
-                                                 "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+
                     }
 
+
+    
+
+                    string path = Path.Combine(presetPath, name + ".dml");
+                    DialogResult answer = DialogResult.Yes;
+
+                    if (File.Exists(path))
+                    {
+                        if ((name.ToUpper().Equals(presetName.ToUpper()) ? false : true) && SharedVar.SHOW_OVERWRITE_MESSAGE)
+                        {
+                            answer = MessageBox.Show("A preset named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
+                                                     "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                        }
+                    }
                     if (answer == DialogResult.Yes)
                     {
                         FileStream f = File.Create(path);
@@ -133,7 +145,7 @@ namespace DoomModLoader2
                         Dictionary<string, string> values = new Dictionary<string, string>();
                         int C = 0;
                         foreach (PathName p in lstPwad.Items)
-                        { 
+                        {
                             values.Add(C.ToString(), p.path);
                             C++;
                         }
@@ -141,10 +153,11 @@ namespace DoomModLoader2
                         storage.SaveValues(values, true);
                         txtPresetName.Text = name;
                         presetName = name;
-                        MessageBox.Show("Preset '" + name + "' has been saved.", "DML", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        if (SharedVar.SHOW_SUCCESS_MESSAGE)
+                            MessageBox.Show("Preset '" + name + "' has been saved.", "DML", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }
-               
+
             }
             catch (Exception ex)
             {

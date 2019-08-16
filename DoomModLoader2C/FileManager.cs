@@ -52,7 +52,7 @@ namespace DoomModLoader2
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
 
-                openFileDialog.Filter = "All files|*.wad;*.pk3;*.zip;*.pak;*.pk7;*.grp;*.rff;*.deh|" +
+                openFileDialog.Filter = "All files|*.wad;*.pk3;*.zip;*.pak;*.pk7;*.7z;*.grp;*.rff;*.deh|" +
                                         "Where's All the Data? (*.wad)|*.wad|" +
                                         "ZIP archive (*.pk3)|*.pk3|" +
                                         "ZIP archive (*.zip)|*.zip|" +
@@ -83,7 +83,7 @@ namespace DoomModLoader2
             foreach (string p in lstPath.SelectedItems)
             {
                 Storage storage = new Storage(cfgPWAD);
-                storage.RemoveConfig(p);
+                storage.RemoveConfig(p, SharedVar.SHOW_DELETE_MESSAGE);
             }
             LoadList();
 
@@ -108,7 +108,7 @@ namespace DoomModLoader2
             {
                 if (File.Exists(p))
                 {
-                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+                    string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".7z", ".grp", ".rff", ".deh" };
                     if (validExtensions.Contains(Path.GetExtension(p).ToLower())) { 
                         AddFiles(new string[] { p });
                     } else

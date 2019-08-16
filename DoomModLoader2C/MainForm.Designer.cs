@@ -79,6 +79,7 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
@@ -147,6 +148,7 @@
             this.lstPWAD.DataSource = this.PathBinding;
             this.lstPWAD.DisplayMember = "name";
             this.lstPWAD.FormattingEnabled = true;
+            this.lstPWAD.HorizontalScrollbar = true;
             this.lstPWAD.Location = new System.Drawing.Point(6, 45);
             this.lstPWAD.Name = "lstPWAD";
             this.lstPWAD.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
@@ -591,6 +593,7 @@
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem,
             this.checkForUpdateToolStripMenuItem,
+            this.preferencesToolStripMenuItem,
             this.reloadResourcesToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -611,6 +614,13 @@
             this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
             this.checkForUpdateToolStripMenuItem.Text = "Check for update...";
             this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.preferencesToolStripMenuItem.Text = "Preferences...";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
             // reloadResourcesToolStripMenuItem
             // 
@@ -711,6 +721,7 @@
         private System.Windows.Forms.ComboBox cmbPortConfig;
         private System.Windows.Forms.Button cmdOpenFileManager;
         private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
     }
 }
 

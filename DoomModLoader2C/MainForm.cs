@@ -231,7 +231,7 @@ namespace DoomModLoader2
         {
             PathName wad = (PathName)cmbIWAD.SelectedItem;
             Storage storage = new Storage(cfgIWAD);
-            storage.RemoveConfig(wad.path);
+            storage.RemoveConfig(wad.path, SharedVar.SHOW_DELETE_MESSAGE);
             cmbIWAD.Text = "";
             CaricaIWAD();
         }
@@ -240,7 +240,7 @@ namespace DoomModLoader2
         {
             PathName PN = (PathName)cmbSourcePort.SelectedItem;
             Storage storage = new Storage(cfgPORT);
-            storage.RemoveConfig(PN.path);
+            storage.RemoveConfig(PN.path, SharedVar.SHOW_DELETE_MESSAGE);
             cmbSourcePort.Text = "";
             CaricaPort();
         }
@@ -249,7 +249,7 @@ namespace DoomModLoader2
         {
             PathName PN = (PathName)cmbPortConfig.SelectedItem;
             Storage storage = new Storage(cfgPORT_CONFIG);
-            storage.RemoveConfig(PN.path);
+            storage.RemoveConfig(PN.path, SharedVar.SHOW_DELETE_MESSAGE);
             cmbPortConfig.Text = "";
             CaricaPortConfig();
         }
@@ -530,11 +530,22 @@ namespace DoomModLoader2
                     cmb_vidrender.SelectedIndex = Convert.ToInt32(cfg["RENDERER"]);
                     SharedVar.CHECK_FOR_UPDATE = Convert.ToBoolean(cfg["CHECK_FOR_UPDATE"]);
 
-                    cfg.TryGetValue("SHOW_END_MESSAGE", out value);
-                    SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(value);
+                    
+                    SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(cfg["LOAD_SUBFOLDERS"]);
 
-                    cfg.TryGetValue("SHOW_END_MESSAGE", out value);
-                    SharedVar.SHOW_END_MESSAGE = Convert.ToBoolean(value);
+          
+                    SharedVar.SHOW_END_MESSAGE = Convert.ToBoolean(cfg["SHOW_END_MESSAGE"]);
+
+
+                    SharedVar.SHOW_DELETE_MESSAGE = Convert.ToBoolean(cfg["SHOW_DELETE_MESSAGE"]);
+
+
+                    SharedVar.SHOW_OVERWRITE_MESSAGE = Convert.ToBoolean(cfg["SHOW_OVERWRITE_MESSAGE"]);
+
+
+                    SharedVar.SHOW_SUCCESS_MESSAGE = Convert.ToBoolean(cfg["SHOW_SUCCESS_MESSAGE"]);
+
+                   
                 }
                 else
                 {
@@ -542,6 +553,9 @@ namespace DoomModLoader2
                     SharedVar.CHECK_FOR_UPDATE = true;
                     SharedVar.LOAD_SUBFOLDERS = false;
                     SharedVar.SHOW_END_MESSAGE = true;
+                    SharedVar.SHOW_DELETE_MESSAGE = true;
+                    SharedVar.SHOW_END_MESSAGE = true;
+                    SharedVar.SHOW_SUCCESS_MESSAGE = true;
                 }
             }
             catch (Exception ex)
@@ -551,6 +565,9 @@ namespace DoomModLoader2
                 SharedVar.CHECK_FOR_UPDATE = true;
                 SharedVar.LOAD_SUBFOLDERS = false;
                 SharedVar.SHOW_END_MESSAGE = true;
+                SharedVar.SHOW_DELETE_MESSAGE = true;
+                SharedVar.SHOW_OVERWRITE_MESSAGE = true;
+                SharedVar.SHOW_SUCCESS_MESSAGE = true;
             }
         }
 
@@ -763,82 +780,23 @@ namespace DoomModLoader2
             }
         }
 
-        //private void UpdateConfig(string ItemPath, string cfgPath)
-        //{
-
-        //    try
-        //    {
-        //        string s = File.ReadAllLines(cfgPath).Where(P => P == ItemPath).FirstOrDefault();
-        //        if (s == null)
-        //        {
-        //            File.AppendAllText(cfgPath, ItemPath + Environment.NewLine);
-        //        }
-        //        else
-        //        {
-        //            MessageBox.Show("Cannot add the same file multiple time!" + Environment.NewLine +
-        //                            "The following path has already been added:" + Environment.NewLine +
-        //                            "\"" + ItemPath + "\"", "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        UpdateRemoveConfigError(ex, cfgPath);
-        //    }
-
-
-        //}
-
-        //private void RemoveConfig(PathName PN, string cfgPath)
-        //{
-        //    try
-        //    {
-        //        if (PN != null)
-        //        {
-        //            DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + PN.name + "\""
-        //                               + Environment.NewLine
-        //                               + "(Path: \"" + PN.path + "\")"
-        //                               , "REMOVE " + PN.name.ToUpper(), MessageBoxButtons.OKCancel);
-
-        //            if (ris == DialogResult.OK)
-        //            {
-        //                string[] s = File.ReadAllLines(cfgPath).Where(P => P != PN.path).ToArray();
-
-        //                File.WriteAllLines(cfgPath, s);
-        //            }
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        UpdateRemoveConfigError(ex, cfgPath);
-        //    }
-        //}
-
-        //private void UpdateRemoveConfigError(Exception ex, string cfgPath)
-        //{
-        //    StringBuilder errore = new StringBuilder();
-        //    errore.AppendLine("Something went wrong while trying to update a configuration file...");
-        //    errore.AppendLine("Please check if your account have the permission to write in:");
-        //    errore.AppendLine(@"""" + cfgPath + @"""");
-        //    errore.AppendLine();
-        //    errore.AppendLine("Error Message:");
-        //    errore.AppendLine(ex.Message);
-
-        //    MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        //}
+       
 
         private void cmdRemovePreset_Click(object sender, EventArgs e)
         {
             PathName pn = (PathName)cmbPreset.SelectedItem;
             try
             {
-
-                if (pn != null && !pn.name.Equals("-"))
+               
+                if (pn != null && !pn.name.Equals("-") )
                 {
-                    DialogResult ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
+                    DialogResult ris = DialogResult.OK;
+                    if (SharedVar.SHOW_DELETE_MESSAGE) { 
+                     ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
                                        + Environment.NewLine
                                        + "(Path: \"" + pn.path + "\")"
                                        , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
-
+                    }
                     if (ris == DialogResult.OK)
                     {
                         File.Delete(pn.path);
@@ -995,6 +953,13 @@ namespace DoomModLoader2
                 preferences.Add("LOAD_SUBFOLDERS", SharedVar.LOAD_SUBFOLDERS.ToString().ToUpper());
 
                 preferences.Add("SHOW_END_MESSAGE", SharedVar.SHOW_END_MESSAGE.ToString().ToUpper());
+
+                preferences.Add("SHOW_OVERWRITE_MESSAGE", SharedVar.SHOW_OVERWRITE_MESSAGE.ToString().ToUpper());
+
+                preferences.Add("SHOW_SUCCESS_MESSAGE", SharedVar.SHOW_SUCCESS_MESSAGE.ToString().ToUpper());
+
+                preferences.Add("SHOW_DELETE_MESSAGE", SharedVar.SHOW_DELETE_MESSAGE.ToString().ToUpper());
+
                 storage.SaveValues(preferences, true);
             }
             catch (Exception ex)
@@ -1030,5 +995,11 @@ namespace DoomModLoader2
 
 
         #endregion
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options options = new Options(cfgPreference);
+            options.ShowDialog();
+        }
     }
 }
