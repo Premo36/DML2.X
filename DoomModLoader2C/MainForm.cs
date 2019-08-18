@@ -343,6 +343,7 @@ namespace DoomModLoader2
 
         private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            SavePreferences();
             LoadResources();
         }
 
@@ -491,61 +492,236 @@ namespace DoomModLoader2
             try
             {
                 string value;
+                List<string> errors = new List<string>();
                 Storage storage = new Storage(cfgPreference);
 
                 Dictionary<string, string> cfg = storage.ReadAllValues();
 
+
+
                 if (cfg.Count > 0)
                 {
-                    switch (cfg["AUDIO"])
+                    #region AUDIO
+                    if (cfg.TryGetValue("AUDIO", out value)) //cfg["AUDIO"]
                     {
-                        case "1":
-                            radAudioNoMusic.Checked = true;
-                            break;
-                        case "2":
-                            radAudioNoSFX.Checked = true;
-                            break;
-                        case "3":
-                            radAudioNoSounds.Checked = true;
-                            break;
+                        switch (value)
+                        {
+                            case "1":
+                                radAudioNoMusic.Checked = true;
+                                break;
+                            case "2":
+                                radAudioNoSFX.Checked = true;
+                                break;
+                            case "3":
+                                radAudioNoSounds.Checked = true;
+                                break;
+                        }
+                    }
+                    else
+                    {
+                        errors.Add("AUDIO");
+                    }
+                    #endregion
+
+                    #region SCREEN_WIDTH/SCREEN_HEIGHT/FULLSCREEN
+
+                    //SCREEN WIDTH VALUE
+                    if (cfg.TryGetValue("SCREEN_WIDTH", out value)) //cfg["SCREEN_WIDTH"]
+                    {
+                        txtScreenWidth.Text = value;
+                    }
+                    else
+                    {
+                        errors.Add("SCREEN_WIDTH");
+                    }
+
+                    //SCREEN HEIGHT VALUE
+                    if (cfg.TryGetValue("SCREEN_HEIGHT", out value)) //cfg["SCREEN_HEIGHT"]
+                    {
+                        txtScreenHeight.Text = value;
+                    }
+                    else
+                    {
+                        errors.Add("SCREEN_HEIGHT");
+                    }
+
+                    //FULLSCREEN FLAG
+                    if (cfg.TryGetValue("FULLSCREEN", out value)) //cfg["FULLSCREEN"]
+                    {
+                        chkFullscreen.Checked = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("FULLSCREEN");
                     }
 
 
-                    txtScreenWidth.Text = cfg["SCREEN_WIDTH"];
-                    txtScreenHeight.Text = cfg["SCREEN_HEIGHT"];
+                    #endregion
+
+                    #region CUSTOM PORT CONFIGURATION
+                    //CUSTOM_PORT_CFG FLAG
+                    if (cfg.TryGetValue("CUSTOM_PORT_CFG", out value)) //cfg["CUSTOM_PORT_CFG"]
+                    {
+                        chkCustomConfiguration.Checked = Convert.ToBoolean(value);
+                        if (cfg.TryGetValue("CUSTOM_PORT_PATH", out value)) //cfg["CUSTOM_PORT_PATH"]
+                        {
+                            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == value).FirstOrDefault();
+                        }
+                        else
+                        {
+                            errors.Add("CUSTOM_PORT_PATH");
+                        }
+                    }
+                    else
+                    {
+                        errors.Add("CUSTOM_PORT_PATH");
+                    }
+                    #endregion
+
+                    #region COMMANDLINE
+                    //COMMANDLINE TEXT
+                    if (cfg.TryGetValue("COMMANDLINE", out value)) //cfg["COMMANDLINE"]
+                    {
+                        txtCommandLine.Text = value;
+                    }
+                    else
+                    {
+                        errors.Add("COMMANDLINE");
+                    }
+                    #endregion
+
+                    #region IWAD
+                    if (cfg.TryGetValue("IWAD", out value)) //cfg["IWAD"]
+                    {
+                        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path.Equals(value)).FirstOrDefault();
+                    }
+                    else
+                    {
+                        errors.Add("IWAD");
+                    }
+                    #endregion
+
+                    #region PORT
+                    if (cfg.TryGetValue("PORT", out value)) //cfg["PORT"]
+                    {
+                        cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path.Equals(value)).FirstOrDefault();
+                    }
+                    else
+                    {
+                        errors.Add("PORT");
+                    }
+                    #endregion
+
+                    #region RENDERER
+                    if (cfg.TryGetValue("RENDERER", out value)) //cfg["RENDERER"]
+                    {
+                        cmb_vidrender.SelectedIndex = Convert.ToInt32(value);
+                    }
+                    else
+                    {
+                        errors.Add("RENDERER");
+                        cmb_vidrender.SelectedIndex = 5;
+                    }
+                    #endregion
 
 
+                    #region CHECK_FOR_UPDATE
+                    if (cfg.TryGetValue("CHECK_FOR_UPDATE", out value)) //cfg["CHECK_FOR_UPDATE"]
+                    {
+                        SharedVar.CHECK_FOR_UPDATE = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("CHECK_FOR_UPDATE");
+                        SharedVar.CHECK_FOR_UPDATE = true;
+                    }
+                    #endregion
 
-                    chkFullscreen.Checked = Convert.ToBoolean(cfg["FULLSCREEN"]);
+                    #region LOAD_SUBFOLDERS
+                    if (cfg.TryGetValue("LOAD_SUBFOLDERS", out value)) //cfg["LOAD_SUBFOLDERS"]
+                    {
+                        SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("LOAD_SUBFOLDERS");
+                        SharedVar.LOAD_SUBFOLDERS = false;
+                    }
+                    #endregion
 
-                    chkCustomConfiguration.Checked = Convert.ToBoolean(cfg["CUSTOM_PORT_CFG"]);
-                    cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == cfg["CUSTOM_PORT_PATH"]).FirstOrDefault();
+                    #region SHOW_END_MESSAGE
+                    if (cfg.TryGetValue("SHOW_END_MESSAGE", out value)) //cfg["SHOW_END_MESSAGE"]
+                    {
+                        SharedVar.SHOW_END_MESSAGE = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("SHOW_END_MESSAGE");
+                        SharedVar.SHOW_END_MESSAGE = true;
+                    }
+                    #endregion
 
+                    #region SHOW_DELETE_MESSAGE
+                    if (cfg.TryGetValue("SHOW_DELETE_MESSAGE", out value)) //cfg["SHOW_DELETE_MESSAGE"]
+                    {
+                        SharedVar.SHOW_DELETE_MESSAGE = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("SHOW_DELETE_MESSAGE");
+                        SharedVar.SHOW_DELETE_MESSAGE = true;
+                    }
+                    #endregion
 
-                    txtCommandLine.Text = cfg["COMMANDLINE"];
-                    cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path.Equals(cfg["IWAD"])).FirstOrDefault();
-                    cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path.Equals(cfg["PORT"].ToString())).FirstOrDefault();
+                    #region SHOW_OVERWRITE_MESSAGE
+                    if (cfg.TryGetValue("SHOW_OVERWRITE_MESSAGE", out value)) //cfg["SHOW_OVERWRITE_MESSAGE"]
+                    {
+                        SharedVar.SHOW_OVERWRITE_MESSAGE = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("SHOW_OVERWRITE_MESSAGE");
+                        SharedVar.SHOW_OVERWRITE_MESSAGE = true;
+                    }
+                    #endregion
 
+                    #region SHOW_SUCCESS_MESSAGE
+                    if (cfg.TryGetValue("SHOW_SUCCESS_MESSAGE", out value)) //cfg["SHOW_SUCCESS_MESSAGE"]
+                    {
+                        SharedVar.SHOW_SUCCESS_MESSAGE = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("SHOW_SUCCESS_MESSAGE");
+                        SharedVar.SHOW_SUCCESS_MESSAGE = true;
+                    }
+                    #endregion
 
-                    cmb_vidrender.SelectedIndex = Convert.ToInt32(cfg["RENDERER"]);
-                    SharedVar.CHECK_FOR_UPDATE = Convert.ToBoolean(cfg["CHECK_FOR_UPDATE"]);
+                    #region USE_ADVANCED_SELECTION_MODE
+                    if (cfg.TryGetValue("USE_ADVANCED_SELECTION_MODE", out value)) //cfg["SHOW_SUCCESS_MESSAGE"]
+                    {
+                        SharedVar.USE_ADVANCED_SELECTION_MODE = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("USE_ADVANCED_SELECTION_MODE");
+                        SharedVar.USE_ADVANCED_SELECTION_MODE = false;
+                    }
+                    #endregion
 
-                    
-                    SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(cfg["LOAD_SUBFOLDERS"]);
+                    if (errors.Count > 0)
+                    {
+                        SavePreferences();
+                        StringBuilder errorText = new StringBuilder();
+                        errorText.AppendLine("The following settings could not be read from '" + cfgPreference + "' and have been resetted to the default value:");
+                        foreach(string s in errors)
+                        {
+                            errorText.AppendLine("-" + s);
+                        }
+                        errorText.AppendLine("If you just upgraded to a new version and those settings are listed in the changelog, you can ignore this message.");
+                        MessageBox.Show(errorText.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
 
-          
-                    SharedVar.SHOW_END_MESSAGE = Convert.ToBoolean(cfg["SHOW_END_MESSAGE"]);
-
-
-                    SharedVar.SHOW_DELETE_MESSAGE = Convert.ToBoolean(cfg["SHOW_DELETE_MESSAGE"]);
-
-
-                    SharedVar.SHOW_OVERWRITE_MESSAGE = Convert.ToBoolean(cfg["SHOW_OVERWRITE_MESSAGE"]);
-
-
-                    SharedVar.SHOW_SUCCESS_MESSAGE = Convert.ToBoolean(cfg["SHOW_SUCCESS_MESSAGE"]);
-
-                   
+                    }
                 }
                 else
                 {
@@ -560,7 +736,7 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Flags have been resetted to default value." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 cmb_vidrender.SelectedIndex = 5;
                 SharedVar.CHECK_FOR_UPDATE = true;
                 SharedVar.LOAD_SUBFOLDERS = false;
@@ -757,8 +933,8 @@ namespace DoomModLoader2
             }
 
             //RENDERER
-            if(cmb_vidrender.SelectedIndex != 5)
-            parm.AppendFormat(" +vid_rendermode {0} ", cmb_vidrender.SelectedIndex);
+            if (cmb_vidrender.SelectedIndex != 5)
+                parm.AppendFormat(" +vid_rendermode {0} ", cmb_vidrender.SelectedIndex);
 
             //CUSTOM COMMAND
             parm.Append(" " + txtCommandLine.Text + " ");
@@ -780,22 +956,23 @@ namespace DoomModLoader2
             }
         }
 
-       
+
 
         private void cmdRemovePreset_Click(object sender, EventArgs e)
         {
             PathName pn = (PathName)cmbPreset.SelectedItem;
             try
             {
-               
-                if (pn != null && !pn.name.Equals("-") )
+
+                if (pn != null && !pn.name.Equals("-"))
                 {
                     DialogResult ris = DialogResult.OK;
-                    if (SharedVar.SHOW_DELETE_MESSAGE) { 
-                     ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
-                                       + Environment.NewLine
-                                       + "(Path: \"" + pn.path + "\")"
-                                       , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
+                    if (SharedVar.SHOW_DELETE_MESSAGE)
+                    {
+                        ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
+                                          + Environment.NewLine
+                                          + "(Path: \"" + pn.path + "\")"
+                                          , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
                     }
                     if (ris == DialogResult.OK)
                     {
@@ -960,11 +1137,21 @@ namespace DoomModLoader2
 
                 preferences.Add("SHOW_DELETE_MESSAGE", SharedVar.SHOW_DELETE_MESSAGE.ToString().ToUpper());
 
+                preferences.Add("USE_ADVANCED_SELECTION_MODE", SharedVar.USE_ADVANCED_SELECTION_MODE.ToString().ToUpper());
+
                 storage.SaveValues(preferences, true);
             }
             catch (Exception ex)
             {
-                //GESTIRE?
+                StringBuilder errore = new StringBuilder();
+                errore.AppendLine("Something went wrong while trying to save your preference...");
+                errore.AppendLine("Please check if your account have the permission to write in:");
+                errore.AppendLine(@"""" + cfgPreference + @"""");
+                errore.AppendLine();
+                errore.AppendLine("Error Message:");
+                errore.AppendLine(ex.Message);
+
+                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1000,6 +1187,13 @@ namespace DoomModLoader2
         {
             Options options = new Options(cfgPreference);
             options.ShowDialog();
+            if (SharedVar.USE_ADVANCED_SELECTION_MODE)
+            {
+                lstPWAD.SelectionMode = SelectionMode.MultiExtended;
+            } else
+            {
+                lstPWAD.SelectionMode = SelectionMode.MultiSimple;
+            }
         }
     }
 }

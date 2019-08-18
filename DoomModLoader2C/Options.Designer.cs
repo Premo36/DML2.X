@@ -35,6 +35,7 @@
             this.chk_SHOW_DELETE_MESSAGE = new System.Windows.Forms.CheckBox();
             this.cmdSaveOptions = new System.Windows.Forms.Button();
             this.cmdQuitOptions = new System.Windows.Forms.Button();
+            this.chk_USE_ADVANCED_SELECTION_MODE = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chk_SHOW_END_MESSAGE
@@ -46,7 +47,6 @@
             this.chk_SHOW_END_MESSAGE.TabIndex = 0;
             this.chk_SHOW_END_MESSAGE.Text = "Show Doom-like quitting confirmation message on exit";
             this.chk_SHOW_END_MESSAGE.UseVisualStyleBackColor = true;
-
             // 
             // chk_SHOW_OVERWRITE_MESSAGE
             // 
@@ -57,7 +57,6 @@
             this.chk_SHOW_OVERWRITE_MESSAGE.TabIndex = 1;
             this.chk_SHOW_OVERWRITE_MESSAGE.Text = "Show OVERWRITE warning message box";
             this.chk_SHOW_OVERWRITE_MESSAGE.UseVisualStyleBackColor = true;
-    
             // 
             // chk_SHOW_SUCCESS_MESSAGE
             // 
@@ -68,7 +67,6 @@
             this.chk_SHOW_SUCCESS_MESSAGE.TabIndex = 2;
             this.chk_SHOW_SUCCESS_MESSAGE.Text = "Show SUCCESS message box";
             this.chk_SHOW_SUCCESS_MESSAGE.UseVisualStyleBackColor = true;
-     
             // 
             // chk_SHOW_DELETE_MESSAGE
             // 
@@ -79,11 +77,10 @@
             this.chk_SHOW_DELETE_MESSAGE.TabIndex = 3;
             this.chk_SHOW_DELETE_MESSAGE.Text = "Show DELETE/REMOVE warning message box.";
             this.chk_SHOW_DELETE_MESSAGE.UseVisualStyleBackColor = true;
-
             // 
             // cmdSaveOptions
             // 
-            this.cmdSaveOptions.Location = new System.Drawing.Point(12, 104);
+            this.cmdSaveOptions.Location = new System.Drawing.Point(12, 130);
             this.cmdSaveOptions.Name = "cmdSaveOptions";
             this.cmdSaveOptions.Size = new System.Drawing.Size(120, 26);
             this.cmdSaveOptions.TabIndex = 4;
@@ -93,7 +90,7 @@
             // 
             // cmdQuitOptions
             // 
-            this.cmdQuitOptions.Location = new System.Drawing.Point(158, 104);
+            this.cmdQuitOptions.Location = new System.Drawing.Point(158, 130);
             this.cmdQuitOptions.Name = "cmdQuitOptions";
             this.cmdQuitOptions.Size = new System.Drawing.Size(120, 26);
             this.cmdQuitOptions.TabIndex = 5;
@@ -101,12 +98,23 @@
             this.cmdQuitOptions.UseVisualStyleBackColor = true;
             this.cmdQuitOptions.Click += new System.EventHandler(this.cmdQuitOptions_Click);
             // 
+            // chk_USE_ADVANCED_SELECTION_MODE
+            // 
+            this.chk_USE_ADVANCED_SELECTION_MODE.AutoSize = true;
+            this.chk_USE_ADVANCED_SELECTION_MODE.Location = new System.Drawing.Point(12, 104);
+            this.chk_USE_ADVANCED_SELECTION_MODE.Name = "chk_USE_ADVANCED_SELECTION_MODE";
+            this.chk_USE_ADVANCED_SELECTION_MODE.Size = new System.Drawing.Size(244, 17);
+            this.chk_USE_ADVANCED_SELECTION_MODE.TabIndex = 6;
+            this.chk_USE_ADVANCED_SELECTION_MODE.Text = "Use \"ADVANCED\" selection mode for mod list";
+            this.chk_USE_ADVANCED_SELECTION_MODE.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(290, 134);
+            this.ClientSize = new System.Drawing.Size(290, 168);
             this.ControlBox = false;
+            this.Controls.Add(this.chk_USE_ADVANCED_SELECTION_MODE);
             this.Controls.Add(this.cmdQuitOptions);
             this.Controls.Add(this.cmdSaveOptions);
             this.Controls.Add(this.chk_SHOW_DELETE_MESSAGE);
@@ -130,5 +138,6 @@
         private System.Windows.Forms.CheckBox chk_SHOW_DELETE_MESSAGE;
         private System.Windows.Forms.Button cmdSaveOptions;
         private System.Windows.Forms.Button cmdQuitOptions;
+        private System.Windows.Forms.CheckBox chk_USE_ADVANCED_SELECTION_MODE;
     }
 }
