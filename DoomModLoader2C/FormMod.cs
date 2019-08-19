@@ -22,20 +22,27 @@ namespace DoomModLoader2
         public List<PathName> pwads;
         public PathName sourcePort;
 
+
         private string files;
+        private PathName IWAD;
 
         private string presetPath;
-        public FormMod(string _presetPath)
+        public FormMod(string _presetPath, PathName _IWAD)
         {
             InitializeComponent();
             presetPath = _presetPath;
+            IWAD = _IWAD;
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
+            StringBuilder txtCheckBox = new StringBuilder();
+            txtCheckBox.AppendFormat(chkSaveIWAD.Text,IWAD.name);
+            chkSaveIWAD.Text = txtCheckBox.ToString();
         }
 
 
 
         private void FormMod_Load(object sender, EventArgs e)
         {
+            
             pwads = pwads.OrderBy(P => P.loadOrder).ToList();
             lstPwad.DataSource = pwads;
             txtPresetName.Text = presetName;
@@ -139,11 +146,16 @@ namespace DoomModLoader2
                     }
                     if (answer == DialogResult.Yes)
                     {
+                       
                         FileStream f = File.Create(path);
                         f.Dispose();
                         Storage storage = new Storage(path);
                         Dictionary<string, string> values = new Dictionary<string, string>();
                         int C = 0;
+                        if (chkSaveIWAD.Checked)
+                        {
+                            values.Add("-1", IWAD.path);
+                        }
                         foreach (PathName p in lstPwad.Items)
                         {
                             values.Add(C.ToString(), p.path);

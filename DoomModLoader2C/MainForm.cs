@@ -79,7 +79,7 @@ namespace DoomModLoader2
                 if (items != null && items.Count > 1)
                 {
                     List<PathName> pwads = new List<PathName>();
-                    FormMod formMod = new FormMod(foldPRESET);
+                    FormMod formMod = new FormMod(foldPRESET, (PathName) cmbIWAD.SelectedItem);
                     formMod.parameters = param;
 
                     foreach (PathName p in items)
@@ -279,9 +279,17 @@ namespace DoomModLoader2
 
 
 
+                    string iwadPath = values.Where(P => P.Key == "-1").FirstOrDefault().Value;
+
+                    if(iwadPath != null)
+                        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(P => P.path.ToUpper().Equals(iwadPath.ToUpper())).FirstOrDefault();
+                   
 
                     foreach (KeyValuePair<string, string> s in values)
                     {
+                        //If the index is "-1" it's the iwad
+                        if (s.Key == "-1")
+                            continue;
                         foreach (PathName p in lstPWAD.Items)
                         {
                             if (p.path.Contains(s.Value))

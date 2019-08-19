@@ -37,7 +37,10 @@
             this.PathNameSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmdSavePreset = new System.Windows.Forms.Button();
             this.txtPresetName = new System.Windows.Forms.TextBox();
+            this.chkSaveIWAD = new System.Windows.Forms.CheckBox();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
             // cmdUp
@@ -65,9 +68,9 @@
             // cmdPlay
             // 
             this.cmdPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPlay.Location = new System.Drawing.Point(12, 283);
+            this.cmdPlay.Location = new System.Drawing.Point(12, 308);
             this.cmdPlay.Name = "cmdPlay";
-            this.cmdPlay.Size = new System.Drawing.Size(553, 61);
+            this.cmdPlay.Size = new System.Drawing.Size(557, 61);
             this.cmdPlay.TabIndex = 2;
             this.cmdPlay.Text = "PLAY";
             this.cmdPlay.UseVisualStyleBackColor = true;
@@ -80,7 +83,7 @@
             this.lstPwad.FormattingEnabled = true;
             this.lstPwad.Location = new System.Drawing.Point(12, 12);
             this.lstPwad.Name = "lstPwad";
-            this.lstPwad.Size = new System.Drawing.Size(393, 225);
+            this.lstPwad.Size = new System.Drawing.Size(393, 212);
             this.lstPwad.TabIndex = 3;
             // 
             // PathNameSource
@@ -90,9 +93,9 @@
             // cmdSavePreset
             // 
             this.cmdSavePreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSavePreset.Location = new System.Drawing.Point(12, 243);
+            this.cmdSavePreset.Location = new System.Drawing.Point(6, 19);
             this.cmdSavePreset.Name = "cmdSavePreset";
-            this.cmdSavePreset.Size = new System.Drawing.Size(167, 34);
+            this.cmdSavePreset.Size = new System.Drawing.Size(167, 43);
             this.cmdSavePreset.TabIndex = 4;
             this.cmdSavePreset.Text = "SAVE PRESET";
             this.cmdSavePreset.UseVisualStyleBackColor = true;
@@ -100,18 +103,41 @@
             // 
             // txtPresetName
             // 
-            this.txtPresetName.Location = new System.Drawing.Point(185, 252);
+            this.txtPresetName.Location = new System.Drawing.Point(179, 19);
             this.txtPresetName.Name = "txtPresetName";
-            this.txtPresetName.Size = new System.Drawing.Size(380, 20);
+            this.txtPresetName.Size = new System.Drawing.Size(372, 20);
             this.txtPresetName.TabIndex = 5;
+            // 
+            // chkSaveIWAD
+            // 
+            this.chkSaveIWAD.AutoSize = true;
+            this.chkSaveIWAD.Checked = true;
+            this.chkSaveIWAD.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkSaveIWAD.Location = new System.Drawing.Point(179, 45);
+            this.chkSaveIWAD.Name = "chkSaveIWAD";
+            this.chkSaveIWAD.Size = new System.Drawing.Size(269, 17);
+            this.chkSaveIWAD.TabIndex = 6;
+            this.chkSaveIWAD.Text = "Autoselect \'{0}\' as an IWAD when using this preset.";
+            this.chkSaveIWAD.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.cmdSavePreset);
+            this.groupBox1.Controls.Add(this.txtPresetName);
+            this.groupBox1.Controls.Add(this.chkSaveIWAD);
+            this.groupBox1.Location = new System.Drawing.Point(12, 230);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(557, 72);
+            this.groupBox1.TabIndex = 7;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Save preset";
             // 
             // FormMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(577, 352);
-            this.Controls.Add(this.txtPresetName);
-            this.Controls.Add(this.cmdSavePreset);
+            this.ClientSize = new System.Drawing.Size(582, 381);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lstPwad);
             this.Controls.Add(this.cmdPlay);
             this.Controls.Add(this.cmdDown);
@@ -124,8 +150,9 @@
             this.Text = "Mod Loading Order";
             this.Load += new System.EventHandler(this.FormMod_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -138,5 +165,7 @@
         private System.Windows.Forms.BindingSource PathNameSource;
         private System.Windows.Forms.Button cmdSavePreset;
         private System.Windows.Forms.TextBox txtPresetName;
+        private System.Windows.Forms.CheckBox chkSaveIWAD;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
