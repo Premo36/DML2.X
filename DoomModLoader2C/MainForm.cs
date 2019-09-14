@@ -727,7 +727,7 @@ namespace DoomModLoader2
                             errorText.AppendLine("-" + s);
                         }
                         errorText.AppendLine("If you just upgraded to a new version and those settings are listed in the changelog, you can ignore this message.");
-                        MessageBox.Show(errorText.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show(errorText.ToString(), "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
                     }
                 }
