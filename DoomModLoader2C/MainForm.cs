@@ -17,9 +17,15 @@ namespace DoomModLoader2
 
     public partial class MainForm : Form
     {
-        private string fold_APPDATA;
-        private string fold_P36SOFTWARE;
-        private string fold_DMLv2;
+
+        private string dmlConfigPath;
+        private string userFiles_path;
+
+        private string IWADfolderPath;
+        private string PWADfolderPath;
+        private string PORTfolderPath;
+        private string PORT_CONFIGfolderPath;
+
         private string cfgPreference;
         private string cfgIWAD;
         private string cfgPWAD;
@@ -42,7 +48,7 @@ namespace DoomModLoader2
             {
                 try
                 {
-                    CheckUpdate(true);
+                    CheckForUpdate(true);
                 }
                 catch (Exception ex)
                 {
@@ -79,7 +85,7 @@ namespace DoomModLoader2
                 if (items != null && items.Count > 1)
                 {
                     List<PathName> pwads = new List<PathName>();
-                    FormMod formMod = new FormMod(foldPRESET, (PathName) cmbIWAD.SelectedItem);
+                    FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem);
                     formMod.parameters = param;
 
                     foreach (PathName p in items)
@@ -93,7 +99,7 @@ namespace DoomModLoader2
                         formMod.presetName = selectedPreset.name;
                     formMod.ShowDialog();
 
-                    CaricaPreset();
+                    LoadPresets();
                     if (formMod.presetName != null)
                     {
                         PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName.ToUpper()).FirstOrDefault();
@@ -167,7 +173,7 @@ namespace DoomModLoader2
                         {
                             Storage storage = new Storage(cfgIWAD);
                             storage.UpdateConfig(p);
-                            CaricaIWAD();
+                            LoadIWADs();
                             cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
                         }
                     }
@@ -191,7 +197,7 @@ namespace DoomModLoader2
                     {
                         Storage storage = new Storage(cfgPORT);
                         storage.UpdateConfig(p);
-                        CaricaPort();
+                        LoadPorts();
                         cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().LastOrDefault();
                     }
                 }
@@ -212,7 +218,7 @@ namespace DoomModLoader2
                     {
                         Storage storage = new Storage(cfgPORT_CONFIG);
                         storage.UpdateConfig(p);
-                        CaricaPortConfig();
+                        LoadPortsConfigs();
                         cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().LastOrDefault();
                     }
                 }
@@ -230,28 +236,37 @@ namespace DoomModLoader2
         private void cmdRemoveIWAD_Click(object sender, EventArgs e)
         {
             PathName wad = (PathName)cmbIWAD.SelectedItem;
-            Storage storage = new Storage(cfgIWAD);
-            storage.RemoveConfig(wad.path, SharedVar.SHOW_DELETE_MESSAGE);
-            cmbIWAD.Text = "";
-            CaricaIWAD();
+            if (wad != null)
+            {
+                Storage storage = new Storage(cfgIWAD);
+                storage.RemoveConfig(wad.path, SharedVar.SHOW_DELETE_MESSAGE);
+                cmbIWAD.Text = "";
+                LoadIWADs();
+            }
         }
 
         private void cmdRemoveSourcePort_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbSourcePort.SelectedItem;
-            Storage storage = new Storage(cfgPORT);
-            storage.RemoveConfig(PN.path, SharedVar.SHOW_DELETE_MESSAGE);
-            cmbSourcePort.Text = "";
-            CaricaPort();
+            if (PN != null)
+            {
+                Storage storage = new Storage(cfgPORT);
+                storage.RemoveConfig(PN.path, SharedVar.SHOW_DELETE_MESSAGE);
+                cmbSourcePort.Text = "";
+                LoadPorts();
+            }
         }
 
         private void cmdRemoveConfiguration_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbPortConfig.SelectedItem;
-            Storage storage = new Storage(cfgPORT_CONFIG);
-            storage.RemoveConfig(PN.path, SharedVar.SHOW_DELETE_MESSAGE);
-            cmbPortConfig.Text = "";
-            CaricaPortConfig();
+            if (PN != null)
+            {
+                Storage storage = new Storage(cfgPORT_CONFIG);
+                storage.RemoveConfig(PN.path, SharedVar.SHOW_DELETE_MESSAGE);
+                cmbPortConfig.Text = "";
+                LoadPortsConfigs();
+            }
         }
 
 
@@ -279,17 +294,21 @@ namespace DoomModLoader2
 
 
 
-                    string iwadPath = values.Where(P => P.Key == "-1").FirstOrDefault().Value;
+                    //string iwadPath = values.Where(P => P.Key == "-1").FirstOrDefault().Value;
 
-                    if(iwadPath != null)
-                        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(P => P.path.ToUpper().Equals(iwadPath.ToUpper())).FirstOrDefault();
-                   
+                    //if(iwadPath != null)
+
+
 
                     foreach (KeyValuePair<string, string> s in values)
                     {
                         //If the index is "-1" it's the iwad
                         if (s.Key == "-1")
+                        {
+                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(P => P.path.ToUpper().Equals(s.Value.ToUpper())).FirstOrDefault();
                             continue;
+                        }
+
                         foreach (PathName p in lstPWAD.Items)
                         {
                             if (p.path.Contains(s.Value))
@@ -323,7 +342,7 @@ namespace DoomModLoader2
         {
             try
             {
-                CheckUpdate();
+                CheckForUpdate();
             }
             catch (Exception ex)
             {
@@ -346,7 +365,7 @@ namespace DoomModLoader2
             this.Hide();
             fm.ShowDialog();
             this.Show();
-            CaricaPWAD();
+            LoadPWAD();
         }
 
         private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -355,21 +374,103 @@ namespace DoomModLoader2
             LoadResources();
         }
 
+        private void cmdRemovePreset_Click(object sender, EventArgs e)
+        {
+            PathName pn = (PathName)cmbPreset.SelectedItem;
+            try
+            {
+
+                if (pn != null && !pn.name.Equals("-"))
+                {
+                    DialogResult ris = DialogResult.OK;
+                    if (SharedVar.SHOW_DELETE_MESSAGE)
+                    {
+                        ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
+                                          + Environment.NewLine
+                                          + "(Path: \"" + pn.path + "\")"
+                                          , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
+                    }
+                    if (ris == DialogResult.OK)
+                    {
+                        File.Delete(pn.path);
+                        LoadPresets();
+                    }
+
+                }
+            }
+            catch (Exception Ex)
+            {
+                StringBuilder errore = new StringBuilder();
+                errore.AppendLine("Something went wrong while trying to delete a preset...");
+                errore.AppendLine("Please check if your account have the permission to write in:");
+                errore.AppendLine(@"""" + pn.path + @"""");
+                errore.AppendLine();
+                errore.AppendLine("Error Message:");
+                errore.AppendLine(Ex.Message);
+
+                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (SharedVar.SHOW_END_MESSAGE)
+            {
+                string[] EXIT_MESSAGES = new string[] {
+                //DOOM
+                "Please don't leave, there's more demons to toast!",
+                "Let's beat it -- This is turning into a bloodbath!",
+                "I wouldn't leave if I were you. DOS is much worse.",
+                "You're trying to say you like DOS better than me, right?",
+                "Don't leave yet -- There's a demon around that corner!",
+                "Ya know, next time you come in here I'm gonna toast ya.",
+                "Go ahead and leave. See if I care.",
+                "Are you sure you want to quit this great game? ",
+            };
+
+                Random R = new Random();
+
+                DialogResult ris = MessageBox.Show(EXIT_MESSAGES[R.Next(0, EXIT_MESSAGES.Length)], "QUIT?", MessageBoxButtons.YesNo);
+
+                if (ris == DialogResult.No)
+                {
+                    e.Cancel = true;
+                }
+            }
+
+            SavePreferences();
+
+        }
+
+        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Options options = new Options(cfgPreference);
+            options.ShowDialog();
+            if (SharedVar.USE_ADVANCED_SELECTION_MODE)
+            {
+                lstPWAD.SelectionMode = SelectionMode.MultiExtended;
+            }
+            else
+            {
+                lstPWAD.SelectionMode = SelectionMode.MultiSimple;
+            }
+        }
+
         #endregion
 
-        #region METODI
+        #region METHODS
 
         private void LoadResources()
         {
-            CaricaIWAD();
-            CaricaPort();
-            CaricaPortConfig();
-            CaricaPreset();
-            CaricaCFG();
-            CaricaPWAD();
+            LoadIWADs();
+            LoadPorts();
+            LoadPortsConfigs();
+            LoadPresets();
+            LoadDMLconfiguration();
+            LoadPWAD();
         }
 
-        private void CaricaPreset()
+        private void LoadPresets()
         {
             string[] pathPreset = Directory.GetFiles(foldPRESET);
             List<PathName> presets = new List<PathName>();
@@ -388,7 +489,7 @@ namespace DoomModLoader2
 
         }
 
-        private void CaricaPortConfig()
+        private void LoadPortsConfigs()
         {
             string[] pathPORT_config = File.ReadAllLines(cfgPORT_CONFIG);
             List<PathName> configs = new List<PathName>();
@@ -402,7 +503,7 @@ namespace DoomModLoader2
             cmbPortConfig.DataSource = configs;
         }
 
-        private void CaricaPort()
+        private void LoadPorts()
         {
             string[] pathPORT = File.ReadAllLines(cfgPORT);
             List<PathName> ports = new List<PathName>();
@@ -414,9 +515,11 @@ namespace DoomModLoader2
                 ports.Add(port);
             }
             cmbSourcePort.DataSource = ports;
+
+
         }
 
-        private void CaricaPWAD()
+        private void LoadPWAD()
         {
             try
             {
@@ -480,7 +583,7 @@ namespace DoomModLoader2
             }
         }
 
-        private void CaricaIWAD()
+        private void LoadIWADs()
         {
             string[] pathIWAD = File.ReadAllLines(cfgIWAD);
             List<PathName> wads = new List<PathName>();
@@ -495,7 +598,7 @@ namespace DoomModLoader2
             cmbIWAD.DataSource = wads;
         }
 
-        private void CaricaCFG()
+        private void LoadDMLconfiguration()
         {
             try
             {
@@ -722,7 +825,7 @@ namespace DoomModLoader2
                         SavePreferences();
                         StringBuilder errorText = new StringBuilder();
                         errorText.AppendLine("The following settings could not be read from '" + cfgPreference + "' and have been resetted to the default value:");
-                        foreach(string s in errors)
+                        foreach (string s in errors)
                         {
                             errorText.AppendLine("-" + s);
                         }
@@ -733,47 +836,45 @@ namespace DoomModLoader2
                 }
                 else
                 {
-                    cmb_vidrender.SelectedIndex = 5;
-                    SharedVar.CHECK_FOR_UPDATE = true;
-                    SharedVar.LOAD_SUBFOLDERS = false;
-                    SharedVar.SHOW_END_MESSAGE = true;
-                    SharedVar.SHOW_DELETE_MESSAGE = true;
-                    SharedVar.SHOW_END_MESSAGE = true;
-                    SharedVar.SHOW_SUCCESS_MESSAGE = true;
+                    LoadDefaultValues();
                 }
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Flags have been resetted to default value." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                cmb_vidrender.SelectedIndex = 5;
-                SharedVar.CHECK_FOR_UPDATE = true;
-                SharedVar.LOAD_SUBFOLDERS = false;
-                SharedVar.SHOW_END_MESSAGE = true;
-                SharedVar.SHOW_DELETE_MESSAGE = true;
-                SharedVar.SHOW_OVERWRITE_MESSAGE = true;
-                SharedVar.SHOW_SUCCESS_MESSAGE = true;
+                LoadDefaultValues();
             }
+        }
+
+        private void LoadDefaultValues()
+        {
+            cmb_vidrender.SelectedIndex = 5;
+            SharedVar.CHECK_FOR_UPDATE = true;
+            SharedVar.LOAD_SUBFOLDERS = false;
+            SharedVar.SHOW_END_MESSAGE = true;
+            SharedVar.SHOW_DELETE_MESSAGE = true;
+            SharedVar.SHOW_OVERWRITE_MESSAGE = true;
+            SharedVar.SHOW_SUCCESS_MESSAGE = true;
         }
 
         private void InitializeConfiguration()
         {
             try
             {
-                fold_APPDATA = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                fold_P36SOFTWARE = Path.Combine(fold_APPDATA, @"P36_Software");
-                fold_DMLv2 = Path.Combine(fold_P36SOFTWARE, @"DMLv2");
-                foldPRESET = Path.Combine(fold_DMLv2, @"Presets");
-                cfgPreference = Path.Combine(fold_DMLv2, @"DMLv2.ini");
-                cfgIWAD = Path.Combine(fold_DMLv2, @"IWAD.ini");
-                cfgPWAD = Path.Combine(fold_DMLv2, @"PWAD.ini");
-                cfgPORT = Path.Combine(fold_DMLv2, @"PORT.ini");
-                cfgPORT_CONFIG = Path.Combine(fold_DMLv2, @"PORT_CONFIG_PATH.ini");
 
-                if (!Directory.Exists(fold_P36SOFTWARE))
-                    Directory.CreateDirectory(fold_P36SOFTWARE);
+                dmlConfigPath = Path.Combine(Application.StartupPath, "CONFIG");
 
-                if (!Directory.Exists(fold_DMLv2))
-                    Directory.CreateDirectory(fold_DMLv2);
+                foldPRESET = Path.Combine(dmlConfigPath, "Presets");
+                cfgPreference = Path.Combine(dmlConfigPath, "DMLv2.ini");
+                cfgIWAD = Path.Combine(dmlConfigPath, "IWAD.ini");
+                cfgPWAD = Path.Combine(dmlConfigPath, "PWAD.ini");
+                cfgPORT = Path.Combine(dmlConfigPath, "PORT.ini");
+                cfgPORT_CONFIG = Path.Combine(dmlConfigPath, "PORT_CONFIG_PATH.ini");
+
+
+
+                if (!Directory.Exists(dmlConfigPath))
+                    Directory.CreateDirectory(dmlConfigPath);
 
                 if (!Directory.Exists(foldPRESET))
                     Directory.CreateDirectory(foldPRESET);
@@ -817,14 +918,35 @@ namespace DoomModLoader2
                     F.Dispose();
                 }
 
+                userFiles_path = Path.Combine(Application.StartupPath, "FILE");
+                IWADfolderPath = Path.Combine(userFiles_path, "IWAD");
+                PWADfolderPath = Path.Combine(userFiles_path, "PWAD");
+                PORTfolderPath = Path.Combine(userFiles_path, "PORT");
+                PORT_CONFIGfolderPath = Path.Combine(userFiles_path, "PORT_CONFIG");
 
+
+
+                if (!Directory.Exists(userFiles_path))
+                    Directory.CreateDirectory(userFiles_path);
+
+                if (!Directory.Exists(IWADfolderPath))
+                    Directory.CreateDirectory(IWADfolderPath);
+
+                if (!Directory.Exists(PWADfolderPath))
+                    Directory.CreateDirectory(PWADfolderPath);
+
+                if (!Directory.Exists(PORTfolderPath))
+                    Directory.CreateDirectory(PORTfolderPath);
+
+                if (!Directory.Exists(PORT_CONFIGfolderPath))
+                    Directory.CreateDirectory(PORT_CONFIGfolderPath);
             }
             catch (Exception ex)
             {
                 StringBuilder errore = new StringBuilder();
                 errore.AppendLine("Could not create a .cfg file or folder!");
                 errore.AppendLine("Please check if your account have the permission to write in:");
-                errore.AppendLine(@"""" + fold_APPDATA + @"""");
+                errore.AppendLine(@"""" + Application.StartupPath + @"""");
                 errore.AppendLine();
                 errore.AppendLine("Error Message:");
                 errore.AppendLine(ex.Message);
@@ -964,76 +1086,6 @@ namespace DoomModLoader2
             }
         }
 
-
-
-        private void cmdRemovePreset_Click(object sender, EventArgs e)
-        {
-            PathName pn = (PathName)cmbPreset.SelectedItem;
-            try
-            {
-
-                if (pn != null && !pn.name.Equals("-"))
-                {
-                    DialogResult ris = DialogResult.OK;
-                    if (SharedVar.SHOW_DELETE_MESSAGE)
-                    {
-                        ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
-                                          + Environment.NewLine
-                                          + "(Path: \"" + pn.path + "\")"
-                                          , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
-                    }
-                    if (ris == DialogResult.OK)
-                    {
-                        File.Delete(pn.path);
-                        CaricaPreset();
-                    }
-
-                }
-            }
-            catch (Exception Ex)
-            {
-                StringBuilder errore = new StringBuilder();
-                errore.AppendLine("Something went wrong while trying to delete a preset...");
-                errore.AppendLine("Please check if your account have the permission to write in:");
-                errore.AppendLine(@"""" + pn.path + @"""");
-                errore.AppendLine();
-                errore.AppendLine("Error Message:");
-                errore.AppendLine(Ex.Message);
-
-                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-        }
-
-        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (SharedVar.SHOW_END_MESSAGE)
-            {
-                string[] EXIT_MESSAGES = new string[] {
-                //DOOM
-                "Please don't leave, there's more demons to toast!",
-                "Let's beat it -- This is turning into a bloodbath!",
-                "I wouldn't leave if I were you. DOS is much worse.",
-                "You're trying to say you like DOS better than me, right?",
-                "Don't leave yet -- There's a demon around that corner!",
-                "Ya know, next time you come in here I'm gonna toast ya.",
-                "Go ahead and leave. See if I care.",
-                "Are you sure you want to quit this great game? ",
-            };
-
-                Random R = new Random();
-
-                DialogResult ris = MessageBox.Show(EXIT_MESSAGES[R.Next(0, EXIT_MESSAGES.Length)], "QUIT?", MessageBoxButtons.YesNo);
-
-                if (ris == DialogResult.No)
-                {
-                    e.Cancel = true;
-                }
-            }
-
-            SavePreferences();
-
-        }
-
         private void SavePreferences()
         {
             try
@@ -1163,7 +1215,7 @@ namespace DoomModLoader2
             }
         }
 
-        private void CheckUpdate(bool start = false)
+        private void CheckForUpdate(bool start = false)
         {
             try
             {
@@ -1191,17 +1243,6 @@ namespace DoomModLoader2
 
         #endregion
 
-        private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            Options options = new Options(cfgPreference);
-            options.ShowDialog();
-            if (SharedVar.USE_ADVANCED_SELECTION_MODE)
-            {
-                lstPWAD.SelectionMode = SelectionMode.MultiExtended;
-            } else
-            {
-                lstPWAD.SelectionMode = SelectionMode.MultiSimple;
-            }
-        }
+
     }
 }
