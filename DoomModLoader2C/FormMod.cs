@@ -154,11 +154,11 @@ namespace DoomModLoader2
                         int C = 0;
                         if (chkSaveIWAD.Checked)
                         {
-                            values.Add("-1", IWAD.path);
+                            values.Add("-1", IWAD.name);
                         }
                         foreach (PathName p in lstPwad.Items)
                         {
-                            values.Add(C.ToString(), p.path);
+                            values.Add(C.ToString(), p.name);
                             C++;
                         }
 

@@ -327,6 +327,7 @@
             this.cmbIWAD.Name = "cmbIWAD";
             this.cmbIWAD.Size = new System.Drawing.Size(305, 21);
             this.cmbIWAD.TabIndex = 1;
+          
             // 
             // cmbSourcePort
             // 
@@ -338,6 +339,7 @@
             this.cmbSourcePort.Name = "cmbSourcePort";
             this.cmbSourcePort.Size = new System.Drawing.Size(226, 21);
             this.cmbSourcePort.TabIndex = 3;
+
             // 
             // groupBox5
             // 

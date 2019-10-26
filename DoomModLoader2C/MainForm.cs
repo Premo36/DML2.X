@@ -281,7 +281,6 @@ namespace DoomModLoader2
             PathName selectedItem = (PathName)cmbPreset.SelectedItem;
             if (selectedItem.name.Trim().Equals("-"))
             {
-
                 cmdRemovePreset.Enabled = false;
             }
             else
@@ -292,32 +291,21 @@ namespace DoomModLoader2
                     Storage storage = new Storage(preset.path);
                     Dictionary<string, string> values = storage.ReadAllValues();
 
-
-
-                    //string iwadPath = values.Where(P => P.Key == "-1").FirstOrDefault().Value;
-
-                    //if(iwadPath != null)
-
-
-
                     foreach (KeyValuePair<string, string> s in values)
                     {
                         //If the index is "-1" it's the iwad
                         if (s.Key == "-1")
                         {
-                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(P => P.path.ToUpper().Equals(s.Value.ToUpper())).FirstOrDefault();
+                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
                             continue;
                         }
 
-                        foreach (PathName p in lstPWAD.Items)
+                        PathName pwad = lstPWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
+
+                        if (pwad != null)
                         {
-                            if (p.path.Contains(s.Value))
-                            {
-                                int i = lstPWAD.Items.IndexOf(p);
-                                p.loadOrder = int.Parse(s.Key);
-                                lstPWAD.SetSelected(i, true);
-                                break;
-                            }
+                            pwad.loadOrder = int.Parse(s.Key);
+                            lstPWAD.SetSelected(lstPWAD.Items.IndexOf(pwad), true);
                         }
                     }
                     cmdRemovePreset.Enabled = true;
@@ -425,8 +413,17 @@ namespace DoomModLoader2
                 "Don't leave yet -- There's a demon around that corner!",
                 "Ya know, next time you come in here I'm gonna toast ya.",
                 "Go ahead and leave. See if I care.",
-                "Are you sure you want to quit this great game? ",
-            };
+                "Are you sure you want to quit this great game?",
+
+                //DOOM 2
+                "You want to quit? Then, thou hast lost an eighth!",
+                "Don't go now, there's a dimensional shambler waiting at the dos prompt!",
+                "Get outta here and go back to your boring programs.",
+                "If I were your boss, I'd deathmatch ya in a minute!",
+                "Look, bud. You leave now and you forfeit your body count!",
+                "Just leave. When you come back, I'll be waiting with a bat.",
+                "You're lucky I don't smack you for thinking about leaving.",
+                };
 
                 Random R = new Random();
 
@@ -478,10 +475,7 @@ namespace DoomModLoader2
             presets = presets.Where(p => p.name != "-").ToList();
             foreach (string p in pathPreset)
             {
-                PathName preset = new PathName();
-                preset.path = p;
-                preset.name = Path.GetFileNameWithoutExtension(p).ToUpper();
-                presets.Add(preset);
+                presets.Add(GetPathName(p, true));
             }
             cmbPreset.DataSource = presets;
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
@@ -491,32 +485,16 @@ namespace DoomModLoader2
 
         private void LoadPortsConfigs()
         {
-            string[] pathPORT_config = File.ReadAllLines(cfgPORT_CONFIG);
-            List<PathName> configs = new List<PathName>();
-            foreach (string p in pathPORT_config)
-            {
-                PathName config = new PathName();
-                config.path = p;
-                config.name = Path.GetFileNameWithoutExtension(p).ToUpper();
-                configs.Add(config);
-            }
-            cmbPortConfig.DataSource = configs;
+            List<string> pathPORT_config = File.ReadAllLines(cfgPORT_CONFIG).ToList();
+            pathPORT_config.Add(PORT_CONFIGfolderPath);
+            cmbPortConfig.DataSource = GetAllPaths(pathPORT_config, new string[] { ".ini", ".cfg" }); ;
         }
 
         private void LoadPorts()
         {
-            string[] pathPORT = File.ReadAllLines(cfgPORT);
-            List<PathName> ports = new List<PathName>();
-            foreach (string p in pathPORT)
-            {
-                PathName port = new PathName();
-                port.path = p;
-                port.name = Path.GetFileNameWithoutExtension(p).ToUpper();
-                ports.Add(port);
-            }
-            cmbSourcePort.DataSource = ports;
-
-
+            List<string> pathPORT = File.ReadAllLines(cfgPORT).ToList();
+            pathPORT.Add(PORTfolderPath);
+            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe" }, true);
         }
 
         private void LoadPWAD()
@@ -524,48 +502,12 @@ namespace DoomModLoader2
             try
             {
                 string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
-                string[] pathPWAD = File.ReadAllLines(cfgPWAD);
-                List<PathName> wads = new List<PathName>();
-                foreach (string p in pathPWAD)
-                {
-                    if (File.Exists(p))
-                    {
-                        PathName wad = new PathName();
-                        wad.path = p;
-                        wad.name = Path.GetFileName(p).ToUpper();
-                        wads.Add(wad);
-                    }
-                    else if (Directory.Exists(p))
-                    {
-                        string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
-                        foreach (string file in files)
-                        {
-                            PathName wad = new PathName();
-                            wad.path = file;
-                            wad.name = Path.GetFileName(file).ToUpper();
-                            wads.Add(wad);
-                        }
-                        if (SharedVar.LOAD_SUBFOLDERS)
-                        {
-                            string[] folders = Directory.GetDirectories(p, "*", SearchOption.AllDirectories);
-                            foreach (string f in folders)
-                            {
-                                files = Directory.GetFiles(f).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
-                                foreach (string file in files)
-                                {
-                                    PathName wad = new PathName();
-                                    wad.path = file;
-                                    wad.name = Path.GetFileName(file).ToUpper();
-                                    wads.Add(wad);
-                                }
-                            }
-                        }
-
-                    }
-                }
+                List<string> pathPWAD = File.ReadAllLines(cfgPWAD).ToList();
+                pathPWAD.Add(PWADfolderPath);
 
                 lstPWAD.DataSource = new List<PathName>();
 
+                List<PathName> wads = GetAllPaths(pathPWAD, validExtensions);
 
                 if (wads != null && wads.Count > 0)
                 {
@@ -585,17 +527,10 @@ namespace DoomModLoader2
 
         private void LoadIWADs()
         {
-            string[] pathIWAD = File.ReadAllLines(cfgIWAD);
-            List<PathName> wads = new List<PathName>();
-            foreach (string p in pathIWAD)
-            {
-                PathName wad = new PathName();
-                wad.path = p;
-                wad.name = Path.GetFileNameWithoutExtension(p).ToUpper();
-                wads.Add(wad);
-            }
-
-            cmbIWAD.DataSource = wads;
+            string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+            List<string> pathIWAD = File.ReadAllLines(cfgIWAD).ToList();
+            pathIWAD.Add(IWADfolderPath);
+            cmbIWAD.DataSource = GetAllPaths(pathIWAD, validExtensions);
         }
 
         private void LoadDMLconfiguration()
@@ -704,7 +639,7 @@ namespace DoomModLoader2
                     #region IWAD
                     if (cfg.TryGetValue("IWAD", out value)) //cfg["IWAD"]
                     {
-                        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.path.Equals(value)).FirstOrDefault();
+                        cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(p => p.name.Equals(value)).FirstOrDefault();
                     }
                     else
                     {
@@ -715,7 +650,8 @@ namespace DoomModLoader2
                     #region PORT
                     if (cfg.TryGetValue("PORT", out value)) //cfg["PORT"]
                     {
-                        cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.path.Equals(value)).FirstOrDefault();
+                        
+                        cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.name.Equals(value)).FirstOrDefault();
                     }
                     else
                     {
@@ -756,7 +692,6 @@ namespace DoomModLoader2
                     else
                     {
                         errors.Add("LOAD_SUBFOLDERS");
-                        SharedVar.LOAD_SUBFOLDERS = false;
                     }
                     #endregion
 
@@ -850,7 +785,7 @@ namespace DoomModLoader2
         {
             cmb_vidrender.SelectedIndex = 5;
             SharedVar.CHECK_FOR_UPDATE = true;
-            SharedVar.LOAD_SUBFOLDERS = false;
+            SharedVar.LOAD_SUBFOLDERS = true;
             SharedVar.SHOW_END_MESSAGE = true;
             SharedVar.SHOW_DELETE_MESSAGE = true;
             SharedVar.SHOW_OVERWRITE_MESSAGE = true;
@@ -1166,7 +1101,7 @@ namespace DoomModLoader2
 
                 if (iwad != null)
                 {
-                    preferences.Add("IWAD", iwad.path);
+                    preferences.Add("IWAD", iwad.name);
                 }
                 else
                 {
@@ -1176,7 +1111,7 @@ namespace DoomModLoader2
 
                 if (port != null)
                 {
-                    preferences.Add("PORT", port.path);
+                    preferences.Add("PORT", port.name);
                 }
                 else
                 {
@@ -1240,9 +1175,61 @@ namespace DoomModLoader2
             }
         }
 
+        private PathName GetPathName(string path, bool removeExtension = false)
+        {
+            PathName obj = new PathName();
+            obj.path = path;
+
+            if (removeExtension)
+            {
+                obj.name = Path.GetFileNameWithoutExtension(path).ToUpper();
+            }
+            else
+            {
+                obj.name = Path.GetFileName(path).ToUpper();
+            }
+
+            return obj;
+        }
+
+        private List<PathName> GetAllPaths(List<string> paths, string[] validExtensions, bool removeExtension = false)
+        {
+
+
+            List<PathName> ret = new List<PathName>();
+            foreach (string p in paths)
+            {
+                if (File.Exists(p))
+                {
+                    ret.Add(GetPathName(p, removeExtension));
+                }
+                else if (Directory.Exists(p))
+                {
+                    string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                    foreach (string file in files)
+                    {
+                        ret.Add(GetPathName(file, removeExtension));
+                    }
+                    if (SharedVar.LOAD_SUBFOLDERS)
+                    {
+                        string[] folders = Directory.GetDirectories(p, "*", SearchOption.AllDirectories);
+                        foreach (string f in folders)
+                        {
+                            files = Directory.GetFiles(f).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                            foreach (string file in files)
+                            {
+                                ret.Add(GetPathName(file, removeExtension));
+                            }
+                        }
+                    }
+
+                }
+            }
+
+
+            return ret;
+        }
 
         #endregion
-
-
     }
 }
