@@ -12,6 +12,7 @@ namespace DoomModLoader2.Entity
 
         public int loadOrder { get; set; }
 
+        public bool isSelected { get; set; }
      
     }
 }

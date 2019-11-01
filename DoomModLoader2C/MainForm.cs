@@ -33,17 +33,39 @@ namespace DoomModLoader2
         private string cfgPORT_CONFIG;
         private string foldPRESET;
 
+        private readonly string[] validWadExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+
+        private List<PathName> _selectedItems;
+        private List<PathName> SelectedItems
+        {
+            get { return _selectedItems; }
+
+            set
+            {
+                if (_selectedItems == null)
+                    _selectedItems = new List<PathName>();
+                _selectedItems.AddRange(value.Where(X => !_selectedItems.Any(Y => X.name == Y.name)).ToList());
+            }
+        }
         #region FORM 
         public MainForm()
         {
-
             InitializeComponent();
+        }
+
+        private void MainForm_Load(object sender, EventArgs e)
+        {
             this.Text += " v" + SharedVar.LOCAL_VERSION;
+            SelectedItems = new List<PathName>();
             InitializeConfiguration();
             LoadResources();
             txtMap_TextChanged(null, null);
             chkCustomConfiguration_CheckedChanged(null, null);
             cmbSkill.SelectedIndex = 3;
+            string[] filterValues = { "ALL" };
+            filterValues = filterValues.Concat(validWadExtensions).ToArray();
+            cmbFileFilter.DataSource = filterValues;
+
             if (SharedVar.CHECK_FOR_UPDATE)
             {
                 try
@@ -57,8 +79,6 @@ namespace DoomModLoader2
 
                 }
             }
-
-
         }
 
         private void cmdPlay_Click(object sender, EventArgs e)
@@ -78,7 +98,9 @@ namespace DoomModLoader2
 
             if (!err)
             {
-                var items = lstPWAD.SelectedItems;
+                UpdateSelectedPWADitems(mode.SAVE);
+
+                var items = SelectedItems;
                 string param = GetParameters();
 
                 //If the user select less than 2 mods it's useless display the mod order dialog
@@ -109,7 +131,7 @@ namespace DoomModLoader2
                 }
                 else
                 {
-                    if (items.Count == 1)
+                    if (items != null && items.Count == 1)
                         param += " -file \"" + items.Cast<PathName>().FirstOrDefault().path + "\"";
 
                     StartGame(param);
@@ -117,8 +139,6 @@ namespace DoomModLoader2
             }
 
         }
-
-
 
         private void chkNoMonster_CheckedChanged(object sender, EventArgs e)
         {
@@ -269,11 +289,9 @@ namespace DoomModLoader2
             }
         }
 
-
-
-
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
+            cmbFileFilter.SelectedIndex = 0;
             for (int i = 0; i < lstPWAD.Items.Count; i++)
             {
                 lstPWAD.SetSelected(i, false);
@@ -353,6 +371,7 @@ namespace DoomModLoader2
             this.Hide();
             fm.ShowDialog();
             this.Show();
+            UpdateSelectedPWADitems(mode.DELETE);
             LoadPWAD();
         }
 
@@ -360,6 +379,7 @@ namespace DoomModLoader2
         {
             SavePreferences();
             LoadResources();
+            UpdateSelectedPWADitems(mode.DELETE);
         }
 
         private void cmdRemovePreset_Click(object sender, EventArgs e)
@@ -453,6 +473,19 @@ namespace DoomModLoader2
             }
         }
 
+        private void cmbFileFilter_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSelectedPWADitems(mode.SAVE);
+            LoadPWAD();
+            UpdateSelectedPWADitems(mode.RESTORE);
+        }
+
+        private void txtSearch_TextChanged(object sender, EventArgs e)
+        {
+            UpdateSelectedPWADitems(mode.SAVE);
+            LoadPWAD(txtSearch.Text);
+            UpdateSelectedPWADitems(mode.RESTORE);
+        }
         #endregion
 
         #region METHODS
@@ -497,24 +530,38 @@ namespace DoomModLoader2
             cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe" }, true);
         }
 
-        private void LoadPWAD()
+        private void LoadPWAD(string filter = null)
         {
             try
             {
-                string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+
+
                 List<string> pathPWAD = File.ReadAllLines(cfgPWAD).ToList();
                 pathPWAD.Add(PWADfolderPath);
 
                 lstPWAD.DataSource = new List<PathName>();
 
-                List<PathName> wads = GetAllPaths(pathPWAD, validExtensions);
 
+                List<PathName> wads;
+
+                if (cmbFileFilter.Text.ToUpper().Equals("ALL"))
+                {
+                    wads = GetAllPaths(pathPWAD, validWadExtensions);
+                }
+                else
+                {
+                    wads = GetAllPaths(pathPWAD, new string[] { cmbFileFilter.Text });
+                }
                 if (wads != null && wads.Count > 0)
                 {
-                    lstPWAD.DataSource = wads.GroupBy(p => p.path)
-                                        .Select(g => g.First())
-                                        .ToList();
+                    wads = wads.GroupBy(p => p.name).Select(g => g.First()).ToList();
 
+                    if (filter != null)
+                    {
+                        wads = wads.Where(p => p.name.ToUpper().Contains(filter.ToUpper())).ToList();
+                    }
+
+                    lstPWAD.DataSource = wads;
                 }
 
                 lstPWAD.SelectedItem = null;
@@ -527,10 +574,10 @@ namespace DoomModLoader2
 
         private void LoadIWADs()
         {
-            string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+
             List<string> pathIWAD = File.ReadAllLines(cfgIWAD).ToList();
             pathIWAD.Add(IWADfolderPath);
-            cmbIWAD.DataSource = GetAllPaths(pathIWAD, validExtensions);
+            cmbIWAD.DataSource = GetAllPaths(pathIWAD, validWadExtensions);
         }
 
         private void LoadDMLconfiguration()
@@ -650,7 +697,7 @@ namespace DoomModLoader2
                     #region PORT
                     if (cfg.TryGetValue("PORT", out value)) //cfg["PORT"]
                     {
-                        
+
                         cmbSourcePort.SelectedItem = cmbSourcePort.Items.Cast<PathName>().Where(p => p.name.Equals(value)).FirstOrDefault();
                     }
                     else
@@ -1230,6 +1277,32 @@ namespace DoomModLoader2
             return ret;
         }
 
+        private void UpdateSelectedPWADitems(mode mode)
+        {
+            List<PathName> allFiles = lstPWAD.Items.Cast<PathName>().ToList();
+            if (mode == mode.SAVE)
+            {
+                List<PathName> selectedFiles = lstPWAD.SelectedItems.Cast<PathName>().ToList();
+                List<PathName> unselectedFiles = allFiles.Where(X => !selectedFiles.Any(Y => Y.name == X.name)).ToList();
+                SelectedItems.RemoveAll(X => unselectedFiles.Any(Y => Y.name == X.name));
+                SelectedItems = lstPWAD.SelectedItems.Cast<PathName>().ToList();
+                return;
+            }
+
+            if (mode == mode.RESTORE)
+            {
+                foreach (PathName file in allFiles)
+                {
+                    lstPWAD.SetSelected(lstPWAD.Items.IndexOf(file), SelectedItems.Any(X => X.name == file.name));
+                }
+                return;
+            }
+
+            if (mode == mode.DELETE)
+            {
+                SelectedItems.Clear();
+            }
+        }
         #endregion
     }
 }

@@ -31,6 +31,7 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.cmbFileFilter = new System.Windows.Forms.ComboBox();
             this.cmdOpenFileManager = new System.Windows.Forms.Button();
             this.cmbPreset = new System.Windows.Forms.ComboBox();
             this.PathBinding = new System.Windows.Forms.BindingSource(this.components);
@@ -81,6 +82,8 @@
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -92,10 +95,12 @@
             this.groupBox7.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.groupBox10);
             this.groupBox1.Controls.Add(this.cmdOpenFileManager);
             this.groupBox1.Controls.Add(this.cmbPreset);
             this.groupBox1.Controls.Add(this.cmdRemovePreset);
@@ -106,6 +111,23 @@
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MODS (-file / -deh)";
+            // 
+            // cmbFileFilter
+            // 
+            this.cmbFileFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFileFilter.FormattingEnabled = true;
+            this.cmbFileFilter.Items.AddRange(new object[] {
+            "DOOM SOFTWARE RENDERER",
+            "TRUE COLOR SOFTWARE RENDERER",
+            "SOFTPOLY RENDERER",
+            "TRUE COLOR SOFTPOLY",
+            "HARDWARE ACCELERATED",
+            "[DON\'T OVERRIDE]"});
+            this.cmbFileFilter.Location = new System.Drawing.Point(224, 19);
+            this.cmbFileFilter.Name = "cmbFileFilter";
+            this.cmbFileFilter.Size = new System.Drawing.Size(71, 21);
+            this.cmbFileFilter.TabIndex = 16;
+            this.cmbFileFilter.SelectedIndexChanged += new System.EventHandler(this.cmbFileFilter_SelectedIndexChanged);
             // 
             // cmdOpenFileManager
             // 
@@ -149,10 +171,10 @@
             this.lstPWAD.DisplayMember = "name";
             this.lstPWAD.FormattingEnabled = true;
             this.lstPWAD.HorizontalScrollbar = true;
-            this.lstPWAD.Location = new System.Drawing.Point(6, 45);
+            this.lstPWAD.Location = new System.Drawing.Point(6, 110);
             this.lstPWAD.Name = "lstPWAD";
             this.lstPWAD.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstPWAD.Size = new System.Drawing.Size(302, 407);
+            this.lstPWAD.Size = new System.Drawing.Size(302, 342);
             this.lstPWAD.TabIndex = 0;
             // 
             // groupBox2
@@ -327,7 +349,6 @@
             this.cmbIWAD.Name = "cmbIWAD";
             this.cmbIWAD.Size = new System.Drawing.Size(305, 21);
             this.cmbIWAD.TabIndex = 1;
-          
             // 
             // cmbSourcePort
             // 
@@ -339,7 +360,6 @@
             this.cmbSourcePort.Name = "cmbSourcePort";
             this.cmbSourcePort.Size = new System.Drawing.Size(226, 21);
             this.cmbSourcePort.TabIndex = 3;
-
             // 
             // groupBox5
             // 
@@ -631,6 +651,25 @@
             this.reloadResourcesToolStripMenuItem.Text = "Reload resources";
             this.reloadResourcesToolStripMenuItem.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem_Click);
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.txtSearch);
+            this.groupBox10.Controls.Add(this.cmbFileFilter);
+            this.groupBox10.Location = new System.Drawing.Point(6, 48);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(301, 53);
+            this.groupBox10.TabIndex = 21;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "Search file";
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(6, 20);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(212, 20);
+            this.txtSearch.TabIndex = 17;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -647,6 +686,7 @@
             this.Name = "MainForm";
             this.Text = "Doom Mod Loader";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).EndInit();
             this.groupBox2.ResumeLayout(false);
@@ -666,6 +706,8 @@
             this.groupBox3.PerformLayout();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -724,6 +766,9 @@
         private System.Windows.Forms.Button cmdOpenFileManager;
         private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private System.Windows.Forms.ComboBox cmbFileFilter;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.TextBox txtSearch;
     }
 }
 
