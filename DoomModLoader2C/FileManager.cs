@@ -23,7 +23,7 @@ namespace DoomModLoader2
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             cfgPreference = preferencesPath;
             cfgPWAD = modsPath;
-            chkSubfolder.Checked = SharedVar.LOAD_SUBFOLDERS;
+
         }
 
         private void FileManager_Load(object sender, EventArgs e)
@@ -113,7 +113,7 @@ namespace DoomModLoader2
                         AddFiles(new string[] { p });
                     } else
                     {
-                        //Messagebox?
+                        MessageBox.Show($"'{p}' is not a valid file");
                     }
                 }
                 else if (Directory.Exists(p))
@@ -146,25 +146,8 @@ namespace DoomModLoader2
         {
             try
             {
-                //string[] folders = Directory.GetDirectories(path, "*", SearchOption.AllDirectories);
-
-
-                //DialogResult dialogResult = DialogResult.No;
-                //if (folders.Length > 0)
-                //{
-                //    dialogResult = MessageBox.Show("Would you like to load also ALL subdirectories of '" + path + "'", "DML - LOAD SUBDIRECTORIES", MessageBoxButtons.YesNo);
-                //}
-
                 Storage storage = new Storage(cfgPWAD);
-
                 storage.UpdateConfig(path, true);
-                //if (SharedVar.LOAD_SUBFOLDERS)
-                //{
-                //    foreach (string f in folders)
-                //    {
-                //        storage.UpdateConfig(f,true);
-                //    }
-                //}
                 LoadList();
             }
             catch (Exception ex)
@@ -181,15 +164,7 @@ namespace DoomModLoader2
             }
         }
 
-        private void chkSubfolder_CheckedChanged(object sender, EventArgs e)
-        {
-            SharedVar.LOAD_SUBFOLDERS = chkSubfolder.Checked;
-
-            Storage storage = new Storage(cfgPreference);
-            storage.DeleteValue("LOAD_SUBFOLDERS");
-            storage.SaveValue("LOAD_SUBFOLDERS", chkSubfolder.Checked.ToString());
-
-        }
+    
     }
 }
 #endregion

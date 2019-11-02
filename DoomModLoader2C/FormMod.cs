@@ -96,7 +96,6 @@ namespace DoomModLoader2
         private void cmdPlay_Click(object sender, EventArgs e)
         {
             files = "";
-            //parameters += "";
             foreach (PathName p in lstPwad.Items)
             {
                 if (Path.GetExtension(p.path).ToUpper().Equals(".DEH"))
@@ -130,15 +129,12 @@ namespace DoomModLoader2
 
                     }
 
-
-    
-
                     string path = Path.Combine(presetPath, name + ".dml");
                     DialogResult answer = DialogResult.Yes;
 
                     if (File.Exists(path))
                     {
-                        if ((name.ToUpper().Equals(presetName.ToUpper()) ? false : true) && SharedVar.SHOW_OVERWRITE_MESSAGE)
+                        if (!name.ToUpper().Equals(presetName.ToUpper()) && SharedVar.SHOW_OVERWRITE_MESSAGE)
                         {
                             answer = MessageBox.Show("A preset named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
                                                      "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);

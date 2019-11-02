@@ -65,7 +65,7 @@ namespace DoomModLoader2
             string[] filterValues = { "ALL" };
             filterValues = filterValues.Concat(validWadExtensions).ToArray();
             cmbFileFilter.DataSource = filterValues;
-
+            cmbOrder.SelectedIndex = 0;
             if (SharedVar.CHECK_FOR_UPDATE)
             {
                 try
@@ -486,6 +486,13 @@ namespace DoomModLoader2
             LoadPWAD(txtSearch.Text);
             UpdateSelectedPWADitems(mode.RESTORE);
         }
+
+        private void cmbOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            UpdateSelectedPWADitems(mode.SAVE);
+            LoadPWAD(txtSearch.Text);
+            UpdateSelectedPWADitems(mode.RESTORE);
+        }
         #endregion
 
         #region METHODS
@@ -508,7 +515,7 @@ namespace DoomModLoader2
             presets = presets.Where(p => p.name != "-").ToList();
             foreach (string p in pathPreset)
             {
-                presets.Add(GetPathName(p, true));
+                presets.Add(GetPathName(p, true, false));
             }
             cmbPreset.DataSource = presets;
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
@@ -534,8 +541,6 @@ namespace DoomModLoader2
         {
             try
             {
-
-
                 List<string> pathPWAD = File.ReadAllLines(cfgPWAD).ToList();
                 pathPWAD.Add(PWADfolderPath);
 
@@ -560,6 +565,8 @@ namespace DoomModLoader2
                     {
                         wads = wads.Where(p => p.name.ToUpper().Contains(filter.ToUpper())).ToList();
                     }
+
+                    wads = wads.OrderFile((order)cmbOrder.SelectedIndex);
 
                     lstPWAD.DataSource = wads;
                 }
@@ -718,7 +725,6 @@ namespace DoomModLoader2
                     }
                     #endregion
 
-
                     #region CHECK_FOR_UPDATE
                     if (cfg.TryGetValue("CHECK_FOR_UPDATE", out value)) //cfg["CHECK_FOR_UPDATE"]
                     {
@@ -728,17 +734,6 @@ namespace DoomModLoader2
                     {
                         errors.Add("CHECK_FOR_UPDATE");
                         SharedVar.CHECK_FOR_UPDATE = true;
-                    }
-                    #endregion
-
-                    #region LOAD_SUBFOLDERS
-                    if (cfg.TryGetValue("LOAD_SUBFOLDERS", out value)) //cfg["LOAD_SUBFOLDERS"]
-                    {
-                        SharedVar.LOAD_SUBFOLDERS = Convert.ToBoolean(value);
-                    }
-                    else
-                    {
-                        errors.Add("LOAD_SUBFOLDERS");
                     }
                     #endregion
 
@@ -832,7 +827,6 @@ namespace DoomModLoader2
         {
             cmb_vidrender.SelectedIndex = 5;
             SharedVar.CHECK_FOR_UPDATE = true;
-            SharedVar.LOAD_SUBFOLDERS = true;
             SharedVar.SHOW_END_MESSAGE = true;
             SharedVar.SHOW_DELETE_MESSAGE = true;
             SharedVar.SHOW_OVERWRITE_MESSAGE = true;
@@ -1169,7 +1163,6 @@ namespace DoomModLoader2
 
                 preferences.Add("CHECK_FOR_UPDATE", SharedVar.CHECK_FOR_UPDATE.ToString().ToUpper());
 
-                preferences.Add("LOAD_SUBFOLDERS", SharedVar.LOAD_SUBFOLDERS.ToString().ToUpper());
 
                 preferences.Add("SHOW_END_MESSAGE", SharedVar.SHOW_END_MESSAGE.ToString().ToUpper());
 
@@ -1222,19 +1215,22 @@ namespace DoomModLoader2
             }
         }
 
-        private PathName GetPathName(string path, bool removeExtension = false)
+        private PathName GetPathName(string path, bool removeExtension, bool toUpper)
         {
             PathName obj = new PathName();
             obj.path = path;
 
             if (removeExtension)
             {
-                obj.name = Path.GetFileNameWithoutExtension(path).ToUpper();
+                obj.name = Path.GetFileNameWithoutExtension(path);
             }
             else
             {
-                obj.name = Path.GetFileName(path).ToUpper();
+                obj.name = Path.GetFileName(path);
             }
+
+            if (toUpper)
+                obj.name = obj.name.ToUpper();
 
             return obj;
         }
@@ -1248,27 +1244,36 @@ namespace DoomModLoader2
             {
                 if (File.Exists(p))
                 {
-                    ret.Add(GetPathName(p, removeExtension));
+                    ret.Add(GetPathName(p, removeExtension, true));
                 }
                 else if (Directory.Exists(p))
                 {
-                    string[] files = Directory.GetFiles(p).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                    string[] allFiles = Directory.GetFiles(p);
+                    string[] files = allFiles.Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+
+                    string blacklistPath = allFiles.Where(B => Path.GetFileName(B).ToUpper().Equals("BLACKLIST.TXT")).FirstOrDefault();
+                    List<string> blacklistFiles = new List<string>();
+
+                    if (blacklistPath != null)
+                    {
+                        blacklistFiles = File.ReadAllLines(blacklistPath).ToList();
+                    }
+
                     foreach (string file in files)
                     {
-                        ret.Add(GetPathName(file, removeExtension));
+                        ret.Add(GetPathName(file, removeExtension, true));
                     }
-                    if (SharedVar.LOAD_SUBFOLDERS)
+
+                    string[] folders = Directory.GetDirectories(p, "*", SearchOption.AllDirectories);
+                    foreach (string f in folders)
                     {
-                        string[] folders = Directory.GetDirectories(p, "*", SearchOption.AllDirectories);
-                        foreach (string f in folders)
+                        files = Directory.GetFiles(f).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower()) && !blacklistFiles.Any(B => Path.GetFileName(B).ToUpper() == Path.GetFileName(F).ToUpper())).ToArray();
+                        foreach (string file in files)
                         {
-                            files = Directory.GetFiles(f).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
-                            foreach (string file in files)
-                            {
-                                ret.Add(GetPathName(file, removeExtension));
-                            }
+                            ret.Add(GetPathName(file, removeExtension, true));
                         }
                     }
+
 
                 }
             }
