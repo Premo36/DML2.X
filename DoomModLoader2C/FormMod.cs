@@ -23,7 +23,7 @@ namespace DoomModLoader2
         public PathName sourcePort;
 
 
-        private string files;
+        //private string files { get; set; }
         private PathName IWAD;
 
         private string presetPath;
@@ -95,7 +95,7 @@ namespace DoomModLoader2
 
         private void cmdPlay_Click(object sender, EventArgs e)
         {
-            files = "";
+            string files = string.Empty;
             foreach (PathName p in lstPwad.Items)
             {
                 if (Path.GetExtension(p.path).ToUpper().Equals(".DEH"))

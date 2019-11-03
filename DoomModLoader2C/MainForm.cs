@@ -124,7 +124,7 @@ namespace DoomModLoader2
                     LoadPresets();
                     if (formMod.presetName != null)
                     {
-                        PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName.ToUpper()).FirstOrDefault();
+                        PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName).FirstOrDefault();
                         if (pn != null)
                             cmbPreset.SelectedItem = pn;
                     }
@@ -292,6 +292,7 @@ namespace DoomModLoader2
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
             cmbFileFilter.SelectedIndex = 0;
+            txtSearch.Text = string.Empty;
             for (int i = 0; i < lstPWAD.Items.Count; i++)
             {
                 lstPWAD.SetSelected(i, false);
@@ -476,7 +477,7 @@ namespace DoomModLoader2
         private void cmbFileFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdateSelectedPWADitems(mode.SAVE);
-            LoadPWAD();
+            LoadPWAD(txtSearch.Text);
             UpdateSelectedPWADitems(mode.RESTORE);
         }
 
@@ -916,6 +917,35 @@ namespace DoomModLoader2
 
                 if (!Directory.Exists(PORT_CONFIGfolderPath))
                     Directory.CreateDirectory(PORT_CONFIGfolderPath);
+
+                string blacklistIWADpath = Path.Combine(IWADfolderPath, "BLACKLIST.TXT");
+                string blacklistPWADpath = Path.Combine(PWADfolderPath, "BLACKLIST.TXT");
+                string blacklistPORTpath = Path.Combine(PORTfolderPath, "BLACKLIST.TXT");
+                string blacklistPORT_CONFIGpath = Path.Combine(PORT_CONFIGfolderPath, "BLACKLIST.TXT");
+
+                if (!File.Exists(blacklistIWADpath))
+                {
+                    FileStream F = File.Create(blacklistIWADpath);
+                    F.Dispose();
+                }
+
+                if (!File.Exists(blacklistPWADpath))
+                {
+                    FileStream F = File.Create(blacklistPWADpath);
+                    F.Dispose();
+                }
+
+                if (!File.Exists(blacklistPORTpath))
+                {
+                    FileStream F = File.Create(blacklistPORTpath);
+                    F.Dispose();
+                }
+
+                if (!File.Exists(blacklistPORT_CONFIGpath))
+                {
+                    FileStream F = File.Create(blacklistPORT_CONFIGpath);
+                    F.Dispose();
+                }
             }
             catch (Exception ex)
             {

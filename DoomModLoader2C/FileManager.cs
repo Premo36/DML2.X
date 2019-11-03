@@ -33,7 +33,6 @@ namespace DoomModLoader2
 
         }
 
-
         private void LoadList()
         {
             lstPath.Items.Clear();
