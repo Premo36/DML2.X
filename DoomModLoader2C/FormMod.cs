@@ -25,24 +25,53 @@ namespace DoomModLoader2
 
         //private string files { get; set; }
         private PathName IWAD;
-
+        private PathName config;
         private string presetPath;
-        public FormMod(string _presetPath, PathName _IWAD)
+        private KeyValuePair<int, string> renderer;
+        private List<string> saveWithPreset;
+        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset)
         {
             InitializeComponent();
-            presetPath = _presetPath;
-            IWAD = _IWAD;
+            this.presetPath = presetPath;
+            this.config = config;
+            this.IWAD = IWAD;
+            this.renderer = renderer;
+            this.saveWithPreset = saveWithPreset;
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
-            StringBuilder txtCheckBox = new StringBuilder();
-            txtCheckBox.AppendFormat(chkSaveIWAD.Text,IWAD.name);
-            chkSaveIWAD.Text = txtCheckBox.ToString();
+           
         }
 
 
 
         private void FormMod_Load(object sender, EventArgs e)
         {
-            
+            StringBuilder txtReplacer = new StringBuilder();
+            txtReplacer.AppendFormat(chkSaveIWAD.Text, IWAD.name);
+            chkSaveIWAD.Text = txtReplacer.ToString();
+            chkSaveIWAD.Checked = saveWithPreset.Any(X => X == "IWAD");
+
+            txtReplacer = new StringBuilder();
+            txtReplacer.AppendFormat(chkPORT.Text, sourcePort.name);
+            chkPORT.Text = txtReplacer.ToString();
+            chkPORT.Checked = saveWithPreset.Any(X => X == "PORT");
+
+            txtReplacer = new StringBuilder();
+            txtReplacer.AppendFormat(chkRenderer.Text, renderer.Value);
+            chkRenderer.Text = txtReplacer.ToString();
+            chkRenderer.Checked = saveWithPreset.Any(X => X == "RENDERER");
+
+            if (config != null)
+            {
+                txtReplacer = new StringBuilder();
+                txtReplacer.AppendFormat(chkConfiguration.Text, config.name);
+                chkConfiguration.Text = txtReplacer.ToString();
+                chkConfiguration.Checked = saveWithPreset.Any(X => X == "PORT_CONFIG");
+            } else
+            {
+                chkConfiguration.Enabled = false;
+                chkConfiguration.Visible = false;
+            }
+
             pwads = pwads.OrderBy(P => P.loadOrder).ToList();
             lstPwad.DataSource = pwads;
             txtPresetName.Text = presetName;
@@ -148,10 +177,52 @@ namespace DoomModLoader2
                         Storage storage = new Storage(path);
                         Dictionary<string, string> values = new Dictionary<string, string>();
                         int C = 0;
+
+                        #region IWAD
                         if (chkSaveIWAD.Checked)
                         {
-                            values.Add("-1", IWAD.name);
+                            values.Add("IWAD", IWAD.name);
+                        }else
+                        {
+                            values.Add("IWAD",string.Empty);
                         }
+                        #endregion
+
+                        #region PORT
+                        if (chkPORT.Checked)
+                        {
+                            values.Add("PORT", sourcePort.name);
+                        }
+                        else
+                        {
+                            values.Add("PORT", string.Empty);
+                        }
+                        #endregion
+
+                        #region PORT_CONFIG
+                        if (chkConfiguration.Checked)
+                        {
+                            values.Add("PORT_CONFIG", config.name);
+                        }
+                        else
+                        {
+                            values.Add("PORT_CONFIG", string.Empty);
+                        }
+                        #endregion
+
+                        #region RENDERER
+                        if (chkRenderer.Checked)
+                        {
+                            values.Add("RENDERER", renderer.Key.ToString());
+                        }
+                        else
+                        {
+                            values.Add("RENDERER", string.Empty);
+                        }
+                        #endregion
+
+
+
                         foreach (PathName p in lstPwad.Items)
                         {
                             values.Add(C.ToString(), p.name);

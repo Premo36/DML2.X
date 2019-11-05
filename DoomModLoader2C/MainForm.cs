@@ -35,6 +35,10 @@ namespace DoomModLoader2
 
         private readonly string[] validWadExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
 
+        List<string> saveWithPreset = new List<string>();
+
+        private List<PathName> cachedPWADs;
+
         private List<PathName> _selectedItems;
         private List<PathName> SelectedItems
         {
@@ -106,8 +110,12 @@ namespace DoomModLoader2
                 //If the user select less than 2 mods it's useless display the mod order dialog
                 if (items != null && items.Count > 1)
                 {
+
                     List<PathName> pwads = new List<PathName>();
-                    FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem);
+                    KeyValuePair<int, string> renderer = new KeyValuePair<int, string>(cmb_vidrender.SelectedIndex, cmb_vidrender.Text);
+
+                    PathName config = (PathName) (chkCustomConfiguration.Checked == true ? cmbPortConfig.SelectedItem : null);
+                    FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, renderer, config, saveWithPreset);
                     formMod.parameters = param;
 
                     foreach (PathName p in items)
@@ -291,6 +299,7 @@ namespace DoomModLoader2
 
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
+            saveWithPreset.Clear();
             cmbFileFilter.SelectedIndex = 0;
             txtSearch.Text = string.Empty;
             for (int i = 0; i < lstPWAD.Items.Count; i++)
@@ -310,23 +319,81 @@ namespace DoomModLoader2
                     Storage storage = new Storage(preset.path);
                     Dictionary<string, string> values = storage.ReadAllValues();
 
+                    List<string> missingFiles = new List<string>();
+
                     foreach (KeyValuePair<string, string> s in values)
                     {
-                        //If the index is "-1" it's the iwad
-                        if (s.Key == "-1")
+                        PathName file = null;
+                        switch (s.Key)
                         {
-                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
-                            continue;
+                            case "IWAD":
+                            case "-1":
+                                if (s.Value == string.Empty)
+                                    continue;
+                                file = cmbIWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
+                                cmbIWAD.SelectedItem = file;
+                                saveWithPreset.Add(s.Key);
+                                break;
+                            case"PORT":
+                                if (s.Value == string.Empty)
+                                    continue;
+                                file = cmbSourcePort.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
+                                cmbSourcePort.SelectedItem = file;
+                                saveWithPreset.Add(s.Key);
+                                break;
+                            case"PORT_CONFIG":
+                                if (s.Value == string.Empty)
+                                {
+                                    chkCustomConfiguration.Checked = false;
+                                    continue;
+                                }
+                                chkCustomConfiguration.Checked = true;
+                                file = cmbPortConfig.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
+                                cmbPortConfig.SelectedItem = file;
+                                saveWithPreset.Add(s.Key);
+                                break;
+                            case "RENDERER":
+                                if (s.Value == string.Empty)
+                                    continue;
+                                cmb_vidrender.SelectedIndex = int.Parse(s.Value);
+                                saveWithPreset.Add(s.Key);
+                                file = new PathName();
+                                break;
+
+                            default:
+                                file = lstPWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
+                                if(file!= null)
+                                {
+                                    file.loadOrder = int.Parse(s.Key);
+                                    lstPWAD.SetSelected(lstPWAD.Items.IndexOf(file), true);
+                                }
+                                break;
                         }
 
-                        PathName pwad = lstPWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
-
-                        if (pwad != null)
-                        {
-                            pwad.loadOrder = int.Parse(s.Key);
-                            lstPWAD.SetSelected(lstPWAD.Items.IndexOf(pwad), true);
+                        if (file == null) { 
+                            missingFiles.Add(s.Value);
+                            if(s.Key == "PORT_CONFIG")
+                                chkCustomConfiguration.Checked = false;
                         }
                     }
+           
+
+                    if (missingFiles.Count > 0)
+                    {
+                        StringBuilder missingFilesError = new StringBuilder();
+                        missingFilesError.AppendLine("The following files in the preset are missing:");
+
+                        foreach (string file in missingFiles)
+                        {
+                            missingFilesError.AppendLine($"-'{file}'");
+                        }
+
+                        missingFilesError.AppendLine("This may happend because they have been renamed, moved or deleted.");
+
+                        MessageBox.Show(missingFilesError.ToString());
+                    }
+
+
                     cmdRemovePreset.Enabled = true;
 
                 }
@@ -373,12 +440,14 @@ namespace DoomModLoader2
             fm.ShowDialog();
             this.Show();
             UpdateSelectedPWADitems(mode.DELETE);
+            cachedPWADs = null;
             LoadPWAD();
         }
 
         private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SavePreferences();
+            cachedPWADs = null;
             LoadResources();
             UpdateSelectedPWADitems(mode.DELETE);
         }
@@ -542,22 +611,31 @@ namespace DoomModLoader2
         {
             try
             {
-                List<string> pathPWAD = File.ReadAllLines(cfgPWAD).ToList();
-                pathPWAD.Add(PWADfolderPath);
+
 
                 lstPWAD.DataSource = new List<PathName>();
 
-
                 List<PathName> wads;
+
+                if (cachedPWADs == null)
+                {
+                    List<string> pathPWAD = File.ReadAllLines(cfgPWAD).ToList();
+                    pathPWAD.Add(PWADfolderPath);
+
+                    cachedPWADs = GetAllPaths(pathPWAD, validWadExtensions);
+                }
 
                 if (cmbFileFilter.Text.ToUpper().Equals("ALL"))
                 {
-                    wads = GetAllPaths(pathPWAD, validWadExtensions);
+                    wads = cachedPWADs;
                 }
                 else
                 {
-                    wads = GetAllPaths(pathPWAD, new string[] { cmbFileFilter.Text });
+                    wads = cachedPWADs.Where(F => Path.GetExtension(F.path) == cmbFileFilter.Text).ToList();
                 }
+
+
+
                 if (wads != null && wads.Count > 0)
                 {
                     wads = wads.GroupBy(p => p.name).Select(g => g.First()).ToList();
