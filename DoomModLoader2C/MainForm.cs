@@ -62,7 +62,7 @@ namespace DoomModLoader2
             this.Text += " v" + SharedVar.LOCAL_VERSION;
             SelectedItems = new List<PathName>();
             InitializeConfiguration();
-            LoadResources();
+            
             txtMap_TextChanged(null, null);
             chkCustomConfiguration_CheckedChanged(null, null);
             cmbSkill.SelectedIndex = 3;
@@ -70,6 +70,7 @@ namespace DoomModLoader2
             filterValues = filterValues.Concat(validWadExtensions).ToArray();
             cmbFileFilter.DataSource = filterValues;
             cmbOrder.SelectedIndex = 0;
+            LoadResources();
             if (SharedVar.CHECK_FOR_UPDATE)
             {
                 try
@@ -115,7 +116,7 @@ namespace DoomModLoader2
                     KeyValuePair<int, string> renderer = new KeyValuePair<int, string>(cmb_vidrender.SelectedIndex, cmb_vidrender.Text);
 
                     PathName config = (PathName) (chkCustomConfiguration.Checked == true ? cmbPortConfig.SelectedItem : null);
-                    FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, renderer, config, saveWithPreset);
+                    FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, renderer, config, saveWithPreset, txtCommandLine.Text);
                     formMod.parameters = param;
 
                     foreach (PathName p in items)
@@ -310,6 +311,7 @@ namespace DoomModLoader2
             if (selectedItem.name.Trim().Equals("-"))
             {
                 cmdRemovePreset.Enabled = false;
+                
             }
             else
             {
@@ -356,6 +358,14 @@ namespace DoomModLoader2
                                 if (s.Value == string.Empty)
                                     continue;
                                 cmb_vidrender.SelectedIndex = int.Parse(s.Value);
+                                saveWithPreset.Add(s.Key);
+                                file = new PathName();
+                                break;
+
+                            case "COMMANDLINE":
+                                if (s.Value == string.Empty)
+                                    continue;
+                                txtCommandLine.Text = s.Value;
                                 saveWithPreset.Add(s.Key);
                                 file = new PathName();
                                 break;
@@ -573,8 +583,9 @@ namespace DoomModLoader2
             LoadPorts();
             LoadPortsConfigs();
             LoadPresets();
-            LoadDMLconfiguration();
             LoadPWAD();
+            LoadDMLconfiguration();
+           
         }
 
         private void LoadPresets()
@@ -876,6 +887,16 @@ namespace DoomModLoader2
                     }
                     #endregion
 
+                    if (cfg.TryGetValue("PRESET", out value)) 
+                    {
+                        cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == value).FirstOrDefault();
+                    }
+                    else
+                    {
+                        errors.Add("PRESET");
+                        cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
+                    }
+                
                     if (errors.Count > 0)
                     {
                         SavePreferences();
@@ -1266,6 +1287,9 @@ namespace DoomModLoader2
                 {
                     preferences.Add("PORT", "");
                 }
+
+                preferences.Add("PRESET", cmbPreset.Text);
+                
 
                 preferences.Add("RENDERER", cmb_vidrender.SelectedIndex.ToString());
 

@@ -40,9 +40,10 @@
             this.chkSaveIWAD = new System.Windows.Forms.CheckBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.chkPORT = new System.Windows.Forms.CheckBox();
-            this.chkRenderer = new System.Windows.Forms.CheckBox();
             this.chkConfiguration = new System.Windows.Forms.CheckBox();
+            this.chkRenderer = new System.Windows.Forms.CheckBox();
+            this.chkPORT = new System.Windows.Forms.CheckBox();
+            this.chkCommand = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -53,7 +54,7 @@
             this.cmdUp.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdUp.Location = new System.Drawing.Point(411, 24);
             this.cmdUp.Name = "cmdUp";
-            this.cmdUp.Size = new System.Drawing.Size(158, 46);
+            this.cmdUp.Size = new System.Drawing.Size(176, 46);
             this.cmdUp.TabIndex = 0;
             this.cmdUp.Text = "UP";
             this.cmdUp.UseVisualStyleBackColor = true;
@@ -64,7 +65,7 @@
             this.cmdDown.Font = new System.Drawing.Font("Microsoft Sans Serif", 26.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdDown.Location = new System.Drawing.Point(411, 76);
             this.cmdDown.Name = "cmdDown";
-            this.cmdDown.Size = new System.Drawing.Size(158, 46);
+            this.cmdDown.Size = new System.Drawing.Size(176, 46);
             this.cmdDown.TabIndex = 1;
             this.cmdDown.Text = "DOWN";
             this.cmdDown.UseVisualStyleBackColor = true;
@@ -73,9 +74,9 @@
             // cmdPlay
             // 
             this.cmdPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 33.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPlay.Location = new System.Drawing.Point(12, 428);
+            this.cmdPlay.Location = new System.Drawing.Point(12, 448);
             this.cmdPlay.Name = "cmdPlay";
-            this.cmdPlay.Size = new System.Drawing.Size(551, 61);
+            this.cmdPlay.Size = new System.Drawing.Size(575, 61);
             this.cmdPlay.TabIndex = 2;
             this.cmdPlay.Text = "PLAY";
             this.cmdPlay.UseVisualStyleBackColor = true;
@@ -110,7 +111,7 @@
             // 
             this.txtPresetName.Location = new System.Drawing.Point(179, 32);
             this.txtPresetName.Name = "txtPresetName";
-            this.txtPresetName.Size = new System.Drawing.Size(372, 20);
+            this.txtPresetName.Size = new System.Drawing.Size(390, 20);
             this.txtPresetName.TabIndex = 5;
             // 
             // chkSaveIWAD
@@ -130,43 +131,24 @@
             this.groupBox1.Controls.Add(this.txtPresetName);
             this.groupBox1.Location = new System.Drawing.Point(12, 230);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(557, 192);
+            this.groupBox1.Size = new System.Drawing.Size(575, 212);
             this.groupBox1.TabIndex = 7;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Save preset";
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.chkCommand);
             this.groupBox2.Controls.Add(this.chkConfiguration);
             this.groupBox2.Controls.Add(this.chkRenderer);
             this.groupBox2.Controls.Add(this.chkPORT);
             this.groupBox2.Controls.Add(this.chkSaveIWAD);
             this.groupBox2.Location = new System.Drawing.Point(6, 68);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(545, 113);
+            this.groupBox2.Size = new System.Drawing.Size(563, 138);
             this.groupBox2.TabIndex = 7;
             this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "Save also this:";
-            // 
-            // chkPORT
-            // 
-            this.chkPORT.AutoSize = true;
-            this.chkPORT.Location = new System.Drawing.Point(6, 42);
-            this.chkPORT.Name = "chkPORT";
-            this.chkPORT.Size = new System.Drawing.Size(125, 17);
-            this.chkPORT.TabIndex = 7;
-            this.chkPORT.Text = "SOURCEPORT: \'{0}\'";
-            this.chkPORT.UseVisualStyleBackColor = true;
-            // 
-            // chkRenderer
-            // 
-            this.chkRenderer.AutoSize = true;
-            this.chkRenderer.Location = new System.Drawing.Point(6, 65);
-            this.chkRenderer.Name = "chkRenderer";
-            this.chkRenderer.Size = new System.Drawing.Size(111, 17);
-            this.chkRenderer.TabIndex = 8;
-            this.chkRenderer.Text = "RENDERER: \'{0}\'";
-            this.chkRenderer.UseVisualStyleBackColor = true;
+            this.groupBox2.Text = "Save also:";
             // 
             // chkConfiguration
             // 
@@ -178,11 +160,41 @@
             this.chkConfiguration.Text = "CONFIGURATION: \'{0}\'";
             this.chkConfiguration.UseVisualStyleBackColor = true;
             // 
+            // chkRenderer
+            // 
+            this.chkRenderer.AutoSize = true;
+            this.chkRenderer.Location = new System.Drawing.Point(6, 65);
+            this.chkRenderer.Name = "chkRenderer";
+            this.chkRenderer.Size = new System.Drawing.Size(111, 17);
+            this.chkRenderer.TabIndex = 8;
+            this.chkRenderer.Text = "RENDERER: \'{0}\'";
+            this.chkRenderer.UseVisualStyleBackColor = true;
+            // 
+            // chkPORT
+            // 
+            this.chkPORT.AutoSize = true;
+            this.chkPORT.Location = new System.Drawing.Point(6, 42);
+            this.chkPORT.Name = "chkPORT";
+            this.chkPORT.Size = new System.Drawing.Size(125, 17);
+            this.chkPORT.TabIndex = 7;
+            this.chkPORT.Text = "SOURCEPORT: \'{0}\'";
+            this.chkPORT.UseVisualStyleBackColor = true;
+            // 
+            // chkCommand
+            // 
+            this.chkCommand.AutoSize = true;
+            this.chkCommand.Location = new System.Drawing.Point(6, 111);
+            this.chkCommand.Name = "chkCommand";
+            this.chkCommand.Size = new System.Drawing.Size(133, 17);
+            this.chkCommand.TabIndex = 10;
+            this.chkCommand.Text = "COMMAND LINE: \'{0}\'";
+            this.chkCommand.UseVisualStyleBackColor = true;
+            // 
             // FormMod
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 503);
+            this.ClientSize = new System.Drawing.Size(599, 521);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.lstPwad);
             this.Controls.Add(this.cmdPlay);
@@ -219,5 +231,6 @@
         private System.Windows.Forms.CheckBox chkConfiguration;
         private System.Windows.Forms.CheckBox chkRenderer;
         private System.Windows.Forms.CheckBox chkPORT;
+        private System.Windows.Forms.CheckBox chkCommand;
     }
 }

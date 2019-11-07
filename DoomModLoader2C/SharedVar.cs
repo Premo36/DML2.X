@@ -7,7 +7,7 @@ namespace DoomModLoader2
 {
     public static class SharedVar
     {
-        public static string LOCAL_VERSION { get; } = "2.2 Beta #4";
+        public static string LOCAL_VERSION { get; } = "2.2 Beta #5";
         public static bool CHECK_FOR_UPDATE { get; set; }
         public  static  string UrlVersion { get; } = @"https://drive.google.com/uc?export=download&id=1lXEz8sXjJGma0Q34Bj-mpjTtVW8RK-W4";
 

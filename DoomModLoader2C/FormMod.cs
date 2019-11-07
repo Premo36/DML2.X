@@ -29,7 +29,8 @@ namespace DoomModLoader2
         private string presetPath;
         private KeyValuePair<int, string> renderer;
         private List<string> saveWithPreset;
-        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset)
+        private string commandLine;
+        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset, string commandLine)
         {
             InitializeComponent();
             this.presetPath = presetPath;
@@ -37,6 +38,7 @@ namespace DoomModLoader2
             this.IWAD = IWAD;
             this.renderer = renderer;
             this.saveWithPreset = saveWithPreset;
+            this.commandLine = commandLine.Trim();
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
            
         }
@@ -69,7 +71,21 @@ namespace DoomModLoader2
             } else
             {
                 chkConfiguration.Enabled = false;
-                chkConfiguration.Visible = false;
+                chkConfiguration.Text = "CONFIGURATION: NONE";
+            }
+
+
+            if (commandLine != null && commandLine != string.Empty)
+            {
+                txtReplacer = new StringBuilder();
+                txtReplacer.AppendFormat(chkCommand.Text, commandLine);
+                chkCommand.Text = txtReplacer.ToString();
+                chkCommand.Checked = saveWithPreset.Any(X => X == "COMMANDLINE");
+            }
+            else
+            {
+                chkCommand.Enabled = false;
+                chkCommand.Text = "COMMANDLINE: NONE";
             }
 
             pwads = pwads.OrderBy(P => P.loadOrder).ToList();
@@ -222,7 +238,16 @@ namespace DoomModLoader2
                         #endregion
 
 
-
+                        #region COMMANDLINE
+                        if (chkCommand.Checked)
+                        {
+                            values.Add("COMMANDLINE", commandLine);
+                        }
+                        else
+                        {
+                            values.Add("COMMANDLINE", string.Empty);
+                        }
+                        #endregion
                         foreach (PathName p in lstPwad.Items)
                         {
                             values.Add(C.ToString(), p.name);
