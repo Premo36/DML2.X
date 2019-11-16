@@ -33,7 +33,6 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmbOrder = new System.Windows.Forms.ComboBox();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.txtSearch = new System.Windows.Forms.TextBox();
             this.cmbFileFilter = new System.Windows.Forms.ComboBox();
             this.cmdOpenFileManager = new System.Windows.Forms.Button();
@@ -86,8 +85,8 @@
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
-            this.groupBox10.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox9.SuspendLayout();
@@ -102,9 +101,11 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.cmbFileFilter);
+            this.groupBox1.Controls.Add(this.txtSearch);
             this.groupBox1.Controls.Add(this.label7);
             this.groupBox1.Controls.Add(this.cmbOrder);
-            this.groupBox1.Controls.Add(this.groupBox10);
             this.groupBox1.Controls.Add(this.cmdOpenFileManager);
             this.groupBox1.Controls.Add(this.cmbPreset);
             this.groupBox1.Controls.Add(this.cmdRemovePreset);
@@ -119,7 +120,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(9, 113);
+            this.label7.Location = new System.Drawing.Point(9, 86);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(50, 13);
             this.label7.TabIndex = 22;
@@ -134,29 +135,18 @@
             "NAME (DESCENDING)",
             "EXTENSION (ASCENDING)",
             "EXTENSION (DESCENDING)"});
-            this.cmbOrder.Location = new System.Drawing.Point(65, 109);
+            this.cmbOrder.Location = new System.Drawing.Point(60, 83);
             this.cmbOrder.Name = "cmbOrder";
-            this.cmbOrder.Size = new System.Drawing.Size(242, 21);
-            this.cmbOrder.TabIndex = 18;
+            this.cmbOrder.Size = new System.Drawing.Size(248, 21);
+            this.cmbOrder.TabIndex = 4;
             this.cmbOrder.SelectedIndexChanged += new System.EventHandler(this.cmbOrder_SelectedIndexChanged);
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Controls.Add(this.txtSearch);
-            this.groupBox10.Controls.Add(this.cmbFileFilter);
-            this.groupBox10.Location = new System.Drawing.Point(6, 48);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(301, 53);
-            this.groupBox10.TabIndex = 21;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "Search file";
             // 
             // txtSearch
             // 
-            this.txtSearch.Location = new System.Drawing.Point(6, 20);
+            this.txtSearch.Location = new System.Drawing.Point(59, 54);
             this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(231, 20);
-            this.txtSearch.TabIndex = 17;
+            this.txtSearch.Size = new System.Drawing.Size(190, 20);
+            this.txtSearch.TabIndex = 2;
             this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
             // 
             // cmbFileFilter
@@ -165,10 +155,10 @@
             this.cmbFileFilter.FormattingEnabled = true;
             this.cmbFileFilter.Items.AddRange(new object[] {
             " "});
-            this.cmbFileFilter.Location = new System.Drawing.Point(243, 19);
+            this.cmbFileFilter.Location = new System.Drawing.Point(255, 54);
             this.cmbFileFilter.Name = "cmbFileFilter";
             this.cmbFileFilter.Size = new System.Drawing.Size(52, 21);
-            this.cmbFileFilter.TabIndex = 16;
+            this.cmbFileFilter.TabIndex = 3;
             this.cmbFileFilter.SelectedIndexChanged += new System.EventHandler(this.cmbFileFilter_SelectedIndexChanged);
             // 
             // cmdOpenFileManager
@@ -176,7 +166,7 @@
             this.cmdOpenFileManager.Location = new System.Drawing.Point(6, 19);
             this.cmdOpenFileManager.Name = "cmdOpenFileManager";
             this.cmdOpenFileManager.Size = new System.Drawing.Size(301, 23);
-            this.cmdOpenFileManager.TabIndex = 20;
+            this.cmdOpenFileManager.TabIndex = 1;
             this.cmdOpenFileManager.Text = "Open file manager...";
             this.cmdOpenFileManager.UseVisualStyleBackColor = true;
             this.cmdOpenFileManager.Click += new System.EventHandler(this.cmdOpenFileManager_Click);
@@ -190,7 +180,7 @@
             this.cmbPreset.Location = new System.Drawing.Point(6, 458);
             this.cmbPreset.Name = "cmbPreset";
             this.cmbPreset.Size = new System.Drawing.Size(302, 21);
-            this.cmbPreset.TabIndex = 18;
+            this.cmbPreset.TabIndex = 6;
             this.cmbPreset.SelectedIndexChanged += new System.EventHandler(this.cmbPreset_SelectedIndexChanged);
             // 
             // PathBinding
@@ -202,7 +192,7 @@
             this.cmdRemovePreset.Location = new System.Drawing.Point(6, 482);
             this.cmdRemovePreset.Name = "cmdRemovePreset";
             this.cmdRemovePreset.Size = new System.Drawing.Size(302, 21);
-            this.cmdRemovePreset.TabIndex = 15;
+            this.cmdRemovePreset.TabIndex = 7;
             this.cmdRemovePreset.Text = "REMOVE SELECTED PRESET...";
             this.cmdRemovePreset.UseVisualStyleBackColor = true;
             this.cmdRemovePreset.Click += new System.EventHandler(this.cmdRemovePreset_Click);
@@ -213,11 +203,11 @@
             this.lstPWAD.DisplayMember = "name";
             this.lstPWAD.FormattingEnabled = true;
             this.lstPWAD.HorizontalScrollbar = true;
-            this.lstPWAD.Location = new System.Drawing.Point(6, 136);
+            this.lstPWAD.Location = new System.Drawing.Point(6, 110);
             this.lstPWAD.Name = "lstPWAD";
             this.lstPWAD.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstPWAD.Size = new System.Drawing.Size(302, 316);
-            this.lstPWAD.TabIndex = 0;
+            this.lstPWAD.Size = new System.Drawing.Size(302, 342);
+            this.lstPWAD.TabIndex = 5;
             // 
             // groupBox2
             // 
@@ -253,7 +243,7 @@
             this.chkCustomConfiguration.Location = new System.Drawing.Point(6, 23);
             this.chkCustomConfiguration.Name = "chkCustomConfiguration";
             this.chkCustomConfiguration.Size = new System.Drawing.Size(253, 17);
-            this.chkCustomConfiguration.TabIndex = 16;
+            this.chkCustomConfiguration.TabIndex = 27;
             this.chkCustomConfiguration.Text = "Use alternative engine configuration file (-config)";
             this.chkCustomConfiguration.UseVisualStyleBackColor = true;
             this.chkCustomConfiguration.CheckedChanged += new System.EventHandler(this.chkCustomConfiguration_CheckedChanged);
@@ -263,7 +253,7 @@
             this.cmdAddConfiguration.Location = new System.Drawing.Point(385, 19);
             this.cmdAddConfiguration.Name = "cmdAddConfiguration";
             this.cmdAddConfiguration.Size = new System.Drawing.Size(76, 23);
-            this.cmdAddConfiguration.TabIndex = 13;
+            this.cmdAddConfiguration.TabIndex = 28;
             this.cmdAddConfiguration.Text = "ADD...";
             this.cmdAddConfiguration.UseVisualStyleBackColor = true;
             this.cmdAddConfiguration.Click += new System.EventHandler(this.cmdAddConfiguration_Click);
@@ -273,7 +263,7 @@
             this.cmdRemoveConfiguration.Location = new System.Drawing.Point(467, 18);
             this.cmdRemoveConfiguration.Name = "cmdRemoveConfiguration";
             this.cmdRemoveConfiguration.Size = new System.Drawing.Size(76, 24);
-            this.cmdRemoveConfiguration.TabIndex = 8;
+            this.cmdRemoveConfiguration.TabIndex = 29;
             this.cmdRemoveConfiguration.Text = "REMOVE...";
             this.cmdRemoveConfiguration.UseVisualStyleBackColor = true;
             this.cmdRemoveConfiguration.Click += new System.EventHandler(this.cmdRemoveConfiguration_Click);
@@ -287,7 +277,7 @@
             this.cmbPortConfig.Location = new System.Drawing.Point(6, 48);
             this.cmbPortConfig.Name = "cmbPortConfig";
             this.cmbPortConfig.Size = new System.Drawing.Size(537, 21);
-            this.cmbPortConfig.TabIndex = 1;
+            this.cmbPortConfig.TabIndex = 30;
             // 
             // groupBox8
             // 
@@ -304,7 +294,7 @@
             this.txtCommandLine.Location = new System.Drawing.Point(6, 19);
             this.txtCommandLine.Name = "txtCommandLine";
             this.txtCommandLine.Size = new System.Drawing.Size(538, 20);
-            this.txtCommandLine.TabIndex = 0;
+            this.txtCommandLine.TabIndex = 31;
             // 
             // groupBox6
             // 
@@ -328,7 +318,7 @@
             this.cmdAddSourcePort.Location = new System.Drawing.Point(74, 15);
             this.cmdAddSourcePort.Name = "cmdAddSourcePort";
             this.cmdAddSourcePort.Size = new System.Drawing.Size(76, 24);
-            this.cmdAddSourcePort.TabIndex = 14;
+            this.cmdAddSourcePort.TabIndex = 21;
             this.cmdAddSourcePort.Text = "ADD...";
             this.cmdAddSourcePort.UseVisualStyleBackColor = true;
             this.cmdAddSourcePort.Click += new System.EventHandler(this.cmdAddSourcePort_Click);
@@ -338,7 +328,7 @@
             this.cmdAddIWAD.Location = new System.Drawing.Point(388, 15);
             this.cmdAddIWAD.Name = "cmdAddIWAD";
             this.cmdAddIWAD.Size = new System.Drawing.Size(76, 23);
-            this.cmdAddIWAD.TabIndex = 13;
+            this.cmdAddIWAD.TabIndex = 24;
             this.cmdAddIWAD.Text = "ADD...";
             this.cmdAddIWAD.UseVisualStyleBackColor = true;
             this.cmdAddIWAD.Click += new System.EventHandler(this.cmdAddIWAD_Click);
@@ -357,7 +347,7 @@
             this.cmdRemoveSourcePort.Location = new System.Drawing.Point(156, 15);
             this.cmdRemoveSourcePort.Name = "cmdRemoveSourcePort";
             this.cmdRemoveSourcePort.Size = new System.Drawing.Size(76, 24);
-            this.cmdRemoveSourcePort.TabIndex = 11;
+            this.cmdRemoveSourcePort.TabIndex = 22;
             this.cmdRemoveSourcePort.Text = "REMOVE...";
             this.cmdRemoveSourcePort.UseVisualStyleBackColor = true;
             this.cmdRemoveSourcePort.Click += new System.EventHandler(this.cmdRemoveSourcePort_Click);
@@ -376,7 +366,7 @@
             this.cmdRemoveIWAD.Location = new System.Drawing.Point(470, 14);
             this.cmdRemoveIWAD.Name = "cmdRemoveIWAD";
             this.cmdRemoveIWAD.Size = new System.Drawing.Size(76, 24);
-            this.cmdRemoveIWAD.TabIndex = 8;
+            this.cmdRemoveIWAD.TabIndex = 25;
             this.cmdRemoveIWAD.Text = "REMOVE...";
             this.cmdRemoveIWAD.UseVisualStyleBackColor = true;
             this.cmdRemoveIWAD.Click += new System.EventHandler(this.cmdRemoveIWAD_Click);
@@ -390,7 +380,7 @@
             this.cmbIWAD.Location = new System.Drawing.Point(238, 41);
             this.cmbIWAD.Name = "cmbIWAD";
             this.cmbIWAD.Size = new System.Drawing.Size(305, 21);
-            this.cmbIWAD.TabIndex = 1;
+            this.cmbIWAD.TabIndex = 26;
             // 
             // cmbSourcePort
             // 
@@ -401,7 +391,7 @@
             this.cmbSourcePort.Location = new System.Drawing.Point(6, 41);
             this.cmbSourcePort.Name = "cmbSourcePort";
             this.cmbSourcePort.Size = new System.Drawing.Size(226, 21);
-            this.cmbSourcePort.TabIndex = 3;
+            this.cmbSourcePort.TabIndex = 23;
             // 
             // groupBox5
             // 
@@ -432,14 +422,14 @@
             this.cmbSkill.Location = new System.Drawing.Point(128, 42);
             this.cmbSkill.Name = "cmbSkill";
             this.cmbSkill.Size = new System.Drawing.Size(186, 21);
-            this.cmbSkill.TabIndex = 15;
+            this.cmbSkill.TabIndex = 13;
             // 
             // txtMap
             // 
             this.txtMap.Location = new System.Drawing.Point(128, 18);
             this.txtMap.Name = "txtMap";
             this.txtMap.Size = new System.Drawing.Size(186, 20);
-            this.txtMap.TabIndex = 8;
+            this.txtMap.TabIndex = 12;
             this.txtMap.TextChanged += new System.EventHandler(this.txtMap_TextChanged);
             // 
             // chkNoMonster
@@ -448,7 +438,7 @@
             this.chkNoMonster.Location = new System.Drawing.Point(6, 66);
             this.chkNoMonster.Name = "chkNoMonster";
             this.chkNoMonster.Size = new System.Drawing.Size(173, 17);
-            this.chkNoMonster.TabIndex = 4;
+            this.chkNoMonster.TabIndex = 14;
             this.chkNoMonster.Text = "Remove Monster (-nomonsters)";
             this.chkNoMonster.UseVisualStyleBackColor = true;
             this.chkNoMonster.CheckedChanged += new System.EventHandler(this.chkNoMonster_CheckedChanged);
@@ -459,7 +449,7 @@
             this.chkRespawn.Location = new System.Drawing.Point(6, 106);
             this.chkRespawn.Name = "chkRespawn";
             this.chkRespawn.Size = new System.Drawing.Size(164, 17);
-            this.chkRespawn.TabIndex = 3;
+            this.chkRespawn.TabIndex = 16;
             this.chkRespawn.Text = "Monster Respawn (-respawn)";
             this.chkRespawn.UseVisualStyleBackColor = true;
             // 
@@ -469,7 +459,7 @@
             this.chkFast.Location = new System.Drawing.Point(6, 86);
             this.chkFast.Name = "chkFast";
             this.chkFast.Size = new System.Drawing.Size(116, 17);
-            this.chkFast.TabIndex = 2;
+            this.chkFast.TabIndex = 15;
             this.chkFast.Text = "Fast Monster (-fast)";
             this.chkFast.UseVisualStyleBackColor = true;
             // 
@@ -517,7 +507,7 @@
             this.cmb_vidrender.Location = new System.Drawing.Point(5, 97);
             this.cmb_vidrender.Name = "cmb_vidrender";
             this.cmb_vidrender.Size = new System.Drawing.Size(538, 21);
-            this.cmb_vidrender.TabIndex = 15;
+            this.cmb_vidrender.TabIndex = 20;
             // 
             // groupBox7
             // 
@@ -538,7 +528,7 @@
             this.txtScreenHeight.Location = new System.Drawing.Point(223, 32);
             this.txtScreenHeight.Name = "txtScreenHeight";
             this.txtScreenHeight.Size = new System.Drawing.Size(199, 20);
-            this.txtScreenHeight.TabIndex = 7;
+            this.txtScreenHeight.TabIndex = 18;
             // 
             // chkFullscreen
             // 
@@ -548,7 +538,7 @@
             this.chkFullscreen.Location = new System.Drawing.Point(440, 32);
             this.chkFullscreen.Name = "chkFullscreen";
             this.chkFullscreen.Size = new System.Drawing.Size(77, 17);
-            this.chkFullscreen.TabIndex = 6;
+            this.chkFullscreen.TabIndex = 19;
             this.chkFullscreen.Text = "+fullscreen";
             this.chkFullscreen.UseVisualStyleBackColor = true;
             // 
@@ -557,7 +547,7 @@
             this.txtScreenWidth.Location = new System.Drawing.Point(6, 33);
             this.txtScreenWidth.Name = "txtScreenWidth";
             this.txtScreenWidth.Size = new System.Drawing.Size(199, 20);
-            this.txtScreenWidth.TabIndex = 2;
+            this.txtScreenWidth.TabIndex = 17;
             // 
             // label5
             // 
@@ -605,7 +595,7 @@
             this.radAudioNoMusic.Location = new System.Drawing.Point(6, 88);
             this.radAudioNoMusic.Name = "radAudioNoMusic";
             this.radAudioNoMusic.Size = new System.Drawing.Size(142, 17);
-            this.radAudioNoMusic.TabIndex = 3;
+            this.radAudioNoMusic.TabIndex = 11;
             this.radAudioNoMusic.Text = "Disable Music (-nomusic)";
             this.radAudioNoMusic.UseVisualStyleBackColor = true;
             // 
@@ -615,7 +605,7 @@
             this.radAudioNoSFX.Location = new System.Drawing.Point(6, 65);
             this.radAudioNoSFX.Name = "radAudioNoSFX";
             this.radAudioNoSFX.Size = new System.Drawing.Size(120, 17);
-            this.radAudioNoSFX.TabIndex = 2;
+            this.radAudioNoSFX.TabIndex = 10;
             this.radAudioNoSFX.Text = "Disable SFX (-nosfx)";
             this.radAudioNoSFX.UseVisualStyleBackColor = true;
             // 
@@ -625,7 +615,7 @@
             this.radAudioNoSounds.Location = new System.Drawing.Point(6, 42);
             this.radAudioNoSounds.Name = "radAudioNoSounds";
             this.radAudioNoSounds.Size = new System.Drawing.Size(163, 17);
-            this.radAudioNoSounds.TabIndex = 1;
+            this.radAudioNoSounds.TabIndex = 9;
             this.radAudioNoSounds.Text = "Disable all sounds (-nosound)";
             this.radAudioNoSounds.UseVisualStyleBackColor = true;
             // 
@@ -636,7 +626,7 @@
             this.radAudioAllSounds.Location = new System.Drawing.Point(6, 19);
             this.radAudioAllSounds.Name = "radAudioAllSounds";
             this.radAudioAllSounds.Size = new System.Drawing.Size(108, 17);
-            this.radAudioAllSounds.TabIndex = 0;
+            this.radAudioAllSounds.TabIndex = 8;
             this.radAudioAllSounds.TabStop = true;
             this.radAudioAllSounds.Text = "Enable all sounds";
             this.radAudioAllSounds.UseVisualStyleBackColor = true;
@@ -647,7 +637,7 @@
             this.cmdPlay.Location = new System.Drawing.Point(10, 542);
             this.cmdPlay.Name = "cmdPlay";
             this.cmdPlay.Size = new System.Drawing.Size(885, 82);
-            this.cmdPlay.TabIndex = 2;
+            this.cmdPlay.TabIndex = 0;
             this.cmdPlay.Text = "PLAY";
             this.cmdPlay.UseVisualStyleBackColor = true;
             this.cmdPlay.Click += new System.EventHandler(this.cmdPlay_Click);
@@ -693,8 +683,18 @@
             this.reloadResourcesToolStripMenuItem.Text = "Reload resources";
             this.reloadResourcesToolStripMenuItem.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem_Click);
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 57);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Search:";
+            // 
             // MainForm
             // 
+            this.AcceptButton = this.cmdPlay;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(907, 629);
@@ -712,8 +712,6 @@
             this.Load += new System.EventHandler(this.MainForm_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
-            this.groupBox10.ResumeLayout(false);
-            this.groupBox10.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).EndInit();
             this.groupBox2.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
@@ -791,10 +789,10 @@
         private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
         private System.Windows.Forms.ComboBox cmbFileFilter;
-        private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ComboBox cmbOrder;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Label label8;
     }
 }
 

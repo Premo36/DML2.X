@@ -4,49 +4,71 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
-using System.Diagnostics;
 using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Media;
 using System.Text;
 using System.Windows.Forms;
 
-namespace DoomModLoader2
+namespace DoomModLoader2.Forms
 {
-    public partial class FormMod : Form
+    public partial class SavePresetForm : Form
     {
-        public string presetName;
-        //TODO: Make all properties private and initialize them trough the constructor
-        public string parameters;
-        public List<PathName> pwads;
-        public PathName sourcePort;
-
-
-        //private string files { get; set; }
         private PathName IWAD;
         private PathName config;
         private string presetPath;
         private KeyValuePair<int, string> renderer;
         private List<string> saveWithPreset;
         private string commandLine;
-        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset, string commandLine)
+        private PathName sourcePort;
+        private List<PathName> pwads;
+        public string presetName;
+
+        public SavePresetForm(string presetPath,
+                              PathName config,
+                              PathName IWAD,
+                              PathName sourcePort,
+                              KeyValuePair<int, string> renderer,
+                              List<string> saveWithPreset,
+                              string commandLine,
+                              List<PathName> pwads,
+                              string presetName
+                             )
         {
             InitializeComponent();
+            this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             this.presetPath = presetPath;
             this.config = config;
             this.IWAD = IWAD;
             this.renderer = renderer;
             this.saveWithPreset = saveWithPreset;
             this.commandLine = commandLine.Trim();
-            this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
-           
+            this.pwads = pwads;
+            this.sourcePort = sourcePort;
+            this.presetName = presetName;
+            txtPresetName.Text = presetName;
+
+            if (presetName == null || presetName == string.Empty)
+            {
+                cmdSavePreset.Visible = false;
+
+            }
         }
 
-
-
-        private void FormMod_Load(object sender, EventArgs e)
+        private void cmdSavePreset_Click(object sender, EventArgs e)
         {
+            Save(true);
+        }
+
+        private void cmdSaveNew_Click(object sender, EventArgs e)
+        {
+            Save(false);
+        }
+
+        private void SavePresetForm_Load(object sender, EventArgs e)
+        {
+            txtPresetName.Text = presetName;
+
             StringBuilder txtReplacer = new StringBuilder();
             txtReplacer.AppendFormat(chkSaveIWAD.Text, IWAD.name);
             chkSaveIWAD.Text = txtReplacer.ToString();
@@ -68,7 +90,8 @@ namespace DoomModLoader2
                 txtReplacer.AppendFormat(chkConfiguration.Text, config.name);
                 chkConfiguration.Text = txtReplacer.ToString();
                 chkConfiguration.Checked = saveWithPreset.Any(X => X == "PORT_CONFIG");
-            } else
+            }
+            else
             {
                 chkConfiguration.Enabled = false;
                 chkConfiguration.Text = "CONFIGURATION: NONE";
@@ -88,77 +111,10 @@ namespace DoomModLoader2
                 chkCommand.Text = "COMMANDLINE: NONE";
             }
 
-            pwads = pwads.OrderBy(P => P.loadOrder).ToList();
-            lstPwad.DataSource = pwads;
-            txtPresetName.Text = presetName;
-        }
-
-        private void cmdUp_Click(object sender, EventArgs e)
-        {
-            int i = lstPwad.SelectedIndex;
-            if (i > 0)
-            {
-
-                List<PathName> lst = lstPwad.Items.Cast<PathName>().ToList();
-
-                var y = lst[i];
-                lst[i] = lst[i - 1];
-                lst[i - 1] = y;
-
-                lstPwad.DataSource = lst;
-
-                lstPwad.SelectedItem = y;
-            }
-            else
-            {
-                SystemSounds.Beep.Play();
-            }
 
         }
 
-        private void cmdDown_Click(object sender, EventArgs e)
-        {
-            int i = lstPwad.SelectedIndex;
-            if (i < lstPwad.Items.Count - 1)
-            {
-
-                List<PathName> lst = lstPwad.Items.Cast<PathName>().ToList();
-
-                var y = lst[i];
-                lst[i] = lst[i + 1];
-                lst[i + 1] = y;
-
-                lstPwad.DataSource = lst;
-
-                lstPwad.SelectedItem = y;
-            }
-            else
-            {
-                SystemSounds.Beep.Play();
-            }
-        }
-
-        private void cmdPlay_Click(object sender, EventArgs e)
-        {
-            string files = string.Empty;
-            foreach (PathName p in lstPwad.Items)
-            {
-                if (Path.GetExtension(p.path).ToUpper().Equals(".DEH"))
-                {
-                    files += "-deh \"" + p.path + "\" ";
-                }
-                else
-                {
-                    files += "-file \"" + p.path + "\" ";
-                }
-            }
-
-            files = parameters + " " + files;
-            Process.Start(sourcePort.path, files);
-
-        }
-
-        private void cmdSavePreset_Click(object sender, EventArgs e)
+        private void Save(bool update)
         {
             try
             {
@@ -177,6 +133,7 @@ namespace DoomModLoader2
                     string path = Path.Combine(presetPath, name + ".dml");
                     DialogResult answer = DialogResult.Yes;
 
+                    //If i've changed the preset name, and there is already a preset with the same name, if the user want this kind of message to be displayed, it will get a warning.
                     if (File.Exists(path))
                     {
                         if (!name.ToUpper().Equals(presetName.ToUpper()) && SharedVar.SHOW_OVERWRITE_MESSAGE)
@@ -185,9 +142,11 @@ namespace DoomModLoader2
                                                      "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                         }
                     }
+
+
                     if (answer == DialogResult.Yes)
                     {
-                       
+
                         FileStream f = File.Create(path);
                         f.Dispose();
                         Storage storage = new Storage(path);
@@ -198,9 +157,10 @@ namespace DoomModLoader2
                         if (chkSaveIWAD.Checked)
                         {
                             values.Add("IWAD", IWAD.name);
-                        }else
+                        }
+                        else
                         {
-                            values.Add("IWAD",string.Empty);
+                            values.Add("IWAD", string.Empty);
                         }
                         #endregion
 
@@ -237,7 +197,6 @@ namespace DoomModLoader2
                         }
                         #endregion
 
-
                         #region COMMANDLINE
                         if (chkCommand.Checked)
                         {
@@ -248,18 +207,37 @@ namespace DoomModLoader2
                             values.Add("COMMANDLINE", string.Empty);
                         }
                         #endregion
-                        foreach (PathName p in lstPwad.Items)
+
+                        foreach (PathName p in pwads)
                         {
                             values.Add(C.ToString(), p.name);
                             C++;
                         }
 
                         storage.SaveValues(values, true);
+
+                        //If the user have changed the preset name, i delete the original preset
+                        if (update == true && presetName != null && !name.ToUpper().Equals(presetName.ToUpper()))
+                        {
+                            string originalPresetPath = Path.Combine(presetPath, presetName + ".dml");
+                            if (File.Exists(originalPresetPath))
+                            {
+                                File.Delete(originalPresetPath);
+                            }
+                        }
+
                         txtPresetName.Text = name;
                         presetName = name;
                         if (SharedVar.SHOW_SUCCESS_MESSAGE)
+                        {
                             MessageBox.Show("Preset '" + name + "' has been saved.", "DML", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            this.Close();
+                        }
                     }
+                }
+                else
+                {
+                    MessageBox.Show("Please enter a preset name.", $"DML v{SharedVar.LOCAL_VERSION}" , MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
 
             }
@@ -270,5 +248,7 @@ namespace DoomModLoader2
                                 "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
     }
 }

@@ -455,6 +455,7 @@ namespace DoomModLoader2
             UpdateSelectedPWADitems(mode.DELETE);
             cachedPWADs = null;
             LoadPWAD();
+            cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
         }
 
         private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)

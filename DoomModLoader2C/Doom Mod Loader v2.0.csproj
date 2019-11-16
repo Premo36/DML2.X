@@ -80,59 +80,68 @@
   <ItemGroup>
     <Compile Include="Entity\enums.cs" />
     <Compile Include="Entity\PathName.cs" />
-    <Compile Include="AboutForm.cs">
+    <Compile Include="Forms\AboutForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AboutForm.Designer.cs">
+    <Compile Include="Forms\AboutForm.Designer.cs">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="FileManager.cs">
+    <Compile Include="Forms\FileManager.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FileManager.Designer.cs">
+    <Compile Include="Forms\FileManager.Designer.cs">
       <DependentUpon>FileManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="FormMod.cs">
+    <Compile Include="Forms\FormMod.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FormMod.Designer.cs">
+    <Compile Include="Forms\FormMod.Designer.cs">
       <DependentUpon>FormMod.cs</DependentUpon>
     </Compile>
-    <Compile Include="MainForm.cs">
+    <Compile Include="Forms\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="MainForm.Designer.cs">
+    <Compile Include="Forms\MainForm.Designer.cs">
       <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
-    <Compile Include="Options.cs">
+    <Compile Include="Forms\Options.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Options.Designer.cs">
+    <Compile Include="Forms\Options.Designer.cs">
       <DependentUpon>Options.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Forms\SavePresetForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Forms\SavePresetForm.Designer.cs">
+      <DependentUpon>SavePresetForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SharedVar.cs" />
-    <Compile Include="VersionForm.cs">
+    <Compile Include="Forms\VersionForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="VersionForm.Designer.cs">
+    <Compile Include="Forms\VersionForm.Designer.cs">
       <DependentUpon>VersionForm.cs</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="AboutForm.resx">
+    <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FileManager.resx">
+    <EmbeddedResource Include="Forms\FileManager.resx">
       <DependentUpon>FileManager.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FormMod.resx">
+    <EmbeddedResource Include="Forms\FormMod.resx">
       <DependentUpon>FormMod.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="MainForm.resx">
+    <EmbeddedResource Include="Forms\MainForm.resx">
       <DependentUpon>MainForm.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Options.resx">
+    <EmbeddedResource Include="Forms\Options.resx">
       <DependentUpon>Options.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Forms\SavePresetForm.resx">
+      <DependentUpon>SavePresetForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -144,7 +153,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="VersionForm.resx">
+    <EmbeddedResource Include="Forms\VersionForm.resx">
       <DependentUpon>VersionForm.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\app.manifest" />
