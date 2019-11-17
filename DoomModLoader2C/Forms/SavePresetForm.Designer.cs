@@ -39,6 +39,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.cmdSaveNew = new System.Windows.Forms.Button();
             this.cmdClose = new System.Windows.Forms.Button();
+            this.cmdSavePlay = new System.Windows.Forms.Button();
             this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -109,7 +110,7 @@
             // cmdSavePreset
             // 
             this.cmdSavePreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSavePreset.Location = new System.Drawing.Point(12, 182);
+            this.cmdSavePreset.Location = new System.Drawing.Point(185, 229);
             this.cmdSavePreset.Name = "cmdSavePreset";
             this.cmdSavePreset.Size = new System.Drawing.Size(167, 43);
             this.cmdSavePreset.TabIndex = 6;
@@ -136,7 +137,7 @@
             // cmdSaveNew
             // 
             this.cmdSaveNew.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSaveNew.Location = new System.Drawing.Point(185, 182);
+            this.cmdSaveNew.Location = new System.Drawing.Point(12, 229);
             this.cmdSaveNew.Name = "cmdSaveNew";
             this.cmdSaveNew.Size = new System.Drawing.Size(167, 43);
             this.cmdSaveNew.TabIndex = 7;
@@ -148,21 +149,33 @@
             // 
             this.cmdClose.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cmdClose.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdClose.Location = new System.Drawing.Point(358, 182);
+            this.cmdClose.Location = new System.Drawing.Point(358, 229);
             this.cmdClose.Name = "cmdClose";
             this.cmdClose.Size = new System.Drawing.Size(167, 43);
             this.cmdClose.TabIndex = 8;
             this.cmdClose.Text = "CLOSE";
             this.cmdClose.UseVisualStyleBackColor = true;
+            this.cmdClose.Click += new System.EventHandler(this.cmdClose_Click);
+            // 
+            // cmdSavePlay
+            // 
+
+            this.cmdSavePlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdSavePlay.Location = new System.Drawing.Point(12, 182);
+            this.cmdSavePlay.Name = "cmdSavePlay";
+            this.cmdSavePlay.Size = new System.Drawing.Size(513, 43);
+            this.cmdSavePlay.TabIndex = 9;
+            this.cmdSavePlay.Text = "UPDATE AND PLAY";
+            this.cmdSavePlay.UseVisualStyleBackColor = true;
+            this.cmdSavePlay.Click += new System.EventHandler(this.cmdSavePlay_Click);
             // 
             // SavePresetForm
             // 
-            this.AcceptButton = this.cmdSavePreset;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.cmdClose;
-            this.ClientSize = new System.Drawing.Size(535, 236);
+            this.ClientSize = new System.Drawing.Size(535, 284);
             this.ControlBox = false;
+            this.Controls.Add(this.cmdSavePlay);
             this.Controls.Add(this.cmdClose);
             this.Controls.Add(this.cmdSaveNew);
             this.Controls.Add(this.label1);
@@ -194,5 +207,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button cmdSaveNew;
         private System.Windows.Forms.Button cmdClose;
+        private System.Windows.Forms.Button cmdSavePlay;
     }
 }

@@ -18,11 +18,15 @@ namespace DoomModLoader2.Forms
         private PathName config;
         private string presetPath;
         private KeyValuePair<int, string> renderer;
-        private List<string> saveWithPreset;
         private string commandLine;
         private PathName sourcePort;
         private List<PathName> pwads;
+        private List<string> saveWithPresetBackup;
+        private bool isUpdate = true;
+
+        public List<string> saveWithPreset;
         public string presetName;
+        public bool play;
 
         public SavePresetForm(string presetPath,
                               PathName config,
@@ -48,11 +52,14 @@ namespace DoomModLoader2.Forms
             this.presetName = presetName;
             txtPresetName.Text = presetName;
 
-            if (presetName == null || presetName == string.Empty)
+            if (presetName == null || presetName.Trim() == string.Empty)
             {
                 cmdSavePreset.Visible = false;
-
+                cmdSavePlay.Text = "SAVE AND PLAY";
+                isUpdate = false;
             }
+
+            saveWithPresetBackup = saveWithPreset;
         }
 
         private void cmdSavePreset_Click(object sender, EventArgs e)
@@ -63,6 +70,19 @@ namespace DoomModLoader2.Forms
         private void cmdSaveNew_Click(object sender, EventArgs e)
         {
             Save(false);
+        }
+
+        private void cmdClose_Click(object sender, EventArgs e)
+        {
+
+            saveWithPreset = saveWithPresetBackup;
+            this.Close();
+        }
+
+        private void cmdSavePlay_Click(object sender, EventArgs e)
+        {
+           
+            play = Save(isUpdate);
         }
 
         private void SavePresetForm_Load(object sender, EventArgs e)
@@ -114,7 +134,7 @@ namespace DoomModLoader2.Forms
 
         }
 
-        private void Save(bool update)
+        private bool Save(bool update)
         {
             try
             {
@@ -152,15 +172,19 @@ namespace DoomModLoader2.Forms
                         Storage storage = new Storage(path);
                         Dictionary<string, string> values = new Dictionary<string, string>();
                         int C = 0;
-
+                
+                           
+                        saveWithPreset.Clear();
                         #region IWAD
                         if (chkSaveIWAD.Checked)
                         {
                             values.Add("IWAD", IWAD.name);
+                            saveWithPreset.Add("IWAD");
                         }
                         else
                         {
                             values.Add("IWAD", string.Empty);
+                           
                         }
                         #endregion
 
@@ -168,6 +192,7 @@ namespace DoomModLoader2.Forms
                         if (chkPORT.Checked)
                         {
                             values.Add("PORT", sourcePort.name);
+                            saveWithPreset.Add("PORT");
                         }
                         else
                         {
@@ -179,6 +204,7 @@ namespace DoomModLoader2.Forms
                         if (chkConfiguration.Checked)
                         {
                             values.Add("PORT_CONFIG", config.name);
+                            saveWithPreset.Add("PORT_CONFIG");
                         }
                         else
                         {
@@ -190,6 +216,7 @@ namespace DoomModLoader2.Forms
                         if (chkRenderer.Checked)
                         {
                             values.Add("RENDERER", renderer.Key.ToString());
+                            saveWithPreset.Add("RENDERER");
                         }
                         else
                         {
@@ -201,6 +228,7 @@ namespace DoomModLoader2.Forms
                         if (chkCommand.Checked)
                         {
                             values.Add("COMMANDLINE", commandLine);
+                            saveWithPreset.Add("COMMANDLINE");
                         }
                         else
                         {
@@ -231,13 +259,19 @@ namespace DoomModLoader2.Forms
                         if (SharedVar.SHOW_SUCCESS_MESSAGE)
                         {
                             MessageBox.Show("Preset '" + name + "' has been saved.", "DML", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            this.Close();
+                           
                         }
+                        this.Close();
+                        return true;
+                    } else
+                    {
+                        return false;
                     }
                 }
                 else
                 {
                     MessageBox.Show("Please enter a preset name.", $"DML v{SharedVar.LOCAL_VERSION}" , MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    return false;
                 }
 
             }
@@ -246,9 +280,10 @@ namespace DoomModLoader2.Forms
                 MessageBox.Show("Something went wrong while tryng to save your mod preset..." + Environment.NewLine +
                                 "ERROR: \"" + ex.Message + "\"" + Environment.NewLine +
                                 "Please try again", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
             }
         }
 
-
+    
     }
 }

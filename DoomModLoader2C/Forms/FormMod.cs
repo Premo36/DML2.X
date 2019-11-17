@@ -41,7 +41,7 @@ namespace DoomModLoader2
             this.saveWithPreset = saveWithPreset;
             this.commandLine = commandLine.Trim();
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
-            
+
         }
 
 
@@ -50,7 +50,12 @@ namespace DoomModLoader2
         {
             pwads = pwads.OrderBy(P => P.loadOrder).ToList();
             lstPwad.DataSource = pwads;
+
+            UpdatePresetNameLabel(presetName);
+
         }
+
+
 
         private void cmdUp_Click(object sender, EventArgs e)
         {
@@ -122,6 +127,24 @@ namespace DoomModLoader2
             SavePresetForm savePresetForm = new SavePresetForm(presetPath, config, IWAD, sourcePort, renderer, saveWithPreset, commandLine, lstPwad.Items.Cast<PathName>().ToList(), presetName);
             savePresetForm.ShowDialog();
             presetName = savePresetForm.presetName;
+            saveWithPreset = savePresetForm.saveWithPreset;
+            UpdatePresetNameLabel(presetName);
+            if (savePresetForm.play)
+            {
+                cmdPlay_Click(null, null);
+            }
+        }
+
+        private void UpdatePresetNameLabel(string presetName)
+        {
+            if (presetName != null && presetName.Trim() != string.Empty)
+            {
+                lblPresetName.Text = $"LOADED PRESET: {presetName}";
+            }
+            else
+            {
+                lblPresetName.Text = "LOADED PRESET: NONE (You can save the current mod list in a preset by clicking on \"SAVE PRESET\"";
+            }
         }
     }
 }
