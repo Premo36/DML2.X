@@ -78,9 +78,9 @@
             this.lstPwad.DataSource = this.PathNameSource;
             this.lstPwad.DisplayMember = "name";
             this.lstPwad.FormattingEnabled = true;
-            this.lstPwad.Location = new System.Drawing.Point(12, 25);
+            this.lstPwad.Location = new System.Drawing.Point(12, 42);
             this.lstPwad.Name = "lstPwad";
-            this.lstPwad.Size = new System.Drawing.Size(393, 264);
+            this.lstPwad.Size = new System.Drawing.Size(393, 251);
             this.lstPwad.TabIndex = 3;
             // 
             // PathNameSource
@@ -100,13 +100,14 @@
             // 
             // lblPresetName
             // 
-            this.lblPresetName.AutoSize = true;
-            this.lblPresetName.Location = new System.Drawing.Point(9, 9);
+            this.lblPresetName.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.lblPresetName.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblPresetName.Location = new System.Drawing.Point(0, 0);
             this.lblPresetName.Name = "lblPresetName";
-            this.lblPresetName.Size = new System.Drawing.Size(183, 13);
+            this.lblPresetName.Size = new System.Drawing.Size(599, 39);
             this.lblPresetName.TabIndex = 4;
-            this.lblPresetName.Text = "LOADED PRESET:  PRESET NAME";
-            this.lblPresetName.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.lblPresetName.Text = "PRESET NAME HERE";
+            this.lblPresetName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // FormMod
             // 
@@ -129,7 +130,6 @@
             this.Load += new System.EventHandler(this.FormMod_Load);
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 

@@ -73,16 +73,7 @@ namespace DoomModLoader2
             LoadResources();
             if (SharedVar.CHECK_FOR_UPDATE)
             {
-                try
-                {
-                    CheckForUpdate(true);
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                    "Please check your internet connection...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-                }
+                CheckForUpdate(true);
             }
         }
 
@@ -116,27 +107,30 @@ namespace DoomModLoader2
                     KeyValuePair<int, string> renderer = new KeyValuePair<int, string>(cmb_vidrender.SelectedIndex, cmb_vidrender.Text);
 
                     PathName config = (PathName)(chkCustomConfiguration.Checked == true ? cmbPortConfig.SelectedItem : null);
-                    FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, renderer, config, saveWithPreset, txtCommandLine.Text);
-                    formMod.parameters = param;
 
-                    foreach (PathName p in items)
-                        pwads.Add(p);
-
-                    formMod.pwads = pwads;
-                    formMod.sourcePort = (PathName)cmbSourcePort.SelectedItem;
-                    PathName selectedPreset = (PathName)cmbPreset.SelectedItem;
-
-                    if (!selectedPreset.name.Trim().Equals("-"))
-                        formMod.presetName = selectedPreset.name;
-                    formMod.ShowDialog();
-
-                    LoadPresets();
-                    if (formMod.presetName != null)
+                    using (FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, renderer, config, saveWithPreset, txtCommandLine.Text, param))
                     {
-                        PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName).FirstOrDefault();
-                        if (pn != null)
-                            cmbPreset.SelectedItem = pn;
+
+                        foreach (PathName p in items)
+                            pwads.Add(p);
+
+                        formMod.pwads = pwads;
+                        formMod.sourcePort = (PathName)cmbSourcePort.SelectedItem;
+                        PathName selectedPreset = (PathName)cmbPreset.SelectedItem;
+
+                        if (!selectedPreset.name.Trim().Equals("-"))
+                            formMod.presetName = selectedPreset.name;
+                        formMod.ShowDialog();
+
+                        LoadPresets();
+                        if (formMod.presetName != null)
+                        {
+                            PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName).FirstOrDefault();
+                            if (pn != null)
+                                cmbPreset.SelectedItem = pn;
+                        }
                     }
+
                 }
                 else
                 {
@@ -146,6 +140,8 @@ namespace DoomModLoader2
                     StartGame(param);
                 }
             }
+
+
 
         }
 
@@ -307,7 +303,7 @@ namespace DoomModLoader2
             for (int i = 0; i < lstPWAD.Items.Count; i++)
             {
                 lstPWAD.SetSelected(i, false);
-            
+
             }
             PathName selectedItem = (PathName)cmbPreset.SelectedItem;
 
@@ -427,35 +423,30 @@ namespace DoomModLoader2
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            try
-            {
-                CheckForUpdate();
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                "Please check your internet connection..." + Environment.NewLine +
-                                "ERROR: " + ex.Message, "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
+            CheckForUpdate();
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutForm ab = new AboutForm();
-            ab.ShowDialog();
+            using (AboutForm ab = new AboutForm())
+            {
+                ab.ShowDialog();
+            }
         }
 
         private void cmdOpenFileManager_Click(object sender, EventArgs e)
         {
-            FileManager fm = new FileManager(cfgPWAD, cfgPreference);
-            this.Hide();
-            fm.ShowDialog();
+            using (FileManager fm = new FileManager(cfgPWAD))
+            {
+                this.Hide();
+                fm.ShowDialog();
+            }
             this.Show();
             UpdateSelectedPWADitems(mode.DELETE);
             cachedPWADs = null;
             LoadPWAD();
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+
         }
 
         private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
@@ -545,8 +536,11 @@ namespace DoomModLoader2
 
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Options options = new Options(cfgPreference);
-            options.ShowDialog();
+            using (Options options = new Options(cfgPreference))
+            {
+                options.ShowDialog();
+            }
+
             if (SharedVar.USE_ADVANCED_SELECTION_MODE)
             {
                 lstPWAD.SelectionMode = SelectionMode.MultiExtended;
@@ -1330,20 +1324,23 @@ namespace DoomModLoader2
         {
             try
             {
-                VersionForm vf = new VersionForm();
-                if (start)
+                using (VersionForm vf = new VersionForm())
                 {
-                    if (!vf.isLatestVersion())
+                    if (start)
+                    {
+                        if (!vf.isLatestVersion())
+                        {
+                            vf.ShowDialog();
+                        }
+                    }
+                    else
                     {
                         vf.ShowDialog();
                     }
                 }
-                else
-                {
-                    vf.ShowDialog();
-                }
+
             }
-            catch (Exception ex)
+            catch
             {
                 MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
                                 "Please check your internet connection...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -1353,8 +1350,10 @@ namespace DoomModLoader2
 
         private PathName GetPathName(string path, bool removeExtension, bool toUpper)
         {
-            PathName obj = new PathName();
-            obj.path = path;
+            PathName obj = new PathName
+            {
+                path = path
+            };
 
             if (removeExtension)
             {

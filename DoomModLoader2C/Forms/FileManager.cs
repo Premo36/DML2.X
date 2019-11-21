@@ -15,13 +15,11 @@ namespace DoomModLoader2
 {
     public partial class FileManager : Form
     {
-        private string cfgPreference;
-        private string cfgPWAD;
-        public FileManager(string modsPath, string preferencesPath)
+        private string cfgPWAD { get; }
+        public FileManager(string modsPath)
         {
             InitializeComponent();
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
-            cfgPreference = preferencesPath;
             cfgPWAD = modsPath;
 
         }

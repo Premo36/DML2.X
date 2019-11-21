@@ -14,17 +14,17 @@ namespace DoomModLoader2.Forms
 {
     public partial class SavePresetForm : Form
     {
-        private PathName IWAD;
-        private PathName config;
-        private string presetPath;
+        private PathName IWAD { get; }
+        private PathName config { get; }
+        private string presetPath { get; }
         private KeyValuePair<int, string> renderer;
-        private string commandLine;
-        private PathName sourcePort;
-        private List<PathName> pwads;
-        private List<string> saveWithPresetBackup;
-        private bool isUpdate = true;
+        private string commandLine { get; }
+        private PathName sourcePort { get; }
+        private List<PathName> pwads { get; }
+        private List<string> saveWithPresetBackup { get; }
+        private bool isUpdate { get; } = true; 
 
-        public List<string> saveWithPreset;
+    public List<string> saveWithPreset;
         public string presetName;
         public bool play;
 

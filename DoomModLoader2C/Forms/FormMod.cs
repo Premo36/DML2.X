@@ -25,13 +25,13 @@ namespace DoomModLoader2
 
 
         //private string files { get; set; }
-        private PathName IWAD;
-        private PathName config;
-        private string presetPath;
+        private PathName IWAD { get; }
+        private PathName config { get; }
+        private string presetPath { get; }
         private KeyValuePair<int, string> renderer;
         private List<string> saveWithPreset;
-        private string commandLine;
-        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset, string commandLine)
+        private string commandLine { get; }
+        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset, string commandLine, string parameters)
         {
             InitializeComponent();
             this.presetPath = presetPath;
@@ -40,6 +40,7 @@ namespace DoomModLoader2
             this.renderer = renderer;
             this.saveWithPreset = saveWithPreset;
             this.commandLine = commandLine.Trim();
+            this.parameters = parameters;
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
 
         }
@@ -139,11 +140,11 @@ namespace DoomModLoader2
         {
             if (presetName != null && presetName.Trim() != string.Empty)
             {
-                lblPresetName.Text = $"LOADED PRESET: {presetName}";
+                lblPresetName.Text = presetName;
             }
             else
             {
-                lblPresetName.Text = "LOADED PRESET: NONE (You can save the current mod list in a preset by clicking on \"SAVE PRESET\"";
+                lblPresetName.Text = "(You can save the current mod list in a preset by clicking on \"SAVE PRESET\")";
             }
         }
     }

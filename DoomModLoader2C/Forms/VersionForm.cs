@@ -85,7 +85,7 @@ namespace DoomModLoader2
                 }
 
             }
-            catch (Exception ex)
+            catch 
             {
                 cmdOpenDownload.Enabled = false;
                 MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
