@@ -398,6 +398,8 @@ namespace DoomModLoader2
                         }
 
                         missingFilesError.AppendLine("This may happend because they have been renamed, moved or deleted.");
+                        missingFilesError.AppendLine("If you have intentionally removed them, just save again the preset to update it.");
+                        missingFilesError.AppendLine("If not, you can either import them again, rename them with the original name or just add them again and save the preset to update it.");
 
                         MessageBox.Show(missingFilesError.ToString());
                     }
