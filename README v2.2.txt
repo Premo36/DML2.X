@@ -12,8 +12,8 @@ In order to use DML 2 you need at least:
 3)Microsoft Net Framework 3.5
 
 As for this version, the only tested source port are:
--GZdoom (4-2-0, -height and -width do not work due to gzdoom way of handling resolution)
--LZdoom (3.82)
+-GZdoom (v4.2.4), -height and -width do not work due to gzdoom way of handling resolution)
+-LZdoom (3.83a)
 
 -Zandronum (3.0)
 -Zdoom(2.8.1)
