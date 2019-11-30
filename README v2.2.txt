@@ -97,10 +97,10 @@ This can be useful also to share the same configuration between compatible sourc
 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://drive.google.com/file/d/1JmftFasvTYk60aeFedylvR0nQUnHSp1W/view)
-[??/11/2019 | 2.2]
+[30/11/2019 | 2.2]
 New features
 -DML it's now fully portable!
--Configuration data is no longer stored in %appdata% but it's next the the executable.
+-Configuration data is no longer stored in %appdata% but it's next to the executable.
 -IWAD, PWAD, sourceport alternative configuration file can also be read from the relative folder inside the FILE folder next to the executable.
 -Presets now can store also the sourceport, the renderer, the alternative sourceport configuration and the commandline.
 -Presets now can be renamed.
