@@ -1,16 +1,12 @@
 ﻿using DoomModLoader2.Entity;
 using DoomModLoader2.Forms;
-using P36_UTILITIES;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Text;
 using System.Windows.Forms;
 
 namespace DoomModLoader2
@@ -23,8 +19,6 @@ namespace DoomModLoader2
         public List<PathName> pwads;
         public PathName sourcePort;
 
-
-        //private string files { get; set; }
         private PathName IWAD { get; }
         private PathName config { get; }
         private string presetPath { get; }
@@ -103,6 +97,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Launch the game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdPlay_Click(object sender, EventArgs e)
         {
             string files = string.Empty;
@@ -123,6 +122,11 @@ namespace DoomModLoader2
 
         }
 
+        /// <summary>
+        /// Open the "SavePresetForm" dialog
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdSavePreset_Click(object sender, EventArgs e)
         {
             SavePresetForm savePresetForm = new SavePresetForm(presetPath, config, IWAD, sourcePort, renderer, saveWithPreset, commandLine, lstPwad.Items.Cast<PathName>().ToList(), presetName);
@@ -136,6 +140,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Update the "lblPresetName" label text with the name of the preset.<br></br>
+        /// If the currents mods are not already saved in one, an hint about how to save it will be shown instead.
+        /// </summary>
+        /// <param name="presetName"></param>
         private void UpdatePresetNameLabel(string presetName)
         {
             if (presetName != null && presetName.Trim() != string.Empty)

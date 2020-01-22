@@ -1,10 +1,4 @@
-﻿using DoomModLoader2.Entity;
-using P36_UTILITIES;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -21,16 +15,16 @@ namespace DoomModLoader2
             InitializeComponent();
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             cfgPWAD = modsPath;
-
         }
 
         private void FileManager_Load(object sender, EventArgs e)
         {
-           
             LoadList();
-
         }
 
+        /// <summary>
+        /// Load the listbox "lstPath" with all the paths written in the "PWAD.ini" file.
+        /// </summary>
         private void LoadList()
         {
             lstPath.Items.Clear();
@@ -39,11 +33,15 @@ namespace DoomModLoader2
 
             foreach (string p in pathPWAD)
             {
-
                 lstPath.Items.Add(p);
             }
         }
-       
+        
+        /// <summary>
+        /// Open a file dialog to import a single file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdAddSingleFile_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -64,7 +62,6 @@ namespace DoomModLoader2
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     AddFiles(openFileDialog.FileNames);
-
                 }
             }
         }
@@ -74,19 +71,26 @@ namespace DoomModLoader2
             this.Close();
         }
 
+        /// <summary>
+        /// Remove any selected file/folder.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdRemove_Click(object sender, EventArgs e)
         {
-
             foreach (string p in lstPath.SelectedItems)
             {
                 Storage storage = new Storage(cfgPWAD);
                 storage.RemoveConfig(p, SharedVar.SHOW_DELETE_MESSAGE);
             }
             LoadList();
-
         }
 
-
+        /// <summary>
+        /// Open a folder dialog to import a single folder.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdAddFolder_Click(object sender, EventArgs e)
         {
             using (FolderBrowserDialog openFolderDialog = new FolderBrowserDialog())
@@ -98,6 +102,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Imports in DML 2.X any file/folder dragged in the list
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void lstPath_DragDrop(object sender, DragEventArgs e)
         {
             string[] paths = (string[])e.Data.GetData(DataFormats.FileDrop);
@@ -120,6 +129,8 @@ namespace DoomModLoader2
             }
         }
 
+
+
         private void lstPath_DragEnter(object sender, DragEventArgs e)
         {
             if (e.Data.GetDataPresent(DataFormats.FileDrop))
@@ -129,6 +140,11 @@ namespace DoomModLoader2
         }
 
         #region LOGIC
+
+        /// <summary>
+        /// Update the "PWAD.ini" file by adding all the paths passed trough the "paths" param.
+        /// </summary>
+        /// <param name="paths"></param>
         private void AddFiles(string[] paths)
         {
             foreach (string p in paths)
@@ -139,6 +155,10 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Update the "PWAD.ini" file by adding the path passed trough the "path" param.
+        /// </summary>
+        /// <param name="path"></param>
         private void AddFolder(string path)
         {
             try

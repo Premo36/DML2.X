@@ -1,11 +1,4 @@
-﻿using P36_UTILITIES;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using System;
 using System.Windows.Forms;
 
 namespace DoomModLoader2
@@ -13,7 +6,10 @@ namespace DoomModLoader2
     public partial class Options : Form
     {
         private string cfgPath;
-
+         /// <summary>
+         /// Initialize the options menu ("preferences...").
+         /// </summary>
+         /// <param name="cfgPath"></param>
         public Options(string cfgPath)
         {
             InitializeComponent();
@@ -27,7 +23,11 @@ namespace DoomModLoader2
             this.cfgPath = cfgPath;
         }
 
-
+        /// <summary>
+        /// Save the options and close the dialog.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdSaveOptions_Click(object sender, EventArgs e)
         {
             SharedVar.SHOW_END_MESSAGE = chk_SHOW_END_MESSAGE.Checked;
@@ -52,6 +52,11 @@ namespace DoomModLoader2
             this.Close();
         }
 
+        /// <summary>
+        /// Close the option dialog without saving.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdQuitOptions_Click(object sender, EventArgs e)
         {
             this.Close();

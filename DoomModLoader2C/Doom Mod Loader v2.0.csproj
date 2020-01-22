@@ -125,6 +125,7 @@
     <Compile Include="Forms\VersionForm.Designer.cs">
       <DependentUpon>VersionForm.cs</DependentUpon>
     </Compile>
+    <Compile Include="Storage.cs" />
     <EmbeddedResource Include="Forms\AboutForm.resx">
       <DependentUpon>AboutForm.cs</DependentUpon>
     </EmbeddedResource>
@@ -179,12 +180,6 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\P36_Utilities\P36_UTILITIES.csproj">
-      <Project>{efd6895f-810f-4429-ac73-5e572f1fc31e}</Project>
-      <Name>P36_UTILITIES</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="DML2.ico" />

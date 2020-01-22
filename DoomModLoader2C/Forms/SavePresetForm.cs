@@ -1,10 +1,6 @@
 ﻿using DoomModLoader2.Entity;
-using P36_UTILITIES;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -17,17 +13,29 @@ namespace DoomModLoader2.Forms
         private PathName IWAD { get; }
         private PathName config { get; }
         private string presetPath { get; }
-        private KeyValuePair<int, string> renderer;
+        private KeyValuePair<int, string> renderer { get; }
         private string commandLine { get; }
         private PathName sourcePort { get; }
         private List<PathName> pwads { get; }
         private List<string> saveWithPresetBackup { get; }
-        private bool isUpdate { get; } = true; 
+        private bool isUpdate { get; } = true;
 
-    public List<string> saveWithPreset;
+        public List<string> saveWithPreset;
         public string presetName;
         public bool play;
 
+        /// <summary>
+        /// Initialize the save preset form.
+        /// </summary>
+        /// <param name="presetPath"></param>
+        /// <param name="config"></param>
+        /// <param name="IWAD"></param>
+        /// <param name="sourcePort"></param>
+        /// <param name="renderer"></param>
+        /// <param name="saveWithPreset"></param>
+        /// <param name="commandLine"></param>
+        /// <param name="pwads"></param>
+        /// <param name="presetName"></param>
         public SavePresetForm(string presetPath,
                               PathName config,
                               PathName IWAD,
@@ -62,15 +70,26 @@ namespace DoomModLoader2.Forms
             saveWithPresetBackup = saveWithPreset;
         }
 
+        /// <summary>
+        /// Save the preset, replacing the old one. (Like a "Save" button)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdSavePreset_Click(object sender, EventArgs e)
         {
             Save(true);
         }
 
+        /// <summary>
+        /// Save the preset, keeping the old one. (Like a "Save As..." button)
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdSaveNew_Click(object sender, EventArgs e)
         {
             Save(false);
         }
+
 
         private void cmdClose_Click(object sender, EventArgs e)
         {
@@ -81,7 +100,7 @@ namespace DoomModLoader2.Forms
 
         private void cmdSavePlay_Click(object sender, EventArgs e)
         {
-           
+
             play = Save(isUpdate);
         }
 
@@ -134,6 +153,11 @@ namespace DoomModLoader2.Forms
 
         }
 
+        /// <summary>
+        /// Save the preset. If update = true it will replace the old file.
+        /// </summary>
+        /// <param name="update"></param>
+        /// <returns></returns>
         private bool Save(bool update)
         {
             try
@@ -172,8 +196,8 @@ namespace DoomModLoader2.Forms
                         Storage storage = new Storage(path);
                         Dictionary<string, string> values = new Dictionary<string, string>();
                         int C = 0;
-                
-                           
+
+
                         saveWithPreset.Clear();
                         #region IWAD
                         if (chkSaveIWAD.Checked)
@@ -184,7 +208,7 @@ namespace DoomModLoader2.Forms
                         else
                         {
                             values.Add("IWAD", string.Empty);
-                           
+
                         }
                         #endregion
 
@@ -259,18 +283,19 @@ namespace DoomModLoader2.Forms
                         if (SharedVar.SHOW_SUCCESS_MESSAGE)
                         {
                             MessageBox.Show("Preset '" + name + "' has been saved.", "DML", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                           
+
                         }
                         this.Close();
                         return true;
-                    } else
+                    }
+                    else
                     {
                         return false;
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a preset name.", $"DML v{SharedVar.LOCAL_VERSION}" , MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please enter a preset name.", $"DML v{SharedVar.LOCAL_VERSION}", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     return false;
                 }
 
@@ -284,6 +309,6 @@ namespace DoomModLoader2.Forms
             }
         }
 
-    
+
     }
 }

@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
-using System.Linq;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
@@ -24,10 +19,20 @@ namespace DoomModLoader2
 
         }
 
+        /// <summary>
+        /// Return true if the application is updated the latest public avaible version.
+        /// </summary>
+        /// <returns></returns>
         public bool isLatestVersion()
         {
             return GetLatestVersionInfo().Equals(SharedVar.LOCAL_VERSION) ? true : false;
         }
+
+        /// <summary>
+        /// Return the latest version public avaible.<br></br>
+        /// It also update all the relative properties in the VersionForm
+        /// </summary>
+        /// <returns></returns>
         private string GetLatestVersionInfo()
         {
 
@@ -44,13 +49,11 @@ namespace DoomModLoader2
                         string[] versionInfo = reader.ReadToEnd().Split(';');
                         lblServerVersion.Text = versionInfo[0];//Version
                         serverVersion = versionInfo[0];
-                        urlDownloadChangeLog = versionInfo[1];//Url to download changelog
-                        urlDownloadLatestVersion = versionInfo[2];
+                        urlDownloadChangeLog = versionInfo[1];//Url used to download the changelog
+                        urlDownloadLatestVersion = versionInfo[2]; //URL 
                     }
                 }
             }
-
-
 
             return serverVersion;
         }
@@ -62,9 +65,10 @@ namespace DoomModLoader2
                 lblLocalVersion.Text = SharedVar.LOCAL_VERSION;
                 chkUpdate.Checked = SharedVar.CHECK_FOR_UPDATE;
                 GetLatestVersionInfo();
-                //CHANGELOG
-                if (urlDownloadChangeLog != string.Empty && urlDownloadChangeLog != null)
+
+                if (!string.IsNullOrEmpty(urlDownloadChangeLog))
                 {
+                    //Download the changelog and write it to txtChangeLog text.
                     WebRequest webRequest = WebRequest.Create(urlDownloadChangeLog);
                     using (var response = webRequest.GetResponse())
                     {
@@ -93,16 +97,24 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Enable/Disable the check for newer version at the application startup.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkUpdate_CheckedChanged(object sender, EventArgs e)
         {
             SharedVar.CHECK_FOR_UPDATE = chkUpdate.Checked;
         }
 
+        /// <summary>
+        /// Open the URL for latest version.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdOpenDownload_Click(object sender, EventArgs e)
         {
-          
             Process.Start(urlDownloadLatestVersion);
-          
         }
     }
 }
