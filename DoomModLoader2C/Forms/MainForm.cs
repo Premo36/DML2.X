@@ -4,6 +4,7 @@ using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
 using DoomModLoader2.Entity;
@@ -29,7 +30,14 @@ namespace DoomModLoader2
         private string cfgPORT_CONFIG;
         private string foldPRESET;
 
-        private readonly string[] validWadExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh" };
+        private readonly string[] validWadExtensions = { ".wad",
+                                                         ".pk3",
+                                                         ".zip",
+                                                         ".pak",
+                                                         ".pk7",
+                                                         ".grp",
+                                                         ".rff",
+                                                         ".deh" };
 
         List<string> saveWithPreset = new List<string>();
 
@@ -47,6 +55,7 @@ namespace DoomModLoader2
                 _selectedItems.AddRange(value.Where(X => !_selectedItems.Any(Y => X.name == Y.name)).ToList());
             }
         }
+
         #region FORM 
         public MainForm()
         {
@@ -73,6 +82,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// "PLAY" button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdPlay_Click(object sender, EventArgs e)
         {
             bool err = false;
@@ -118,7 +132,7 @@ namespace DoomModLoader2
                             formMod.presetName = selectedPreset.name;
                         formMod.ShowDialog();
 
-                        LoadPresets();
+                        LoadPresetList();
                         if (formMod.presetName != null)
                         {
                             PathName pn = cmbPreset.Items.Cast<PathName>().Where(P => P.name == formMod.presetName).FirstOrDefault();
@@ -463,59 +477,67 @@ namespace DoomModLoader2
 
                 if (pn != null && !pn.name.Equals("-"))
                 {
-                    DialogResult ris = DialogResult.OK;
+                    DialogResult answer = DialogResult.OK;
                     if (SharedVar.SHOW_DELETE_MESSAGE)
                     {
-                        ris = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
+                        answer = MessageBox.Show("Are you sure you want to remove \"" + pn.name + "\""
                                           + Environment.NewLine
                                           + "(Path: \"" + pn.path + "\")"
                                           , "REMOVE " + pn.name.ToUpper(), MessageBoxButtons.OKCancel);
                     }
-                    if (ris == DialogResult.OK)
+                    if (answer == DialogResult.OK)
                     {
                         File.Delete(pn.path);
-                        LoadPresets();
+                        LoadPresetList();
                     }
 
                 }
             }
             catch (Exception Ex)
             {
-                StringBuilder errore = new StringBuilder();
-                errore.AppendLine("Something went wrong while trying to delete a preset...");
-                errore.AppendLine("Please check if your account have the permission to write in:");
-                errore.AppendLine(@"""" + pn.path + @"""");
-                errore.AppendLine();
-                errore.AppendLine("Error Message:");
-                errore.AppendLine(Ex.Message);
+                StringBuilder error = new StringBuilder();
+                error.AppendLine("Something went wrong while trying to delete a preset...");
+                error.AppendLine("Please check if your account have the permission to write in:");
+                error.AppendLine(@"""" + pn.path + @"""");
+                error.AppendLine();
+                error.AppendLine("Error Message:");
+                error.AppendLine(Ex.Message);
 
-                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(error.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        /// <summary>
+        /// When the user try to close the application, if the flag "SHOW_END_MESSAGE" is true a confirmation message with a random doom quitting quote will be displayed. 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             if (SharedVar.SHOW_END_MESSAGE)
             {
                 string[] EXIT_MESSAGES = new string[] {
-                //DOOM
-                "Please don't leave, there's more demons to toast!",
-                "Let's beat it -- This is turning into a bloodbath!",
-                "I wouldn't leave if I were you. DOS is much worse.",
-                "You're trying to say you like DOS better than me, right?",
-                "Don't leave yet -- There's a demon around that corner!",
-                "Ya know, next time you come in here I'm gonna toast ya.",
-                "Go ahead and leave. See if I care.",
-                "Are you sure you want to quit this great game?",
+                    
+                    #region DOOM
+                    "Please don't leave, there's more demons to toast!",
+                    "Let's beat it -- This is turning into a bloodbath!",
+                    "I wouldn't leave if I were you. DOS is much worse.",
+                    "You're trying to say you like DOS better than me, right?",
+                    "Don't leave yet -- There's a demon around that corner!",
+                    "Ya know, next time you come in here I'm gonna toast ya.",
+                    "Go ahead and leave. See if I care.",
+                    "Are you sure you want to quit this great game?",
+                    #endregion
 
-                //DOOM 2
-                "You want to quit? Then, thou hast lost an eighth!",
-                "Don't go now, there's a dimensional shambler waiting at the dos prompt!",
-                "Get outta here and go back to your boring programs.",
-                "If I were your boss, I'd deathmatch ya in a minute!",
-                "Look, bud. You leave now and you forfeit your body count!",
-                "Just leave. When you come back, I'll be waiting with a bat.",
-                "You're lucky I don't smack you for thinking about leaving.",
+                    #region DOOM II
+                    "You want to quit? Then, thou hast lost an eighth!",
+                    "Don't go now, there's a dimensional shambler waiting at the dos prompt!",
+                    "Get outta here and go back to your boring programs.",
+                    "If I were your boss, I'd deathmatch ya in a minute!",
+                    "Look, bud. You leave now and you forfeit your body count!",
+                    "Just leave. When you come back, I'll be waiting with a bat.",
+                    "You're lucky I don't smack you for thinking about leaving.",
+                    #endregion
                 };
 
                 Random R = new Random();
@@ -573,18 +595,25 @@ namespace DoomModLoader2
 
         #region METHODS
 
+        /// <summary>
+        /// Load all resources
+        /// </summary>
         private void LoadResources()
         {
             LoadIWADs();
             LoadPorts();
             LoadPortsConfigs();
-            LoadPresets();
+            LoadPresetList();
             LoadPWAD();
             LoadDMLconfiguration();
 
         }
 
-        private void LoadPresets()
+        /// <summary>
+        /// <br>Load all the presets from the presets folder </br>
+        /// <br>NOTE: This will load just the paths (and names) of the preset.</br>
+        /// </summary>
+        private void LoadPresetList()
         {
             string[] pathPreset = Directory.GetFiles(foldPRESET);
             List<PathName> presets = new List<PathName>();
@@ -600,6 +629,9 @@ namespace DoomModLoader2
 
         }
 
+        /// <summary>
+        /// Load all the alternative port configuration files
+        /// </summary>
         private void LoadPortsConfigs()
         {
             List<string> pathPORT_config = File.ReadAllLines(cfgPORT_CONFIG).ToList();
@@ -607,6 +639,9 @@ namespace DoomModLoader2
             cmbPortConfig.DataSource = GetAllPaths(pathPORT_config, new string[] { ".ini", ".cfg" }); ;
         }
 
+        /// <summary>
+        /// Load all sourceports
+        /// </summary>
         private void LoadPorts()
         {
             List<string> pathPORT = File.ReadAllLines(cfgPORT).ToList();
@@ -614,12 +649,14 @@ namespace DoomModLoader2
             cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe" }, true);
         }
 
+        /// <summary>
+        /// <br>Load all pwads from disk(or RAM) and populate the lstPWAD list.</br>
+        /// </summary>
+        /// <param name="filter"></param>
         private void LoadPWAD(string filter = null)
         {
             try
             {
-
-
                 lstPWAD.DataSource = new List<PathName>();
 
                 List<PathName> wads;
@@ -641,8 +678,6 @@ namespace DoomModLoader2
                     wads = cachedPWADs.Where(F => Path.GetExtension(F.path) == cmbFileFilter.Text).ToList();
                 }
 
-
-
                 if (wads != null && wads.Count > 0)
                 {
                     wads = wads.GroupBy(p => p.name).Select(g => g.First()).ToList();
@@ -661,18 +696,24 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong while trying to load your mods..." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Something went wrong while trying to load your mods..." + Environment.NewLine +
+                                "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
+        /// <summary>
+        /// Load the IWAD list.
+        /// </summary>
         private void LoadIWADs()
         {
-
             List<string> pathIWAD = File.ReadAllLines(cfgIWAD).ToList();
             pathIWAD.Add(IWADfolderPath);
             cmbIWAD.DataSource = GetAllPaths(pathIWAD, validWadExtensions);
         }
 
+        /// <summary>
+        /// Load DML 2.X prefrences and the latest used launch parameters.
+        /// </summary>
         private void LoadDMLconfiguration()
         {
             try
@@ -883,6 +924,7 @@ namespace DoomModLoader2
                     }
                     #endregion
 
+                    #region PRESET
                     if (cfg.TryGetValue("PRESET", out value))
                     {
                         cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == value).FirstOrDefault();
@@ -892,6 +934,7 @@ namespace DoomModLoader2
                         errors.Add("PRESET");
                         cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
                     }
+                    #endregion
 
                     if (errors.Count > 0)
                     {
@@ -919,6 +962,9 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Load the default values for the application
+        /// </summary>
         private void LoadDefaultValues()
         {
             cmb_vidrender.SelectedIndex = 5;
@@ -929,6 +975,9 @@ namespace DoomModLoader2
             SharedVar.SHOW_SUCCESS_MESSAGE = true;
         }
 
+        /// <summary>
+        /// Create all the needed configuration files
+        /// </summary>
         private void InitializeConfiguration()
         {
             try
@@ -1044,15 +1093,15 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-                StringBuilder errore = new StringBuilder();
-                errore.AppendLine("Could not create a .cfg file or folder!");
-                errore.AppendLine("Please check if your account have the permission to write in:");
-                errore.AppendLine(@"""" + Application.StartupPath + @"""");
-                errore.AppendLine();
-                errore.AppendLine("Error Message:");
-                errore.AppendLine(ex.Message);
+                StringBuilder error = new StringBuilder();
+                error.AppendLine("Could not create a .cfg file or folder!");
+                error.AppendLine("Please check if your account have the permission to write in:");
+                error.AppendLine(@"""" + Application.StartupPath + @"""");
+                error.AppendLine();
+                error.AppendLine("Error Message:");
+                error.AppendLine(ex.Message);
 
-                MessageBox.Show(errore.ToString(), "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(error.ToString(), "FATAL ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Environment.Exit(-1);
             }
 
@@ -1069,17 +1118,34 @@ namespace DoomModLoader2
 
                 }
 
-                //Chex3 seems marked as PWAD while actually is a stand-alone game... so I just skip the bytes check
-                if (Path.GetFileName(path).ToUpper().Equals("CHEX3.WAD"))
+                const string chex3v1_4_MD5 = "bce163d06521f9d15f9686786e64df13";
+                const string chex3v1_0_MD5 = "59c985995db55cd2623c1893550d82b3";
+
+                string fileMD5;
+
+                byte[] wadData = File.ReadAllBytes(path);
+                string s = Encoding.ASCII.GetString(wadData.Take(4).ToArray());
+
+                if (s.Equals("IWAD"))
                 {
                     return true;
                 }
-                else
+
+
+                using (var md5 = MD5.Create())
                 {
-                    byte[] wadData = File.ReadAllBytes(path).Take(4).ToArray();
-                    string s = Encoding.ASCII.GetString(wadData);
-                    return s.Equals("IWAD") ? true : false;
+                    fileMD5 = BitConverter.ToString(md5.ComputeHash(wadData)).Replace("-", "").ToLowerInvariant();
                 }
+
+
+                //Chex3 seems marked as PWAD while actually is a stand-alone game...  
+                if (chex3v1_4_MD5.Equals(fileMD5) || chex3v1_0_MD5.Equals(fileMD5))
+                {
+                    return true;
+                }
+
+                return false;
+
             }
             catch
             {
@@ -1187,6 +1253,9 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Save DML 2.X preferences and launch options.
+        /// </summary>
         private void SavePreferences()
         {
             try
@@ -1214,7 +1283,7 @@ namespace DoomModLoader2
                     preferences.Add("AUDIO", "3");
                 }
 
-                //Video 2 2
+
                 if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
                 {
                     preferences.Add("SCREEN_WIDTH", txtScreenWidth.Text);
@@ -1226,7 +1295,6 @@ namespace DoomModLoader2
                     preferences.Add("SCREEN_HEIGHT", "");
                 }
 
-                //fullscreen 1 3
                 if (chkFullscreen.Checked)
                 {
                     preferences.Add("FULLSCREEN", "TRUE");
@@ -1306,15 +1374,15 @@ namespace DoomModLoader2
             }
             catch (Exception ex)
             {
-                StringBuilder errore = new StringBuilder();
-                errore.AppendLine("Something went wrong while trying to save your preference...");
-                errore.AppendLine("Please check if your account have the permission to write in:");
-                errore.AppendLine(@"""" + cfgPreference + @"""");
-                errore.AppendLine();
-                errore.AppendLine("Error Message:");
-                errore.AppendLine(ex.Message);
+                StringBuilder error = new StringBuilder();
+                error.AppendLine("Something went wrong while trying to save your preference...");
+                error.AppendLine("Please check if your account have the permission to write in:");
+                error.AppendLine(@"""" + cfgPreference + @"""");
+                error.AppendLine();
+                error.AppendLine("Error Message:");
+                error.AppendLine(ex.Message);
 
-                MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(error.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1415,6 +1483,10 @@ namespace DoomModLoader2
             return ret;
         }
 
+        /// <summary>
+        /// Custom handle for "lstPWAD" selected items because if the list searched/filtered the current ones will be lost otherwise
+        /// </summary>
+        /// <param name="mode"></param>
         private void UpdateSelectedPWADitems(mode mode)
         {
             List<PathName> allFiles = lstPWAD.Items.Cast<PathName>().ToList();

@@ -20,7 +20,7 @@ namespace DoomModLoader2
         }
 
         /// <summary>
-        /// Return true if the application is updated the latest public avaible version.
+        /// Return true if the application is up to date with the latest public avaible version.
         /// </summary>
         /// <returns></returns>
         public bool isLatestVersion()
