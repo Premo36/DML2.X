@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoomModLoader2.Entity;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
@@ -7,7 +8,6 @@ using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows.Forms;
-using DoomModLoader2.Entity;
 
 namespace DoomModLoader2
 {
@@ -130,6 +130,7 @@ namespace DoomModLoader2
 
                         if (!selectedPreset.name.Trim().Equals("-"))
                             formMod.presetName = selectedPreset.name;
+
                         formMod.ShowDialog();
 
                         LoadPresetList();
@@ -150,9 +151,6 @@ namespace DoomModLoader2
                     StartGame(param);
                 }
             }
-
-
-
         }
 
         private void chkNoMonster_CheckedChanged(object sender, EventArgs e)
@@ -212,12 +210,15 @@ namespace DoomModLoader2
                             cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
                         }
                     }
-
-
                 }
             }
         }
 
+        /// <summary>
+        /// Import a sourceport trough the "ADD..." button.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdAddSourcePort_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -239,6 +240,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Import an alternative sourceport's configuration file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdAddConfiguration_Click(object sender, EventArgs e)
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
@@ -260,6 +266,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Enable/Disable the loading of the alternative configuration file
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void chkCustomConfiguration_CheckedChanged(object sender, EventArgs e)
         {
             bool siEnabled = chkCustomConfiguration.Checked;
@@ -268,6 +279,11 @@ namespace DoomModLoader2
             cmbPortConfig.Enabled = siEnabled;
         }
 
+        /// <summary>
+        /// Remove the select IWAD from the imported ones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdRemoveIWAD_Click(object sender, EventArgs e)
         {
             PathName wad = (PathName)cmbIWAD.SelectedItem;
@@ -280,6 +296,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Remove the selected presets from the imported ones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdRemoveSourcePort_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbSourcePort.SelectedItem;
@@ -292,6 +313,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Remove the selected alternative configuration from the imported ones
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdRemoveConfiguration_Click(object sender, EventArgs e)
         {
             PathName PN = (PathName)cmbPortConfig.SelectedItem;
@@ -304,6 +330,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Read all data from the selected preset
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmbPreset_SelectedIndexChanged(object sender, EventArgs e)
         {
             saveWithPreset.Clear();
@@ -428,11 +459,6 @@ namespace DoomModLoader2
 
         }
 
-        private void quitToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Close();
-        }
-
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
             CheckForUpdate();
@@ -446,6 +472,11 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Open the FileManger window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdOpenFileManager_Click(object sender, EventArgs e)
         {
             using (FileManager fm = new FileManager(cfgPWAD))
@@ -461,6 +492,11 @@ namespace DoomModLoader2
 
         }
 
+        /// <summary>
+        /// Reload all the DML 2.X resources
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SavePreferences();
@@ -469,6 +505,11 @@ namespace DoomModLoader2
             UpdateSelectedPWADitems(mode.DELETE);
         }
 
+        /// <summary>
+        /// Delete the current selected preset
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void cmdRemovePreset_Click(object sender, EventArgs e)
         {
             PathName pn = (PathName)cmbPreset.SelectedItem;
@@ -549,11 +590,14 @@ namespace DoomModLoader2
                     e.Cancel = true;
                 }
             }
-
             SavePreferences();
-
         }
 
+        /// <summary>
+        /// Open the options window
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void preferencesToolStripMenuItem_Click(object sender, EventArgs e)
         {
             using (Options options = new Options(cfgPreference))
@@ -570,6 +614,7 @@ namespace DoomModLoader2
                 lstPWAD.SelectionMode = SelectionMode.MultiSimple;
             }
         }
+
 
         private void cmbFileFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -606,7 +651,6 @@ namespace DoomModLoader2
             LoadPresetList();
             LoadPWAD();
             LoadDMLconfiguration();
-
         }
 
         /// <summary>
@@ -625,8 +669,6 @@ namespace DoomModLoader2
             }
             cmbPreset.DataSource = presets;
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
-
-
         }
 
         /// <summary>
@@ -723,8 +765,6 @@ namespace DoomModLoader2
                 Storage storage = new Storage(cfgPreference);
 
                 Dictionary<string, string> cfg = storage.ReadAllValues();
-
-
 
                 if (cfg.Count > 0)
                 {
@@ -947,7 +987,6 @@ namespace DoomModLoader2
                         }
                         errorText.AppendLine("If you just upgraded to a new version and those settings are listed in the changelog, you can ignore this message.");
                         MessageBox.Show(errorText.ToString(), "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Information);
-
                     }
                 }
                 else
@@ -992,8 +1031,6 @@ namespace DoomModLoader2
                 cfgPORT = Path.Combine(dmlConfigPath, "PORT.ini");
                 cfgPORT_CONFIG = Path.Combine(dmlConfigPath, "PORT_CONFIG_PATH.ini");
 
-
-
                 if (!Directory.Exists(dmlConfigPath))
                     Directory.CreateDirectory(dmlConfigPath);
 
@@ -1018,20 +1055,17 @@ namespace DoomModLoader2
                     F.Dispose();
                 }
 
-
                 if (!File.Exists(cfgPORT))
                 {
                     FileStream F = File.Create(cfgPORT);
                     F.Dispose();
                 }
 
-
                 if (!File.Exists(cfgPreference))
                 {
                     FileStream F = File.Create(cfgPreference);
                     F.Dispose();
                 }
-
 
                 if (!File.Exists(cfgPORT_CONFIG))
                 {
@@ -1044,8 +1078,6 @@ namespace DoomModLoader2
                 PWADfolderPath = Path.Combine(userFiles_path, "PWAD");
                 PORTfolderPath = Path.Combine(userFiles_path, "PORT");
                 PORT_CONFIGfolderPath = Path.Combine(userFiles_path, "PORT_CONFIG");
-
-
 
                 if (!Directory.Exists(userFiles_path))
                     Directory.CreateDirectory(userFiles_path);
@@ -1118,11 +1150,6 @@ namespace DoomModLoader2
 
                 }
 
-                const string chex3v1_4_MD5 = "bce163d06521f9d15f9686786e64df13";
-                const string chex3v1_0_MD5 = "59c985995db55cd2623c1893550d82b3";
-
-                string fileMD5;
-
                 byte[] wadData = File.ReadAllBytes(path);
                 string s = Encoding.ASCII.GetString(wadData.Take(4).ToArray());
 
@@ -1131,14 +1158,17 @@ namespace DoomModLoader2
                     return true;
                 }
 
+                //MD5 hash for CHEX3.WAD v1.4 & v1.0
+                const string chex3v1_4_MD5 = "bce163d06521f9d15f9686786e64df13";
+                const string chex3v1_0_MD5 = "59c985995db55cd2623c1893550d82b3";
+                string fileMD5;
 
                 using (var md5 = MD5.Create())
                 {
                     fileMD5 = BitConverter.ToString(md5.ComputeHash(wadData)).Replace("-", "").ToLowerInvariant();
                 }
 
-
-                //Chex3 seems marked as PWAD while actually is a stand-alone game...  
+                //Chex3 seems marked as PWAD while actually is a stand-alone game. So I check it by hash.
                 if (chex3v1_4_MD5.Equals(fileMD5) || chex3v1_0_MD5.Equals(fileMD5))
                 {
                     return true;
@@ -1170,7 +1200,7 @@ namespace DoomModLoader2
                 parm.AppendFormat(" -height {0} ", txtScreenHeight.Text);
             }
 
-            //FULLSCREEN?
+            //FULLSCREEN
             parm.AppendFormat(" +fullscreen {0} ", chkFullscreen.Checked);
 
             //AUDIO
@@ -1229,7 +1259,7 @@ namespace DoomModLoader2
                 }
             }
 
-            //RENDERER
+            //RENDERER, 5 it's the "DO NOT OVVERRIDE"
             if (cmb_vidrender.SelectedIndex != 5)
                 parm.AppendFormat(" +vid_rendermode {0} ", cmb_vidrender.SelectedIndex);
 
@@ -1239,6 +1269,11 @@ namespace DoomModLoader2
 
         }
 
+        /// <summary>
+        /// <br>Start the game without mods or with just one.</br>
+        /// The logic to start the game with 2 or more mods it's inside "FormMod.cs"
+        /// </summary>
+        /// <param name="param"></param>
         public void StartGame(string param)
         {
             try
@@ -1249,7 +1284,7 @@ namespace DoomModLoader2
             catch (Exception ex)
             {
                 MessageBox.Show("Cannot start the game!" + Environment.NewLine +
-                              "ERROR: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                "ERROR: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -1263,6 +1298,7 @@ namespace DoomModLoader2
                 Dictionary<string, string> preferences = new Dictionary<string, string>();
                 Storage storage = new Storage(cfgPreference);
 
+                #region AUDIO
                 if (radAudioAllSounds.Checked)
                 {
                     preferences.Add("AUDIO", "0");
@@ -1282,8 +1318,9 @@ namespace DoomModLoader2
                 {
                     preferences.Add("AUDIO", "3");
                 }
+                #endregion
 
-
+                #region VIDEO
                 if (txtScreenHeight.Text != string.Empty && txtScreenWidth.Text != string.Empty)
                 {
                     preferences.Add("SCREEN_WIDTH", txtScreenWidth.Text);
@@ -1303,8 +1340,9 @@ namespace DoomModLoader2
                 {
                     preferences.Add("FULLSCREEN", "FALSE");
                 }
+                #endregion
 
-
+                #region ALTERNATIVE SOURCEPORT CONFIGURATION
                 if (chkCustomConfiguration.Checked)
                 {
                     preferences.Add("CUSTOM_PORT_CFG", "TRUE");
@@ -1323,16 +1361,12 @@ namespace DoomModLoader2
                     preferences.Add("CUSTOM_PORT_CFG", "FALSE");
                     preferences.Add("CUSTOM_PORT_PATH", "");
                 }
-
+                #endregion
 
                 preferences.Add("COMMANDLINE", txtCommandLine.Text);
 
-
+                #region IWAD
                 PathName iwad = (PathName)cmbIWAD.SelectedItem;
-
-
-                PathName port = (PathName)cmbSourcePort.SelectedItem;
-
                 if (iwad != null)
                 {
                     preferences.Add("IWAD", iwad.name);
@@ -1341,8 +1375,10 @@ namespace DoomModLoader2
                 {
                     preferences.Add("IWAD", "");
                 }
+                #endregion
 
-
+                #region PWAD
+                PathName port = (PathName)cmbSourcePort.SelectedItem;
                 if (port != null)
                 {
                     preferences.Add("PORT", port.name);
@@ -1351,6 +1387,7 @@ namespace DoomModLoader2
                 {
                     preferences.Add("PORT", "");
                 }
+                #endregion
 
                 preferences.Add("PRESET", cmbPreset.Text);
 
@@ -1358,7 +1395,6 @@ namespace DoomModLoader2
                 preferences.Add("RENDERER", cmb_vidrender.SelectedIndex.ToString());
 
                 preferences.Add("CHECK_FOR_UPDATE", SharedVar.CHECK_FOR_UPDATE.ToString().ToUpper());
-
 
                 preferences.Add("SHOW_END_MESSAGE", SharedVar.SHOW_END_MESSAGE.ToString().ToUpper());
 
@@ -1386,6 +1422,10 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Open the VersionForm window and check for newer application version.
+        /// </summary>
+        /// <param name="start"></param>
         private void CheckForUpdate(bool start = false)
         {
             try
@@ -1414,6 +1454,13 @@ namespace DoomModLoader2
             }
         }
 
+        /// <summary>
+        /// Convert the given path in a PathName object
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="removeExtension"></param>
+        /// <param name="toUpper"></param>
+        /// <returns></returns>
         private PathName GetPathName(string path, bool removeExtension, bool toUpper)
         {
             PathName obj = new PathName
@@ -1436,10 +1483,17 @@ namespace DoomModLoader2
             return obj;
         }
 
+        /// <summary>
+        /// <br>Convert each element found in a given array of paths with a given extension in a PathName object.</br> 
+        /// <br>If the path is a directory, all files inside the directory and subdirectories will be examined.</br>
+        /// <br>If the path is a directory, and contains a "BLACKLIST.TXT", any file with a name contained in the blacklist file will be ignored.</br>
+        /// </summary>
+        /// <param name="paths"></param>
+        /// <param name="validExtensions"></param>
+        /// <param name="removeExtension"></param>
+        /// <returns></returns>
         private List<PathName> GetAllPaths(List<string> paths, string[] validExtensions, bool removeExtension = false)
         {
-
-
             List<PathName> ret = new List<PathName>();
             foreach (string p in paths)
             {
@@ -1468,23 +1522,26 @@ namespace DoomModLoader2
                     string[] folders = Directory.GetDirectories(p, "*", SearchOption.AllDirectories);
                     foreach (string f in folders)
                     {
-                        files = Directory.GetFiles(f).Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower()) && !blacklistFiles.Any(B => Path.GetFileName(B).ToUpper() == Path.GetFileName(F).ToUpper())).ToArray();
+                        files = Directory.GetFiles(f);
                         foreach (string file in files)
                         {
                             ret.Add(GetPathName(file, removeExtension, true));
                         }
                     }
 
+                    //Remove all blacklisted file
+                    ret.RemoveAll(F => blacklistFiles.Any(B => Path.GetFileName(B).ToUpper() == F.name.ToUpper()));
 
+                    //Remove all file without a valid extension
+                    ret.RemoveAll(F => !validExtensions.Contains(Path.GetExtension(F.path).ToLower()));
                 }
             }
-
 
             return ret;
         }
 
         /// <summary>
-        /// Custom handle for "lstPWAD" selected items because if the list searched/filtered the current ones will be lost otherwise
+        /// Custom handle for "lstPWAD" selected items because if the list is filtered the current ones will get lost otherwise
         /// </summary>
         /// <param name="mode"></param>
         private void UpdateSelectedPWADitems(mode mode)

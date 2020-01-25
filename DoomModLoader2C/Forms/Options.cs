@@ -6,10 +6,10 @@ namespace DoomModLoader2
     public partial class Options : Form
     {
         private string cfgPath;
-         /// <summary>
-         /// Initialize the options menu ("preferences...").
-         /// </summary>
-         /// <param name="cfgPath"></param>
+        /// <summary>
+        /// Initialize the options menu ("preferences...").
+        /// </summary>
+        /// <param name="cfgPath"></param>
         public Options(string cfgPath)
         {
             InitializeComponent();

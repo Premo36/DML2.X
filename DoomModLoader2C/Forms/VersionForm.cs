@@ -89,7 +89,7 @@ namespace DoomModLoader2
                 }
 
             }
-            catch 
+            catch
             {
                 cmdOpenDownload.Enabled = false;
                 MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +

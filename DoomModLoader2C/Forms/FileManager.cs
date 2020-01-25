@@ -28,7 +28,7 @@ namespace DoomModLoader2
         private void LoadList()
         {
             lstPath.Items.Clear();
-            
+
             string[] pathPWAD = File.ReadAllLines(cfgPWAD);
 
             foreach (string p in pathPWAD)
@@ -36,7 +36,7 @@ namespace DoomModLoader2
                 lstPath.Items.Add(p);
             }
         }
-        
+
         /// <summary>
         /// Open a file dialog to import a single file.
         /// </summary>
@@ -115,9 +115,11 @@ namespace DoomModLoader2
                 if (File.Exists(p))
                 {
                     string[] validExtensions = { ".wad", ".pk3", ".zip", ".pak", ".pk7", ".7z", ".grp", ".rff", ".deh" };
-                    if (validExtensions.Contains(Path.GetExtension(p).ToLower())) { 
+                    if (validExtensions.Contains(Path.GetExtension(p).ToLower()))
+                    {
                         AddFiles(new string[] { p });
-                    } else
+                    }
+                    else
                     {
                         MessageBox.Show($"'{p}' is not a valid file");
                     }
@@ -128,8 +130,6 @@ namespace DoomModLoader2
                 }
             }
         }
-
-
 
         private void lstPath_DragEnter(object sender, DragEventArgs e)
         {
@@ -156,7 +156,7 @@ namespace DoomModLoader2
         }
 
         /// <summary>
-        /// Update the "PWAD.ini" file by adding the path passed trough the "path" param.
+        /// Update the "PWAD.ini" file by adding the folder path passed trough the "path" param.
         /// </summary>
         /// <param name="path"></param>
         private void AddFolder(string path)
@@ -180,8 +180,6 @@ namespace DoomModLoader2
                 MessageBox.Show(errore.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
-    
     }
 }
 #endregion
