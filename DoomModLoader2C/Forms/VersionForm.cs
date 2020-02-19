@@ -36,6 +36,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Net;
@@ -77,23 +78,29 @@ namespace DoomModLoader2
         private string GetLatestVersionInfo()
         {
 
-            string serverVersion;
+            string serverVersion ="";
             lblServerVersion.Text = "???";
-            //VERSION NUMBER, CHANGELOG URL AND DOWNLOAD URL
-            WebRequest webRequest = WebRequest.Create(SharedVar.UrlVersion);
-            using (var response = webRequest.GetResponse())
+           
+
+            using (WebClient wc = new WebClient())
             {
-                using (var content = response.GetResponseStream())
-                {
-                    using (var reader = new StreamReader(content))
-                    {
-                        string[] versionInfo = reader.ReadToEnd().Split(';');
-                        lblServerVersion.Text = versionInfo[0];//Version
-                        serverVersion = versionInfo[0];
-                        urlDownloadChangeLog = versionInfo[1];//Url used to download the changelog
-                        urlDownloadLatestVersion = versionInfo[2]; //URL 
-                    }
-                }
+                string json = wc.DownloadString(SharedVar.UrlVersion);
+
+                json = json.Replace("{", "");
+                json = json.Replace("}", "");
+                json = json.Replace("\"", "");
+
+
+                string[] versionInfo = json.Split(',');
+
+                Dictionary<string, string> info = new Dictionary<string, string>();
+                info = versionInfo.ToKeyValueDictionary();
+
+                serverVersion = info["version"];
+                lblServerVersion.Text = serverVersion;
+                urlDownloadChangeLog = info["url_changelog"].Replace(@"\", @"").Replace(@"\", @""); ;
+                urlDownloadLatestVersion = info["url_download_page"].Replace(@"\", @"").Replace(@"\", @""); ;
+
             }
 
             return serverVersion;
