@@ -13,14 +13,19 @@ In order to use DML 2.X you need at least:
 
 
 As for this version, the only tested source port are:
+
+FULL COMPATIBILITY:
 -GZdoom (v4.2.4), -height and -width do not work due to gzdoom way of handling resolution)
 -LZdoom (3.83a)
-
 -Zandronum (3.0)
 -Zdoom(2.8.1)
 -QZDoom (2.1.0)
 -Skulltag(98d)
--Chocholate Doom (3.0.0, really BASIC compability, most of the DML features don't work)
+
+PARTIAL COMPATIBILITY (Some DML features don't work):
+-Chocholate Doom (3.0.0)
+-PRBOOM PLUS(2.5.1.4)
+-GLBOOM PLUS(2.5.1.4)
 
 (As long as it follows the zdoom command line standard, any engine should work fine)
 
@@ -97,17 +102,17 @@ This can be useful also to share the same configuration between compatible sourc
 2)Click "remove", a confirmation message will pop-up.
 
 ============================CHANGELOG===========================
-(This is the latest changelog. You can read all changelogs here https://drive.google.com/file/d/1JmftFasvTYk60aeFedylvR0nQUnHSp1W/view)
-[01/02/2020 | 2.2b]
--DML 2.X code gets released on github! https://github.com/Premo36/DML2.X (BSD 4-Clause License)
--P36_utilitis.dll code integrated in the .exe, removed the .dll dependencies.
+(This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
+[23/02/2020 | 2.2b]
+-DML 2.X code gets released on github! https://github.com/Premo36/DML2.X (BSD 3-Clause License)
+-P36_utilitis.dll code integrated into the .exe (this .dll is no longer needed and can be deleted).
 -Improved CHEX3.wad identification: As it does not follow the IWAD standard (https://zdoom.org/wiki/WAD#Header),
  I used to rely on it's name to indentify it correctly as an IWAD, now i rely on it's checksum instead,
  so the iwad it's identified by it's content rather than it's name.
 -Varaibles and function renaming, improved code comments.
 
 Bugfixes
--Fixed bug where a file written in the BLACKLIST.TXT file would not be ignored if it was in the same folder as the blacklist file.
+-Fixed bug where files written in the BLACKLIST.TXT file would not be ignored if located in the same folder as the blacklist.txt file.
 
 ===================INFO===================
 AUTHOR TWITTER: @premo36
