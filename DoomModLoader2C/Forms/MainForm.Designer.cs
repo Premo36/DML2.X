@@ -31,10 +31,11 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.cmbFileFilter = new System.Windows.Forms.ComboBox();
+            this.txtSearch = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
             this.cmbOrder = new System.Windows.Forms.ComboBox();
-            this.txtSearch = new System.Windows.Forms.TextBox();
-            this.cmbFileFilter = new System.Windows.Forms.ComboBox();
             this.cmdOpenFileManager = new System.Windows.Forms.Button();
             this.cmbPreset = new System.Windows.Forms.ComboBox();
             this.PathBinding = new System.Windows.Forms.BindingSource(this.components);
@@ -85,7 +86,6 @@
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.label8 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -117,6 +117,35 @@
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MODS (-file / -deh)";
             // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(9, 57);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(44, 13);
+            this.label8.TabIndex = 23;
+            this.label8.Text = "Search:";
+            // 
+            // cmbFileFilter
+            // 
+            this.cmbFileFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbFileFilter.FormattingEnabled = true;
+            this.cmbFileFilter.Items.AddRange(new object[] {
+            " "});
+            this.cmbFileFilter.Location = new System.Drawing.Point(255, 54);
+            this.cmbFileFilter.Name = "cmbFileFilter";
+            this.cmbFileFilter.Size = new System.Drawing.Size(52, 21);
+            this.cmbFileFilter.TabIndex = 3;
+            this.cmbFileFilter.SelectedIndexChanged += new System.EventHandler(this.cmbFileFilter_SelectedIndexChanged);
+            // 
+            // txtSearch
+            // 
+            this.txtSearch.Location = new System.Drawing.Point(59, 54);
+            this.txtSearch.Name = "txtSearch";
+            this.txtSearch.Size = new System.Drawing.Size(190, 20);
+            this.txtSearch.TabIndex = 2;
+            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
+            // 
             // label7
             // 
             this.label7.AutoSize = true;
@@ -140,26 +169,6 @@
             this.cmbOrder.Size = new System.Drawing.Size(248, 21);
             this.cmbOrder.TabIndex = 4;
             this.cmbOrder.SelectedIndexChanged += new System.EventHandler(this.cmbOrder_SelectedIndexChanged);
-            // 
-            // txtSearch
-            // 
-            this.txtSearch.Location = new System.Drawing.Point(59, 54);
-            this.txtSearch.Name = "txtSearch";
-            this.txtSearch.Size = new System.Drawing.Size(190, 20);
-            this.txtSearch.TabIndex = 2;
-            this.txtSearch.TextChanged += new System.EventHandler(this.txtSearch_TextChanged);
-            // 
-            // cmbFileFilter
-            // 
-            this.cmbFileFilter.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.cmbFileFilter.FormattingEnabled = true;
-            this.cmbFileFilter.Items.AddRange(new object[] {
-            " "});
-            this.cmbFileFilter.Location = new System.Drawing.Point(255, 54);
-            this.cmbFileFilter.Name = "cmbFileFilter";
-            this.cmbFileFilter.Size = new System.Drawing.Size(52, 21);
-            this.cmbFileFilter.TabIndex = 3;
-            this.cmbFileFilter.SelectedIndexChanged += new System.EventHandler(this.cmbFileFilter_SelectedIndexChanged);
             // 
             // cmdOpenFileManager
             // 
@@ -193,7 +202,7 @@
             this.cmdRemovePreset.Name = "cmdRemovePreset";
             this.cmdRemovePreset.Size = new System.Drawing.Size(302, 21);
             this.cmdRemovePreset.TabIndex = 7;
-            this.cmdRemovePreset.Text = "REMOVE SELECTED PRESET...";
+            this.cmdRemovePreset.Text = "DELETE SELECTED PRESET...";
             this.cmdRemovePreset.UseVisualStyleBackColor = true;
             this.cmdRemovePreset.Click += new System.EventHandler(this.cmdRemovePreset_Click);
             // 
@@ -682,15 +691,6 @@
             this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
             this.reloadResourcesToolStripMenuItem.Text = "Reload resources";
             this.reloadResourcesToolStripMenuItem.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem_Click);
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(9, 57);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(44, 13);
-            this.label8.TabIndex = 23;
-            this.label8.Text = "Search:";
             // 
             // MainForm
             // 

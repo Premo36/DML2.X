@@ -161,7 +161,9 @@ namespace DoomModLoader2
                     {
 
                         foreach (PathName p in items)
+                        {
                             pwads.Add(p);
+                        }
 
                         formMod.pwads = pwads;
                         formMod.sourcePort = (PathName)cmbSourcePort.SelectedItem;
@@ -179,6 +181,8 @@ namespace DoomModLoader2
                             if (pn != null)
                                 cmbPreset.SelectedItem = pn;
                         }
+
+                        UpdateSelectedPWADitems(mode.RESTORE);
                     }
 
                 }
