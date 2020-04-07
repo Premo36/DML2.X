@@ -107,6 +107,7 @@ namespace DoomModLoader2
                 lstPwad.DataSource = lst;
 
                 lstPwad.SelectedItem = y;
+                pwads = lst;
             }
             else
             {
@@ -130,6 +131,8 @@ namespace DoomModLoader2
                 lstPwad.DataSource = lst;
 
                 lstPwad.SelectedItem = y;
+
+                pwads = lst;
             }
             else
             {
@@ -195,6 +198,19 @@ namespace DoomModLoader2
             {
                 lblPresetName.Text = "(You can save the current mod list in a preset by clicking on \"SAVE PRESET\")";
             }
+        }
+
+        private void cmdRemove_Click(object sender, EventArgs e)
+        {
+            pwads.RemoveAll(P => P.path == ((PathName)lstPwad.SelectedItem).path);
+
+            lstPwad.SelectedItem = null;
+            lstPwad.DataSource = null;
+ 
+
+            lstPwad.DataSource = pwads;
+            lstPwad.DisplayMember = "name";
+
         }
     }
 }

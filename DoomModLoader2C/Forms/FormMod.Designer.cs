@@ -37,6 +37,7 @@
             this.PathNameSource = new System.Windows.Forms.BindingSource(this.components);
             this.cmdSavePreset = new System.Windows.Forms.Button();
             this.lblPresetName = new System.Windows.Forms.Label();
+            this.cmdRemove = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -90,7 +91,7 @@
             // cmdSavePreset
             // 
             this.cmdSavePreset.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdSavePreset.Location = new System.Drawing.Point(411, 172);
+            this.cmdSavePreset.Location = new System.Drawing.Point(411, 236);
             this.cmdSavePreset.Name = "cmdSavePreset";
             this.cmdSavePreset.Size = new System.Drawing.Size(176, 43);
             this.cmdSavePreset.TabIndex = 3;
@@ -109,12 +110,24 @@
             this.lblPresetName.Text = "PRESET NAME HERE";
             this.lblPresetName.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // cmdRemove
+            // 
+            this.cmdRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRemove.Location = new System.Drawing.Point(411, 163);
+            this.cmdRemove.Name = "cmdRemove";
+            this.cmdRemove.Size = new System.Drawing.Size(176, 43);
+            this.cmdRemove.TabIndex = 5;
+            this.cmdRemove.Text = "REMOVE MOD";
+            this.cmdRemove.UseVisualStyleBackColor = true;
+            this.cmdRemove.Click += new System.EventHandler(this.cmdRemove_Click);
+            // 
             // FormMod
             // 
             this.AcceptButton = this.cmdPlay;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(599, 377);
+            this.Controls.Add(this.cmdRemove);
             this.Controls.Add(this.lblPresetName);
             this.Controls.Add(this.cmdSavePreset);
             this.Controls.Add(this.cmdPlay);
@@ -142,5 +155,6 @@
         private System.Windows.Forms.BindingSource PathNameSource;
         private System.Windows.Forms.Button cmdSavePreset;
         private System.Windows.Forms.Label lblPresetName;
+        private System.Windows.Forms.Button cmdRemove;
     }
 }

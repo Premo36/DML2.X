@@ -181,7 +181,7 @@ namespace DoomModLoader2
                             if (pn != null)
                                 cmbPreset.SelectedItem = pn;
                         }
-
+                        _selectedItems = formMod.pwads;
                         UpdateSelectedPWADitems(mode.RESTORE);
                     }
 
