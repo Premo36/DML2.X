@@ -23,8 +23,8 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 # TESTED SOURCEPORTS
 ### FULL COMPATIBILITY:
 <ul>
-<li>GZdoom (v4.2.4, -height and -width do not work due to gzdoom way of handling resolution)</li>
-<li>LZdoom (3.83a)</li>
+<li>GZdoom (v4.3.3, -height and -width do not work due to gzdoom way of handling resolution)</li>
+<li>LZdoom (3.85)</li>
 <li>Zandronum (3.0)</li>
 <li>Zdoom(2.8.1)</li>
 <li>QZDoom (2.1.0)</li>

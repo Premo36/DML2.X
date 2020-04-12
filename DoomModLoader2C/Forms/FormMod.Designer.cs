@@ -112,12 +112,12 @@
             // 
             // cmdRemove
             // 
-            this.cmdRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdRemove.Location = new System.Drawing.Point(411, 163);
+            this.cmdRemove.Font = new System.Drawing.Font("Microsoft Sans Serif", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdRemove.Location = new System.Drawing.Point(411, 156);
             this.cmdRemove.Name = "cmdRemove";
             this.cmdRemove.Size = new System.Drawing.Size(176, 43);
             this.cmdRemove.TabIndex = 5;
-            this.cmdRemove.Text = "REMOVE MOD";
+            this.cmdRemove.Text = "REMOVE";
             this.cmdRemove.UseVisualStyleBackColor = true;
             this.cmdRemove.Click += new System.EventHandler(this.cmdRemove_Click);
             // 

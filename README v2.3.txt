@@ -1,4 +1,4 @@
-Thank you for downloading Doom Mod Loader version 2.2b!
+Thank you for downloading Doom Mod Loader version 2.3!
 
 Microsoft .net framework (at least) version 3.5 is required in order to use Doom Mod Loader!
 If your system is up-to-date you should have it installed already, as it's included in the regular windows updates and has been released more than 10 years ago. 
@@ -15,8 +15,8 @@ In order to use DML 2.X you need at least:
 As for this version, the only tested source port are:
 
 FULL COMPATIBILITY:
--GZdoom (v4.2.4), -height and -width do not work due to gzdoom way of handling resolution)
--LZdoom (3.83a)
+-GZdoom (v4.3.3), -height and -width do not work due to gzdoom way of handling resolution)
+-LZdoom (v3.85)
 -Zandronum (3.0)
 -Zdoom(2.8.1)
 -QZDoom (2.1.0)
@@ -31,23 +31,23 @@ PARTIAL COMPATIBILITY (Some DML features don't work):
 
 ============================"HOW-TO" QUICK START GUIDE============================
 BEFORE YOU ADD ANY FILE:Starting from version 2.2, DML has become fully portable, meaning that you can also place your file in the relative subfolder inside the "FILE"
-folder next to "DML v2.2b.exe" and they will be read. 
+folder next to "DML vX.X.exe" (X is the version number)  and they will be read. 
 Importing file trough the "ADD" buttons and the file manager it's still supported but you cant take advantage of the portability. 
 If you don't want to load a file in dml, write it's full name (with the extension, like "modidontwanttosee.wad") in the blacklist.txt file
 
 NOTE:If you place a file inside a folder while DML is running, you have to click on "refresh resources", otherwise it will not show up!
 
 -HOW TO PLAY JUST THE ORIGINAL GAME:
-1)Add your iwad's to the IWAD folder inside the "FILE" folder next to "DML v2.2b.exe" 
+1)Add your iwad's to the IWAD folder inside the "FILE" folder next to "DML vX.X.exe" 
 1b)Add your iwad/s (original games/s) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC.(If your game is not in the .wad format you'll need to change the filter in the file dialog to see it,if it does not follow the "IWAD 4 byte standard",a warning will pop-up,but you can still add it)
-2)Add your sourceport to the PORT folder inside the "FILE" folder next to "DML v2.2b.exe" 
+2)Add your sourceport to the PORT folder inside the "FILE" folder next to "DML vX.X.exe" 
 2b)Add your favorite/s modern sourceport/s trough the "ADD" button in the Source Port section.
 3)Select from the relative combobox the sourceport and the game you want to play. 
 4)Hit "PLAY".
 
 -HOW TO PLAY WITH MODS:
 1)If you don't have already, do step 1 to 3 of the previous how-to.
-2)Add your mods to the PWAD folder inside the "FILE" folder next to "DML v2.2b.exe" 
+2)Add your mods to the PWAD folder inside the "FILE" folder next to "DML vX.X.exe" 
 2b)Add your favourite/s mods through the "Open file manager" button in the MODS section, you can add single file/s or whole folders (and also include subfolders), drag & drop is supported.
 3)Select them in the list on the left (click to select, click again to deselect)
 4)Hit "play", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
@@ -90,7 +90,7 @@ For example, I use the standard .ini in the sourceport folder to play modern-lik
 This can be useful also to share the same configuration between compatible sourceport.
 1)Again, If you don't have already, do step 1 to 3 of the first how-to.
 2)Tick the "Use alternative engine configuration file" in the alternative sourceport configuration file section.
-3)Add your configuration to the "PORT_CONFIG" folder inside the "FILE" folder next to "DML v2.2b.exe" 
+3)Add your configuration to the "PORT_CONFIG" folder inside the "FILE" folder next to "DML vX.X.exe" 
 3b)Add the alternative/s .ini o .cfg trough the "ADD" button.
 (don't add the one in the same folder of the engine as it is already loaded by default, instead make a copy of if somewhere else and add that copy). 
 4)Select the one you want to use from the combobox. 
@@ -103,16 +103,14 @@ This can be useful also to share the same configuration between compatible sourc
 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[23/02/2020 | 2.2b]
--DML 2.X code gets released on github! https://github.com/Premo36/DML2.X (BSD 3-Clause License)
--P36_utilitis.dll code integrated into the .exe (this .dll is no longer needed and can be deleted).
--Improved CHEX3.wad identification: As it does not follow the IWAD standard (https://zdoom.org/wiki/WAD#Header),
- I used to rely on it's name to indentify it correctly as an IWAD, now i rely on it's checksum instead,
- so the iwad it's identified by it's content rather than it's name.
--Varaibles and function renaming, improved code comments.
+[12/04/2020 | 2.3]
+-Added "REMOVE" button in the mod load order window, that allows to remove the selected mod without the need to close the window, deselect
+the mod fom the mod list in the main window and click play again (NOTE: preset must be saved in order to keep changes)
+-Changed the "REMOVE SELECTED PRESET..." button's text to "DELETE SELECTED PRESET..." to make more clear that you're not just unloading it from DML 2.X (like the other "Remove..." buttons) but you are deleting it from disk.
+
 
 Bugfixes
--Fixed bug where files written in the BLACKLIST.TXT file would not be ignored if located in the same folder as the blacklist.txt file.
+-Fixed bug where all the mods in the mod list will deselect (or revert to the initial preset state) if the mod order window was closed before saving (or updating) the preset. 
 
 ===================INFO===================
 AUTHOR TWITTER: @premo36
