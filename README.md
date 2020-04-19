@@ -43,7 +43,7 @@ You can use the DML 2.X source code in any way you like as long as you respect t
 
 # DOWNLOADS
 (Need <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work)<br>
-<a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v22" title="Download Doom Mod Loader v2.2 - Mod DB" target="_blank"><img src="https://button.moddb.com/download/medium/185938.png" alt="Doom Mod Loader v2.2" /></a>
+<a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v23" title="Download Doom Mod Loader v2.3 - Mod DB" target="_blank"><img src="https://button.moddb.com/download/medium/192822.png" alt="Doom Mod Loader v2.3" /></a>
 
 # CONTACTS
 <ul>
