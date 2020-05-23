@@ -59,7 +59,7 @@ Click on the DML logo below to open the modDB page.
 Click on the P36 Software logo to open the p36software.net website.
 
 EMAIL:    info@p36software.net
-TWITTER:  @premo36"
+TWITTER:  @p36software / @premo36"
 ;
         }
 

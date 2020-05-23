@@ -76,7 +76,9 @@ namespace DoomModLoader2
                                                          ".pk7",
                                                          ".grp",
                                                          ".rff",
-                                                         ".deh" };
+                                                         ".deh",
+                                                         "iwad",
+                                                         "ipk3"};
 
         List<string> saveWithPreset = new List<string>();
 
@@ -218,7 +220,9 @@ namespace DoomModLoader2
             {
 
                 openFileDialog.Filter = "Where's All the Data? (*.wad)|*.wad|" +
+                                        "Where's All the Data? (*.iwad)|*.iwad|" +
                                         "ZIP archive (*.pk3)|*.pk3|" +
+                                        "ZIP archive (*.ipk3)|*.ipk3|" +
                                         "ZIP archive (*.zip)|*.zip|" +
                                         "ZIP archive (*.pak)|*.pak|" +
                                         "7z archive (*.pk7)|*.pk7|" +
@@ -1182,15 +1186,14 @@ namespace DoomModLoader2
 
         }
 
-        private bool CheckIWAD(string path = "")
+        private bool CheckIWAD(string path)
         {
             try
             {
-                if (path.Equals(""))
+                string fileExtension = Path.GetExtension(path).ToLower();
+                if (fileExtension == "iwad" || fileExtension == "ipk3")
                 {
-                    PathName wad = (PathName)cmbIWAD.SelectedItem;
-                    path = wad.path;
-
+                    return true;
                 }
 
                 byte[] wadData = File.ReadAllBytes(path);
