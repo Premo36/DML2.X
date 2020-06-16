@@ -1,5 +1,13 @@
-Thank you for downloading Doom Mod Loader version 2.3!
+Thank you for downloading Doom Mod Loader version 2.4 (beta #1)!
 
+==============BETA WARNING===============
+Please keep in mind that this release is to be considered has a "beta" software, because I still haven't fully tested it yet, but has I've dove very few changes, everything should work has fine as the final software (which I will release on my website and on the mod db page as soon as the beta is over)
+
+While using any release of DML 2.X tagged as "beta", ignore the "new version" notification, as those are linked to the official stable releases, not with the beta ones.
+
+If you find any bug with this version please report it trough github or by sending an email to info@p36software.net
+Thank you!
+=======================================
 Microsoft .net framework (at least) version 3.5 is required in order to use Doom Mod Loader!
 If your system is up-to-date you should have it installed already, as it's included in the regular windows updates and has been released more than 10 years ago. 
 
@@ -103,20 +111,18 @@ This can be useful also to share the same configuration between compatible sourc
 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[12/04/2020 | 2.3]
--Added "REMOVE" button in the mod load order window, that allows to remove the selected mod without the need to close the window, deselect
-the mod fom the mod list in the main window and click play again (NOTE: preset must be saved in order to keep changes)
--Changed the "REMOVE SELECTED PRESET..." button's text to "DELETE SELECTED PRESET..." to make more clear that you're not just unloading it from DML 2.X (like the other "Remove..." buttons) but you are deleting it from disk.
-
-
-Bugfixes
--Fixed bug where all the mods in the mod list will deselect (or revert to the initial preset state) if the mod order window was closed before saving (or updating) the preset. 
+[16/06/2020 | 2.4 (BETA #1)]
+-Added support for loading ".iwad" and ".ipk3" file has an IWAD
+-Updated about box with new twitter (@p36software)
 
 ===================INFO===================
-AUTHOR TWITTER: @premo36
+TWITTER: @p36software
 EMAIL: info@p36software.net
 WEBSITE: https://p36software.net
 PROJECT REPOSITORY: https://github.com/Premo36/DML2.X
+
+AUTHOR TWITTER: @premo36
+
 Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
 
 =================LICENSE===================
