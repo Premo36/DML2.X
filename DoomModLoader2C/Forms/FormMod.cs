@@ -94,50 +94,12 @@ namespace DoomModLoader2
 
         private void cmdUp_Click(object sender, EventArgs e)
         {
-            int i = lstPwad.SelectedIndex;
-            if (i > 0)
-            {
-
-                List<PathName> lst = lstPwad.Items.Cast<PathName>().ToList();
-
-                var y = lst[i];
-                lst[i] = lst[i - 1];
-                lst[i - 1] = y;
-
-                lstPwad.DataSource = lst;
-
-                lstPwad.SelectedItem = y;
-                pwads = lst;
-            }
-            else
-            {
-                SystemSounds.Beep.Play();
-            }
-
+            MoveModUp();
         }
 
         private void cmdDown_Click(object sender, EventArgs e)
         {
-            int i = lstPwad.SelectedIndex;
-            if (i < lstPwad.Items.Count - 1)
-            {
-
-                List<PathName> lst = lstPwad.Items.Cast<PathName>().ToList();
-
-                var y = lst[i];
-                lst[i] = lst[i + 1];
-                lst[i + 1] = y;
-
-                lstPwad.DataSource = lst;
-
-                lstPwad.SelectedItem = y;
-
-                pwads = lst;
-            }
-            else
-            {
-                SystemSounds.Beep.Play();
-            }
+            MoveModDown();
         }
 
         /// <summary>
@@ -206,11 +168,85 @@ namespace DoomModLoader2
 
             lstPwad.SelectedItem = null;
             lstPwad.DataSource = null;
- 
+
 
             lstPwad.DataSource = pwads;
             lstPwad.DisplayMember = "name";
 
         }
+
+        private void lstPwad_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Up)
+            {
+                MoveModUp();
+            }
+
+            if (e.KeyCode == Keys.Down)
+            {
+                MoveModDown();
+            }
+
+            if (e.KeyCode == Keys.Delete)
+            {
+                cmdRemove_Click(null, null);
+            }
+
+            e.Handled = true;
+        }
+
+        private void MoveModUp()
+        {
+            int i = lstPwad.SelectedIndex;
+            if (i > 0)
+            {
+
+                List<PathName> lst = lstPwad.Items.Cast<PathName>().ToList();
+
+                var y = lst[i];
+                lst[i] = lst[i - 1];
+                lst[i - 1] = y;
+
+                lstPwad.DataSource = lst;
+
+              
+                    lstPwad.SelectedItem = y;
+
+                pwads = lst;
+            }
+            else
+            {
+                SystemSounds.Beep.Play();
+            }
+        }
+
+        private void MoveModDown()
+        {
+
+            int i = lstPwad.SelectedIndex;
+            if (i < lstPwad.Items.Count - 1)
+            {
+
+                List<PathName> lst = lstPwad.Items.Cast<PathName>().ToList();
+
+                var y = lst[i];
+                lst[i] = lst[i + 1];
+                lst[i + 1] = y;
+
+                lstPwad.DataSource = lst;
+
+                
+                    lstPwad.SelectedItem = y;
+                
+                pwads = lst;
+            }
+            else
+            {
+                SystemSounds.Beep.Play();
+            }
+        }
+
+
+
     }
 }

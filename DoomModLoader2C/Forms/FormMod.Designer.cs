@@ -83,6 +83,7 @@
             this.lstPwad.Name = "lstPwad";
             this.lstPwad.Size = new System.Drawing.Size(393, 251);
             this.lstPwad.TabIndex = 3;
+            this.lstPwad.KeyDown += new System.Windows.Forms.KeyEventHandler(this.lstPwad_KeyDown);
             // 
             // PathNameSource
             // 

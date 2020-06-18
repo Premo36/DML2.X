@@ -1,4 +1,4 @@
-Thank you for downloading Doom Mod Loader version 2.4 (beta #1)!
+Thank you for downloading Doom Mod Loader version 2.4 (beta #2)!
 
 ==============BETA WARNING===============
 Please keep in mind that this release is to be considered has a "beta" software, because I still haven't fully tested it yet, but has I've dove very few changes, everything should work has fine as the final software (which I will release on my website and on the mod db page as soon as the beta is over)
@@ -111,7 +111,9 @@ This can be useful also to share the same configuration between compatible sourc
 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[16/06/2020 | 2.4 (BETA #1)]
+[18/06/2020 | 2.4 (BETA #2)]
+-The mod list in the Mod Loading Order window can be sorted by moving the selected mod up/down with the arrow keys.
+-Selected mod in the Mod Loading Order window can be removed using the DELETE key. 
 -Added support for loading ".iwad" and ".ipk3" file has an IWAD
 -Updated about box with new twitter (@p36software)
 
