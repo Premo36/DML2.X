@@ -243,7 +243,7 @@ namespace DoomModLoader2
                 }
 
                 if (isReadingValue)
-                    values.Add(key.Trim(), value.Trim());
+                    values.Add(key.Trim(), value);
             }
 
             return values;

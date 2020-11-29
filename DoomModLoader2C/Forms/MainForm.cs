@@ -709,7 +709,7 @@ namespace DoomModLoader2
             string[] pathPreset = Directory.GetFiles(foldPRESET);
             List<PathName> presets = new List<PathName>();
 
-            presets = presets.Where(p => p.name != "-").ToList();
+            //presets = presets.Where(p => p.name != "-").ToList();
             foreach (string p in pathPreset)
             {
                 presets.Add(GetPathName(p, true, false));
