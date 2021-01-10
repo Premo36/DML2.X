@@ -13,7 +13,7 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Matteo\Desktop\DML_v2.4-Beta2\</PublishUrl>
+    <PublishUrl>C:\Users\Matteo\Desktop\DML_v2.3-Beta3\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -26,7 +26,7 @@
     <ProductName>Doom Mod Loader</ProductName>
     <PublisherName>P36 Software</PublisherName>
     <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>2.4.0.0</ApplicationVersion>
+    <ApplicationVersion>2.4.4.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>
@@ -172,9 +172,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\LOGOQUAD.png" />
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
       <Visible>False</Visible>
       <ProductName>.NET Framework 3.5 SP1</ProductName>
@@ -183,6 +180,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="DML2.ico" />
+    <None Include="Resources\tankrampagegif.gif" />
+    <None Include="Resources\twitter.png" />
+    <None Include="Resources\LogoBordoTondeggiante.png" />
     <None Include="Resources\DML2_logo.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

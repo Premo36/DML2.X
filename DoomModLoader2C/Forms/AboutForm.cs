@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
@@ -55,8 +55,14 @@ $@"Doom Mod Loader v{SharedVar.LOCAL_VERSION}
 Copyright © P36 Software(Matteo P.)  2016 - {DateTime.Today.Year}
 
 To check if a new version is available, click on 'Check for update....'
-Click on the DML logo below to open the modDB page.
-Click on the P36 Software logo to open the p36software.net website.
+
+Want to play an endless run and gun game for Android? 
+Click on the Tank icon for more info about Tank Rampage, my new free Android game.
+
+Click on the DML 2.X logo to visit the modDB page.
+Click on the P36 Software logo to visit the p36software.net website.
+Click on the Twitter logo to visit the @p36software twitter
+
 
 EMAIL:    info@p36software.net
 TWITTER:  @p36software / @premo36"
@@ -71,6 +77,16 @@ TWITTER:  @p36software / @premo36"
         private void pictureBox1_Click(object sender, EventArgs e)
         {
             Process.Start("https://p36software.net");
+        }
+
+        private void pictureBox4_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://twitter.com/p36software");
+        }
+
+        private void pictureBox3_Click(object sender, EventArgs e)
+        {
+            Process.Start("https://p36software.net/projects/TankRampage");
         }
     }
 }

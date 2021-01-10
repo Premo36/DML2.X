@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
@@ -42,7 +42,7 @@ namespace DoomModLoader2
     /// </summary>
     public static class SharedVar
     {
-        public static string LOCAL_VERSION { get; } = "2.4 [Beta #3]";
+        public static string LOCAL_VERSION { get; } = "2.4 [Beta #4]";
         public static bool CHECK_FOR_UPDATE { get; set; }
         public static string UrlVersion { get; } = @"https://p36software.net/downloads/download_page.php?id=DML2&toJSON";
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
@@ -64,7 +64,7 @@ namespace DoomModLoader2
         {
             MessageBox.Show("Sorry, an unexpected error occured... the software will close." + Environment.NewLine +
                                 "ERROR MESSAGE: " + e.Exception.ToString() + Environment.NewLine +
-                                "Please send an email to 'support@p36software.net' with object 'unexpected error'. In the mail write the error message, and how to recreate it. Thank you!");
+                                $"Please send an email to 'support@p36software.net' with object 'DML {SharedVar.LOCAL_VERSION} unexpected error'. In the mail write the error message, and how to recreate it. Thank you!");
             Environment.Exit(-1);
         }
 

@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
