@@ -77,8 +77,8 @@ namespace DoomModLoader2
                                                          ".grp",
                                                          ".rff",
                                                          ".deh",
-                                                         "iwad",
-                                                         "ipk3"};
+                                                         ".iwad",
+                                                         ".ipk3"};
 
         List<string> saveWithPreset = new List<string>();
 
@@ -254,7 +254,7 @@ namespace DoomModLoader2
                             Storage storage = new Storage(cfgIWAD);
                             storage.UpdateConfig(p);
                             LoadIWADs();
-                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault();
+                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault(X=> X.path == p);
                         }
                     }
                 }
@@ -544,12 +544,23 @@ namespace DoomModLoader2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void reloadResourcesToolStripMenuItem_Click(object sender, EventArgs e)
+        private void reloadResourcesToolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
             SavePreferences();
             cachedPWADs = null;
             LoadResources();
             UpdateSelectedPWADitems(mode.DELETE);
+        }
+
+
+        /// <summary>
+        /// Open the "FILE" folder next to the dml exe
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void openFILEFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(userFiles_path);
         }
 
         /// <summary>
@@ -1616,6 +1627,10 @@ namespace DoomModLoader2
                 SelectedItems.Clear();
             }
         }
+
+
         #endregion
+
+      
     }
 }

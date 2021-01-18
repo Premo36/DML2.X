@@ -86,6 +86,8 @@
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadResourcesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openFILEFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -687,10 +689,26 @@
             // 
             // reloadResourcesToolStripMenuItem
             // 
+            this.reloadResourcesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.reloadResourcesToolStripMenuItem1,
+            this.openFILEFolderToolStripMenuItem});
             this.reloadResourcesToolStripMenuItem.Name = "reloadResourcesToolStripMenuItem";
-            this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(108, 20);
-            this.reloadResourcesToolStripMenuItem.Text = "Reload resources";
-            this.reloadResourcesToolStripMenuItem.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem_Click);
+            this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
+            this.reloadResourcesToolStripMenuItem.Text = "Manage resources";
+            // 
+            // reloadResourcesToolStripMenuItem1
+            // 
+            this.reloadResourcesToolStripMenuItem1.Name = "reloadResourcesToolStripMenuItem1";
+            this.reloadResourcesToolStripMenuItem1.Size = new System.Drawing.Size(248, 22);
+            this.reloadResourcesToolStripMenuItem1.Text = "Reload resources";
+            this.reloadResourcesToolStripMenuItem1.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem1_Click_1);
+            // 
+            // openFILEFolderToolStripMenuItem
+            // 
+            this.openFILEFolderToolStripMenuItem.Name = "openFILEFolderToolStripMenuItem";
+            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.openFILEFolderToolStripMenuItem.Text = "Open \"FILE\" folder in file explorer";
+            this.openFILEFolderToolStripMenuItem.Click += new System.EventHandler(this.openFILEFolderToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -793,6 +811,8 @@
         private System.Windows.Forms.ComboBox cmbOrder;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem openFILEFolderToolStripMenuItem;
     }
 }
 
