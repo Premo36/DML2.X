@@ -85,7 +85,6 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadResourcesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reloadResourcesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFILEFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
@@ -368,9 +367,9 @@
             this.label3.AutoSize = true;
             this.label3.Location = new System.Drawing.Point(238, 20);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(143, 13);
+            this.label3.Size = new System.Drawing.Size(117, 13);
             this.label3.TabIndex = 9;
-            this.label3.Text = "Original Game .wad (-IWAD):";
+            this.label3.Text = "Original Game (-IWAD):";
             // 
             // cmdRemoveIWAD
             // 
@@ -659,7 +658,8 @@
             this.aboutToolStripMenuItem,
             this.checkForUpdateToolStripMenuItem,
             this.preferencesToolStripMenuItem,
-            this.reloadResourcesToolStripMenuItem});
+            this.openFILEFolderToolStripMenuItem,
+            this.reloadResourcesToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(907, 24);
@@ -687,28 +687,19 @@
             this.preferencesToolStripMenuItem.Text = "Preferences...";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
-            // reloadResourcesToolStripMenuItem
-            // 
-            this.reloadResourcesToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.reloadResourcesToolStripMenuItem1,
-            this.openFILEFolderToolStripMenuItem});
-            this.reloadResourcesToolStripMenuItem.Name = "reloadResourcesToolStripMenuItem";
-            this.reloadResourcesToolStripMenuItem.Size = new System.Drawing.Size(115, 20);
-            this.reloadResourcesToolStripMenuItem.Text = "Manage resources";
-            // 
             // reloadResourcesToolStripMenuItem1
             // 
             this.reloadResourcesToolStripMenuItem1.Name = "reloadResourcesToolStripMenuItem1";
-            this.reloadResourcesToolStripMenuItem1.Size = new System.Drawing.Size(248, 22);
+            this.reloadResourcesToolStripMenuItem1.Size = new System.Drawing.Size(108, 20);
             this.reloadResourcesToolStripMenuItem1.Text = "Reload resources";
-            this.reloadResourcesToolStripMenuItem1.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem1_Click_1);
+            this.reloadResourcesToolStripMenuItem1.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem1_Click);
             // 
             // openFILEFolderToolStripMenuItem
             // 
             this.openFILEFolderToolStripMenuItem.Name = "openFILEFolderToolStripMenuItem";
-            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(248, 22);
+            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(193, 20);
             this.openFILEFolderToolStripMenuItem.Text = "Open \"FILE\" folder in file explorer";
-            this.openFILEFolderToolStripMenuItem.Click += new System.EventHandler(this.openFILEFolderToolStripMenuItem_Click);
+            this.openFILEFolderToolStripMenuItem.Click += new System.EventHandler(this.openFILEFolderToolStripMenuItem_Click_1);
             // 
             // MainForm
             // 
@@ -804,14 +795,13 @@
         private System.Windows.Forms.Button cmdRemoveConfiguration;
         private System.Windows.Forms.ComboBox cmbPortConfig;
         private System.Windows.Forms.Button cmdOpenFileManager;
-        private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
         private System.Windows.Forms.ComboBox cmbFileFilter;
         private System.Windows.Forms.TextBox txtSearch;
         private System.Windows.Forms.ComboBox cmbOrder;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.ToolStripMenuItem reloadResourcesToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem openFILEFolderToolStripMenuItem;
     }
 }

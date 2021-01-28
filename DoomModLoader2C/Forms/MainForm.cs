@@ -145,7 +145,7 @@ namespace DoomModLoader2
 
             if (!err)
             {
-                UpdateSelectedPWADitems(mode.SAVE);
+                UpdateSelectedPWADitems(pwadUpdateMode.SAVE);
 
                 var items = SelectedItems;
                 string param = GetParameters();
@@ -184,7 +184,7 @@ namespace DoomModLoader2
                                 cmbPreset.SelectedItem = pn;
                         }
                         _selectedItems = formMod.pwads;
-                        UpdateSelectedPWADitems(mode.RESTORE);
+                        UpdateSelectedPWADitems(pwadUpdateMode.RESTORE);
                     }
 
                 }
@@ -254,7 +254,7 @@ namespace DoomModLoader2
                             Storage storage = new Storage(cfgIWAD);
                             storage.UpdateConfig(p);
                             LoadIWADs();
-                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault(X=> X.path == p);
+                            cmbIWAD.SelectedItem = cmbIWAD.Items.Cast<PathName>().LastOrDefault(X => X.path == p);
                         }
                     }
                 }
@@ -532,7 +532,7 @@ namespace DoomModLoader2
                 fm.ShowDialog();
             }
             this.Show();
-            UpdateSelectedPWADitems(mode.DELETE);
+            UpdateSelectedPWADitems(pwadUpdateMode.DELETE);
             cachedPWADs = null;
             LoadPWAD();
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
@@ -544,12 +544,17 @@ namespace DoomModLoader2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void reloadResourcesToolStripMenuItem1_Click_1(object sender, EventArgs e)
+        private void reloadResourcesToolStripMenuItem1_Click(object sender, EventArgs e)
         {
+            string txtSearchValue = txtSearch.Text;
+            object searchExtensionFilter = cmbFileFilter.SelectedItem;
             SavePreferences();
             cachedPWADs = null;
             LoadResources();
-            UpdateSelectedPWADitems(mode.DELETE);
+            UpdateSelectedPWADitems(pwadUpdateMode.DELETE);
+            txtSearch.Text = txtSearchValue;
+            cmbFileFilter.SelectedItem = searchExtensionFilter;
+            LoadPWAD(txtSearchValue);
         }
 
 
@@ -558,8 +563,9 @@ namespace DoomModLoader2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void openFILEFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        private void openFILEFolderToolStripMenuItem_Click_1(object sender, EventArgs e)
         {
+
             Process.Start(userFiles_path);
         }
 
@@ -663,36 +669,29 @@ namespace DoomModLoader2
                 options.ShowDialog();
             }
 
-            if (SharedVar.USE_ADVANCED_SELECTION_MODE)
-            {
-                lstPWAD.SelectionMode = SelectionMode.MultiExtended;
-            }
-            else
-            {
-                lstPWAD.SelectionMode = SelectionMode.MultiSimple;
-            }
+            ApplyPreferences();
         }
 
 
         private void cmbFileFilter_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSelectedPWADitems(mode.SAVE);
+            UpdateSelectedPWADitems(pwadUpdateMode.SAVE);
             LoadPWAD(txtSearch.Text);
-            UpdateSelectedPWADitems(mode.RESTORE);
+            UpdateSelectedPWADitems(pwadUpdateMode.RESTORE);
         }
 
         private void txtSearch_TextChanged(object sender, EventArgs e)
         {
-            UpdateSelectedPWADitems(mode.SAVE);
+            UpdateSelectedPWADitems(pwadUpdateMode.SAVE);
             LoadPWAD(txtSearch.Text);
-            UpdateSelectedPWADitems(mode.RESTORE);
+            UpdateSelectedPWADitems(pwadUpdateMode.RESTORE);
         }
 
         private void cmbOrder_SelectedIndexChanged(object sender, EventArgs e)
         {
-            UpdateSelectedPWADitems(mode.SAVE);
+            UpdateSelectedPWADitems(pwadUpdateMode.SAVE);
             LoadPWAD(txtSearch.Text);
-            UpdateSelectedPWADitems(mode.RESTORE);
+            UpdateSelectedPWADitems(pwadUpdateMode.RESTORE);
         }
         #endregion
 
@@ -790,6 +789,7 @@ namespace DoomModLoader2
                     wads = wads.OrderFile((order)cmbOrder.SelectedIndex);
 
                     lstPWAD.DataSource = wads;
+
                 }
 
                 lstPWAD.SelectedItem = null;
@@ -1033,6 +1033,17 @@ namespace DoomModLoader2
                         cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
                     }
                     #endregion
+                    #region FILE_VIEW_MODE
+                    if (cfg.TryGetValue("FILE_VIEW_MODE", out value)) //cfg["SHOW_SUCCESS_MESSAGE"]
+                    {
+                        SharedVar.FILE_VIEW_MODE = (fileViewMode)int.Parse(value);
+                    }
+                    else
+                    {
+                        errors.Add("FILE_VIEW_MODE");
+                        SharedVar.FILE_VIEW_MODE = fileViewMode.ONLY_FILE_NAME;
+                    }
+                    #endregion
 
                     if (errors.Count > 0)
                     {
@@ -1057,6 +1068,8 @@ namespace DoomModLoader2
                 MessageBox.Show("Something went wrong while trying to load your preferences..." + Environment.NewLine + "Flags have been resetted to default value." + Environment.NewLine + "Error: \"" + ex.Message + "\"", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 LoadDefaultValues();
             }
+
+            ApplyPreferences();
         }
 
         /// <summary>
@@ -1070,6 +1083,7 @@ namespace DoomModLoader2
             SharedVar.SHOW_DELETE_MESSAGE = true;
             SharedVar.SHOW_OVERWRITE_MESSAGE = true;
             SharedVar.SHOW_SUCCESS_MESSAGE = true;
+            SharedVar.FILE_VIEW_MODE = fileViewMode.ONLY_FILE_NAME;
         }
 
         /// <summary>
@@ -1463,6 +1477,8 @@ namespace DoomModLoader2
 
                 preferences.Add("USE_ADVANCED_SELECTION_MODE", SharedVar.USE_ADVANCED_SELECTION_MODE.ToString().ToUpper());
 
+                preferences.Add("FILE_VIEW_MODE", ((int)SharedVar.FILE_VIEW_MODE).ToString());
+
                 storage.SaveValues(preferences, true);
             }
             catch (Exception ex)
@@ -1601,10 +1617,10 @@ namespace DoomModLoader2
         /// Custom handle for "lstPWAD" selected items because if the list is filtered the current ones will get lost otherwise
         /// </summary>
         /// <param name="mode"></param>
-        private void UpdateSelectedPWADitems(mode mode)
+        private void UpdateSelectedPWADitems(pwadUpdateMode mode)
         {
             List<PathName> allFiles = lstPWAD.Items.Cast<PathName>().ToList();
-            if (mode == mode.SAVE)
+            if (mode == pwadUpdateMode.SAVE)
             {
                 List<PathName> selectedFiles = lstPWAD.SelectedItems.Cast<PathName>().ToList();
                 List<PathName> unselectedFiles = allFiles.Where(X => !selectedFiles.Any(Y => Y.name == X.name)).ToList();
@@ -1613,7 +1629,7 @@ namespace DoomModLoader2
                 return;
             }
 
-            if (mode == mode.RESTORE)
+            if (mode == pwadUpdateMode.RESTORE)
             {
                 foreach (PathName file in allFiles)
                 {
@@ -1622,15 +1638,43 @@ namespace DoomModLoader2
                 return;
             }
 
-            if (mode == mode.DELETE)
+            if (mode == pwadUpdateMode.DELETE)
             {
                 SelectedItems.Clear();
+            }
+        }
+
+        private void ApplyPreferences()
+        {
+            if (SharedVar.USE_ADVANCED_SELECTION_MODE)
+            {
+                lstPWAD.SelectionMode = SelectionMode.MultiExtended;
+            }
+            else
+            {
+                lstPWAD.SelectionMode = SelectionMode.MultiSimple;
+            }
+
+            switch (SharedVar.FILE_VIEW_MODE)
+            {
+                case fileViewMode.FOLDER_AND_FILE_NAME:
+                    lstPWAD.DisplayMember = "nameWithFolder";
+                    break;
+
+
+                case fileViewMode.FULL_PATH:
+                    lstPWAD.DisplayMember = "nameWithFullPath";
+                    break;
+
+                default:
+                    lstPWAD.DisplayMember = "name";
+                    break;
             }
         }
 
 
         #endregion
 
-      
+
     }
 }

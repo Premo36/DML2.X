@@ -36,6 +36,8 @@
             this.cmdSaveOptions = new System.Windows.Forms.Button();
             this.cmdQuitOptions = new System.Windows.Forms.Button();
             this.chk_USE_ADVANCED_SELECTION_MODE = new System.Windows.Forms.CheckBox();
+            this.label1 = new System.Windows.Forms.Label();
+            this.cmbModListViewMode = new System.Windows.Forms.ComboBox();
             this.SuspendLayout();
             // 
             // chk_SHOW_END_MESSAGE
@@ -80,9 +82,9 @@
             // 
             // cmdSaveOptions
             // 
-            this.cmdSaveOptions.Location = new System.Drawing.Point(12, 130);
+            this.cmdSaveOptions.Location = new System.Drawing.Point(12, 154);
             this.cmdSaveOptions.Name = "cmdSaveOptions";
-            this.cmdSaveOptions.Size = new System.Drawing.Size(120, 26);
+            this.cmdSaveOptions.Size = new System.Drawing.Size(139, 26);
             this.cmdSaveOptions.TabIndex = 4;
             this.cmdSaveOptions.Text = "SAVE";
             this.cmdSaveOptions.UseVisualStyleBackColor = true;
@@ -90,9 +92,9 @@
             // 
             // cmdQuitOptions
             // 
-            this.cmdQuitOptions.Location = new System.Drawing.Point(158, 130);
+            this.cmdQuitOptions.Location = new System.Drawing.Point(157, 154);
             this.cmdQuitOptions.Name = "cmdQuitOptions";
-            this.cmdQuitOptions.Size = new System.Drawing.Size(120, 26);
+            this.cmdQuitOptions.Size = new System.Drawing.Size(147, 26);
             this.cmdQuitOptions.TabIndex = 5;
             this.cmdQuitOptions.Text = "BACK";
             this.cmdQuitOptions.UseVisualStyleBackColor = true;
@@ -108,12 +110,36 @@
             this.chk_USE_ADVANCED_SELECTION_MODE.Text = "Use \"ADVANCED\" selection mode for mod list";
             this.chk_USE_ADVANCED_SELECTION_MODE.UseVisualStyleBackColor = true;
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(12, 130);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.TabIndex = 7;
+            this.label1.Text = "mod list view mode:";
+            // 
+            // cmbModListViewMode
+            // 
+            this.cmbModListViewMode.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbModListViewMode.FormattingEnabled = true;
+            this.cmbModListViewMode.Items.AddRange(new object[] {
+            "ONLY FILE NAME",
+            "LAST FOLDER AND FILE NAME",
+            "FULL PATH"});
+            this.cmbModListViewMode.Location = new System.Drawing.Point(117, 127);
+            this.cmbModListViewMode.Name = "cmbModListViewMode";
+            this.cmbModListViewMode.Size = new System.Drawing.Size(187, 21);
+            this.cmbModListViewMode.TabIndex = 8;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(290, 168);
+            this.ClientSize = new System.Drawing.Size(312, 192);
             this.ControlBox = false;
+            this.Controls.Add(this.cmbModListViewMode);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chk_USE_ADVANCED_SELECTION_MODE);
             this.Controls.Add(this.cmdQuitOptions);
             this.Controls.Add(this.cmdSaveOptions);
@@ -139,5 +165,7 @@
         private System.Windows.Forms.Button cmdSaveOptions;
         private System.Windows.Forms.Button cmdQuitOptions;
         private System.Windows.Forms.CheckBox chk_USE_ADVANCED_SELECTION_MODE;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ComboBox cmbModListViewMode;
     }
 }

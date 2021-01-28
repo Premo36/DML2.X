@@ -46,6 +46,18 @@ namespace DoomModLoader2.Entity
         public string name { get; set; }
         public string path { get; set; }
         public int loadOrder { get; set; }
+        public string nameWithFolder { get {
+                return Path.Combine(Path.GetFileName(Path.GetDirectoryName(path)),name).ToUpper();
+            }
+        }
+
+        public string nameWithFullPath
+        {
+            get
+            {
+                return Path.Combine(Path.GetDirectoryName(path), name).ToUpper();
+            }
+        }
     }
 
     public static class PathNameUtils
@@ -79,6 +91,8 @@ namespace DoomModLoader2.Entity
 
 
         }
+
+
 
     }
 

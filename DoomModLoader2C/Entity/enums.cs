@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 namespace DoomModLoader2.Entity
 {
-    public enum mode
+    public enum pwadUpdateMode
     {
         SAVE,
         RESTORE,
@@ -50,6 +50,13 @@ namespace DoomModLoader2.Entity
         NAME_DESCENDING = 1,
         EXTENSION_ASCENDING = 2,
         EXTENSION_DESCENDING = 3,
+    }
+
+    public enum fileViewMode
+    {
+        ONLY_FILE_NAME = 0,
+        FOLDER_AND_FILE_NAME = 1,
+        FULL_PATH = 2,
     }
 }
 

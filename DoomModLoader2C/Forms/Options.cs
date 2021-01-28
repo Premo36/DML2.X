@@ -37,7 +37,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 using System;
 using System.Windows.Forms;
-
+using DoomModLoader2.Entity;
 namespace DoomModLoader2
 {
     /// <summary>
@@ -59,7 +59,7 @@ namespace DoomModLoader2
             chk_SHOW_SUCCESS_MESSAGE.Checked = SharedVar.SHOW_SUCCESS_MESSAGE;
             chk_SHOW_DELETE_MESSAGE.Checked = SharedVar.SHOW_DELETE_MESSAGE;
             chk_USE_ADVANCED_SELECTION_MODE.Checked = SharedVar.USE_ADVANCED_SELECTION_MODE;
-
+            cmbModListViewMode.SelectedIndex = (int) SharedVar.FILE_VIEW_MODE;
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             this.cfgPath = cfgPath;
         }
@@ -76,7 +76,7 @@ namespace DoomModLoader2
             SharedVar.SHOW_SUCCESS_MESSAGE = chk_SHOW_SUCCESS_MESSAGE.Checked;
             SharedVar.SHOW_DELETE_MESSAGE = chk_SHOW_DELETE_MESSAGE.Checked;
             SharedVar.USE_ADVANCED_SELECTION_MODE = chk_USE_ADVANCED_SELECTION_MODE.Checked;
-
+            SharedVar.FILE_VIEW_MODE = (fileViewMode)cmbModListViewMode.SelectedIndex;
             Storage storage = new Storage(cfgPath);
 
             storage.DeleteValue("SHOW_END_MESSAGE");
@@ -90,6 +90,9 @@ namespace DoomModLoader2
 
             storage.DeleteValue("SHOW_DELETE_MESSAGE");
             storage.SaveValue("SHOW_DELETE_MESSAGE", SharedVar.SHOW_DELETE_MESSAGE.ToString());
+
+            storage.DeleteValue("FILE_VIEW_MODE");
+            storage.SaveValue("FILE_VIEW_MODE", ((int)SharedVar.FILE_VIEW_MODE).ToString());
             this.Close();
         }
 
