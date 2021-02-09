@@ -4,12 +4,12 @@ using System.Runtime.InteropServices;
 // Le informazioni generali relative a un assembly sono controllate dal seguente 
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
-[assembly: AssemblyTitle("Doom Mod Loader")]
+[assembly: AssemblyTitle("Doom Mod Loader 2.X")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("P36 Software")]
-[assembly: AssemblyProduct("Doom Mod Loader")]
-[assembly: AssemblyCopyright("Copyright ©  2016 - 2020")]
+[assembly: AssemblyProduct("Doom Mod Loader 2.X")]
+[assembly: AssemblyCopyright("Copyright ©  2016 - 2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // È possibile specificare tutti i valori oppure impostare valori predefiniti per i numeri relativi alla revisione e alla build
 // usando l'asterisco '*' come illustrato di seguito:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.3.0.0")]
-[assembly: AssemblyFileVersion("2.3.0.0")]
+[assembly: AssemblyVersion("2.4.6.0")]
+[assembly: AssemblyFileVersion("2.4.6.0")]

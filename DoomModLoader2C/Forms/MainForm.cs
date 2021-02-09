@@ -550,24 +550,19 @@ namespace DoomModLoader2
             object searchExtensionFilter = cmbFileFilter.SelectedItem;
             SavePreferences();
             cachedPWADs = null;
-            LoadResources();
+            //LoadResources();
+            LoadIWADs();
+            LoadPorts();
+            LoadPortsConfigs();
             UpdateSelectedPWADitems(pwadUpdateMode.DELETE);
             txtSearch.Text = txtSearchValue;
             cmbFileFilter.SelectedItem = searchExtensionFilter;
             LoadPWAD(txtSearchValue);
+            LoadPresetList();
+            LoadDMLconfiguration();
         }
 
 
-        /// <summary>
-        /// Open the "FILE" folder next to the dml exe
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void openFILEFolderToolStripMenuItem_Click_1(object sender, EventArgs e)
-        {
-
-            Process.Start(userFiles_path);
-        }
 
         /// <summary>
         /// Delete the current selected preset
@@ -693,6 +688,40 @@ namespace DoomModLoader2
             LoadPWAD(txtSearch.Text);
             UpdateSelectedPWADitems(pwadUpdateMode.RESTORE);
         }
+
+
+        /// <summary>
+        /// Open IWAD folder in windows explorer
+        /// </summary>
+        private void openIWADFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(IWADfolderPath);
+        }
+
+        /// <summary>
+        /// Open PWAD folder in windows explorer
+        /// </summary>
+        private void openPWADFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(PWADfolderPath);
+        }
+
+        /// <summary>
+        /// Open PORT folder in windows explorer
+        /// </summary>
+        private void openPORTFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(PORTfolderPath);
+        }
+
+
+        /// <summary>
+        /// Open PORT_CONFIG folder in windows explorer
+        /// </summary>
+        private void openPORTCONFIGFolderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Process.Start(PORT_CONFIGfolderPath);
+        }
         #endregion
 
         #region METHODS
@@ -783,7 +812,19 @@ namespace DoomModLoader2
 
                     if (filter != null)
                     {
-                        wads = wads.Where(p => p.name.ToUpper().Contains(filter.ToUpper())).ToList();
+                        switch (SharedVar.FILE_VIEW_MODE)
+                        {
+                            case fileViewMode.FOLDER_AND_FILE_NAME:
+                                wads = wads.Where(p => p.nameWithFolder.ToUpper().Contains(filter.ToUpper())).ToList();
+                                break;
+                            case fileViewMode.FULL_PATH:
+                                wads = wads.Where(p => p.path.ToUpper().Contains(filter.ToUpper())).ToList();
+                                break;
+                            default:
+                                wads = wads.Where(p => p.name.ToUpper().Contains(filter.ToUpper())).ToList();
+                                break;
+
+                        }
                     }
 
                     wads = wads.OrderFile((order)cmbOrder.SelectedIndex);
@@ -1644,6 +1685,11 @@ namespace DoomModLoader2
             }
         }
 
+
+        /// <summary>
+        /// Apply user prefrences
+        /// </summary>
+        /// <param name="mode"></param>
         private void ApplyPreferences()
         {
             if (SharedVar.USE_ADVANCED_SELECTION_MODE)
@@ -1663,7 +1709,7 @@ namespace DoomModLoader2
 
 
                 case fileViewMode.FULL_PATH:
-                    lstPWAD.DisplayMember = "nameWithFullPath";
+                    lstPWAD.DisplayMember = "path";
                     break;
 
                 default:
@@ -1673,8 +1719,8 @@ namespace DoomModLoader2
         }
 
 
-        #endregion
 
+        #endregion
 
     }
 }

@@ -51,13 +51,13 @@ namespace DoomModLoader2.Entity
             }
         }
 
-        public string nameWithFullPath
-        {
-            get
-            {
-                return Path.Combine(Path.GetDirectoryName(path), name).ToUpper();
-            }
-        }
+        //public string nameWithFullPath
+        //{
+        //    get
+        //    {
+        //        return Path.Combine(Path.GetDirectoryName(path), name).ToUpper();
+        //    }
+        //}
     }
 
     public static class PathNameUtils

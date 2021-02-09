@@ -85,8 +85,12 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadResourcesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openFILEFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadResourcesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.openIWADFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openPWADFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openPORTFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.openPORTCONFIGFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -655,10 +659,10 @@
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem,
+            this.openFILEFolderToolStripMenuItem,
             this.checkForUpdateToolStripMenuItem,
             this.preferencesToolStripMenuItem,
-            this.openFILEFolderToolStripMenuItem,
+            this.aboutToolStripMenuItem,
             this.reloadResourcesToolStripMenuItem1});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
@@ -687,6 +691,17 @@
             this.preferencesToolStripMenuItem.Text = "Preferences...";
             this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
             // 
+            // openFILEFolderToolStripMenuItem
+            // 
+            this.openFILEFolderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.openIWADFolderToolStripMenuItem,
+            this.openPWADFolderToolStripMenuItem,
+            this.openPORTFolderToolStripMenuItem,
+            this.openPORTCONFIGFolderToolStripMenuItem});
+            this.openFILEFolderToolStripMenuItem.Name = "openFILEFolderToolStripMenuItem";
+            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
+            this.openFILEFolderToolStripMenuItem.Text = "Open ... folder in file explorer";
+            // 
             // reloadResourcesToolStripMenuItem1
             // 
             this.reloadResourcesToolStripMenuItem1.Name = "reloadResourcesToolStripMenuItem1";
@@ -694,12 +709,33 @@
             this.reloadResourcesToolStripMenuItem1.Text = "Reload resources";
             this.reloadResourcesToolStripMenuItem1.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem1_Click);
             // 
-            // openFILEFolderToolStripMenuItem
+            // openIWADFolderToolStripMenuItem
             // 
-            this.openFILEFolderToolStripMenuItem.Name = "openFILEFolderToolStripMenuItem";
-            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(193, 20);
-            this.openFILEFolderToolStripMenuItem.Text = "Open \"FILE\" folder in file explorer";
-            this.openFILEFolderToolStripMenuItem.Click += new System.EventHandler(this.openFILEFolderToolStripMenuItem_Click_1);
+            this.openIWADFolderToolStripMenuItem.Name = "openIWADFolderToolStripMenuItem";
+            this.openIWADFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openIWADFolderToolStripMenuItem.Text = "Open \"IWAD\" folder";
+            this.openIWADFolderToolStripMenuItem.Click += new System.EventHandler(this.openIWADFolderToolStripMenuItem_Click);
+            // 
+            // openPWADFolderToolStripMenuItem
+            // 
+            this.openPWADFolderToolStripMenuItem.Name = "openPWADFolderToolStripMenuItem";
+            this.openPWADFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPWADFolderToolStripMenuItem.Text = "Open \"PWAD\" folder";
+            this.openPWADFolderToolStripMenuItem.Click += new System.EventHandler(this.openPWADFolderToolStripMenuItem_Click);
+            // 
+            // openPORTFolderToolStripMenuItem
+            // 
+            this.openPORTFolderToolStripMenuItem.Name = "openPORTFolderToolStripMenuItem";
+            this.openPORTFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPORTFolderToolStripMenuItem.Text = "Open \"PORT\" folder";
+            this.openPORTFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTFolderToolStripMenuItem_Click);
+            // 
+            // openPORTCONFIGFolderToolStripMenuItem
+            // 
+            this.openPORTCONFIGFolderToolStripMenuItem.Name = "openPORTCONFIGFolderToolStripMenuItem";
+            this.openPORTCONFIGFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPORTCONFIGFolderToolStripMenuItem.Text = "Open \"PORT_CONFIG\" folder";
+            this.openPORTCONFIGFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTCONFIGFolderToolStripMenuItem_Click);
             // 
             // MainForm
             // 
@@ -803,6 +839,10 @@
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.ToolStripMenuItem openFILEFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openIWADFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openPWADFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openPORTFolderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem openPORTCONFIGFolderToolStripMenuItem;
     }
 }
 
