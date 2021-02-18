@@ -82,15 +82,15 @@
             this.radAudioAllSounds = new System.Windows.Forms.RadioButton();
             this.cmdPlay = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFILEFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reloadResourcesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.openIWADFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openPWADFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openPORTFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openPORTCONFIGFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.checkForUpdateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.preferencesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.reloadResourcesToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PathBinding)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -168,7 +168,11 @@
             "NAME (ASCENDING)",
             "NAME (DESCENDING)",
             "EXTENSION (ASCENDING)",
-            "EXTENSION (DESCENDING)"});
+            "EXTENSION (DESCENDING)",
+            "FOLDER (ASCENDING)",
+            "FOLDER (DESCENDING)",
+            "PATH (ASCENDING)",
+            "PATH (DESCENDING)"});
             this.cmbOrder.Location = new System.Drawing.Point(60, 83);
             this.cmbOrder.Name = "cmbOrder";
             this.cmbOrder.Size = new System.Drawing.Size(248, 21);
@@ -670,27 +674,6 @@
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // aboutToolStripMenuItem
-            // 
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
-            this.aboutToolStripMenuItem.Text = "About...";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
-            // 
-            // checkForUpdateToolStripMenuItem
-            // 
-            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
-            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
-            this.checkForUpdateToolStripMenuItem.Text = "Check for update...";
-            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
-            // 
-            // preferencesToolStripMenuItem
-            // 
-            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
-            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
-            this.preferencesToolStripMenuItem.Text = "Preferences...";
-            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
-            // 
             // openFILEFolderToolStripMenuItem
             // 
             this.openFILEFolderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -699,15 +682,8 @@
             this.openPORTFolderToolStripMenuItem,
             this.openPORTCONFIGFolderToolStripMenuItem});
             this.openFILEFolderToolStripMenuItem.Name = "openFILEFolderToolStripMenuItem";
-            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(171, 20);
-            this.openFILEFolderToolStripMenuItem.Text = "Open ... folder in file explorer";
-            // 
-            // reloadResourcesToolStripMenuItem1
-            // 
-            this.reloadResourcesToolStripMenuItem1.Name = "reloadResourcesToolStripMenuItem1";
-            this.reloadResourcesToolStripMenuItem1.Size = new System.Drawing.Size(108, 20);
-            this.reloadResourcesToolStripMenuItem1.Text = "Reload resources";
-            this.reloadResourcesToolStripMenuItem1.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem1_Click);
+            this.openFILEFolderToolStripMenuItem.Size = new System.Drawing.Size(91, 20);
+            this.openFILEFolderToolStripMenuItem.Text = "Open folder...";
             // 
             // openIWADFolderToolStripMenuItem
             // 
@@ -736,6 +712,34 @@
             this.openPORTCONFIGFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
             this.openPORTCONFIGFolderToolStripMenuItem.Text = "Open \"PORT_CONFIG\" folder";
             this.openPORTCONFIGFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTCONFIGFolderToolStripMenuItem_Click);
+            // 
+            // checkForUpdateToolStripMenuItem
+            // 
+            this.checkForUpdateToolStripMenuItem.Name = "checkForUpdateToolStripMenuItem";
+            this.checkForUpdateToolStripMenuItem.Size = new System.Drawing.Size(119, 20);
+            this.checkForUpdateToolStripMenuItem.Text = "Check for update...";
+            this.checkForUpdateToolStripMenuItem.Click += new System.EventHandler(this.checkForUpdateToolStripMenuItem_Click);
+            // 
+            // preferencesToolStripMenuItem
+            // 
+            this.preferencesToolStripMenuItem.Name = "preferencesToolStripMenuItem";
+            this.preferencesToolStripMenuItem.Size = new System.Drawing.Size(89, 20);
+            this.preferencesToolStripMenuItem.Text = "Preferences...";
+            this.preferencesToolStripMenuItem.Click += new System.EventHandler(this.preferencesToolStripMenuItem_Click);
+            // 
+            // aboutToolStripMenuItem
+            // 
+            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(61, 20);
+            this.aboutToolStripMenuItem.Text = "About...";
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            // 
+            // reloadResourcesToolStripMenuItem1
+            // 
+            this.reloadResourcesToolStripMenuItem1.Name = "reloadResourcesToolStripMenuItem1";
+            this.reloadResourcesToolStripMenuItem1.Size = new System.Drawing.Size(108, 20);
+            this.reloadResourcesToolStripMenuItem1.Text = "Reload resources";
+            this.reloadResourcesToolStripMenuItem1.Click += new System.EventHandler(this.reloadResourcesToolStripMenuItem1_Click);
             // 
             // MainForm
             // 

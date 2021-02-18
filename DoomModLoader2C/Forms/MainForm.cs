@@ -548,18 +548,17 @@ namespace DoomModLoader2
         {
             string txtSearchValue = txtSearch.Text;
             object searchExtensionFilter = cmbFileFilter.SelectedItem;
-            SavePreferences();
-            cachedPWADs = null;
-            //LoadResources();
+            SavePreferences();   
             LoadIWADs();
             LoadPorts();
-            LoadPortsConfigs();
-            UpdateSelectedPWADitems(pwadUpdateMode.DELETE);
+            LoadPortsConfigs();     
+            LoadPresetList();
+            cachedPWADs = null;
+            LoadPWAD();
+            LoadDMLconfiguration();
+            cachedPWADs = null;
             txtSearch.Text = txtSearchValue;
             cmbFileFilter.SelectedItem = searchExtensionFilter;
-            LoadPWAD(txtSearchValue);
-            LoadPresetList();
-            LoadDMLconfiguration();
         }
 
 

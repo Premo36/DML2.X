@@ -50,6 +50,10 @@ namespace DoomModLoader2.Entity
         NAME_DESCENDING = 1,
         EXTENSION_ASCENDING = 2,
         EXTENSION_DESCENDING = 3,
+        FOLDER_ASCENDING = 4,
+        FOLDER_DESCENDING = 5,
+        PATH_ASCENDING = 6,
+        PATH_DESCENDING = 7,
     }
 
     public enum fileViewMode

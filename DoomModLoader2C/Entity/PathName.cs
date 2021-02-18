@@ -85,6 +85,18 @@ namespace DoomModLoader2.Entity
                 case order.NAME_DESCENDING:
                     pathNames = pathNames.OrderByDescending(P => P.name).ToList();
                     break;
+                case order.FOLDER_ASCENDING:
+                    pathNames = pathNames.OrderBy(P => P.nameWithFolder).ToList();
+                    break;
+                case order.FOLDER_DESCENDING:
+                    pathNames = pathNames.OrderByDescending(P => P.nameWithFolder).ToList();
+                    break;
+                case order.PATH_ASCENDING:
+                    pathNames = pathNames.OrderBy(P => P.path).ToList();
+                    break;
+                case order.PATH_DESCENDING:
+                    pathNames = pathNames.OrderByDescending(P => P.path).ToList();
+                    break;
             }
 
             return pathNames;

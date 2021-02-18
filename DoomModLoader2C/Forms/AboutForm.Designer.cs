@@ -42,11 +42,11 @@
             // 
             // txtInfo
             // 
-            this.txtInfo.Location = new System.Drawing.Point(188, 12);
+            this.txtInfo.Location = new System.Drawing.Point(364, 12);
             this.txtInfo.Multiline = true;
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.ReadOnly = true;
-            this.txtInfo.Size = new System.Drawing.Size(346, 173);
+            this.txtInfo.Size = new System.Drawing.Size(353, 348);
             this.txtInfo.TabIndex = 1;
             this.txtInfo.TabStop = false;
             // 
@@ -55,7 +55,7 @@
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox4.Image = global::DoomModLoader2.Properties.Resources.twitter;
             this.pictureBox4.InitialImage = null;
-            this.pictureBox4.Location = new System.Drawing.Point(364, 191);
+            this.pictureBox4.Location = new System.Drawing.Point(188, 12);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(170, 173);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -108,7 +108,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(545, 372);
+            this.ClientSize = new System.Drawing.Size(729, 372);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);

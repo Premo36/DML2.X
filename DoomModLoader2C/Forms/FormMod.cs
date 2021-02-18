@@ -164,16 +164,10 @@ namespace DoomModLoader2
 
         private void cmdRemove_Click(object sender, EventArgs e)
         {
-            pwads.RemoveAll(P => P.path == ((PathName)lstPwad.SelectedItem).path);
-
-            lstPwad.SelectedItem = null;
-            lstPwad.DataSource = null;
-
-
-            lstPwad.DataSource = pwads;
-            lstPwad.DisplayMember = "name";
-
+            Remove();
         }
+
+    
 
         private void lstPwad_KeyDown(object sender, KeyEventArgs e)
         {
@@ -189,7 +183,8 @@ namespace DoomModLoader2
 
             if (e.KeyCode == Keys.Delete)
             {
-                cmdRemove_Click(null, null);
+
+                Remove();
             }
 
             e.Handled = true;
@@ -208,9 +203,9 @@ namespace DoomModLoader2
                 lst[i - 1] = y;
 
                 lstPwad.DataSource = lst;
+                lstPwad.DisplayMember = "name";
 
-              
-                    lstPwad.SelectedItem = y;
+                lstPwad.SelectedItem = y;
 
                 pwads = lst;
             }
@@ -234,16 +229,34 @@ namespace DoomModLoader2
                 lst[i + 1] = y;
 
                 lstPwad.DataSource = lst;
+                lstPwad.DisplayMember = "name";
 
-                
-                    lstPwad.SelectedItem = y;
-                
+                lstPwad.SelectedItem = y;
+
                 pwads = lst;
             }
             else
             {
                 SystemSounds.Beep.Play();
             }
+        }
+
+        private void Remove()
+        {
+            pwads.RemoveAll(P => P.path == ((PathName)lstPwad.SelectedItem).path);
+
+            lstPwad.SelectedItem = null;
+            lstPwad.DataSource = null;
+
+
+            lstPwad.DataSource = pwads;
+            lstPwad.DisplayMember = "name";
+
+            if(lstPwad.SelectedIndex < 0)
+            {
+                lstPwad.SelectedIndex = lstPwad.Items.Count - 1;
+            }
+
         }
 
 
