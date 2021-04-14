@@ -117,16 +117,76 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <metadata name="toolTip1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>163, 17</value>
-  </metadata>
-  <metadata name="PathNameSource.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
+  <data name="textBox1.Text" xml:space="preserve">
+    <value>Thank you for downloading Doom Mod Loader 2.X!
+
+DML 2.X is an open source software licensed under the BSD 3.0 License. 
+You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the readme.txt).
+You can find the software's sourcecode and beta releases on github at https://github.com/Premo36/DML2.X . 
+
+This software will automatically checks for update everytime you open it and will notify you if a new version it's available for download. 
+Note that it will on notify the stable releases, for the beta you will have to check on github or keep an eye on my twitter (@p36software)
+You can disable this feature by un-tiking the check for update option.
+
+I designed this software to be user-friendly and straight-forward to use, but if you need help the readme.txt file inlcuded with the software should answer most of your questions.
+If you can't find the answer you were looking for in the readme, or want to report a bug, give me suggestions for new features or just let me know what you think about DML 2.X, feel free to write an email to support@p36software.net
+
+In order to use this software you have to accept both the BSD 3 license terms and, as it connects to my website to check for new versions, also my website privacy policy (https://p36software.net/privacy-policy)
+
+WEBSITE: https://p36software.net
+TWITTER: https://twitter.com/p36software
+EMAIL: info@p36software.net
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my new free game with a retro aesthetic:
+https://p36software.net/projects/TankRider
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+DML current version: 2.4 (19/04/2021)
+New features:
+-
+-
+Bug fixes:
+-
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+BSD 3-Clause License
+
+Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.</value>
+  </data>
+  <metadata name="$this.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
   </metadata>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        AAABAAEAAAAAAAEAIAB3uAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAETAAABEwgGAAAAFaniuAAAIABJ
+        AAABAAEADQ0AAAAAAA13uAAAFgAAAIlQTkcNChoKAAAADUlIRFIAAAETAAABEwgGAAAAFaniuAAAIABJ
         REFUeJzsnXecJEXd/9/VacKm29u9nI+LcCfKCUgS5EFQRECCKIKKioiPAQyIII/yCIo+KCrJiAkFMQv+
         fFRUlPCgCArHkS5wt3t5c5rQqX5/VHdPz+7M7Gy6W2A/vIbd2+murqqu+tQ31bcEU3gpoBFYAMwD5gCz
         gJlAEzAdaADqgVqgBkgCFmACOiAACXiAA9hADhgA+oFeoAfoBDqAvcAeYBewA2gFuia8lVPYrxD7uwJT

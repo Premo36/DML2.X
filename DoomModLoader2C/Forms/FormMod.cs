@@ -44,6 +44,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
+using System.Timers;
 using System.Windows.Forms;
 
 namespace DoomModLoader2
@@ -94,12 +95,26 @@ namespace DoomModLoader2
 
         private void cmdUp_Click(object sender, EventArgs e)
         {
-            MoveModUp();
+            if ((ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                while (!MoveModUp());
+            } else
+            {
+                MoveModUp();
+            }
+           
         }
 
         private void cmdDown_Click(object sender, EventArgs e)
         {
-            MoveModDown();
+            if ((ModifierKeys & Keys.Control) == Keys.Control)
+            {
+                while (!MoveModDown()) ;
+            }
+            else
+            {
+                MoveModDown();
+            }
         }
 
         /// <summary>
@@ -167,7 +182,7 @@ namespace DoomModLoader2
             Remove();
         }
 
-    
+
 
         private void lstPwad_KeyDown(object sender, KeyEventArgs e)
         {
@@ -190,7 +205,7 @@ namespace DoomModLoader2
             e.Handled = true;
         }
 
-        private void MoveModUp()
+        private bool MoveModUp()
         {
             int i = lstPwad.SelectedIndex;
             if (i > 0)
@@ -208,14 +223,16 @@ namespace DoomModLoader2
                 lstPwad.SelectedItem = y;
 
                 pwads = lst;
+                return false;
             }
             else
             {
                 SystemSounds.Beep.Play();
+                return true;
             }
         }
 
-        private void MoveModDown()
+        private bool MoveModDown()
         {
 
             int i = lstPwad.SelectedIndex;
@@ -234,11 +251,14 @@ namespace DoomModLoader2
                 lstPwad.SelectedItem = y;
 
                 pwads = lst;
+                return false;
             }
             else
             {
                 SystemSounds.Beep.Play();
+                return true;
             }
+
         }
 
         private void Remove()
@@ -252,14 +272,19 @@ namespace DoomModLoader2
             lstPwad.DataSource = pwads;
             lstPwad.DisplayMember = "name";
 
-            if(lstPwad.SelectedIndex < 0)
+            if (lstPwad.SelectedIndex < 0)
             {
                 lstPwad.SelectedIndex = lstPwad.Items.Count - 1;
             }
 
         }
 
+ 
+
+  
 
 
+
+      
     }
 }

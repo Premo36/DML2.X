@@ -56,8 +56,9 @@ Copyright © P36 Software(Matteo P.)  2016 - {DateTime.Today.Year}
 
 To check if a new version is available, click on 'Check for update....'
 
-Want to play an endless run and gun game for Android? 
-Click on the Tank icon for more info about Tank Rider, my new free Android game.
+Want to play an endless runner shoot em' up game for Android? 
+Click on the Tank icon for more info about Tank Rider, my new free game.
+(If you don't have and android device, it can also be played from any computer browser)
 
 Click on the DML 2.X logo to visit the modDB page.
 Click on the P36 Software logo to visit the p36software.net website.

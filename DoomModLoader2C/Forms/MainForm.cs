@@ -117,6 +117,21 @@ namespace DoomModLoader2
             cmbFileFilter.DataSource = filterValues;
             cmbOrder.SelectedIndex = 0;
             LoadResources();
+
+            if (SharedVar.CONFIG_VERSION != SharedVar.LOCAL_VERSION)
+            {
+                using (WelcomeForm welcomeForm = new WelcomeForm())
+                {
+                    welcomeForm.ShowDialog();
+                    if (!welcomeForm.agreeTOS)
+                    {
+                        MessageBox.Show("Terms of service must be accepted in order to use this software.");
+                        Environment.Exit(-1);
+                    }
+                    SharedVar.CONFIG_VERSION = SharedVar.LOCAL_VERSION;
+                }
+            } 
+
             if (SharedVar.CHECK_FOR_UPDATE)
             {
                 CheckForUpdate(true);
@@ -1085,6 +1100,17 @@ namespace DoomModLoader2
                     }
                     #endregion
 
+                    #region CONFIG_VERSION
+                    if (cfg.TryGetValue("CONFIG_VERSION", out value))
+                    {
+                        SharedVar.CONFIG_VERSION = value.Trim();
+                    }
+                    else
+                    {
+                        errors.Add("CONFIG_VERSION");
+                    }
+                    #endregion
+              
                     if (errors.Count > 0)
                     {
                         SavePreferences();
@@ -1518,6 +1544,8 @@ namespace DoomModLoader2
                 preferences.Add("USE_ADVANCED_SELECTION_MODE", SharedVar.USE_ADVANCED_SELECTION_MODE.ToString().ToUpper());
 
                 preferences.Add("FILE_VIEW_MODE", ((int)SharedVar.FILE_VIEW_MODE).ToString());
+
+                preferences.Add("CONFIG_VERSION", SharedVar.CONFIG_VERSION);
 
                 storage.SaveValues(preferences, true);
             }

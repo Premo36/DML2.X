@@ -38,6 +38,7 @@
             this.cmdSavePreset = new System.Windows.Forms.Button();
             this.lblPresetName = new System.Windows.Forms.Label();
             this.cmdRemove = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             ((System.ComponentModel.ISupportInitialize)(this.PathNameSource)).BeginInit();
             this.SuspendLayout();
             // 
@@ -49,6 +50,7 @@
             this.cmdUp.Size = new System.Drawing.Size(176, 46);
             this.cmdUp.TabIndex = 1;
             this.cmdUp.Text = "UP";
+            this.toolTip1.SetToolTip(this.cmdUp, "Hold \"CTRL\" while clicking to push the selected mod to the top of the list");
             this.cmdUp.UseVisualStyleBackColor = true;
             this.cmdUp.Click += new System.EventHandler(this.cmdUp_Click);
             // 
@@ -60,6 +62,7 @@
             this.cmdDown.Size = new System.Drawing.Size(176, 46);
             this.cmdDown.TabIndex = 2;
             this.cmdDown.Text = "DOWN";
+            this.toolTip1.SetToolTip(this.cmdDown, "Hold \"CTRL\" while clicking to push the selected mod to the bottom of the list");
             this.cmdDown.UseVisualStyleBackColor = true;
             this.cmdDown.Click += new System.EventHandler(this.cmdDown_Click);
             // 
@@ -157,5 +160,6 @@
         private System.Windows.Forms.Button cmdSavePreset;
         private System.Windows.Forms.Label lblPresetName;
         private System.Windows.Forms.Button cmdRemove;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
