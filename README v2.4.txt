@@ -1,17 +1,11 @@
-Thank you for downloading Doom Mod Loader version 2.4 (beta #2)!
+Thank you for downloading Doom Mod Loader version 2.4!
 
-==============BETA WARNING===============
-Please keep in mind that this release is to be considered has a "beta" software, because I still haven't fully tested it yet, but has I've dove very few changes, everything should work has fine as the final software (which I will release on my website and on the mod db page as soon as the beta is over)
+If your reading this file from the standard windows notepad you may want to enable Format->Word Wrap to avoid having to scrolling to the right.
 
-While using any release of DML 2.X tagged as "beta", ignore the "new version" notification, as those are linked to the official stable releases, not with the beta ones.
-
-If you find any bug with this version please report it trough github or by sending an email to info@p36software.net
-Thank you!
-=======================================
 Microsoft .net framework (at least) version 3.5 is required in order to use Doom Mod Loader!
-If your system is up-to-date you should have it installed already, as it's included in the regular windows updates and has been released more than 10 years ago. 
-
-If you don't have it, you can find it here and install it manually:
+If your system is up-to-date you should have it already.
+If you don't have it, the first time you open DML, Windows will ask you if you want to install it. 
+If you're on an older Windows version that does not automatically install it, you can find it here and install it manually:
 https://www.microsoft.com/en-us/download/details.aspx?id=21
 
 In order to use DML 2.X you need at least:
@@ -46,12 +40,16 @@ If you don't want to load a file in dml, write it's full name (with the extensio
 NOTE:If you place a file inside a folder while DML is running, you have to click on "refresh resources", otherwise it will not show up!
 
 -HOW TO PLAY JUST THE ORIGINAL GAME:
-1)Add your iwad's to the IWAD folder inside the "FILE" folder next to "DML vX.X.exe" 
-1b)Add your iwad/s (original games/s) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC.(If your game is not in the .wad format you'll need to change the filter in the file dialog to see it,if it does not follow the "IWAD 4 byte standard",a warning will pop-up,but you can still add it)
+1)Add your iwad's to the "IWAD" folder inside the "FILE" folder next to "DML vX.X.exe" 
+   NOTE: To be recognised you game must have one of the following extension: ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh", ".iwad", ".ipk3". 
+   1b)Add your iwad/s (original games/s) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC. 
+   NOTE:If your game is not in the .wad format you'll need to change the filter in the file dialog to see it. 
+   NOTE: If it does not follow the "IWAD 4 byte standard",a warning will pop-up,but you can still add it)
 2)Add your sourceport to the PORT folder inside the "FILE" folder next to "DML vX.X.exe" 
 2b)Add your favorite/s modern sourceport/s trough the "ADD" button in the Source Port section.
 3)Select from the relative combobox the sourceport and the game you want to play. 
 4)Hit "PLAY".
+  NOTE: Your sourceport must be able to launch trough the "-iwad" parameter your original game in order to work. Not all sourceport may support all types of file supported by DML 2.X
 
 -HOW TO PLAY WITH MODS:
 1)If you don't have already, do step 1 to 3 of the previous how-to.
@@ -59,7 +57,8 @@ NOTE:If you place a file inside a folder while DML is running, you have to click
 2b)Add your favourite/s mods through the "Open file manager" button in the MODS section, you can add single file/s or whole folders (and also include subfolders), drag & drop is supported.
 3)Select them in the list on the left (click to select, click again to deselect)
 4)Hit "play", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
-4b)Change the mod loading order as stated by the mod developer or at your discrection. 
+4b)Change the mod loading order. You can use the "UP" and "DOWN" button or the up/down arrow keys on your keyboard to move by one position a mod. 
+   NOTE:You can hold "CTRL" while pressing  "UP" or "DOWN" for moving a mod quickly to the top or the bottom of the list.
 
 Files in the list will be loaded starting from the top, remember that each time a file is loaded it will replace any stuff loaded previously.
 Let my try to explain it with a little example, you have the following setup:
@@ -82,9 +81,9 @@ If you play many mods togheter, you can save them in a preset. Next time you wan
 4)Manage the files loading order
 5)Click on "SAVE PRESET"
 6)Write a name for the preset
-7)Check any additional info you want to save with preset (IWAD, SOURCEPORT, ALTERNATIVE CONFIGURATION, RENDERER  AND COMMANDLINE)
+7)Check any additional info you want to save with preset (IWAD, SOURCEPORT, ALTERNATIVE CONFIGURATION, RENDERER and COMMANDLINE)
 8) Click on "save as new..." if it's a new preset of you want to make a copy
-8b)Click on update if you want that any changes you made will be overwrtie the current preset one
+8b)Click on update if you want that any changes you made will be overwrite the current preset one
 8c) Click on "update and play" if you want to update the preset and launch the game right away.  
 
 -HOW TO START FROM LEVEL X
@@ -107,30 +106,62 @@ This can be useful also to share the same configuration between compatible sourc
 -HOW TO REMOVE STUFF?
 1)Select the item you want to remove from the combobox
 1b)Select the mod/s you want to remove from the list in the file manager
-2)Click "remove", a confirmation message will pop-up.
+2)Click "remove", a confirmation message will pop-up if you have DELETE/WARNING messages enabled.
+
+-HOW TO DISPLAY ALSO THE FOLDER IN WHICH THE FILE IS LOCATED OR THE FULL PATH TO THE MOD IN THE MOD LIST?
+1)Click on "Preferences".
+2)Change "mod list view mode" from "ONLY FILE NAME" (which is the default setting) to "LAST FOLDER AND FILE NAME" or "FULL PATH".
+3)Click on "Save".
+
+-HOW DO I ENABLE/DISABLE SOME OR ALL MESSAGE BOX?
+1)Click on "Preferences".
+2)Check/Uncheck all types of message you want/don't want to see. By default all type of message are enabled.
+3)Click on "Save".
 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[18/06/2020 | 2.4 (BETA #2)]
--The mod list in the Mod Loading Order window can be sorted by moving the selected mod up/down with the arrow keys.
--Selected mod in the Mod Loading Order window can be removed using the DELETE key. 
--Added support for loading ".iwad" and ".ipk3" file has an IWAD
--Updated about box with new twitter (@p36software)
+[19/04/2021 | 2.4 ]
+NEW FEATURES:
+-Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
+-Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
+-Added "Mod list view mode" to manage the new 3 view mode of the file list: "ONLY FILE NAME" show only the mod name, "FOLDER AND FILE NAME" show the file name and the folder where it's placed and "FULL PATH" shows the full path to the mod. Can be changed in the preferences menu, default to "ONLY FILE NAME"
+-Added welcome screen with some info about the software and how you can contact me.
+-Mods in mod order window can now be directly pushed to the top or the bottom of the list by holding down "CTRL" while clicking on the "UP" or "DOWN" button.
+-Mods now can be also ordered by folder and path.
+-Mods in the Mod Loading Order window can be moved UP or DOWN with the arrow keys
+-Mods in the Mod Loading Order window can be removed with the DELETE key
+-Updated about box with new P36 Software logo, new support email, button links to my "business" twitter (@p36software) and to Tank Rider (my new game).
+-Updated "unhandled exception" message to show the current software version.
+-Updated assembly info
+
+BUG FIXES:
+-Fixed bug where "search" and "extension" filter in mods list were resetted to default when clicking on "Reload resources"
+-Fixed bug where "USE_ADVANCED_SELECTION_MODE" flag was ignored on appllication start until the user opened and closed the preferences window
+-Fixed bug where application would crash if in the mod load order windows, the last mod was removed and, without selecting another mod, the user tried to move up or down a mod.
+-Fixed bug where all mods name in Mod Load Order window will change to "DoomModLoader2.Entity.PathName" .
+-Fixed bug where the select preset will reset to "-" when the user clicked on "Reload resources".
+-Fixed bug where the latest added iwad file does not always get automatically selected.
+-Fixed bug whe preset name with spaces at the beginning or end of the file will make resets DML2X ini values to defaults.
+
+NEW SETTINGS:
+-FILE_VIEW_MODE
+-CONFIG_VERSION
 
 ===================INFO===================
 TWITTER: @p36software
-EMAIL: info@p36software.net
+EMAIL: support@p36software.net (feedback, bug reports, help...)
+EMAIL: info@p36software.net (everything else)
 WEBSITE: https://p36software.net
 PROJECT REPOSITORY: https://github.com/Premo36/DML2.X
 
 AUTHOR TWITTER: @premo36
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
 
 =================LICENSE===================
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

@@ -121,21 +121,22 @@
     <value>Thank you for downloading Doom Mod Loader 2.X!
 
 DML 2.X is an open source software licensed under the BSD 3.0 License. 
-You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the readme.txt).
+You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the "README v2.4.txt" file.
 You can find the software's sourcecode and beta releases on github at https://github.com/Premo36/DML2.X . 
 
 This software will automatically checks for update everytime you open it and will notify you if a new version it's available for download. 
-Note that it will on notify the stable releases, for the beta you will have to check on github or keep an eye on my twitter (@p36software)
+Note that it will only notify for new stable releases, for the beta you will have to check the releases on my github or keep an eye on my twitter (@p36software).
 You can disable this feature by un-tiking the check for update option.
 
-I designed this software to be user-friendly and straight-forward to use, but if you need help the readme.txt file inlcuded with the software should answer most of your questions.
-If you can't find the answer you were looking for in the readme, or want to report a bug, give me suggestions for new features or just let me know what you think about DML 2.X, feel free to write an email to support@p36software.net
+I designed this software to be user-friendly and straight-forward to use, but if you need help the "README v2.4.txt"  file inlcuded with the software should answer most of your questions.
+If you can't find the answer you were looking for in the readme, want to report a bug, give me suggestions for new features or just let me know what you think about DML 2.X, feel free to write an email to support@p36software.net
 
-In order to use this software you have to accept both the BSD 3 license terms and, as it connects to my website to check for new versions, also my website privacy policy (https://p36software.net/privacy-policy)
+In order to use this software you have to accept both the BSD 3 license terms and, as it connects to my website to check for new versions, also my website privacy policy that you can read at https://p36software.net/privacy-policy
 
-WEBSITE: https://p36software.net
-TWITTER: https://twitter.com/p36software
-EMAIL: info@p36software.net
+If you're interested in my softwares, games, open source projects or just want to contact me, you can found me here):
+WEBSITE: https://p36software.net (The "about" page have more places where you can find me)
+TWITTER: https://twitter.com/p36software  (It's it's the most frequently updated)
+EMAIL: info@p36software.net  (it's not a mailing list service so this one it's not for be kept up-to-date but just to contact me if you wish)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my new free game with a retro aesthetic:
@@ -143,12 +144,31 @@ https://p36software.net/projects/TankRider
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 DML current version: 2.4 (19/04/2021)
-New features:
--
--
-Bug fixes:
--
+NEW FEATURES:
+-Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
+-Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
+-Added "Mod list view mode" to manage the new 3 view mode of the file list: "ONLY FILE NAME", show only the mod name, "FOLDER AND FILE NAME" show the file name and the folder where it's placed and "FULL PATH" shows the full path to the mod. Can be changed in the preferences menu, default to "ONLY FILE NAME"
+-Added welcome screen with some info about the software and how you can contact me.
+-Mods in mod order window can now be directly pushed to the top or the bottom of the list by holding down "CTRL" while clicking on the "UP" or "DOWN" button.
+-Mods now can be also ordered by folder and path.
+-Mods in the Mod Loading Order window can be moved UP or DOWN with the arrow keys
+-Mods in the Mod Loading Order window can be removed with the DELETE key
+-Updated about box with new P36 Software logo, new support email, button links to my "business" twitter (@p36software) and to Tank Rider (my new game).
+-Updated "unhandled exception" message to show the current software version.
+-Updated assembly info
 
+BUG FIXES:
+-Fixed bug where "search" and "extension" filter in mods list were resetted to default when clicking on "Reload resources"
+-Fixed bug where "USE_ADVANCED_SELECTION_MODE" flag was ignored on appllication start until the user opened and closed the preferences window
+-Fixed bug where application would crash if in the mod load order windows, the last mod was removed and, without selecting another mod, the user tried to move up or down a mod.
+-Fixed bug where all mods name in Mod Load Order window will change to "DoomModLoader2.Entity.PathName" .
+-Fixed bug where the select preset will reset to "-" when the user clicked on "Reload resources".
+-Fixed bug where the latest added iwad file does not always get automatically selected.
+-Fixed bug whe preset name with spaces at the beginning or end of the file will make resets DML2X ini values to defaults.
+
+NEW SETTINGS:
+-FILE_VIEW_MODE
+-CONFIG_VERSION
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 BSD 3-Clause License
 

@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 // set di attributi. Modificare i valori di questi attributi per modificare le informazioni
 // associate a un assembly.
 [assembly: AssemblyTitle("Doom Mod Loader 2.X")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("An easy-to-use frontend for zDoom-like sourceport")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("P36 Software")]
 [assembly: AssemblyProduct("Doom Mod Loader 2.X")]
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // È possibile specificare tutti i valori oppure impostare valori predefiniti per i numeri relativi alla revisione e alla build
 // usando l'asterisco '*' come illustrato di seguito:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.7.0")]
-[assembly: AssemblyFileVersion("2.4.7.0")]
+[assembly: AssemblyVersion("2.4.9.0")]
+[assembly: AssemblyFileVersion("2.4.9.0")]
