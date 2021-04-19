@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("P36 Software")]
 [assembly: AssemblyProduct("Doom Mod Loader 2.X")]
-[assembly: AssemblyCopyright("Copyright ©  2016 - 2021")]
+[assembly: AssemblyCopyright("Copyright ©  2016 - 2021 Matteo Premoli, P36 Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
@@ -31,5 +31,5 @@ using System.Runtime.InteropServices;
 // È possibile specificare tutti i valori oppure impostare valori predefiniti per i numeri relativi alla revisione e alla build
 // usando l'asterisco '*' come illustrato di seguito:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("2.4.9.0")]
-[assembly: AssemblyFileVersion("2.4.9.0")]
+[assembly: AssemblyVersion("2.4.9.2")]
+[assembly: AssemblyFileVersion("2.4.9.2")]

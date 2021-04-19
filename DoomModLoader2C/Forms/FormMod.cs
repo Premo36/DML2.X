@@ -97,12 +97,14 @@ namespace DoomModLoader2
         {
             if ((ModifierKeys & Keys.Control) == Keys.Control)
             {
-                while (!MoveModUp());
-            } else
-            {
-                MoveModUp();
+                while (!MoveModUp()) ;
             }
-           
+            else
+            {
+                if (MoveModUp())
+                    SystemSounds.Beep.Play();
+            }
+
         }
 
         private void cmdDown_Click(object sender, EventArgs e)
@@ -112,8 +114,9 @@ namespace DoomModLoader2
                 while (!MoveModDown()) ;
             }
             else
-            {
-                MoveModDown();
+            { 
+                if (MoveModDown())
+                    SystemSounds.Beep.Play();
             }
         }
 
@@ -188,12 +191,28 @@ namespace DoomModLoader2
         {
             if (e.KeyCode == Keys.Up)
             {
-                MoveModUp();
+                if ((ModifierKeys & Keys.Control) == Keys.Control)
+                {
+                    while (!MoveModUp()) ;
+                }
+                else
+                {
+                    if (MoveModUp())
+                        SystemSounds.Beep.Play();
+                }
             }
 
             if (e.KeyCode == Keys.Down)
             {
-                MoveModDown();
+                if ((ModifierKeys & Keys.Control) == Keys.Control)
+                {
+                    while (!MoveModDown()) ;
+                }
+                else
+                {
+                    if(MoveModDown())
+                        SystemSounds.Beep.Play();
+                }
             }
 
             if (e.KeyCode == Keys.Delete)
@@ -227,7 +246,6 @@ namespace DoomModLoader2
             }
             else
             {
-                SystemSounds.Beep.Play();
                 return true;
             }
         }
@@ -255,7 +273,6 @@ namespace DoomModLoader2
             }
             else
             {
-                SystemSounds.Beep.Play();
                 return true;
             }
 
@@ -279,12 +296,12 @@ namespace DoomModLoader2
 
         }
 
- 
-
-  
 
 
 
-      
+
+
+
+
     }
 }

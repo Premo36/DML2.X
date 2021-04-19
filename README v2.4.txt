@@ -1,10 +1,10 @@
-Thank you for downloading Doom Mod Loader version 2.4!
+﻿Thank you for downloading Doom Mod Loader version 2.4!
 
-If your reading this file from the standard windows notepad you may want to enable Format->Word Wrap to avoid having to scrolling to the right.
+If you're reading this file from the standard Windows notepad.exe you may want to enable Format->Word Wrap to avoid having to keep scrolling to the right.
 
 Microsoft .net framework (at least) version 3.5 is required in order to use Doom Mod Loader!
 If your system is up-to-date you should have it already.
-If you don't have it, the first time you open DML, Windows will ask you if you want to install it. 
+If you don't have it or you're unsure if you have it installed, be sure to be connected to the internet the first time you open DML 2.X, so that Windows can prompt you to install it if yout don't have it installed. 
 If you're on an older Windows version that does not automatically install it, you can find it here and install it manually:
 https://www.microsoft.com/en-us/download/details.aspx?id=21
 
@@ -17,17 +17,16 @@ In order to use DML 2.X you need at least:
 As for this version, the only tested source port are:
 
 FULL COMPATIBILITY:
--GZdoom (v4.3.3), -height and -width do not work due to gzdoom way of handling resolution)
--LZdoom (v3.85)
+-GZdoom (v4.5.0), -height and -width do not work due to gzdoom way of handling resolution)
+-LZdoom (v3.87c)
 -Zandronum (3.0)
 -Zdoom(2.8.1)
 -QZDoom (2.1.0)
 -Skulltag(98d)
 
-PARTIAL COMPATIBILITY (Some DML features don't work):
--Chocholate Doom (3.0.0)
--PRBOOM PLUS(2.5.1.4)
--GLBOOM PLUS(2.5.1.4)
+PARTIAL COMPATIBILITY (Some DML features will not work):
+-Chocholate Doom (3.0.1)
+-PrBoom+ (2.6um)
 
 (As long as it follows the zdoom command line standard, any engine should work fine)
 
@@ -35,28 +34,30 @@ PARTIAL COMPATIBILITY (Some DML features don't work):
 BEFORE YOU ADD ANY FILE:Starting from version 2.2, DML has become fully portable, meaning that you can also place your file in the relative subfolder inside the "FILE"
 folder next to "DML vX.X.exe" (X is the version number)  and they will be read. 
 Importing file trough the "ADD" buttons and the file manager it's still supported but you cant take advantage of the portability. 
-If you don't want to load a file in dml, write it's full name (with the extension, like "modidontwanttosee.wad") in the blacklist.txt file
+If you don't want to load a file in dml, write it's full name (with the extension, like "modidontwanttosee.wad") in the blacklist.txt file.
 
-NOTE:If you place a file inside a folder while DML is running, you have to click on "refresh resources", otherwise it will not show up!
+NOTE:If you place a file inside a folder while DML is running, you have to click on "Reload resources", otherwise it will not show up!
+
+Neither of the two methods has a max file number constraint like the old DML 1.0/1.1 had, so you can add as many file as you want!
 
 -HOW TO PLAY JUST THE ORIGINAL GAME:
 1)Add your iwad's to the "IWAD" folder inside the "FILE" folder next to "DML vX.X.exe" 
-   NOTE: To be recognised you game must have one of the following extension: ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh", ".iwad", ".ipk3". 
-   1b)Add your iwad/s (original games/s) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC. 
+   NOTE: In order to be recognised you game must have one of the following extension: ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh", ".iwad", ".ipk3". 
+   1b)Add your iwad (original game) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC. 
    NOTE:If your game is not in the .wad format you'll need to change the filter in the file dialog to see it. 
    NOTE: If it does not follow the "IWAD 4 byte standard",a warning will pop-up,but you can still add it)
-2)Add your sourceport to the PORT folder inside the "FILE" folder next to "DML vX.X.exe" 
-2b)Add your favorite/s modern sourceport/s trough the "ADD" button in the Source Port section.
+2)Add your sourceports to the PORT folder inside the "FILE" folder next to "DML vX.X.exe" 
+2b)Add your sourceports trough the "ADD" button in the Source Port section.
 3)Select from the relative combobox the sourceport and the game you want to play. 
 4)Hit "PLAY".
   NOTE: Your sourceport must be able to launch trough the "-iwad" parameter your original game in order to work. Not all sourceport may support all types of file supported by DML 2.X
 
 -HOW TO PLAY WITH MODS:
-1)If you don't have already, do step 1 to 3 of the previous how-to.
-2)Add your mods to the PWAD folder inside the "FILE" folder next to "DML vX.X.exe" 
-2b)Add your favourite/s mods through the "Open file manager" button in the MODS section, you can add single file/s or whole folders (and also include subfolders), drag & drop is supported.
+1)If you didn't have already, do step 1 to 3 of the previous how-to.
+2)Add your mods to the "PWAD" folder inside the "FILE" folder next to "DML vX.X.exe" 
+2b)Add your mods through the "Open file manager" button in the MODS section, you can add single file or whole folders (and also include subfolders), drag & drop is supported.
 3)Select them in the list on the left (click to select, click again to deselect)
-4)Hit "play", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
+4)Hit "PLAY", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
 4b)Change the mod loading order. You can use the "UP" and "DOWN" button or the up/down arrow keys on your keyboard to move by one position a mod. 
    NOTE:You can hold "CTRL" while pressing  "UP" or "DOWN" for moving a mod quickly to the top or the bottom of the list.
 
@@ -67,29 +68,32 @@ Mod A: GunsAndMonsters.wad
 Mod B: JustGuns.wad
 
 You want to play with the monsters of mod A , but with the guns of mod B. 
-If you have mod B at the top of the list followd by mod A, mod B will replace Doom guns, mod A will replace doom monsters and mod B guns.
+If you have mod B at the top of the list followed by mod A, mod B will replace Doom guns, mod A will replace doom monsters and mod B guns.
 But if you move mod A at the top followed by mod B, mod A will replace doom monsters and guns, and mod B will replace mod A guns,  achieving what you were looking for!
 
 File loading order really matters if the mods you're using replaces the same stuff or have some kind of dependencies.
 If you have mod C that replace just the IMP, and mod D that replace just the Demon, it doesn't really matters what you load first as they have nothing in common.
+
+If unsure follow the order suggested by the mods authors.
 
 -HOW TO SAVE MODS IN PRESETS
 If you play many mods togheter, you can save them in a preset. Next time you want to play again those mod just select the preset from the combobox.
 1)Do step 1 to 3 of the previous how to.
 2)Select at least 2 mods
 3)Click on "play"
-4)Manage the files loading order
+4)Adjust the files loading order
 5)Click on "SAVE PRESET"
 6)Write a name for the preset
 7)Check any additional info you want to save with preset (IWAD, SOURCEPORT, ALTERNATIVE CONFIGURATION, RENDERER and COMMANDLINE)
-8) Click on "save as new..." if it's a new preset of you want to make a copy
-8b)Click on update if you want that any changes you made will be overwrite the current preset one
-8c) Click on "update and play" if you want to update the preset and launch the game right away.  
+8)Click on "save as new..." if it's a new preset of you want to make a copy
+8b)Click on update if you want that any changes you made will overwrite the current preset data.
+8c)Click on "update and play" if you want to update the preset and launch the game right away.  
 
 -HOW TO START FROM LEVEL X
 1)Fill with the level code (NOT the full name) the "start from level" field. 
 On doom.wad  should be something like EYMX, where Y is the episode and X is the level (Ex: E1M4 in doom will load "Command Control").
 On doom2.wad should be something like MAPXX, where XX is number of the level (Ex: MAP07 in doom 2 will load "Dead Simple").
+If you're playng a custom iwad that does not follow neither of the previus scheme, follow the custom iwad scheme.
 
 -HOW TO LOAD AN ALTERNATIVE SOURCEPORT CONFIGURATION FILE (.ini or .cfg)?
 The configuration files stores any settings of the sourceport. Sometimes can be useful to quick switch between the sourceport default one and another.  
@@ -99,9 +103,9 @@ This can be useful also to share the same configuration between compatible sourc
 2)Tick the "Use alternative engine configuration file" in the alternative sourceport configuration file section.
 3)Add your configuration to the "PORT_CONFIG" folder inside the "FILE" folder next to "DML vX.X.exe" 
 3b)Add the alternative/s .ini o .cfg trough the "ADD" button.
-(don't add the one in the same folder of the engine as it is already loaded by default, instead make a copy of if somewhere else and add that copy). 
+(don't add the one in the same folder of the engine as it's already loaded by default, instead make a copy of it somewhere else and add that copy). 
 4)Select the one you want to use from the combobox. 
-5)Hit "play". Now any settings will be read and saved in that ini/cfg. If you want to use again the original just untick the box.
+5)Hit "play". Now any settings will be read and saved in that ini/cfg file. If you want to use again the original just untick the box.
 
 -HOW TO REMOVE STUFF?
 1)Select the item you want to remove from the combobox
@@ -148,15 +152,17 @@ NEW SETTINGS:
 -CONFIG_VERSION
 
 ===================INFO===================
-TWITTER: @p36software
-EMAIL: support@p36software.net (feedback, bug reports, help...)
-EMAIL: info@p36software.net (everything else)
-WEBSITE: https://p36software.net
-PROJECT REPOSITORY: https://github.com/Premo36/DML2.X
-
-AUTHOR TWITTER: @premo36
-
 Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+
+If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
+🔗 Website: 	https://p36software.net
+✉ Support e-mail: 	support@p36software.net (for reporting bug/give feedback/ask for help)
+✉ Info e-mail: 	info@p36software.net (for anything else)
+🐦 Twitter: 	https://twitter.com/p36software (@p36software, gets updated more often)
+📄 Github: 	https://github.com/Premo36
+🔧 ModDB: 	https://www.moddb.com/members/premo36
+🎮 IndieDB: 	https://www.indiedb.com/members/premo36
+🎥 Youtube: 	https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
 
 =================LICENSE===================
 BSD 3-Clause License

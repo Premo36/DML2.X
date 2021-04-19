@@ -125,7 +125,7 @@ You can read the license at the end of this text, at https://github.com/Premo36/
 You can find the software's sourcecode and beta releases on github at https://github.com/Premo36/DML2.X . 
 
 This software will automatically checks for update everytime you open it and will notify you if a new version it's available for download. 
-Note that it will only notify for new stable releases, for the beta you will have to check the releases on my github or keep an eye on my twitter (@p36software).
+Note that it will only checks  for new STABLE releases, for the BETA releases you will have to check by yourself the releases on my github or keep an eye on my twitter (@p36software).
 You can disable this feature by un-tiking the check for update option.
 
 I designed this software to be user-friendly and straight-forward to use, but if you need help the "README v2.4.txt"  file inlcuded with the software should answer most of your questions.
@@ -133,17 +133,23 @@ If you can't find the answer you were looking for in the readme, want to report 
 
 In order to use this software you have to accept both the BSD 3 license terms and, as it connects to my website to check for new versions, also my website privacy policy that you can read at https://p36software.net/privacy-policy
 
-If you're interested in my softwares, games, open source projects or just want to contact me, you can found me here):
-WEBSITE: https://p36software.net (The "about" page have more places where you can find me)
-TWITTER: https://twitter.com/p36software  (It's it's the most frequently updated)
-EMAIL: info@p36software.net  (it's not a mailing list service so this one it's not for be kept up-to-date but just to contact me if you wish)
+If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
+-Website: https://p36software.net
+-Support e - mail:  support@p36software.net (for reporting bug/ give feedback / ask for help)
+-Info e-mail: info@p36software.net (for anything else)
+-Twitter: https://twitter.com/p36software (@p36software, gets updated more often)
+-Github: https://github.com/Premo36
+-ModDB: https://www.moddb.com/members/premo36
+-IndieDB: https://www.indiedb.com/members/premo36
+-Youtube: https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
+
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my new free game with a retro aesthetic:
 https://p36software.net/projects/TankRider
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DML current version: 2.4 (19/04/2021)
+DML current version:  2.4 (20/04/2021)
 NEW FEATURES:
 -Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
 -Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
@@ -155,7 +161,7 @@ NEW FEATURES:
 -Mods in the Mod Loading Order window can be removed with the DELETE key
 -Updated about box with new P36 Software logo, new support email, button links to my "business" twitter (@p36software) and to Tank Rider (my new game).
 -Updated "unhandled exception" message to show the current software version.
--Updated assembly info
+-Updated assembly info.
 
 BUG FIXES:
 -Fixed bug where "search" and "extension" filter in mods list were resetted to default when clicking on "Reload resources"
@@ -164,11 +170,27 @@ BUG FIXES:
 -Fixed bug where all mods name in Mod Load Order window will change to "DoomModLoader2.Entity.PathName" .
 -Fixed bug where the select preset will reset to "-" when the user clicked on "Reload resources".
 -Fixed bug where the latest added iwad file does not always get automatically selected.
--Fixed bug whe preset name with spaces at the beginning or end of the file will make resets DML2X ini values to defaults.
+-Fixed bug where preset name with spaces at the beginning or end of the file will make resets DML2X ini values to defaults.
+-Fixed bug where if the preset saved in the "PRESET" field of the DMLv2.ini file was no longer present (or was renamed outside of DML 2.X) will cause a resets to default value of the .ini file. 
 
 NEW SETTINGS:
 -FILE_VIEW_MODE
 -CONFIG_VERSION
+
+As for this version, the only tested source port are:
+FULL COMPATIBILITY:
+-GZdoom (v4.5.0), -height and -width do not work due to gzdoom way of handling resolution)
+-LZdoom (v3.87c)
+-Zandronum (3.0)
+-Zdoom(2.8.1)
+-QZDoom (2.1.0)
+-Skulltag(98d)
+
+PARTIAL COMPATIBILITY (Some DML features will not work):
+-Chocholate Doom (3.0.1)
+-PrBoom+ (2.6um)
+
+(As long as it follows the zdoom command line standard, any engine should work fine)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 BSD 3-Clause License
 

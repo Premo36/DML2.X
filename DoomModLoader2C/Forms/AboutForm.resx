@@ -117,6 +117,30 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="txtInfo.Text" xml:space="preserve">
+    <value>Doom Mod Loader v{LOCAL_VERSION}
+Copyright © Matteo Premoli, P36 Software  2016 - {CURRENT_YEAR}
+
+To check if a new version is available, click on 'Check for update....'
+
+If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my new free game with a retro aesthetic:
+https://p36software.net/projects/TankRider
+
+Click on the DML 2.X logo to visit the modDB page.
+Click on the P36 Software logo to visit the p36software.net website.
+Click on the Twitter logo to visit the @p36software twitter
+Click on the Tank icon for more info about Tank Rider, my new free game.
+
+If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
+-Website: https://p36software.net
+-Support e - mail:  support@p36software.net (for reporting bug/ give feedback / ask for help)
+-Info e-mail: info@p36software.net (for anything else)
+-Twitter: https://twitter.com/p36software (@p36software, gets updated more often)
+-Github: https://github.com/Premo36
+-ModDB: https://www.moddb.com/members/premo36
+-IndieDB: https://www.indiedb.com/members/premo36
+-Youtube: https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>

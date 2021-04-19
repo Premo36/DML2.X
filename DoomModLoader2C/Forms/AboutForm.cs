@@ -50,24 +50,11 @@ namespace DoomModLoader2
         {
             InitializeComponent();
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
-            txtInfo.Text =
-$@"Doom Mod Loader v{SharedVar.LOCAL_VERSION}
-Copyright © P36 Software(Matteo P.)  2016 - {DateTime.Today.Year}
+            txtInfo.Text = txtInfo.Text.Replace("{LOCAL_VERSION}", SharedVar.LOCAL_VERSION);
+            txtInfo.Text = txtInfo.Text.Replace("{CURRENT_YEAR}", DateTime.Today.Year.ToString());
 
-To check if a new version is available, click on 'Check for update....'
 
-Want to play an endless runner shoot em' up game for Android? 
-Click on the Tank icon for more info about Tank Rider, my new free game.
-(If you don't have and android device, it can also be played from any computer browser)
-
-Click on the DML 2.X logo to visit the modDB page.
-Click on the P36 Software logo to visit the p36software.net website.
-Click on the Twitter logo to visit the @p36software twitter
-
-EMAIL:    support@p36software.net (for reporting bugs/give feedback/ask for technical help...)
-EMAIL:    info@p36software.net (for everything else)
-TWITTER:  @p36software / @premo36"
-;
+            
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)
@@ -88,6 +75,11 @@ TWITTER:  @p36software / @premo36"
         private void pictureBox3_Click(object sender, EventArgs e)
         {
             Process.Start("https://p36software.net/projects/TankRider");
+        }
+
+        private void txtInfo_LinkClicked(object sender, LinkClickedEventArgs e)
+        {
+            Process.Start(e.LinkText);
         }
     }
 }

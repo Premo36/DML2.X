@@ -20,11 +20,11 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <li>Use an alternative sourceport .ini file without the need of swapping them manually.</li>
 </ul>
 
-# TESTED SOURCEPORTS
+# TESTED SOURCEPORTS (v2.4)
 ### FULL COMPATIBILITY:
 <ul>
-<li>GZdoom (v4.3.3, -height and -width do not work due to gzdoom way of handling resolution)</li>
-<li>LZdoom (3.85)</li>
+<li>GZdoom (v4.5.0, -height and -width do not work due to gzdoom way of handling resolution)</li>
+<li>LZdoom (3.87c)</li>
 <li>Zandronum (3.0)</li>
 <li>Zdoom(2.8.1)</li>
 <li>QZDoom (2.1.0)</li>
@@ -34,19 +34,24 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 ### PARTIAL COMPATIBILITY (Some DML features don't work):
 <ul>
 <li>Chocholate Doom (3.0.0)</li>
-<li>PRBOOM PLUS(2.5.1.4)</li>
+<li>PRBOOM PLUS(2.6um)</li>
 <li>GLBOOM PLUS(2.5.1.4)</li>
 </ul>
 
 # LICENSE
-You can use the DML 2.X source code in any way you like as long as you respect the <a href ="https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt"> BSD 3-Clause "New" or "Revised" License.</a>
+You can use the DML 2.X source code in any way you like as long as you follow the <a href ="https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt"> BSD 3-Clause "New" or "Revised" License</a> terms.
 
 # DOWNLOADS
 (Need <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work)<br>
 <a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v23" title="Download Doom Mod Loader v2.3 - Mod DB" target="_blank"><img src="https://button.moddb.com/download/medium/192822.png" alt="Doom Mod Loader v2.3" /></a>
 
 # CONTACTS
-<ul>
-<li>website: <a href="https://p36software.net">https://p36software.net</a></li>
-<li>email: info@p36software.net</li>
-</ul>
+If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:<br>
+🔗 Website: <a href="https://p36software.net">https://p36software.net</a> <br>
+✉ Support e-mail: <a href="mailto:support@p36software.net">support@p36software.net</a> (for reporting bug/give feedback/ask for help)  <br>
+✉ Info e-mail: <a href="mailto:info@p36software.net">info@p36software.net</a> (for anything else) <br>
+🐦 Twitter: <a href="https://twitter.com/p36software">https://twitter.com/p36software</a> (@p36software, gets updated more often)  <br>
+📄 Github: <a href="https://github.com/Premo36">https://github.com/Premo36 </a><br>
+🔧 ModDB: <a href="https://www.moddb.com/members/premo36">https://www.moddb.com/members/premo36</a><br>
+🎮 IndieDB: <a href="https://www.indiedb.com/members/premo36">https://www.indiedb.com/members/premo36</a><br>
+🎥 Youtube: <a href="https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA">https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA</a><br>

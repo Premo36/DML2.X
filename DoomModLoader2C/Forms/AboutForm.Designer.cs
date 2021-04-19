@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutForm));
-            this.txtInfo = new System.Windows.Forms.TextBox();
+            this.txtInfo = new System.Windows.Forms.RichTextBox();
             this.pictureBox4 = new System.Windows.Forms.PictureBox();
             this.pictureBox3 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
@@ -42,20 +42,21 @@
             // 
             // txtInfo
             // 
-            this.txtInfo.Location = new System.Drawing.Point(364, 12);
-            this.txtInfo.Multiline = true;
+            this.txtInfo.Location = new System.Drawing.Point(12, 12);
             this.txtInfo.Name = "txtInfo";
             this.txtInfo.ReadOnly = true;
-            this.txtInfo.Size = new System.Drawing.Size(353, 348);
+            this.txtInfo.Size = new System.Drawing.Size(698, 308);
             this.txtInfo.TabIndex = 1;
             this.txtInfo.TabStop = false;
+            this.txtInfo.Text = resources.GetString("txtInfo.Text");
+            this.txtInfo.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.txtInfo_LinkClicked);
             // 
             // pictureBox4
             // 
             this.pictureBox4.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox4.Image = global::DoomModLoader2.Properties.Resources.twitter;
             this.pictureBox4.InitialImage = null;
-            this.pictureBox4.Location = new System.Drawing.Point(188, 12);
+            this.pictureBox4.Location = new System.Drawing.Point(540, 326);
             this.pictureBox4.Name = "pictureBox4";
             this.pictureBox4.Size = new System.Drawing.Size(170, 173);
             this.pictureBox4.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -68,7 +69,7 @@
             this.pictureBox3.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox3.Image = global::DoomModLoader2.Properties.Resources.tankrampagegif;
             this.pictureBox3.InitialImage = null;
-            this.pictureBox3.Location = new System.Drawing.Point(188, 191);
+            this.pictureBox3.Location = new System.Drawing.Point(364, 326);
             this.pictureBox3.Name = "pictureBox3";
             this.pictureBox3.Size = new System.Drawing.Size(170, 173);
             this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -83,7 +84,7 @@
             this.pictureBox2.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox2.Image = global::DoomModLoader2.Properties.Resources.DML2_logo;
             this.pictureBox2.InitialImage = null;
-            this.pictureBox2.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox2.Location = new System.Drawing.Point(12, 326);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(170, 173);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -96,7 +97,7 @@
             this.pictureBox1.Cursor = System.Windows.Forms.Cursors.Hand;
             this.pictureBox1.Image = global::DoomModLoader2.Properties.Resources.P36LOGOQUADv2;
             this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 191);
+            this.pictureBox1.Location = new System.Drawing.Point(188, 326);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(170, 173);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -108,7 +109,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(729, 372);
+            this.ClientSize = new System.Drawing.Size(720, 509);
             this.Controls.Add(this.pictureBox4);
             this.Controls.Add(this.pictureBox3);
             this.Controls.Add(this.pictureBox2);
@@ -125,16 +126,15 @@
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
         private System.Windows.Forms.PictureBox pictureBox1;
-        private System.Windows.Forms.TextBox txtInfo;
         private System.Windows.Forms.PictureBox pictureBox2;
         private System.Windows.Forms.PictureBox pictureBox3;
         private System.Windows.Forms.PictureBox pictureBox4;
+        private System.Windows.Forms.RichTextBox txtInfo;
     }
 }

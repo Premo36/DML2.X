@@ -130,7 +130,7 @@ namespace DoomModLoader2
                     }
                     SharedVar.CONFIG_VERSION = SharedVar.LOCAL_VERSION;
                 }
-            } 
+            }
 
             if (SharedVar.CHECK_FOR_UPDATE)
             {
@@ -563,10 +563,10 @@ namespace DoomModLoader2
         {
             string txtSearchValue = txtSearch.Text;
             object searchExtensionFilter = cmbFileFilter.SelectedItem;
-            SavePreferences();   
+            SavePreferences();
             LoadIWADs();
             LoadPorts();
-            LoadPortsConfigs();     
+            LoadPortsConfigs();
             LoadPresetList();
             cachedPWADs = null;
             LoadPWAD();
@@ -1080,7 +1080,15 @@ namespace DoomModLoader2
                     #region PRESET
                     if (cfg.TryGetValue("PRESET", out value))
                     {
-                        cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == value).FirstOrDefault();
+                        PathName savedPreset = cmbPreset.Items.Cast<PathName>().Where(P => P.name == value).FirstOrDefault();
+                        if (savedPreset != null)
+                        {
+                            cmbPreset.SelectedItem = savedPreset;
+                        } else
+                        {
+                            errors.Add("PRESET");
+                            cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
+                        }
                     }
                     else
                     {
@@ -1110,17 +1118,18 @@ namespace DoomModLoader2
                         errors.Add("CONFIG_VERSION");
                     }
                     #endregion
-              
+
                     if (errors.Count > 0)
                     {
                         SavePreferences();
                         StringBuilder errorText = new StringBuilder();
-                        errorText.AppendLine("The following settings could not be read from '" + cfgPreference + "' and have been resetted to the default value:");
+                        errorText.AppendLine("The following settings could not be read(or had incorrect values) from '" + cfgPreference + "' and have been resetted to the default value:");
                         foreach (string s in errors)
                         {
                             errorText.AppendLine("-" + s);
                         }
                         errorText.AppendLine("If you just upgraded to a new version and those settings are listed in the changelog, you can ignore this message.");
+                        errorText.AppendLine("If not, you may had modified/deleted/renamed files that were referenced inside that .ini file.");
                         MessageBox.Show(errorText.ToString(), "WARNING", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     }
                 }

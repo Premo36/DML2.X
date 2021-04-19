@@ -39,7 +39,7 @@ namespace DoomModLoader2
             this.textBox1.Location = new System.Drawing.Point(12, 12);
             this.textBox1.Name = "textBox1";
             this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(776, 426);
+            this.textBox1.Size = new System.Drawing.Size(883, 556);
             this.textBox1.TabIndex = 0;
             this.textBox1.Text = resources.GetString("textBox1.Text");
             this.textBox1.LinkClicked += new System.Windows.Forms.LinkClickedEventHandler(this.textBox1_LinkClicked);
@@ -47,9 +47,9 @@ namespace DoomModLoader2
             // btnAgree
             // 
             this.btnAgree.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnAgree.Location = new System.Drawing.Point(12, 444);
+            this.btnAgree.Location = new System.Drawing.Point(12, 574);
             this.btnAgree.Name = "btnAgree";
-            this.btnAgree.Size = new System.Drawing.Size(776, 43);
+            this.btnAgree.Size = new System.Drawing.Size(883, 43);
             this.btnAgree.TabIndex = 1;
             this.btnAgree.Text = "I\'VE READ AND AGREE WITH EVERYTHING WRITTEN IN THIS BORING TEXT";
             this.btnAgree.UseVisualStyleBackColor = true;
@@ -59,7 +59,7 @@ namespace DoomModLoader2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 492);
+            this.ClientSize = new System.Drawing.Size(907, 629);
             this.Controls.Add(this.btnAgree);
             this.Controls.Add(this.textBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
