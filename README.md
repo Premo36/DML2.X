@@ -41,8 +41,13 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 You can use the DML 2.X source code in any way you like as long as you follow the <a href ="https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt"> BSD 3-Clause "New" or "Revised" License</a> terms.
 
 # DOWNLOADS
-(Need <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work)<br>
-<a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v23" title="Download Doom Mod Loader v2.3 - Mod DB" target="_blank"><img src="https://button.moddb.com/download/medium/192822.png" alt="Doom Mod Loader v2.3" /></a>
+<p>(Need <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work)</p>
+<p>You can find the latest stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.4">here on github</a> and on ModDB:</p>
+<p><a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v24" target="_blank" title="Download Doom Mod Loader v2.4 - Mod DB" rel="noopener"><img src="https://button.moddb.com/download/medium/212707.png" alt="Doom Mod Loader v2.4"></a></p>
+<p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/rating/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
+<p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/popularity/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
+<p>You can find the beta releases <a href ="https://github.com/Premo36/DML2.X/releases">here on github</a>.</p>
+
 
 # CONTACTS
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:<br>
