@@ -25,8 +25,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <ProductName>Doom Mod Loader 2.X</ProductName>
     <PublisherName>P36 Software</PublisherName>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>2.4.9.3</ApplicationVersion>
+    <ApplicationRevision>4</ApplicationRevision>
+    <ApplicationVersion>2.4.9.4</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>

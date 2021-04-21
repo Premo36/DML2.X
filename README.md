@@ -35,7 +35,6 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <ul>
 <li>Chocholate Doom (3.0.0)</li>
 <li>PRBOOM PLUS(2.6um)</li>
-<li>GLBOOM PLUS(2.5.1.4)</li>
 </ul>
 
 # LICENSE

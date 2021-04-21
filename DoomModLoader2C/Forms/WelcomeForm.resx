@@ -149,7 +149,7 @@ If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my ne
 https://p36software.net/projects/TankRider
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DML current version:  2.4 (20/04/2021)
+DML current version:  2.4 (21/04/2021)
 NEW FEATURES:
 -Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
 -Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
@@ -177,7 +177,7 @@ NEW SETTINGS:
 -FILE_VIEW_MODE
 -CONFIG_VERSION
 
-As for this version, the only tested source port are:
+As for this version, the only tested sourceport are:
 FULL COMPATIBILITY:
 -GZdoom (v4.5.0), -height and -width do not work due to gzdoom way of handling resolution)
 -LZdoom (v3.87c)

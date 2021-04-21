@@ -14,8 +14,7 @@ In order to use DML 2.X you need at least:
 3)Microsoft Net Framework 3.5
 
 
-As for this version, the only tested source port are:
-
+As for this version, the only tested sourceport are:
 FULL COMPATIBILITY:
 -GZdoom (v4.5.0), -height and -width do not work due to gzdoom way of handling resolution)
 -LZdoom (v3.87c)
@@ -29,12 +28,11 @@ PARTIAL COMPATIBILITY (Some DML features will not work):
 -PrBoom+ (2.6um)
 
 (As long as it follows the zdoom command line standard, any engine should work fine)
-
 ============================"HOW-TO" QUICK START GUIDE============================
-BEFORE YOU ADD ANY FILE:Starting from version 2.2, DML has become fully portable, meaning that you can also place your file in the relative subfolder inside the "FILE"
-folder next to "DML vX.X.exe" (X is the version number)  and they will be read. 
+BEFORE YOU ADD ANY FILE:Starting from version 2.2, DML has become fully portable, meaning that you can also place your file in the relative subfolder inside the "FILE" folder next to "DML vX.X.exe" (X is the version number)  and they will be read. 
 Importing file trough the "ADD" buttons and the file manager it's still supported but you cant take advantage of the portability. 
 If you don't want to load a file in dml, write it's full name (with the extension, like "modidontwanttosee.wad") in the blacklist.txt file.
+(for the exe file write just the name, eg. if you don't want to load "chocolate-midiproc.exe" write in the blacklist.txt inside the PORT folder "chocolate-midiproc")
 
 NOTE:If you place a file inside a folder while DML is running, you have to click on "Reload resources", otherwise it will not show up!
 
@@ -59,7 +57,7 @@ Neither of the two methods has a max file number constraint like the old DML 1.0
 3)Select them in the list on the left (click to select, click again to deselect)
 4)Hit "PLAY", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
 4b)Change the mod loading order. You can use the "UP" and "DOWN" button or the up/down arrow keys on your keyboard to move by one position a mod. 
-   NOTE:You can hold "CTRL" while pressing  "UP" or "DOWN" for moving a mod quickly to the top or the bottom of the list.
+   NOTE:You can hold "CTRL" while pressing  "UP" or "DOWN" (or the arrow keys on your keyboard) for moving a mod quickly to the top or the bottom of the list.
 
 Files in the list will be loaded starting from the top, remember that each time a file is loaded it will replace any stuff loaded previously.
 Let my try to explain it with a little example, you have the following setup:
@@ -124,7 +122,7 @@ This can be useful also to share the same configuration between compatible sourc
 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[19/04/2021 | 2.4 ]
+[21/04/2021 | 2.4 ]
 NEW FEATURES:
 -Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
 -Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
@@ -138,7 +136,7 @@ NEW FEATURES:
 -Updated "unhandled exception" message to show the current software version.
 -Updated assembly info
 
-BUG FIXES:
+BUGFIXES:
 -Fixed bug where "search" and "extension" filter in mods list were resetted to default when clicking on "Reload resources"
 -Fixed bug where "USE_ADVANCED_SELECTION_MODE" flag was ignored on appllication start until the user opened and closed the preferences window
 -Fixed bug where application would crash if in the mod load order windows, the last mod was removed and, without selecting another mod, the user tried to move up or down a mod.
