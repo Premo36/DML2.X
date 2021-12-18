@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMod));
             this.cmdUp = new System.Windows.Forms.Button();
             this.cmdDown = new System.Windows.Forms.Button();
             this.cmdPlay = new System.Windows.Forms.Button();
@@ -139,7 +138,6 @@
             this.Controls.Add(this.cmdDown);
             this.Controls.Add(this.cmdUp);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "FormMod";

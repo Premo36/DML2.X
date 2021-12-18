@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbFileFilter = new System.Windows.Forms.ComboBox();
@@ -688,28 +687,28 @@
             // openIWADFolderToolStripMenuItem
             // 
             this.openIWADFolderToolStripMenuItem.Name = "openIWADFolderToolStripMenuItem";
-            this.openIWADFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openIWADFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openIWADFolderToolStripMenuItem.Text = "Open \"IWAD\" folder";
             this.openIWADFolderToolStripMenuItem.Click += new System.EventHandler(this.openIWADFolderToolStripMenuItem_Click);
             // 
             // openPWADFolderToolStripMenuItem
             // 
             this.openPWADFolderToolStripMenuItem.Name = "openPWADFolderToolStripMenuItem";
-            this.openPWADFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPWADFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openPWADFolderToolStripMenuItem.Text = "Open \"PWAD\" folder";
             this.openPWADFolderToolStripMenuItem.Click += new System.EventHandler(this.openPWADFolderToolStripMenuItem_Click);
             // 
             // openPORTFolderToolStripMenuItem
             // 
             this.openPORTFolderToolStripMenuItem.Name = "openPORTFolderToolStripMenuItem";
-            this.openPORTFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPORTFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openPORTFolderToolStripMenuItem.Text = "Open \"PORT\" folder";
             this.openPORTFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTFolderToolStripMenuItem_Click);
             // 
             // openPORTCONFIGFolderToolStripMenuItem
             // 
             this.openPORTCONFIGFolderToolStripMenuItem.Name = "openPORTCONFIGFolderToolStripMenuItem";
-            this.openPORTCONFIGFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPORTCONFIGFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openPORTCONFIGFolderToolStripMenuItem.Text = "Open \"PORT_CONFIG\" folder";
             this.openPORTCONFIGFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTCONFIGFolderToolStripMenuItem_Click);
             // 
@@ -752,7 +751,6 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.menuStrip1;
             this.MaximizeBox = false;
             this.Name = "MainForm";

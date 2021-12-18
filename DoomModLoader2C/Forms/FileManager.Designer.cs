@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FileManager));
             this.lstPath = new System.Windows.Forms.ListBox();
             this.cmdAddFolder = new System.Windows.Forms.Button();
             this.cmdAddSingleFile = new System.Windows.Forms.Button();
@@ -113,7 +112,6 @@
             this.Controls.Add(this.cmdAddSingleFile);
             this.Controls.Add(this.lstPath);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "FileManager";
             this.Text = "File Manager";
             this.Load += new System.EventHandler(this.FileManager_Load);

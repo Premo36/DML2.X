@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Options));
             this.chk_SHOW_END_MESSAGE = new System.Windows.Forms.CheckBox();
             this.chk_SHOW_OVERWRITE_MESSAGE = new System.Windows.Forms.CheckBox();
             this.chk_SHOW_SUCCESS_MESSAGE = new System.Windows.Forms.CheckBox();
@@ -148,7 +147,6 @@
             this.Controls.Add(this.chk_SHOW_OVERWRITE_MESSAGE);
             this.Controls.Add(this.chk_SHOW_END_MESSAGE);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Options";
             this.Text = "Options";
             this.ResumeLayout(false);

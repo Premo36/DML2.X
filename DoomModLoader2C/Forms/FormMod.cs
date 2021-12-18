@@ -282,16 +282,23 @@ namespace DoomModLoader2
         {
             pwads.RemoveAll(P => P.path == ((PathName)lstPwad.SelectedItem).path);
 
-            lstPwad.SelectedItem = null;
-            lstPwad.DataSource = null;
+            //I had to make this workaround as setting datasource to null was resulting in mono crashing
+            pwads = new List<PathName>(pwads);
 
+            //On item deletetion in mono it does not select automatically the following item so I do it manually 
+            int index = lstPwad.SelectedIndex;
 
             lstPwad.DataSource = pwads;
             lstPwad.DisplayMember = "name";
 
-            if (lstPwad.SelectedIndex < 0)
+           
+
+            if (index < 0 || index >= lstPwad.Items.Count)
             {
                 lstPwad.SelectedIndex = lstPwad.Items.Count - 1;
+            } else
+            {
+                lstPwad.SelectedIndex = index;
             }
 
         }

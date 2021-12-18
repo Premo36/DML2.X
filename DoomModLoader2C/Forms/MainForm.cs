@@ -132,10 +132,6 @@ namespace DoomModLoader2
                 }
             }
 
-            if (SharedVar.CHECK_FOR_UPDATE)
-            {
-                CheckForUpdate(true);
-            }
         }
 
         /// <summary>
@@ -285,7 +281,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "*.exe|*.exe";
+                openFileDialog.Filter = "*.exe|*.exe | * | *";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -408,6 +404,11 @@ namespace DoomModLoader2
                 lstPWAD.SetSelected(i, false);
 
             }
+
+            //I have to set the first one again to 0 or in mono it will be selected, I don't know why...
+            if (lstPWAD.Items.Count > 0)
+                lstPWAD.SetSelected(0, false);
+
             PathName selectedItem = (PathName)cmbPreset.SelectedItem;
 
             if (selectedItem.name.Trim().Equals("-"))
@@ -523,7 +524,10 @@ namespace DoomModLoader2
 
         private void checkForUpdateToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CheckForUpdate();
+            MessageBox.Show("The 'Check for update' is broken under mono." + Environment.NewLine +
+                            "You will have to manually check if a new version is out." + Environment.NewLine +
+                            "New version may be found on my website/ModDB/Github." + Environment.NewLine +
+                            "Links in the readme.txt and 'about' page.");
         }
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
@@ -788,7 +792,7 @@ namespace DoomModLoader2
         {
             List<string> pathPORT = File.ReadAllLines(cfgPORT).ToList();
             pathPORT.Add(PORTfolderPath);
-            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe" }, true);
+            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe", "" }, true); ; ;
         }
 
         /// <summary>
@@ -1084,7 +1088,8 @@ namespace DoomModLoader2
                         if (savedPreset != null)
                         {
                             cmbPreset.SelectedItem = savedPreset;
-                        } else
+                        }
+                        else
                         {
                             errors.Add("PRESET");
                             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
@@ -1572,37 +1577,7 @@ namespace DoomModLoader2
             }
         }
 
-        /// <summary>
-        /// Open the VersionForm window and check for newer application version.
-        /// </summary>
-        /// <param name="start"></param>
-        private void CheckForUpdate(bool start = false)
-        {
-            try
-            {
-                using (VersionForm vf = new VersionForm())
-                {
-                    if (start)
-                    {
-                        if (!vf.isLatestVersion())
-                        {
-                            vf.ShowDialog();
-                        }
-                    }
-                    else
-                    {
-                        vf.ShowDialog();
-                    }
-                }
 
-            }
-            catch
-            {
-                MessageBox.Show("Could not get the latest version info..." + Environment.NewLine +
-                                "Please check your internet connection...", "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
-
-            }
-        }
 
         /// <summary>
         /// Convert the given path in a PathName object
