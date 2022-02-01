@@ -40,6 +40,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -735,6 +736,33 @@ namespace DoomModLoader2
         private void openPORTCONFIGFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Process.Start(PORT_CONFIGfolderPath);
+        }
+
+        /// <summary>
+        /// When opening the preset combobox, resize the width in order to make all text visible
+        /// </summary>
+        private void cmbPreset_DropDown(object sender, EventArgs e)
+        {
+            ComboBox senderComboBox = (ComboBox)sender;
+            int width = senderComboBox.DropDownWidth;
+            Graphics g = senderComboBox.CreateGraphics();
+            Font font = senderComboBox.Font;
+            int vertScrollBarWidth =
+                (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
+                ? SystemInformation.VerticalScrollBarWidth : 0;
+
+            int newWidth;
+            foreach (PathName p in ((ComboBox)sender).Items)
+            {
+
+                newWidth = (int)g.MeasureString(p.name, font).Width
+                    + vertScrollBarWidth;
+                if (width < newWidth)
+                {
+                    width = newWidth;
+                }
+            }
+            senderComboBox.DropDownWidth = width;
         }
         #endregion
 
@@ -1758,5 +1786,6 @@ namespace DoomModLoader2
 
         #endregion
 
+ 
     }
 }

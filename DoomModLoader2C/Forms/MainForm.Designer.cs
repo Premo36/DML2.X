@@ -199,6 +199,7 @@
             this.cmbPreset.Name = "cmbPreset";
             this.cmbPreset.Size = new System.Drawing.Size(302, 21);
             this.cmbPreset.TabIndex = 6;
+            this.cmbPreset.DropDown += new System.EventHandler(this.cmbPreset_DropDown);
             this.cmbPreset.SelectedIndexChanged += new System.EventHandler(this.cmbPreset_SelectedIndexChanged);
             // 
             // PathBinding
@@ -688,28 +689,28 @@
             // openIWADFolderToolStripMenuItem
             // 
             this.openIWADFolderToolStripMenuItem.Name = "openIWADFolderToolStripMenuItem";
-            this.openIWADFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openIWADFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openIWADFolderToolStripMenuItem.Text = "Open \"IWAD\" folder";
             this.openIWADFolderToolStripMenuItem.Click += new System.EventHandler(this.openIWADFolderToolStripMenuItem_Click);
             // 
             // openPWADFolderToolStripMenuItem
             // 
             this.openPWADFolderToolStripMenuItem.Name = "openPWADFolderToolStripMenuItem";
-            this.openPWADFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPWADFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openPWADFolderToolStripMenuItem.Text = "Open \"PWAD\" folder";
             this.openPWADFolderToolStripMenuItem.Click += new System.EventHandler(this.openPWADFolderToolStripMenuItem_Click);
             // 
             // openPORTFolderToolStripMenuItem
             // 
             this.openPORTFolderToolStripMenuItem.Name = "openPORTFolderToolStripMenuItem";
-            this.openPORTFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPORTFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openPORTFolderToolStripMenuItem.Text = "Open \"PORT\" folder";
             this.openPORTFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTFolderToolStripMenuItem_Click);
             // 
             // openPORTCONFIGFolderToolStripMenuItem
             // 
             this.openPORTCONFIGFolderToolStripMenuItem.Name = "openPORTCONFIGFolderToolStripMenuItem";
-            this.openPORTCONFIGFolderToolStripMenuItem.Size = new System.Drawing.Size(228, 22);
+            this.openPORTCONFIGFolderToolStripMenuItem.Size = new System.Drawing.Size(226, 22);
             this.openPORTCONFIGFolderToolStripMenuItem.Text = "Open \"PORT_CONFIG\" folder";
             this.openPORTCONFIGFolderToolStripMenuItem.Click += new System.EventHandler(this.openPORTCONFIGFolderToolStripMenuItem_Click);
             // 
