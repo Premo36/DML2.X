@@ -1124,6 +1124,7 @@ namespace DoomModLoader2
                         cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
                     }
                     #endregion
+
                     #region FILE_VIEW_MODE
                     if (cfg.TryGetValue("FILE_VIEW_MODE", out value)) //cfg["SHOW_SUCCESS_MESSAGE"]
                     {
@@ -1136,6 +1137,18 @@ namespace DoomModLoader2
                     }
                     #endregion
 
+                    #region FILE_ORDER_BY
+                    if (cfg.TryGetValue("FILE_ORDER_BY", out value)) //cfg["RENDERER"]
+                    {
+                        cmbOrder.SelectedIndex = Convert.ToInt32(value);
+                    }
+                    else
+                    {
+                        errors.Add("FILE_ORDER_BY");
+                        cmbOrder.SelectedIndex = 0;
+                    }
+                    #endregion
+               
                     #region CONFIG_VERSION
                     if (cfg.TryGetValue("CONFIG_VERSION", out value))
                     {
@@ -1581,6 +1594,8 @@ namespace DoomModLoader2
                 preferences.Add("USE_ADVANCED_SELECTION_MODE", SharedVar.USE_ADVANCED_SELECTION_MODE.ToString().ToUpper());
 
                 preferences.Add("FILE_VIEW_MODE", ((int)SharedVar.FILE_VIEW_MODE).ToString());
+
+                preferences.Add("FILE_ORDER_BY", cmbOrder.SelectedIndex.ToString());
 
                 preferences.Add("CONFIG_VERSION", SharedVar.CONFIG_VERSION);
 
