@@ -51,13 +51,6 @@ namespace DoomModLoader2.Entity
             }
         }
 
-        //public string nameWithFullPath
-        //{
-        //    get
-        //    {
-        //        return Path.Combine(Path.GetDirectoryName(path), name).ToUpper();
-        //    }
-        //}
     }
 
     public static class PathNameUtils
@@ -96,6 +89,12 @@ namespace DoomModLoader2.Entity
                     break;
                 case order.PATH_DESCENDING:
                     pathNames = pathNames.OrderByDescending(P => P.path).ToList();
+                    break;
+                case order.DATE_ASCENDING:
+                    pathNames = pathNames.OrderBy(P => File.GetLastWriteTime(P.path)).ToList();
+                    break;
+                case order.DATE_DESCENDING:
+                    pathNames = pathNames.OrderByDescending(P => File.GetLastWriteTime(P.path)).ToList();
                     break;
             }
 

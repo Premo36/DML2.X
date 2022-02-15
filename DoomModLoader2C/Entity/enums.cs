@@ -44,6 +44,7 @@ namespace DoomModLoader2.Entity
         DELETE
     }
 
+
     public enum order
     {
         NAME_ASCENDING = 0,
@@ -54,6 +55,8 @@ namespace DoomModLoader2.Entity
         FOLDER_DESCENDING = 5,
         PATH_ASCENDING = 6,
         PATH_DESCENDING = 7,
+        DATE_ASCENDING = 8,
+        DATE_DESCENDING = 9,
     }
 
     public enum fileViewMode
@@ -62,6 +65,6 @@ namespace DoomModLoader2.Entity
         FOLDER_AND_FILE_NAME = 1,
         FULL_PATH = 2,
     }
+
+  
 }
-
-

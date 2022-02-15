@@ -172,7 +172,9 @@
             "FOLDER (ASCENDING)",
             "FOLDER (DESCENDING)",
             "PATH (ASCENDING)",
-            "PATH (DESCENDING)"});
+            "PATH (DESCENDING)",
+            "DATE (ASCENDING)",
+            "DATE (DESCENDING)"});
             this.cmbOrder.Location = new System.Drawing.Point(60, 83);
             this.cmbOrder.Name = "cmbOrder";
             this.cmbOrder.Size = new System.Drawing.Size(248, 21);

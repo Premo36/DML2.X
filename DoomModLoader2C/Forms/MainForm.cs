@@ -1148,7 +1148,19 @@ namespace DoomModLoader2
                         cmbOrder.SelectedIndex = 0;
                     }
                     #endregion
-               
+
+                    #region PRESET_ORDER
+                    if (cfg.TryGetValue("PRESET_ORDER", out value)) 
+                    {
+                        SharedVar.PRESET_ORDER = (order)int.Parse(value);
+                    }
+                    else
+                    {
+                        errors.Add("PRESET_ORDER");
+                        SharedVar.PRESET_ORDER = order.NAME_ASCENDING;
+                    }
+                    #endregion
+
                     #region CONFIG_VERSION
                     if (cfg.TryGetValue("CONFIG_VERSION", out value))
                     {
@@ -1597,6 +1609,8 @@ namespace DoomModLoader2
 
                 preferences.Add("FILE_ORDER_BY", cmbOrder.SelectedIndex.ToString());
 
+                preferences.Add("PRESET_ORDER", ((int)SharedVar.PRESET_ORDER).ToString());
+
                 preferences.Add("CONFIG_VERSION", SharedVar.CONFIG_VERSION);
 
                 storage.SaveValues(preferences, true);
@@ -1795,6 +1809,17 @@ namespace DoomModLoader2
                     lstPWAD.DisplayMember = "name";
                     break;
             }
+
+
+            List<PathName> presets = cmbPreset.Items.Cast<PathName>().ToList();
+
+            PathName none = presets.Where(P => P.name == "-").First();
+
+            presets.RemoveAll(P => P.name == "-");
+            presets = presets.OrderFile(SharedVar.PRESET_ORDER);
+            presets.Insert(0, none);
+            cmbPreset.DataSource = presets;
+           
         }
 
 
