@@ -6,7 +6,7 @@
 <strong> Doom Mod Loader 2.X </strong> is a launcher for Doom (and also for Doom 2, Heretic, Hexen, Chex Quest, Strife etc...) mods!<br>
 It's the revamped and updated <strong>C#</strong> version of the <a href="https://github.com/Premo36/DML_LEGACY">old VB.NET Doom Mod Loader</a>
 <p align="center">
-[DML2.X PREVIEW](https://user-images.githubusercontent.com/50420475/154163929-637cb73c-1fee-4a6e-ac2d-a273b29f4ffa.gif)
+  <img src="https://user-images.githubusercontent.com/50420475/154163929-637cb73c-1fee-4a6e-ac2d-a273b29f4ffa.gif">
 </p>
 
 # MAIN FEATURES!
@@ -22,6 +22,7 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 </ul>
 
 # TESTED SOURCEPORTS (v2.4)
+NOTE: Any sourceport that use the same <a href="http://zdoom.org/wiki/command_line_parameters">zDoom command line parameters</a> should work just fine...
 ### FULL COMPATIBILITY:
 <ul>
 <li>GZdoom (v4.5.0, -height and -width do not work due to gzdoom way of handling resolution)</li>
