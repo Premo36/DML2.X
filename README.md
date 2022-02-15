@@ -6,10 +6,11 @@
 <strong> Doom Mod Loader 2.X </strong> is a launcher for Doom (and also for Doom 2, Heretic, Hexen, Chex Quest, Strife etc...) mods!<br>
 It's the revamped and updated <strong>C#</strong> version of the <a href="https://github.com/Premo36/DML_LEGACY">old VB.NET Doom Mod Loader</a>
 <p align="center">
-<img src="https://drive.google.com/uc?export=download&id=1t5cc2L2v93AKJWv0EgFLFqYHZ_0-n2rN"/>
+[DML2.X PREVIEW](https://user-images.githubusercontent.com/50420475/154163929-637cb73c-1fee-4a6e-ac2d-a273b29f4ffa.gif)
 </p>
 
-# MAIN FEATURES
+# MAIN FEATURES!
+
 <ul>
 <li>Works with most of modern doom sourceport (like <a href="http://zdoom.org/Download" target="_blank" rel="noopener">zdoom</a>, <a href="http://www.skulltag.com/download/" target="_blank" rel="noopener">skulltag</a>, <a href="http://gzdoom.drdteam.org/page.php?page=download" target="_blank" rel="noopener">gzdoom</a>, <a href="https://zandronum.com/download" target="_blank" rel="noopener">zandronum</a> etc... see below the tested ones)</li>
 <li>Saves groups of mod you want to play togheter in presets.</li>
