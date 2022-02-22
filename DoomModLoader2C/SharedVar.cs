@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 // All rights reserved.
 using DoomModLoader2.Entity;
 #region LICENSE
 /*
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

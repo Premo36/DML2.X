@@ -13,7 +13,7 @@
     <Deterministic>true</Deterministic>
     <TargetFrameworkProfile />
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\Matteo\Desktop\DML_v2.4\</PublishUrl>
+    <PublishUrl>C:\Users\Win10_VM\Desktop\DML_v2.5\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -25,8 +25,8 @@
     <MapFileExtensions>false</MapFileExtensions>
     <ProductName>Doom Mod Loader 2.X</ProductName>
     <PublisherName>P36 Software</PublisherName>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>2.4.9.4</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>2.5.1.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>false</BootstrapperEnabled>
@@ -156,6 +156,7 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Forms\WelcomeForm.resx">
       <DependentUpon>WelcomeForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

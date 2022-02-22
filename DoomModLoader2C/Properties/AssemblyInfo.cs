@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("P36 Software")]
 [assembly: AssemblyProduct("Doom Mod Loader 2.X")]
-[assembly: AssemblyCopyright("Copyright ©  2016 - 2021 Matteo Premoli, P36 Software")]
+[assembly: AssemblyCopyright("Copyright ©  2016 - 2022 Matteo Premoli, P36 Software")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
