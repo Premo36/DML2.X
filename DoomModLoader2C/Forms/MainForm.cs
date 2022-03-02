@@ -744,7 +744,7 @@ namespace DoomModLoader2
         private void cmbPreset_DropDown(object sender, EventArgs e)
         {
             ComboBox senderComboBox = (ComboBox)sender;
-            int width = senderComboBox.DropDownWidth;
+            int width = 302;// Min preset combobox width senderComboBox.DropDownWidth;
             Graphics g = senderComboBox.CreateGraphics();
             Font font = senderComboBox.Font;
             int vertScrollBarWidth =
