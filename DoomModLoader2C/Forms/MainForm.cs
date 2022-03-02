@@ -1810,7 +1810,7 @@ namespace DoomModLoader2
                     break;
             }
 
-
+            PathName currentPreset = (PathName) cmbPreset.SelectedItem;
             List<PathName> presets = cmbPreset.Items.Cast<PathName>().ToList();
 
             PathName none = presets.Where(P => P.name == "-").First();
@@ -1819,7 +1819,7 @@ namespace DoomModLoader2
             presets = presets.OrderFile(SharedVar.PRESET_ORDER);
             presets.Insert(0, none);
             cmbPreset.DataSource = presets;
-           
+            cmbPreset.SelectedItem = currentPreset;
         }
 
 
