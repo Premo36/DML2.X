@@ -127,10 +127,10 @@ namespace DoomModLoader2
             {
 
 
-                //Ottengo tutte le righe dal file
+                //Get all the rows from a text file
                 string[] rows = File.ReadAllLines(filePath);
 
-                //Scarto le eventuali righe vuote
+                //Discard empty lines
                 rows = rows.Where(R => R != "").ToArray();
                 values = rows.ToKeyValueDictionary();
             }

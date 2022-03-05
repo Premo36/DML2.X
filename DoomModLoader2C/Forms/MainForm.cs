@@ -973,7 +973,7 @@ namespace DoomModLoader2
                         chkCustomConfiguration.Checked = Convert.ToBoolean(value);
                         if (cfg.TryGetValue("CUSTOM_PORT_PATH", out value)) //cfg["CUSTOM_PORT_PATH"]
                         {
-                            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == value).FirstOrDefault();
+                            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.name == value).FirstOrDefault();
                         }
                         else
                         {
@@ -1548,7 +1548,7 @@ namespace DoomModLoader2
                     PathName p = (PathName)cmbPortConfig.SelectedItem;
                     if (p != null)
                     {
-                        preferences.Add("CUSTOM_PORT_PATH", p.path);
+                        preferences.Add("CUSTOM_PORT_PATH", p.name);
                     }
                     else
                     {

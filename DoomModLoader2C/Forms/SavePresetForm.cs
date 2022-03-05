@@ -335,7 +335,7 @@ namespace DoomModLoader2.Forms
                 }
                 else
                 {
-                    MessageBox.Show("Please enter a preset name.", $"DML v{SharedVar.LOCAL_VERSION}", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("Please enter a preset name.", $"DML v{SharedVar.LOCAL_VERSION}", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     return false;
                 }
 
