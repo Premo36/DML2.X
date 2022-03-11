@@ -61,6 +61,7 @@ namespace DoomModLoader2
             chk_USE_ADVANCED_SELECTION_MODE.Checked = SharedVar.USE_ADVANCED_SELECTION_MODE;
             cmbModListViewMode.SelectedIndex = (int)SharedVar.FILE_VIEW_MODE;
             cmbPresetListOrder.SelectedIndex = CorrectPresetListIndex((int)SharedVar.PRESET_ORDER);
+            chk_GZDOOM_QUICKSAVE_FIX.Checked = SharedVar.GZDOOM_QUICKSAVE_FIX;
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             this.cfgPath = cfgPath;
         }
@@ -78,11 +79,9 @@ namespace DoomModLoader2
             SharedVar.SHOW_DELETE_MESSAGE = chk_SHOW_DELETE_MESSAGE.Checked;
             SharedVar.USE_ADVANCED_SELECTION_MODE = chk_USE_ADVANCED_SELECTION_MODE.Checked;
             SharedVar.FILE_VIEW_MODE = (fileViewMode)cmbModListViewMode.SelectedIndex;
-
-          
-
-
             SharedVar.PRESET_ORDER = (order)CorrectPresetListIndex(cmbPresetListOrder.SelectedIndex);
+            SharedVar.GZDOOM_QUICKSAVE_FIX = chk_GZDOOM_QUICKSAVE_FIX.Checked;
+
             Storage storage = new Storage(cfgPath);
 
             storage.DeleteValue("SHOW_END_MESSAGE");
@@ -102,6 +101,9 @@ namespace DoomModLoader2
 
             storage.DeleteValue("PRESET_ORDER");
             storage.SaveValue("PRESET_ORDER", ((int)SharedVar.PRESET_ORDER).ToString());
+
+            storage.DeleteValue("GZDOOM_QUICKSAVE_FIX");
+            storage.SaveValue("GZDOOM_QUICKSAVE_FIX", SharedVar.GZDOOM_QUICKSAVE_FIX.ToString());
             this.Close();
         }
 

@@ -141,7 +141,14 @@ namespace DoomModLoader2
             }
 
             files = parameters + " " + files;
-            Process.Start(sourcePort.path, files);
+            
+            Process pro = new Process();
+            pro.EnableRaisingEvents = true;
+            pro.Exited += (sender2, e2) => OnSourceportClosed(sourcePort.path);
+            pro.StartInfo.Arguments = files;
+            pro.StartInfo.FileName = sourcePort.path;
+            pro.Start();
+
 
         }
 
@@ -296,6 +303,25 @@ namespace DoomModLoader2
 
         }
 
+        private void OnSourceportClosed(string sppath)
+        {
+            if (SharedVar.GZDOOM_QUICKSAVE_FIX)
+            {
+                string savepath = sppath;
+                savepath = Path.GetDirectoryName(savepath);
+                savepath = Path.Combine(savepath, "Save");
+
+                string[] quicksaves = Directory.GetFiles(Application.StartupPath, "*.zds");
+
+                foreach (string quicksave in quicksaves)
+                {
+                    string quicksaveName = Path.GetFileName(quicksave);
+                    File.Delete(Path.Combine(savepath, quicksaveName));
+                    File.Move(quicksave, Path.Combine(savepath, quicksaveName));
+                }
+            }
+
+        }
 
 
 

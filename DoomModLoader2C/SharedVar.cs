@@ -42,7 +42,7 @@ namespace DoomModLoader2
     /// </summary>
     public static class SharedVar
     {
-        public static string LOCAL_VERSION { get; } = "2.5 [Beta #3]";
+        public static string LOCAL_VERSION { get; } = "2.5 [Beta #4]";
         public static string CONFIG_VERSION { get; set; }
         public static bool CHECK_FOR_UPDATE { get; set; }
         public static string UrlVersion { get; } = @"https://p36software.net/downloads/download_page.php?id=DML2&toJSON";
@@ -56,5 +56,6 @@ namespace DoomModLoader2
         public static fileViewMode FILE_VIEW_MODE { get; set; } = fileViewMode.ONLY_FILE_NAME;
 
         public static order PRESET_ORDER { get; set; } = order.NAME_ASCENDING;
+        public static bool GZDOOM_QUICKSAVE_FIX { get; set; } = false;
     }
 }

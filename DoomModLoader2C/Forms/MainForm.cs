@@ -1112,7 +1112,8 @@ namespace DoomModLoader2
                         if (savedPreset != null)
                         {
                             cmbPreset.SelectedItem = savedPreset;
-                        } else
+                        }
+                        else
                         {
                             errors.Add("PRESET");
                             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
@@ -1150,7 +1151,7 @@ namespace DoomModLoader2
                     #endregion
 
                     #region PRESET_ORDER
-                    if (cfg.TryGetValue("PRESET_ORDER", out value)) 
+                    if (cfg.TryGetValue("PRESET_ORDER", out value))
                     {
                         SharedVar.PRESET_ORDER = (order)int.Parse(value);
                     }
@@ -1160,6 +1161,19 @@ namespace DoomModLoader2
                         SharedVar.PRESET_ORDER = order.NAME_ASCENDING;
                     }
                     #endregion
+
+                    #region GZDOOM_QUICKSAVE_FIX
+                    if (cfg.TryGetValue("GZDOOM_QUICKSAVE_FIX", out value)) 
+                    {
+                        SharedVar.GZDOOM_QUICKSAVE_FIX = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("GZDOOM_QUICKSAVE_FIX");
+                        SharedVar.GZDOOM_QUICKSAVE_FIX = false;
+                    }
+                    #endregion
+                
 
                     #region CONFIG_VERSION
                     if (cfg.TryGetValue("CONFIG_VERSION", out value))
@@ -1478,7 +1492,13 @@ namespace DoomModLoader2
             try
             {
                 PathName sp = (PathName)cmbSourcePort.SelectedItem;
-                Process.Start(sp.path, param);
+                Process p = new Process();
+                p.EnableRaisingEvents = true;
+                p.Exited += (sender, e) => OnSourceportClosed(sp.path);
+                p.StartInfo.Arguments = param;
+                p.StartInfo.FileName = sp.path;
+                p.Start();
+
             }
             catch (Exception ex)
             {
@@ -1610,6 +1630,8 @@ namespace DoomModLoader2
                 preferences.Add("FILE_ORDER_BY", cmbOrder.SelectedIndex.ToString());
 
                 preferences.Add("PRESET_ORDER", ((int)SharedVar.PRESET_ORDER).ToString());
+
+                preferences.Add("GZDOOM_QUICKSAVE_FIX", SharedVar.GZDOOM_QUICKSAVE_FIX.ToString().ToUpper());
 
                 preferences.Add("CONFIG_VERSION", SharedVar.CONFIG_VERSION);
 
@@ -1810,7 +1832,7 @@ namespace DoomModLoader2
                     break;
             }
 
-            PathName currentPreset = (PathName) cmbPreset.SelectedItem;
+            PathName currentPreset = (PathName)cmbPreset.SelectedItem;
             List<PathName> presets = cmbPreset.Items.Cast<PathName>().ToList();
 
             PathName none = presets.Where(P => P.name == "-").First();
@@ -1824,8 +1846,28 @@ namespace DoomModLoader2
 
 
 
+
+        private void OnSourceportClosed(string sppath)
+        {
+            if (SharedVar.GZDOOM_QUICKSAVE_FIX)
+            {
+                string savepath = sppath;
+                savepath = Path.GetDirectoryName(savepath);
+                savepath = Path.Combine(savepath, "Save");
+
+                string[] quicksaves = Directory.GetFiles(Application.StartupPath, "*.zds");
+
+                foreach (string quicksave in quicksaves)
+                {
+                    string quicksaveName = Path.GetFileName(quicksave);
+                    File.Delete(Path.Combine(savepath, quicksaveName));
+                    File.Move(quicksave, Path.Combine(savepath, quicksaveName));
+                }
+            }
+
+        }
         #endregion
 
- 
+
     }
 }
