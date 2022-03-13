@@ -114,7 +114,7 @@ namespace DoomModLoader2
                 while (!MoveModDown()) ;
             }
             else
-            { 
+            {
                 if (MoveModDown())
                     SystemSounds.Beep.Play();
             }
@@ -141,7 +141,7 @@ namespace DoomModLoader2
             }
 
             files = parameters + " " + files;
-            
+
             Process pro = new Process();
             pro.EnableRaisingEvents = true;
             pro.Exited += (sender2, e2) => OnSourceportClosed(sourcePort.path);
@@ -217,9 +217,21 @@ namespace DoomModLoader2
                 }
                 else
                 {
-                    if(MoveModDown())
+                    if (MoveModDown())
                         SystemSounds.Beep.Play();
                 }
+            }
+
+            if (e.KeyCode == Keys.PageDown)
+            {
+
+                while (!MoveModDown()) ;
+
+            }
+
+            if (e.KeyCode == Keys.PageUp)
+            {
+                while (!MoveModUp()) ;
             }
 
             if (e.KeyCode == Keys.Delete)
@@ -320,14 +332,6 @@ namespace DoomModLoader2
                     File.Move(quicksave, Path.Combine(savepath, quicksaveName));
                 }
             }
-
         }
-
-
-
-
-
-
-
     }
 }
