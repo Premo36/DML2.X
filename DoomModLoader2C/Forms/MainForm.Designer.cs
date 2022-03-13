@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            //System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label8 = new System.Windows.Forms.Label();
             this.cmbFileFilter = new System.Windows.Forms.ComboBox();
@@ -171,7 +172,9 @@
             "FOLDER (ASCENDING)",
             "FOLDER (DESCENDING)",
             "PATH (ASCENDING)",
-            "PATH (DESCENDING)"});
+            "PATH (DESCENDING)",
+            "DATE (ASCENDING)",
+            "DATE (DESCENDING)"});
             this.cmbOrder.Location = new System.Drawing.Point(60, 83);
             this.cmbOrder.Name = "cmbOrder";
             this.cmbOrder.Size = new System.Drawing.Size(248, 21);
@@ -198,6 +201,7 @@
             this.cmbPreset.Name = "cmbPreset";
             this.cmbPreset.Size = new System.Drawing.Size(302, 21);
             this.cmbPreset.TabIndex = 6;
+            this.cmbPreset.DropDown += new System.EventHandler(this.cmbPreset_DropDown);
             this.cmbPreset.SelectedIndexChanged += new System.EventHandler(this.cmbPreset_SelectedIndexChanged);
             // 
             // PathBinding
@@ -779,7 +783,6 @@
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion

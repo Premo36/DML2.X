@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
 /*
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -51,13 +51,6 @@ namespace DoomModLoader2.Entity
             }
         }
 
-        //public string nameWithFullPath
-        //{
-        //    get
-        //    {
-        //        return Path.Combine(Path.GetDirectoryName(path), name).ToUpper();
-        //    }
-        //}
     }
 
     public static class PathNameUtils
@@ -96,6 +89,12 @@ namespace DoomModLoader2.Entity
                     break;
                 case order.PATH_DESCENDING:
                     pathNames = pathNames.OrderByDescending(P => P.path).ToList();
+                    break;
+                case order.DATE_ASCENDING:
+                    pathNames = pathNames.OrderBy(P => File.GetLastWriteTime(P.path)).ToList();
+                    break;
+                case order.DATE_DESCENDING:
+                    pathNames = pathNames.OrderByDescending(P => File.GetLastWriteTime(P.path)).ToList();
                     break;
             }
 

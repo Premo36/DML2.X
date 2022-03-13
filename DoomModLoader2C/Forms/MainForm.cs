@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
 /*
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -40,6 +40,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
@@ -281,7 +282,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "*.exe|*.exe | * | *";
+              //  openFileDialog.Filter = "*.exe|*.exe | * | *";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -740,6 +741,33 @@ namespace DoomModLoader2
         {
             Process.Start(PORT_CONFIGfolderPath);
         }
+
+        /// <summary>
+        /// When opening the preset combobox, resize the width in order to make all text visible
+        /// </summary>
+        private void cmbPreset_DropDown(object sender, EventArgs e)
+        {
+            ComboBox senderComboBox = (ComboBox)sender;
+            int width = 302;// Min preset combobox width senderComboBox.DropDownWidth;
+            Graphics g = senderComboBox.CreateGraphics();
+            Font font = senderComboBox.Font;
+            int vertScrollBarWidth =
+                (senderComboBox.Items.Count > senderComboBox.MaxDropDownItems)
+                ? SystemInformation.VerticalScrollBarWidth : 0;
+
+            int newWidth;
+            foreach (PathName p in ((ComboBox)sender).Items)
+            {
+
+                newWidth = (int)g.MeasureString(p.name, font).Width
+                    + vertScrollBarWidth;
+                if (width < newWidth)
+                {
+                    width = newWidth;
+                }
+            }
+            senderComboBox.DropDownWidth = width;
+        }
         #endregion
 
         #region METHODS
@@ -949,7 +977,7 @@ namespace DoomModLoader2
                         chkCustomConfiguration.Checked = Convert.ToBoolean(value);
                         if (cfg.TryGetValue("CUSTOM_PORT_PATH", out value)) //cfg["CUSTOM_PORT_PATH"]
                         {
-                            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.path == value).FirstOrDefault();
+                            cmbPortConfig.SelectedItem = cmbPortConfig.Items.Cast<PathName>().Where(p => p.name == value).FirstOrDefault();
                         }
                         else
                         {
@@ -1101,6 +1129,7 @@ namespace DoomModLoader2
                         cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
                     }
                     #endregion
+
                     #region FILE_VIEW_MODE
                     if (cfg.TryGetValue("FILE_VIEW_MODE", out value)) //cfg["SHOW_SUCCESS_MESSAGE"]
                     {
@@ -1112,6 +1141,43 @@ namespace DoomModLoader2
                         SharedVar.FILE_VIEW_MODE = fileViewMode.ONLY_FILE_NAME;
                     }
                     #endregion
+
+                    #region FILE_ORDER_BY
+                    if (cfg.TryGetValue("FILE_ORDER_BY", out value)) //cfg["RENDERER"]
+                    {
+                        cmbOrder.SelectedIndex = Convert.ToInt32(value);
+                    }
+                    else
+                    {
+                        errors.Add("FILE_ORDER_BY");
+                        cmbOrder.SelectedIndex = 0;
+                    }
+                    #endregion
+
+                    #region PRESET_ORDER
+                    if (cfg.TryGetValue("PRESET_ORDER", out value))
+                    {
+                        SharedVar.PRESET_ORDER = (order)int.Parse(value);
+                    }
+                    else
+                    {
+                        errors.Add("PRESET_ORDER");
+                        SharedVar.PRESET_ORDER = order.NAME_ASCENDING;
+                    }
+                    #endregion
+
+                    #region GZDOOM_QUICKSAVE_FIX
+                    if (cfg.TryGetValue("GZDOOM_QUICKSAVE_FIX", out value)) 
+                    {
+                        SharedVar.GZDOOM_QUICKSAVE_FIX = Convert.ToBoolean(value);
+                    }
+                    else
+                    {
+                        errors.Add("GZDOOM_QUICKSAVE_FIX");
+                        SharedVar.GZDOOM_QUICKSAVE_FIX = false;
+                    }
+                    #endregion
+                
 
                     #region CONFIG_VERSION
                     if (cfg.TryGetValue("CONFIG_VERSION", out value))
@@ -1430,7 +1496,13 @@ namespace DoomModLoader2
             try
             {
                 PathName sp = (PathName)cmbSourcePort.SelectedItem;
-                Process.Start(sp.path, param);
+                Process p = new Process();
+                p.EnableRaisingEvents = true;
+                p.Exited += (sender, e) => OnSourceportClosed(sp.path);
+                p.StartInfo.Arguments = param;
+                p.StartInfo.FileName = sp.path;
+                p.Start();
+
             }
             catch (Exception ex)
             {
@@ -1500,7 +1572,7 @@ namespace DoomModLoader2
                     PathName p = (PathName)cmbPortConfig.SelectedItem;
                     if (p != null)
                     {
-                        preferences.Add("CUSTOM_PORT_PATH", p.path);
+                        preferences.Add("CUSTOM_PORT_PATH", p.name);
                     }
                     else
                     {
@@ -1558,6 +1630,12 @@ namespace DoomModLoader2
                 preferences.Add("USE_ADVANCED_SELECTION_MODE", SharedVar.USE_ADVANCED_SELECTION_MODE.ToString().ToUpper());
 
                 preferences.Add("FILE_VIEW_MODE", ((int)SharedVar.FILE_VIEW_MODE).ToString());
+
+                preferences.Add("FILE_ORDER_BY", cmbOrder.SelectedIndex.ToString());
+
+                preferences.Add("PRESET_ORDER", ((int)SharedVar.PRESET_ORDER).ToString());
+
+                preferences.Add("GZDOOM_QUICKSAVE_FIX", SharedVar.GZDOOM_QUICKSAVE_FIX.ToString().ToUpper());
 
                 preferences.Add("CONFIG_VERSION", SharedVar.CONFIG_VERSION);
 
@@ -1629,7 +1707,7 @@ namespace DoomModLoader2
                 else if (Directory.Exists(p))
                 {
                     string[] allFiles = Directory.GetFiles(p);
-                    string[] files = allFiles.Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                    string[] files = allFiles;//.Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
 
                     string blacklistPath = allFiles.Where(B => Path.GetFileName(B).ToUpper().Equals("BLACKLIST.TXT")).FirstOrDefault();
                     List<string> blacklistFiles = new List<string>();
@@ -1657,8 +1735,6 @@ namespace DoomModLoader2
                     //Remove all blacklisted file
                     ret.RemoveAll(F => blacklistFiles.Any(B => Path.GetFileName(B).ToUpper() == F.name.ToUpper()));
 
-                    //Remove all file without a valid extension
-                    ret.RemoveAll(F => !validExtensions.Contains(Path.GetExtension(F.path).ToLower()));
                 }
             }
 
@@ -1727,11 +1803,43 @@ namespace DoomModLoader2
                     lstPWAD.DisplayMember = "name";
                     break;
             }
+
+            PathName currentPreset = (PathName)cmbPreset.SelectedItem;
+            List<PathName> presets = cmbPreset.Items.Cast<PathName>().ToList();
+
+            PathName none = presets.Where(P => P.name == "-").First();
+
+            presets.RemoveAll(P => P.name == "-");
+            presets = presets.OrderFile(SharedVar.PRESET_ORDER);
+            presets.Insert(0, none);
+            cmbPreset.DataSource = presets;
+            cmbPreset.SelectedItem = currentPreset;
         }
 
 
 
+
+        private void OnSourceportClosed(string sppath)
+        {
+            if (SharedVar.GZDOOM_QUICKSAVE_FIX)
+            {
+                string savepath = sppath;
+                savepath = Path.GetDirectoryName(savepath);
+                savepath = Path.Combine(savepath, "Save");
+
+                string[] quicksaves = Directory.GetFiles(Application.StartupPath, "*.zds");
+
+                foreach (string quicksave in quicksaves)
+                {
+                    string quicksaveName = Path.GetFileName(quicksave);
+                    File.Delete(Path.Combine(savepath, quicksaveName));
+                    File.Move(quicksave, Path.Combine(savepath, quicksaveName));
+                }
+            }
+
+        }
         #endregion
+
 
     }
 }

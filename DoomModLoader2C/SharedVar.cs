@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 // All rights reserved.
 using DoomModLoader2.Entity;
 #region LICENSE
 /*
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -42,7 +42,7 @@ namespace DoomModLoader2
     /// </summary>
     public static class SharedVar
     {
-        public static string LOCAL_VERSION { get; } = "2.4 (Mono)";
+        public static string LOCAL_VERSION { get; } = "2.5 [Mono Beta #5]";
         public static string CONFIG_VERSION { get; set; }
         public static bool CHECK_FOR_UPDATE { get; set; }
         public static string UrlVersion { get; } = @"https://p36software.net/downloads/download_page.php?id=DML2&toJSON";
@@ -54,5 +54,8 @@ namespace DoomModLoader2
         public static bool SHOW_DELETE_MESSAGE { get; set; } = true;
         public static bool USE_ADVANCED_SELECTION_MODE { get; set; } = false;
         public static fileViewMode FILE_VIEW_MODE { get; set; } = fileViewMode.ONLY_FILE_NAME;
+
+        public static order PRESET_ORDER { get; set; } = order.NAME_ASCENDING;
+        public static bool GZDOOM_QUICKSAVE_FIX { get; set; } = false;
     }
 }

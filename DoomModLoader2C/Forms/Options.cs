@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
 /*
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -59,7 +59,9 @@ namespace DoomModLoader2
             chk_SHOW_SUCCESS_MESSAGE.Checked = SharedVar.SHOW_SUCCESS_MESSAGE;
             chk_SHOW_DELETE_MESSAGE.Checked = SharedVar.SHOW_DELETE_MESSAGE;
             chk_USE_ADVANCED_SELECTION_MODE.Checked = SharedVar.USE_ADVANCED_SELECTION_MODE;
-            cmbModListViewMode.SelectedIndex = (int) SharedVar.FILE_VIEW_MODE;
+            cmbModListViewMode.SelectedIndex = (int)SharedVar.FILE_VIEW_MODE;
+            cmbPresetListOrder.SelectedIndex = CorrectPresetListIndex((int)SharedVar.PRESET_ORDER);
+            chk_GZDOOM_QUICKSAVE_FIX.Checked = SharedVar.GZDOOM_QUICKSAVE_FIX;
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             this.cfgPath = cfgPath;
         }
@@ -77,6 +79,9 @@ namespace DoomModLoader2
             SharedVar.SHOW_DELETE_MESSAGE = chk_SHOW_DELETE_MESSAGE.Checked;
             SharedVar.USE_ADVANCED_SELECTION_MODE = chk_USE_ADVANCED_SELECTION_MODE.Checked;
             SharedVar.FILE_VIEW_MODE = (fileViewMode)cmbModListViewMode.SelectedIndex;
+            SharedVar.PRESET_ORDER = (order)CorrectPresetListIndex(cmbPresetListOrder.SelectedIndex);
+            SharedVar.GZDOOM_QUICKSAVE_FIX = chk_GZDOOM_QUICKSAVE_FIX.Checked;
+
             Storage storage = new Storage(cfgPath);
 
             storage.DeleteValue("SHOW_END_MESSAGE");
@@ -93,6 +98,12 @@ namespace DoomModLoader2
 
             storage.DeleteValue("FILE_VIEW_MODE");
             storage.SaveValue("FILE_VIEW_MODE", ((int)SharedVar.FILE_VIEW_MODE).ToString());
+
+            storage.DeleteValue("PRESET_ORDER");
+            storage.SaveValue("PRESET_ORDER", ((int)SharedVar.PRESET_ORDER).ToString());
+
+            storage.DeleteValue("GZDOOM_QUICKSAVE_FIX");
+            storage.SaveValue("GZDOOM_QUICKSAVE_FIX", SharedVar.GZDOOM_QUICKSAVE_FIX.ToString());
             this.Close();
         }
 
@@ -104,6 +115,32 @@ namespace DoomModLoader2
         private void cmdQuitOptions_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// As preset have less order option then mods, and I'm using the same enum I have to correct the value.
+        /// (It's not the most elegant way to handle this)
+        /// Fun Fact: You can ovverride this options and use the full range of the order enum if you edit the dmlv2.ini file in a text editor, it does not make much sense but you can do that if you wish to.
+        /// </summary>
+        /// <param name="index"></param>
+        /// <returns></returns>
+        private int CorrectPresetListIndex(int index)
+        {
+            switch (index)
+            {
+                case 2:
+                    return 8;
+                case 3:
+                    return 9;
+                case 8:
+                    return 2;
+                case 9:
+                    return 3;
+            }
+          
+
+            return index;
+
         }
     }
 }

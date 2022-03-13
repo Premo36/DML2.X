@@ -37,6 +37,9 @@
             this.chk_USE_ADVANCED_SELECTION_MODE = new System.Windows.Forms.CheckBox();
             this.label1 = new System.Windows.Forms.Label();
             this.cmbModListViewMode = new System.Windows.Forms.ComboBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.cmbPresetListOrder = new System.Windows.Forms.ComboBox();
+            this.chk_GZDOOM_QUICKSAVE_FIX = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // chk_SHOW_END_MESSAGE
@@ -81,7 +84,7 @@
             // 
             // cmdSaveOptions
             // 
-            this.cmdSaveOptions.Location = new System.Drawing.Point(12, 154);
+            this.cmdSaveOptions.Location = new System.Drawing.Point(12, 204);
             this.cmdSaveOptions.Name = "cmdSaveOptions";
             this.cmdSaveOptions.Size = new System.Drawing.Size(139, 26);
             this.cmdSaveOptions.TabIndex = 4;
@@ -91,7 +94,7 @@
             // 
             // cmdQuitOptions
             // 
-            this.cmdQuitOptions.Location = new System.Drawing.Point(157, 154);
+            this.cmdQuitOptions.Location = new System.Drawing.Point(157, 204);
             this.cmdQuitOptions.Name = "cmdQuitOptions";
             this.cmdQuitOptions.Size = new System.Drawing.Size(147, 26);
             this.cmdQuitOptions.TabIndex = 5;
@@ -112,11 +115,11 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 130);
+            this.label1.Location = new System.Drawing.Point(9, 130);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(99, 13);
+            this.label1.Size = new System.Drawing.Size(100, 13);
             this.label1.TabIndex = 7;
-            this.label1.Text = "mod list view mode:";
+            this.label1.Text = "Mod list view mode:";
             // 
             // cmbModListViewMode
             // 
@@ -131,12 +134,48 @@
             this.cmbModListViewMode.Size = new System.Drawing.Size(187, 21);
             this.cmbModListViewMode.TabIndex = 8;
             // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(9, 157);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(82, 13);
+            this.label2.TabIndex = 9;
+            this.label2.Text = "Preset list order:";
+            // 
+            // cmbPresetListOrder
+            // 
+            this.cmbPresetListOrder.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbPresetListOrder.FormattingEnabled = true;
+            this.cmbPresetListOrder.Items.AddRange(new object[] {
+            "ALPHABETICAL - ASCENDING",
+            "ALPHABETICAL - DESCENDING",
+            "DATE - ASCENDING",
+            "DATE - DESCENDING"});
+            this.cmbPresetListOrder.Location = new System.Drawing.Point(117, 154);
+            this.cmbPresetListOrder.Name = "cmbPresetListOrder";
+            this.cmbPresetListOrder.Size = new System.Drawing.Size(187, 21);
+            this.cmbPresetListOrder.TabIndex = 10;
+            // 
+            // chk_GZDOOM_QUICKSAVE_FIX
+            // 
+            this.chk_GZDOOM_QUICKSAVE_FIX.AutoSize = true;
+            this.chk_GZDOOM_QUICKSAVE_FIX.Location = new System.Drawing.Point(15, 181);
+            this.chk_GZDOOM_QUICKSAVE_FIX.Name = "chk_GZDOOM_QUICKSAVE_FIX";
+            this.chk_GZDOOM_QUICKSAVE_FIX.Size = new System.Drawing.Size(276, 17);
+            this.chk_GZDOOM_QUICKSAVE_FIX.TabIndex = 11;
+            this.chk_GZDOOM_QUICKSAVE_FIX.Text = "Workaround for \'BIND F6 \"save QUICKSAVE.ZDS\" \'";
+            this.chk_GZDOOM_QUICKSAVE_FIX.UseVisualStyleBackColor = true;
+            // 
             // Options
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(312, 192);
+            this.ClientSize = new System.Drawing.Size(312, 240);
             this.ControlBox = false;
+            this.Controls.Add(this.chk_GZDOOM_QUICKSAVE_FIX);
+            this.Controls.Add(this.cmbPresetListOrder);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.cmbModListViewMode);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.chk_USE_ADVANCED_SELECTION_MODE);
@@ -151,7 +190,6 @@
             this.Text = "Options";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -165,5 +203,8 @@
         private System.Windows.Forms.CheckBox chk_USE_ADVANCED_SELECTION_MODE;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmbModListViewMode;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.ComboBox cmbPresetListOrder;
+        private System.Windows.Forms.CheckBox chk_GZDOOM_QUICKSAVE_FIX;
     }
 }

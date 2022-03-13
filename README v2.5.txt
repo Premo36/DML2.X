@@ -120,6 +120,18 @@ This can be useful also to share the same configuration between compatible sourc
 2)Check/Uncheck all types of message you want/don't want to see. By default all type of message are enabled.
 3)Click on "Save".
 
+-I USE SOMETHING LIKE 'BIND F6 "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X I CAN'T LOAD THEM SOMETIMES
+Gzdoom will place the "quicksave.zds" file in the DML v2.X folder instead of the gzdoom one when using this custom method of quicksaving. I don't know why.
+1)Go into the DML 2.x preferences and enable "Workaround for 'BIND F6 "save QUICKSAVE.ZDS" '". 
+2)Every time you boot up gzdoom and wish to have a working quicksave, load your quicksave trough the "load" menu.
+3)Right after it loads your quicksave, press right away "F6" (Or whatever key you've binded) in order to make a quicksave.
+
+With the workaround you will have 2 quicksave.zds, the "current" one in the dml 2.X and the "old" one in the gzdoom "Save".
+The "current" one is the one thats gets updated each time you save for the current gzdoom session, the "old" one gets replaced  with the "current" one once you close gzdoom.
+This way the next time you open gzdoom your last quicksave will be available.  
+If you don't quicksave after loading, and you try to quickload, gzdoom will now always quickload from the "old" quicksave until you close it.
+Note that this as the name suggest, it's a *workaround* for something happening on the gzdoom side and in which I have *zero* control, it works for now but it may brake with future updates.
+
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
 [21/04/2021 | 2.4 ]

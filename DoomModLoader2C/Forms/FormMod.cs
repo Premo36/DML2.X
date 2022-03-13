@@ -1,11 +1,11 @@
-﻿// Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
 /*
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2020, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -114,7 +114,7 @@ namespace DoomModLoader2
                 while (!MoveModDown()) ;
             }
             else
-            { 
+            {
                 if (MoveModDown())
                     SystemSounds.Beep.Play();
             }
@@ -141,7 +141,14 @@ namespace DoomModLoader2
             }
 
             files = parameters + " " + files;
-            Process.Start(sourcePort.path, files);
+
+            Process pro = new Process();
+            pro.EnableRaisingEvents = true;
+            pro.Exited += (sender2, e2) => OnSourceportClosed(sourcePort.path);
+            pro.StartInfo.Arguments = files;
+            pro.StartInfo.FileName = sourcePort.path;
+            pro.Start();
+
 
         }
 
@@ -210,9 +217,21 @@ namespace DoomModLoader2
                 }
                 else
                 {
-                    if(MoveModDown())
+                    if (MoveModDown())
                         SystemSounds.Beep.Play();
                 }
+            }
+
+            if (e.KeyCode == Keys.PageDown)
+            {
+
+                while (!MoveModDown()) ;
+
+            }
+
+            if (e.KeyCode == Keys.PageUp)
+            {
+                while (!MoveModUp()) ;
             }
 
             if (e.KeyCode == Keys.Delete)
@@ -303,12 +322,23 @@ namespace DoomModLoader2
 
         }
 
+        private void OnSourceportClosed(string sppath)
+        {
+            if (SharedVar.GZDOOM_QUICKSAVE_FIX)
+            {
+                string savepath = sppath;
+                savepath = Path.GetDirectoryName(savepath);
+                savepath = Path.Combine(savepath, "Save");
 
+                string[] quicksaves = Directory.GetFiles(Application.StartupPath, "*.zds");
 
-
-
-
-
-
+                foreach (string quicksave in quicksaves)
+                {
+                    string quicksaveName = Path.GetFileName(quicksave);
+                    File.Delete(Path.Combine(savepath, quicksaveName));
+                    File.Move(quicksave, Path.Combine(savepath, quicksaveName));
+                }
+            }
+        }
     }
 }
