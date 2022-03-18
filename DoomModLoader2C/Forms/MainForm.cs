@@ -282,7 +282,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-              //  openFileDialog.Filter = "*.exe|*.exe | * | *";
+                openFileDialog.Filter = "Any file|*|Mac Application|*.app|Windows Executable|*.exe";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -820,7 +820,7 @@ namespace DoomModLoader2
         {
             List<string> pathPORT = File.ReadAllLines(cfgPORT).ToList();
             pathPORT.Add(PORTfolderPath);
-            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe", "" }, true); ; ;
+            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe", ".app", "" }, true); ; ;
         }
 
         /// <summary>
@@ -1167,7 +1167,7 @@ namespace DoomModLoader2
                     #endregion
 
                     #region GZDOOM_QUICKSAVE_FIX
-                    if (cfg.TryGetValue("GZDOOM_QUICKSAVE_FIX", out value)) 
+                    if (cfg.TryGetValue("GZDOOM_QUICKSAVE_FIX", out value))
                     {
                         SharedVar.GZDOOM_QUICKSAVE_FIX = Convert.ToBoolean(value);
                     }
@@ -1177,7 +1177,7 @@ namespace DoomModLoader2
                         SharedVar.GZDOOM_QUICKSAVE_FIX = false;
                     }
                     #endregion
-                
+
 
                     #region CONFIG_VERSION
                     if (cfg.TryGetValue("CONFIG_VERSION", out value))
@@ -1707,7 +1707,10 @@ namespace DoomModLoader2
                 else if (Directory.Exists(p))
                 {
                     string[] allFiles = Directory.GetFiles(p);
-                    string[] files = allFiles;//.Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+                    
+                    string[] files = allFiles.Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
+
+
 
                     string blacklistPath = allFiles.Where(B => Path.GetFileName(B).ToUpper().Equals("BLACKLIST.TXT")).FirstOrDefault();
                     List<string> blacklistFiles = new List<string>();
@@ -1734,6 +1737,9 @@ namespace DoomModLoader2
 
                     //Remove all blacklisted file
                     ret.RemoveAll(F => blacklistFiles.Any(B => Path.GetFileName(B).ToUpper() == F.name.ToUpper()));
+
+                    //Remove all file without a valid extension
+                    ret.RemoveAll(F => !validExtensions.Contains(Path.GetExtension(F.path).ToLower()));
 
                 }
             }
