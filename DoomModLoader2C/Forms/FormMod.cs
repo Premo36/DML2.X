@@ -63,16 +63,19 @@ namespace DoomModLoader2
         private PathName IWAD { get; }
         private PathName config { get; }
         private string presetPath { get; }
-        private KeyValuePair<int, string> renderer;
+        private KeyValuePair<int, string> vidRendermode;
+        private KeyValuePair<int, string> vidPreferbackend;
         private List<string> saveWithPreset;
         private string commandLine { get; }
-        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> renderer, PathName config, List<string> saveWithPreset, string commandLine, string parameters)
+
+        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> vidRendermode, PathName config, List<string> saveWithPreset, string commandLine, string parameters, KeyValuePair<int, string> vidPreferbackend)
         {
             InitializeComponent();
             this.presetPath = presetPath;
             this.config = config;
             this.IWAD = IWAD;
-            this.renderer = renderer;
+            this.vidRendermode = vidRendermode;
+            this.vidPreferbackend = vidPreferbackend;
             this.saveWithPreset = saveWithPreset;
             this.commandLine = commandLine.Trim();
             this.parameters = parameters;
@@ -159,7 +162,7 @@ namespace DoomModLoader2
         /// <param name="e"></param>
         private void cmdSavePreset_Click(object sender, EventArgs e)
         {
-            SavePresetForm savePresetForm = new SavePresetForm(presetPath, config, IWAD, sourcePort, renderer, saveWithPreset, commandLine, lstPwad.Items.Cast<PathName>().ToList(), presetName);
+            SavePresetForm savePresetForm = new SavePresetForm(presetPath, config, IWAD, sourcePort, vidRendermode, saveWithPreset, commandLine, lstPwad.Items.Cast<PathName>().ToList(), presetName);
             savePresetForm.ShowDialog();
             presetName = savePresetForm.presetName;
             saveWithPreset = savePresetForm.saveWithPreset;

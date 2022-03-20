@@ -50,6 +50,8 @@
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.txtCommandLine = new System.Windows.Forms.TextBox();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.cmbAutoloadPreset = new System.Windows.Forms.ComboBox();
             this.cmdAddSourcePort = new System.Windows.Forms.Button();
             this.cmdAddIWAD = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
@@ -67,6 +69,8 @@
             this.lblSkill = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.cmbVid_preferbackend = new System.Windows.Forms.ComboBox();
             this.cmb_vidrender = new System.Windows.Forms.ComboBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
             this.txtScreenHeight = new System.Windows.Forms.TextBox();
@@ -117,7 +121,7 @@
             this.groupBox1.Controls.Add(this.lstPWAD);
             this.groupBox1.Location = new System.Drawing.Point(12, 27);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(314, 509);
+            this.groupBox1.Size = new System.Drawing.Size(314, 552);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "MODS (-file / -deh)";
@@ -197,7 +201,7 @@
             this.cmbPreset.DisplayMember = "name";
             this.cmbPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbPreset.FormattingEnabled = true;
-            this.cmbPreset.Location = new System.Drawing.Point(6, 458);
+            this.cmbPreset.Location = new System.Drawing.Point(6, 490);
             this.cmbPreset.Name = "cmbPreset";
             this.cmbPreset.Size = new System.Drawing.Size(302, 21);
             this.cmbPreset.TabIndex = 6;
@@ -210,7 +214,7 @@
             // 
             // cmdRemovePreset
             // 
-            this.cmdRemovePreset.Location = new System.Drawing.Point(6, 482);
+            this.cmdRemovePreset.Location = new System.Drawing.Point(6, 519);
             this.cmdRemovePreset.Name = "cmdRemovePreset";
             this.cmdRemovePreset.Size = new System.Drawing.Size(302, 21);
             this.cmdRemovePreset.TabIndex = 7;
@@ -227,7 +231,7 @@
             this.lstPWAD.Location = new System.Drawing.Point(6, 110);
             this.lstPWAD.Name = "lstPWAD";
             this.lstPWAD.SelectionMode = System.Windows.Forms.SelectionMode.MultiSimple;
-            this.lstPWAD.Size = new System.Drawing.Size(302, 342);
+            this.lstPWAD.Size = new System.Drawing.Size(302, 368);
             this.lstPWAD.TabIndex = 5;
             // 
             // groupBox2
@@ -240,7 +244,7 @@
             this.groupBox2.Controls.Add(this.groupBox3);
             this.groupBox2.Location = new System.Drawing.Point(332, 27);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(563, 509);
+            this.groupBox2.Size = new System.Drawing.Size(563, 552);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Launch Options";
@@ -251,7 +255,7 @@
             this.groupBox9.Controls.Add(this.cmdAddConfiguration);
             this.groupBox9.Controls.Add(this.cmdRemoveConfiguration);
             this.groupBox9.Controls.Add(this.cmbPortConfig);
-            this.groupBox9.Location = new System.Drawing.Point(7, 358);
+            this.groupBox9.Location = new System.Drawing.Point(7, 403);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(549, 81);
             this.groupBox9.TabIndex = 15;
@@ -303,7 +307,7 @@
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.txtCommandLine);
-            this.groupBox8.Location = new System.Drawing.Point(6, 453);
+            this.groupBox8.Location = new System.Drawing.Point(6, 490);
             this.groupBox8.Name = "groupBox8";
             this.groupBox8.Size = new System.Drawing.Size(550, 50);
             this.groupBox8.TabIndex = 3;
@@ -319,6 +323,8 @@
             // 
             // groupBox6
             // 
+            this.groupBox6.Controls.Add(this.label9);
+            this.groupBox6.Controls.Add(this.cmbAutoloadPreset);
             this.groupBox6.Controls.Add(this.cmdAddSourcePort);
             this.groupBox6.Controls.Add(this.cmdAddIWAD);
             this.groupBox6.Controls.Add(this.label6);
@@ -327,12 +333,32 @@
             this.groupBox6.Controls.Add(this.cmdRemoveIWAD);
             this.groupBox6.Controls.Add(this.cmbIWAD);
             this.groupBox6.Controls.Add(this.cmbSourcePort);
-            this.groupBox6.Location = new System.Drawing.Point(7, 283);
+            this.groupBox6.Location = new System.Drawing.Point(8, 299);
             this.groupBox6.Name = "groupBox6";
-            this.groupBox6.Size = new System.Drawing.Size(549, 72);
+            this.groupBox6.Size = new System.Drawing.Size(549, 98);
             this.groupBox6.TabIndex = 2;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Game";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(8, 71);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 13);
+            this.label9.TabIndex = 28;
+            this.label9.Text = "Autoload preset:";
+            // 
+            // cmbAutoloadPreset
+            // 
+            this.cmbAutoloadPreset.DataSource = this.PathBinding;
+            this.cmbAutoloadPreset.DisplayMember = "name";
+            this.cmbAutoloadPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbAutoloadPreset.FormattingEnabled = true;
+            this.cmbAutoloadPreset.Location = new System.Drawing.Point(98, 68);
+            this.cmbAutoloadPreset.Name = "cmbAutoloadPreset";
+            this.cmbAutoloadPreset.Size = new System.Drawing.Size(445, 21);
+            this.cmbAutoloadPreset.TabIndex = 27;
             // 
             // cmdAddSourcePort
             // 
@@ -504,15 +530,42 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.cmbVid_preferbackend);
             this.groupBox4.Controls.Add(this.cmb_vidrender);
             this.groupBox4.Controls.Add(this.groupBox7);
             this.groupBox4.Controls.Add(this.label2);
             this.groupBox4.Location = new System.Drawing.Point(7, 154);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(552, 123);
+            this.groupBox4.Size = new System.Drawing.Size(552, 139);
             this.groupBox4.TabIndex = 1;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Video";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(6, 87);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(210, 13);
+            this.label10.TabIndex = 22;
+            this.label10.Text = "+vid_preferbackend (POSIX | WINDOWS):";
+            // 
+            // cmbVid_preferbackend
+            // 
+            this.cmbVid_preferbackend.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.cmbVid_preferbackend.FormattingEnabled = true;
+            this.cmbVid_preferbackend.Items.AddRange(new object[] {
+            "SDL + OPENGL | OPENGL",
+            "SDL + VULKAN (GL WHEN UNAVAILABLE) | VULKAN",
+            "SDL + OPENGL | DIRECT3D 9",
+            "SDL + GLES2 | ?",
+            "[DON\'T OVERRIDE]"});
+            this.cmbVid_preferbackend.Location = new System.Drawing.Point(222, 84);
+            this.cmbVid_preferbackend.Name = "cmbVid_preferbackend";
+            this.cmbVid_preferbackend.Size = new System.Drawing.Size(320, 21);
+            this.cmbVid_preferbackend.TabIndex = 21;
+            this.cmbVid_preferbackend.SelectedIndexChanged += new System.EventHandler(this.cmbVid_preferbackend_SelectedIndexChanged);
             // 
             // cmb_vidrender
             // 
@@ -521,13 +574,13 @@
             this.cmb_vidrender.Items.AddRange(new object[] {
             "DOOM SOFTWARE RENDERER",
             "TRUE COLOR SOFTWARE RENDERER",
-            "SOFTPOLY RENDERER",
-            "TRUE COLOR SOFTPOLY",
+            "SOFTPOLY RENDERER (UNSUPPORTED IN NEWER GZDOOM)",
+            "TRUE COLOR SOFTPOLY (UNSUPPORTED IN NEWER GZDOOM)",
             "HARDWARE ACCELERATED",
             "[DON\'T OVERRIDE]"});
-            this.cmb_vidrender.Location = new System.Drawing.Point(5, 97);
+            this.cmb_vidrender.Location = new System.Drawing.Point(99, 112);
             this.cmb_vidrender.Name = "cmb_vidrender";
-            this.cmb_vidrender.Size = new System.Drawing.Size(538, 21);
+            this.cmb_vidrender.Size = new System.Drawing.Size(443, 21);
             this.cmb_vidrender.TabIndex = 20;
             // 
             // groupBox7
@@ -591,11 +644,11 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 81);
+            this.label2.Location = new System.Drawing.Point(6, 115);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(89, 13);
+            this.label2.Size = new System.Drawing.Size(92, 13);
             this.label2.TabIndex = 8;
-            this.label2.Text = "+vid_rendermode";
+            this.label2.Text = "+vid_rendermode:";
             // 
             // groupBox3
             // 
@@ -655,9 +708,9 @@
             // cmdPlay
             // 
             this.cmdPlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 48F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdPlay.Location = new System.Drawing.Point(10, 542);
+            this.cmdPlay.Location = new System.Drawing.Point(12, 585);
             this.cmdPlay.Name = "cmdPlay";
-            this.cmdPlay.Size = new System.Drawing.Size(885, 82);
+            this.cmdPlay.Size = new System.Drawing.Size(883, 82);
             this.cmdPlay.TabIndex = 0;
             this.cmdPlay.Text = "PLAY";
             this.cmdPlay.UseVisualStyleBackColor = true;
@@ -749,7 +802,7 @@
             this.AcceptButton = this.cmdPlay;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(907, 629);
+            this.ClientSize = new System.Drawing.Size(907, 674);
             this.Controls.Add(this.cmdPlay);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -848,6 +901,10 @@
         private System.Windows.Forms.ToolStripMenuItem openPWADFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openPORTFolderToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openPORTCONFIGFolderToolStripMenuItem;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.ComboBox cmbAutoloadPreset;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.ComboBox cmbVid_preferbackend;
     }
 }
 
