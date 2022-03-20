@@ -171,11 +171,12 @@ namespace DoomModLoader2
                 {
 
                     List<PathName> pwads = new List<PathName>();
-                    KeyValuePair<int, string> renderer = new KeyValuePair<int, string>(cmb_vidrender.SelectedIndex, cmb_vidrender.Text);
+                    KeyValuePair<int, string> vidRendermode = new KeyValuePair<int, string>(cmb_vidrender.SelectedIndex, cmb_vidrender.Text);
+                    KeyValuePair<int, string> vidPreferbackend = new KeyValuePair<int, string>(cmbVid_preferbackend.SelectedIndex, cmbVid_preferbackend.Text);
 
                     PathName config = (PathName)(chkCustomConfiguration.Checked == true ? cmbPortConfig.SelectedItem : null);
 
-                    using (FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, renderer, config, saveWithPreset, txtCommandLine.Text, param))
+                    using (FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, vidRendermode, config, saveWithPreset, txtCommandLine.Text, param, vidPreferbackend))
                     {
 
                         foreach (PathName p in items)
@@ -764,6 +765,29 @@ namespace DoomModLoader2
             }
             senderComboBox.DropDownWidth = width;
         }
+
+        private void cmbVid_preferbackend_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cmb_vidrender.Enabled = true;
+            switch (cmbVid_preferbackend.SelectedIndex)
+            {
+                case 0:
+                    cmb_vidrender.Items[4] = "OPENGL";
+                    break;
+
+                case 1:
+                    cmb_vidrender.Items[4] = "OPENGL/VULKAN";
+                    break;
+                case 2:
+                    cmb_vidrender.Items[4] = "SOFTPOLY 3-POINT PROJECTION RENDERER";
+                    break;
+                case 4:
+                    cmb_vidrender.Enabled = false;
+                    cmb_vidrender.SelectedIndex = 5;
+                    break;
+            }
+
+        }
         #endregion
 
         #region METHODS
@@ -797,6 +821,10 @@ namespace DoomModLoader2
             }
             cmbPreset.DataSource = presets;
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+
+            cmbAutoloadPreset.BindingContext = new BindingContext();
+            cmbAutoloadPreset.DataSource = presets;
+            cmbAutoloadPreset.SelectedItem = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
         }
 
         /// <summary>
@@ -1031,6 +1059,16 @@ namespace DoomModLoader2
                         errors.Add("RENDERER");
                         cmb_vidrender.SelectedIndex = 5;
                     }
+
+                    if (cfg.TryGetValue("RENDERER2", out value))
+                    {
+                        cmbVid_preferbackend.SelectedIndex = Convert.ToInt32(value);
+                    }
+                    else
+                    {
+                        errors.Add("RENDERER2");
+                        cmbVid_preferbackend.SelectedIndex = 4;
+                    }
                     #endregion
 
                     #region CHECK_FOR_UPDATE
@@ -1163,7 +1201,7 @@ namespace DoomModLoader2
                     #endregion
 
                     #region GZDOOM_QUICKSAVE_FIX
-                    if (cfg.TryGetValue("GZDOOM_QUICKSAVE_FIX", out value)) 
+                    if (cfg.TryGetValue("GZDOOM_QUICKSAVE_FIX", out value))
                     {
                         SharedVar.GZDOOM_QUICKSAVE_FIX = Convert.ToBoolean(value);
                     }
@@ -1173,7 +1211,27 @@ namespace DoomModLoader2
                         SharedVar.GZDOOM_QUICKSAVE_FIX = false;
                     }
                     #endregion
-                
+
+                    #region AUTOLOAD_PRESET
+                    if (cfg.TryGetValue("AUTOLOAD_PRESET", out value))
+                    {
+                        PathName autoloadPreset = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name == value).FirstOrDefault();
+                        if (autoloadPreset != null)
+                        {
+                            cmbAutoloadPreset.SelectedItem = autoloadPreset;
+                        }
+                        else
+                        {
+                            errors.Add("AUTOLOAD_PRESET");
+                            cmbAutoloadPreset.SelectedItem = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
+                        }
+                    }
+                    else
+                    {
+                        errors.Add("AUTOLOAD_PRESET");
+                        cmbAutoloadPreset.SelectedItem = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name == "-").FirstOrDefault();
+                    }
+                    #endregion
 
                     #region CONFIG_VERSION
                     if (cfg.TryGetValue("CONFIG_VERSION", out value))
@@ -1220,6 +1278,7 @@ namespace DoomModLoader2
         private void LoadDefaultValues()
         {
             cmb_vidrender.SelectedIndex = 5;
+            cmbVid_preferbackend.SelectedIndex = 4;
             SharedVar.CHECK_FOR_UPDATE = true;
             SharedVar.SHOW_END_MESSAGE = true;
             SharedVar.SHOW_DELETE_MESSAGE = true;
@@ -1471,10 +1530,61 @@ namespace DoomModLoader2
                     parm.AppendFormat(@" -config ""{0}""", p.path);
                 }
             }
+            //VID_PREFERBACKEND, 4 it's the "DO NOT OVVERRIDE"
+            if (cmbVid_preferbackend.SelectedIndex != 4)
+                parm.AppendFormat(" +vid_preferbackend {0} ", cmbVid_preferbackend.SelectedIndex);
 
-            //RENDERER, 5 it's the "DO NOT OVVERRIDE"
+
+            //VID_RENDERMODE, 5 it's the "DO NOT OVVERRIDE"
             if (cmb_vidrender.SelectedIndex != 5)
                 parm.AppendFormat(" +vid_rendermode {0} ", cmb_vidrender.SelectedIndex);
+
+
+            //LOAD AUTOLOAD PRESET
+            PathName preset = (PathName)cmbAutoloadPreset.SelectedItem;
+            Storage storage = new Storage(preset.path);
+            Dictionary<string, string> values = storage.ReadAllValues();
+
+            List<string> missingFiles = new List<string>();
+            List<PathName> autoloadPWADS = new List<PathName>();
+            foreach (KeyValuePair<string, string> s in values)
+            {
+                PathName file = null;
+                switch (s.Key)
+                {
+                    case "IWAD":
+                    case "-1":
+                    case "PORT":
+                    case "PORT_CONFIG":
+                    case "RENDERER":
+                    case "COMMANDLINE":
+                        //Skip all these value
+                        break;
+
+                    default:
+                        file = lstPWAD.Items.Cast<PathName>().Where(P => P.name.ToUpper().Equals(Path.GetFileName(s.Value).ToUpper())).FirstOrDefault();
+                        if (file != null)
+                        {
+                            file.loadOrder = int.Parse(s.Key);
+                            autoloadPWADS.Add(file);
+                        }
+                        break;
+                }
+            }
+
+            autoloadPWADS = autoloadPWADS.OrderBy(P => P.loadOrder).ToList();
+
+            foreach (PathName p in autoloadPWADS)
+            {
+                if (Path.GetExtension(p.path).ToUpper().Equals(".DEH"))
+                {
+                    parm.Append("-deh \"" + p.path + "\" ");
+                }
+                else
+                {
+                    parm.Append("-file \"" + p.path + "\" ");
+                }
+            }
 
             //CUSTOM COMMAND
             parm.Append(" " + txtCommandLine.Text + " ");
@@ -1610,8 +1720,12 @@ namespace DoomModLoader2
 
                 preferences.Add("PRESET", cmbPreset.Text);
 
+                preferences.Add("AUTOLOAD_PRESET", cmbAutoloadPreset.Text);
 
                 preferences.Add("RENDERER", cmb_vidrender.SelectedIndex.ToString());
+
+
+                preferences.Add("RENDERER2", cmbVid_preferbackend.SelectedIndex.ToString());
 
                 preferences.Add("CHECK_FOR_UPDATE", SharedVar.CHECK_FOR_UPDATE.ToString().ToUpper());
 
@@ -1866,6 +1980,7 @@ namespace DoomModLoader2
             }
 
         }
+
         #endregion
 
 
