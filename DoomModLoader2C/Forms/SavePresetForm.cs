@@ -54,6 +54,7 @@ namespace DoomModLoader2.Forms
         private PathName config { get; }
         private string presetPath { get; }
         private KeyValuePair<int, string> renderer { get; }
+        private KeyValuePair<int, string> renderer2 { get; }
         private string commandLine { get; }
         private PathName sourcePort { get; }
         private List<PathName> pwads { get; }
@@ -76,6 +77,7 @@ namespace DoomModLoader2.Forms
         /// <param name="commandLine"></param>
         /// <param name="pwads"></param>
         /// <param name="presetName"></param>
+        /// /// <param name="renderer2"></param>
         public SavePresetForm(string presetPath,
                               PathName config,
                               PathName IWAD,
@@ -84,7 +86,8 @@ namespace DoomModLoader2.Forms
                               List<string> saveWithPreset,
                               string commandLine,
                               List<PathName> pwads,
-                              string presetName
+                              string presetName,
+                              KeyValuePair<int, string> renderer2
                              )
         {
             InitializeComponent();
@@ -98,6 +101,7 @@ namespace DoomModLoader2.Forms
             this.pwads = pwads;
             this.sourcePort = sourcePort;
             this.presetName = presetName;
+            this.renderer2 = renderer2;
             txtPresetName.Text = presetName;
 
             if (presetName == null || presetName.Trim() == string.Empty)
@@ -159,7 +163,7 @@ namespace DoomModLoader2.Forms
             chkPORT.Checked = saveWithPreset.Any(X => X == "PORT");
 
             txtReplacer = new StringBuilder();
-            txtReplacer.AppendFormat(chkRenderer.Text, renderer.Value);
+            txtReplacer.AppendFormat(chkRenderer.Text, renderer.Value, renderer2.Value);
             chkRenderer.Text = txtReplacer.ToString();
             chkRenderer.Checked = saveWithPreset.Any(X => X == "RENDERER");
 
@@ -280,11 +284,14 @@ namespace DoomModLoader2.Forms
                         if (chkRenderer.Checked)
                         {
                             values.Add("RENDERER", renderer.Key.ToString());
+                            values.Add("RENDERER2", renderer2.Key.ToString());
                             saveWithPreset.Add("RENDERER");
+                            saveWithPreset.Add("RENDERER2");
                         }
                         else
                         {
                             values.Add("RENDERER", string.Empty);
+                            values.Add("RENDERER2", string.Empty);
                         }
                         #endregion
 

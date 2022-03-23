@@ -1,4 +1,4 @@
-﻿Thank you for downloading Doom Mod Loader version 2.4!
+﻿Thank you for downloading Doom Mod Loader version 2.5!
 
 If you're reading this file from the standard Windows notepad.exe you may want to enable Format->Word Wrap to avoid having to keep scrolling to the right.
 
@@ -48,7 +48,7 @@ Neither of the two methods has a max file number constraint like the old DML 1.0
 2b)Add your sourceports trough the "ADD" button in the Source Port section.
 3)Select from the relative combobox the sourceport and the game you want to play. 
 4)Hit "PLAY".
-  NOTE: Your sourceport must be able to launch trough the "-iwad" parameter your original game in order to work. Not all sourceport may support all types of file supported by DML 2.X
+	NOTE: Your sourceport must be able to launch trough the "-iwad" parameter your original game in order to work. Not all sourceport may support all types of file supported by DML 2.X
 
 -HOW TO PLAY WITH MODS:
 1)If you didn't have already, do step 1 to 3 of the previous how-to.
@@ -57,7 +57,7 @@ Neither of the two methods has a max file number constraint like the old DML 1.0
 3)Select them in the list on the left (click to select, click again to deselect)
 4)Hit "PLAY", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
 4b)Change the mod loading order. You can use the "UP" and "DOWN" button or the up/down arrow keys on your keyboard to move by one position a mod. 
-   NOTE:You can hold "CTRL" while pressing  "UP" or "DOWN" (or the arrow keys on your keyboard) for moving a mod quickly to the top or the bottom of the list.
+	NOTE: You can use the arrow key to move the selected mod up/down, the delete key to remove it and pageUp/pageDown (Or the combo CTRL + UP/DOWN arrows/buttons) to move it to the top or the bottom of the list.
 
 Files in the list will be loaded starting from the top, remember that each time a file is loaded it will replace any stuff loaded previously.
 Let my try to explain it with a little example, you have the following setup:
@@ -79,13 +79,14 @@ If you play many mods togheter, you can save them in a preset. Next time you wan
 1)Do step 1 to 3 of the previous how to.
 2)Select at least 2 mods
 3)Click on "play"
-4)Adjust the files loading order
+4)Adjust the files loading ordeR
 5)Click on "SAVE PRESET"
 6)Write a name for the preset
 7)Check any additional info you want to save with preset (IWAD, SOURCEPORT, ALTERNATIVE CONFIGURATION, RENDERER and COMMANDLINE)
 8)Click on "save as new..." if it's a new preset of you want to make a copy
 8b)Click on update if you want that any changes you made will overwrite the current preset data.
 8c)Click on "update and play" if you want to update the preset and launch the game right away.  
+	NOTE: You can use the arrow key to move the selected mod up/down, the delete key to remove it and pageUp/pageDown (Or the combo CTRL + UP/DOWN arrows/buttons) to move it to the top or the bottom of the list.
 
 -HOW TO START FROM LEVEL X
 1)Fill with the level code (NOT the full name) the "start from level" field. 
@@ -120,21 +121,33 @@ This can be useful also to share the same configuration between compatible sourc
 2)Check/Uncheck all types of message you want/don't want to see. By default all type of message are enabled.
 3)Click on "Save".
 
--I USE SOMETHING LIKE 'BIND F6 "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X I CAN'T LOAD THEM SOMETIMES
-Gzdoom will place the "quicksave.zds" file in the DML v2.X folder instead of the gzdoom one when using this custom method of quicksaving. I don't know why.
-1)Go into the DML 2.x preferences and enable "Workaround for 'BIND F6 "save QUICKSAVE.ZDS" '". 
+-I USE SOMETHING LIKE 'BIND F6 "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X I CAN'T LOAD THEM SOMETIMES!
+Gzdoom will place the "quicksave.zds" file in the DML v2.X folder instead of the gzdoom one when using this custom method of quicksaving. I don't know why. In order to solve this:
+1)Go into the DML 2.X preferences and enable "Workaround for 'BIND F6 "save QUICKSAVE.ZDS" '". 
 2)Every time you boot up gzdoom and wish to have a working quicksave, load your quicksave trough the "load" menu.
 3)Right after it loads your quicksave, press right away "F6" (Or whatever key you've binded) in order to make a quicksave.
+4)Done! If you follow these step, your quicksave/quickload will always point at the right save file.
 
 With the workaround you will have 2 quicksave.zds, the "current" one in the dml 2.X and the "old" one in the gzdoom "Save".
-The "current" one is the one thats gets updated each time you save for the current gzdoom session, the "old" one gets replaced  with the "current" one once you close gzdoom.
+The "current" one is the one thats gets updated each time you save for the current gzdoom session, the "old" one gets replaced  with the "current" one once you close gzdoom automatically by DML 2.X everytime you close your sourceport
 This way the next time you open gzdoom your last quicksave will be available.  
 If you don't quicksave after loading, and you try to quickload, gzdoom will now always quickload from the "old" quicksave until you close it.
-Note that this as the name suggest, it's a *workaround* for something happening on the gzdoom side and in which I have *zero* control, it works for now but it may brake with future updates.
+Note that this as the name suggest, it's a *workaround* for something happening on the gzdoom side and in which I have *zero* control, it works for now but it may break with future updates.
 
+-WHAT DOES DO THE "AUTOLOAD PRESET" FIELD DO?
+It enables to automatically load a group of mods everytime you start any sourceport with any games or mods. Useful if you have some quality-of-life-improvements mods, that you use 99% of the times, that way you don't have to add them every time to each preset,
+and if you update them and they change name you just have 1 preset to edit instead of N presets. For example I always load a mod that replace the plasmagun sound with the doom 3 one because it's less loaud. 
+In order to use it: 
+1)Make a preset like you would normally do (if you don't know how, read the "HOW TO SAVE MODS IN PRESETS" section above)
+2)Select it in the "autoload preset" field. From now on that preset will always load (after all the other mods) everytime you play. 
+
+If you do not want to autoload anything anymore, just select "-" in the autoplay field. You can make multiple autoload preset and switch between them.
+The only limitation is that you have to select at least 2 mod in order to make a preset, but you can always select a second random mod and then delete it from the preset from mod load order menu before saving it.
+Note that by doing that the preset will no longer be editable via DML 2.X (as if just a single mod is selected it start right away as there is nothing to order) and you have to delete the preset it and make a new one.
+To delete an autoload preset, as it's just a normal preset, select it in the normal preset list and click "DELETE SELECTED PRESET"
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[21/04/2021 | 2.4 ]
+[??/04/2022 | 2.5 ]
 NEW FEATURES:
 -Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
 -Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
@@ -162,7 +175,13 @@ NEW SETTINGS:
 -CONFIG_VERSION
 
 ===================INFO===================
-Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
+
+If you like my work and you would like to support me, you can send monero to this address:
+83XoYbCK9bZLF93kvY3RVHfWRtnLZAjLELUCP1foBMqoRi6zKF8NKXzTH2CobxvoZyREPcfgb6WwVaAu36iZDM72PYh2TCM
+
+NOTE:Donation will NEVER ne required, but are more than welcome ;) 
+     Don't worry if you can't/don't want to donate as it will not change the way I work. I would not make my software open source if I just wanted to profit from it.
 
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
 🔗 Website: 	https://p36software.net
@@ -177,7 +196,7 @@ If you're interested in my softwares, games, open source projects or just want t
 =================LICENSE===================
 BSD 3-Clause License
 
-Copyright (c) 2016 - 2021, Matteo Premoli (P36 Software)
+Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without

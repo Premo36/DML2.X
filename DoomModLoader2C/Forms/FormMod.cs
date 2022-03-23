@@ -162,7 +162,7 @@ namespace DoomModLoader2
         /// <param name="e"></param>
         private void cmdSavePreset_Click(object sender, EventArgs e)
         {
-            SavePresetForm savePresetForm = new SavePresetForm(presetPath, config, IWAD, sourcePort, vidRendermode, saveWithPreset, commandLine, lstPwad.Items.Cast<PathName>().ToList(), presetName);
+            SavePresetForm savePresetForm = new SavePresetForm(presetPath, config, IWAD, sourcePort, vidRendermode, saveWithPreset, commandLine, lstPwad.Items.Cast<PathName>().ToList(), presetName, vidPreferbackend);
             savePresetForm.ShowDialog();
             presetName = savePresetForm.presetName;
             saveWithPreset = savePresetForm.saveWithPreset;

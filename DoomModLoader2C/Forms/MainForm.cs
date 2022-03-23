@@ -465,6 +465,14 @@ namespace DoomModLoader2
                                 file = new PathName();
                                 break;
 
+                            case "RENDERER2":
+                                if (s.Value == string.Empty)
+                                    continue;
+                                cmbVid_preferbackend.SelectedIndex = int.Parse(s.Value);
+                                saveWithPreset.Add(s.Key);
+                                file = new PathName();
+                                break;
+
                             case "COMMANDLINE":
                                 if (s.Value == string.Empty)
                                     continue;
@@ -772,14 +780,15 @@ namespace DoomModLoader2
             switch (cmbVid_preferbackend.SelectedIndex)
             {
                 case 0:
-                    cmb_vidrender.Items[4] = "OPENGL";
+                case 3:
+                    cmb_vidrender.Items[4] = "HARDWARE ACCELERETED (OPENGL)";
                     break;
 
                 case 1:
-                    cmb_vidrender.Items[4] = "OPENGL/VULKAN";
+                    cmb_vidrender.Items[4] = "HARDWARE ACCELERETED (VULKAN/OPENGL)";
                     break;
                 case 2:
-                    cmb_vidrender.Items[4] = "SOFTPOLY 3-POINT PROJECTION RENDERER";
+                    cmb_vidrender.Items[4] = "HARDWARE ACCELERETED (SOFTPOLY 3-POINT PROJECTION RENDERER)";
                     break;
                 case 4:
                     cmb_vidrender.Enabled = false;
@@ -1557,6 +1566,7 @@ namespace DoomModLoader2
                     case "PORT":
                     case "PORT_CONFIG":
                     case "RENDERER":
+                    case "RENDERER2":
                     case "COMMANDLINE":
                         //Skip all these value
                         break;

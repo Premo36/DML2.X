@@ -82,9 +82,9 @@
             this.chkRenderer.AutoSize = true;
             this.chkRenderer.Location = new System.Drawing.Point(6, 65);
             this.chkRenderer.Name = "chkRenderer";
-            this.chkRenderer.Size = new System.Drawing.Size(111, 17);
+            this.chkRenderer.Size = new System.Drawing.Size(130, 17);
             this.chkRenderer.TabIndex = 3;
-            this.chkRenderer.Text = "RENDERER: \'{0}\'";
+            this.chkRenderer.Text = "RENDERER: \'{0}/{1}\'";
             this.chkRenderer.UseVisualStyleBackColor = true;
             // 
             // chkPORT
@@ -159,7 +159,6 @@
             // 
             // cmdSavePlay
             // 
-
             this.cmdSavePlay.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdSavePlay.Location = new System.Drawing.Point(12, 182);
             this.cmdSavePlay.Name = "cmdSavePlay";
