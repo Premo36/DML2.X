@@ -52,8 +52,9 @@ You can use the DML 2.X source code in any way you like as long as you follow th
 
 # DONATE
 If you like my work and you would like to support me, you can send monero to this address:
- `83XoYbCK9bZLF93kvY3RVHfWRtnLZAjLELUCP1foBMqoRi6zKF8NKXzTH2CobxvoZyREPcfgb6WwVaAu36iZDM72PYh2TCM`
-
+```
+83XoYbCK9bZLF93kvY3RVHfWRtnLZAjLELUCP1foBMqoRi6zKF8NKXzTH2CobxvoZyREPcfgb6WwVaAu36iZDM72PYh2TCM
+```
 NOTE: Donation will NEVER be required, but are more than welcome ;) Don't worry if you can't/don't want to donate as it will not change the way I work. I would not make my software open source if I just wanted to profit from it.
 
 # CONTACTS
