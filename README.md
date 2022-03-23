@@ -50,6 +50,11 @@ You can use the DML 2.X source code in any way you like as long as you follow th
 <p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/popularity/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
 <p>You can find the beta releases <a href ="https://github.com/Premo36/DML2.X/releases">here on github</a>.</p>
 
+# DONATE
+If you like my work and you would like to support me, you can send monero to this address:
+ `83XoYbCK9bZLF93kvY3RVHfWRtnLZAjLELUCP1foBMqoRi6zKF8NKXzTH2CobxvoZyREPcfgb6WwVaAu36iZDM72PYh2TCM`
+
+NOTE: Donation will NEVER be required, but are more than welcome ;) Don't worry if you can't/don't want to donate as it will not change the way I work. I would not make my software open source if I just wanted to profit from it.
 
 # CONTACTS
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:<br>
