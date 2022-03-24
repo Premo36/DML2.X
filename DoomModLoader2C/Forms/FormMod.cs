@@ -313,12 +313,13 @@ namespace DoomModLoader2
             lstPwad.DataSource = pwads;
             lstPwad.DisplayMember = "name";
 
-           
+
 
             if (index < 0 || index >= lstPwad.Items.Count)
             {
                 lstPwad.SelectedIndex = lstPwad.Items.Count - 1;
-            } else
+            }
+            else
             {
                 lstPwad.SelectedIndex = index;
             }
@@ -329,11 +330,16 @@ namespace DoomModLoader2
         {
             if (SharedVar.GZDOOM_QUICKSAVE_FIX)
             {
+                string[] quicksaves = null;
                 string savepath = sppath;
-                savepath = Path.GetDirectoryName(savepath);
-                savepath = Path.Combine(savepath, "Save");
 
-                string[] quicksaves = Directory.GetFiles(Application.StartupPath, "*.zds");
+                //Works for Linux
+                string homePath = Environment.GetEnvironmentVariable("HOME");
+                quicksaves = Directory.GetFiles(homePath, "*.zds");
+                string executableName = Path.GetFileNameWithoutExtension(savepath);
+                savepath = Path.Combine(homePath, ".config");
+                savepath = Path.Combine(savepath, executableName) + "/";
+
 
                 foreach (string quicksave in quicksaves)
                 {

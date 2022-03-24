@@ -1843,7 +1843,7 @@ namespace DoomModLoader2
                 else if (Directory.Exists(p))
                 {
                     string[] allFiles = Directory.GetFiles(p);
-                    
+
                     string[] files = allFiles.Where(F => validExtensions.Contains(Path.GetExtension(F).ToLower())).ToArray();
 
 
@@ -1965,11 +1965,16 @@ namespace DoomModLoader2
         {
             if (SharedVar.GZDOOM_QUICKSAVE_FIX)
             {
+                string[] quicksaves = null;
                 string savepath = sppath;
-                savepath = Path.GetDirectoryName(savepath);
-                savepath = Path.Combine(savepath, "Save");
 
-                string[] quicksaves = Directory.GetFiles(Application.StartupPath, "*.zds");
+                //Works for linux
+                string homePath = Environment.GetEnvironmentVariable("HOME");
+                quicksaves = Directory.GetFiles(homePath, "*.zds");
+                string executableName = Path.GetFileNameWithoutExtension(savepath);
+                savepath = Path.Combine(homePath, ".config");
+                savepath = Path.Combine(savepath, executableName) + "/";
+
 
                 foreach (string quicksave in quicksaves)
                 {
