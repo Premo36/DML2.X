@@ -835,9 +835,20 @@ namespace DoomModLoader2
             cmbPreset.DataSource = presets;
             cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
 
+            string selecteAutoloadPresetName = string.Empty;
+            if (cmbAutoloadPreset.SelectedItem != null)
+                selecteAutoloadPresetName = ((PathName)cmbAutoloadPreset.SelectedItem).name;
+
             cmbAutoloadPreset.BindingContext = new BindingContext();
             cmbAutoloadPreset.DataSource = presets;
-            cmbAutoloadPreset.SelectedItem = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+
+            cmbAutoloadPreset.SelectedItem = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name.Equals(selecteAutoloadPresetName)).FirstOrDefault();
+
+            if (cmbAutoloadPreset.SelectedItem == null)
+            {
+                cmbAutoloadPreset.SelectedItem = cmbAutoloadPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+            }
+
         }
 
         /// <summary>
