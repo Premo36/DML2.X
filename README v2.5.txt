@@ -1,24 +1,43 @@
-﻿Thank you for downloading Doom Mod Loader version 2.5!
-
+﻿Thank you for downloading Doom Mod Loader version 2.5 (Beta #7)!
+======================================================================================================
+PLEASE NOTE THAT YOU'RE USING A BETA VERSION, IT MAY BE LESS STABLE AND THIS README MAY BE INCOMPLTE!
+======================================================================================================
 If you're reading this file from the standard Windows notepad.exe you may want to enable Format->Word Wrap to avoid having to keep scrolling to the right.
 
-Microsoft .net framework (at least) version 3.5 is required in order to use Doom Mod Loader!
+-How to use the Windows version:
+You will need Microsoft .net framework version 3.5 in order to use Doom Mod Loader 2.X!
 If your system is up-to-date you should have it already.
 If you don't have it or you're unsure if you have it installed, be sure to be connected to the internet the first time you open DML 2.X, so that Windows can prompt you to install it if yout don't have it installed. 
 If you're on an older Windows version that does not automatically install it, you can find it here and install it manually:
 https://www.microsoft.com/en-us/download/details.aspx?id=21
 
-In order to use DML 2.X you need at least:
+-How to use the mono version (Linux/Mac OS) 
+What is mono? It's an open source implementation of Microsoft's .NET Framework. 
+Long story short, given that your C# application is not too much complex, you can make it work under mono in fairly low amount of time, and this will allow your Windows .net application to run under any OS where the mono runtime can be installed. 
+Tought I would NOT recommend it for new project, due to how old and limited the project technology is (it do not work with WPF or really anything newer then winform...) and by how scarce and outdated the documentation is.
+In order to use DML 2.X in Linux/Mac Os, you need to download and install the latest stable `mono-complete` for your operating system following the instruction on the official mono project website.
+
+https://www.mono-project.com/download/stable/
+
+If you're on a Linux based OS, you may have the mono-complete package available on your distro repos, but it's usually an older version so it's better that you still follow the instruction from the mono project website and install it that way.
+If you're on a Mac OS system, while DML 2.X under mono should work as well as on Linux, I couldn't test it myself as I don't own a mac.
+Once `mono-complete` is installed, you should be able to open DML 2.X by simply double-clicking on the `.exe`. If that does not work you may open it trough the console by navigating to the folder where the DML 2.X it's located, writing `mono "DML v2.5 mono.exe"` (note that the .exe name will be different during the beta, you have to write the precise, full `.exe` name, writing "mono DML" and then pressing tab should autocomplete to the correct name) and pressing "enter" on your keyboard.
+This version of mono is a modified version from the windows one, all the core functionality works and, as a plus,it follows the user dark/light theme (On Linux at least), but it may have some minor graphical issue and the check for update as been disabled as it would crash DML 2.X.
+On Linux, to quickly found where a sourceport is installed (assuming you've installed trough your package manager) you can write in the console `whereis gzdoom` (where gzdoom is your sourceport name), which will output the path to the executable.
+
+NOTE: The mono version may be less stable then the Windows one and if you use it on Mac OS keep in mind I've NEVER tested DML 2.X under Mac OS, as I don't own a mac.
+
+-In order to use DML 2.X you need at least:
 1)A modern Doom sourceport (Any that follow the zdoom command line parameters standard should be fine, read below for the tested ones)
 2)An original game (IWAD) like "doom.wad", "freedoom.wad" etc... 
-3)Microsoft Net Framework 3.5
+3)Microsoft Net Framework 3.5 (On Windows) / Latest "mono-complete" package (Linux/Mac OS)
 
 
 As for this version, the only tested sourceport are:
 FULL COMPATIBILITY:
--GZdoom (v4.5.0), -height and -width do not work due to gzdoom way of handling resolution)
+-GZdoom (v4.7.2), -height and -width do not work due to gzdoom way of handling resolution)
 -LZdoom (v3.87c)
--Zandronum (3.0)
+-Zandronum (3.1)
 -Zdoom(2.8.1)
 -QZDoom (2.1.0)
 -Skulltag(98d)
@@ -121,58 +140,59 @@ This can be useful also to share the same configuration between compatible sourc
 2)Check/Uncheck all types of message you want/don't want to see. By default all type of message are enabled.
 3)Click on "Save".
 
--I USE SOMETHING LIKE 'BIND F6 "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X I CAN'T LOAD THEM SOMETIMES!
-Gzdoom will place the "quicksave.zds" file in the DML v2.X folder instead of the gzdoom one when using this custom method of quicksaving. I don't know why. In order to solve this:
-1)Go into the DML 2.X preferences and enable "Workaround for 'BIND F6 "save QUICKSAVE.ZDS" '". 
+-I USE SOMETHING LIKE 'BIND [KEY] "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X MY QUICKSAVE DISAPPEAR WHEN I RESTART GZDOOM!
+NOTE: The following workaround as been tested only in recent Windows/Linux gzdoom/zandronum version, with the Linux version installed trough apt. It will NOT work on Mac OS, and probably will not work on older Linux version.
+Gzdoom will place the "quicksave.zds" file in the DML v2.X folder (On Windows) or in the "home" folder (on Linux) instead of the gzdoom correct one when using this custom method of quicksaving. I don't know why. In order to solve this:
+1)Go into the DML 2.X preferences and enable "Workaround for 'BIND [KEY] "save QUICKSAVE.ZDS" '". 
 2)Every time you boot up gzdoom and wish to have a working quicksave, load your quicksave trough the "load" menu.
-3)Right after it loads your quicksave, press right away "F6" (Or whatever key you've binded) in order to make a quicksave.
+3)Right after it loads your quicksave, press right away "F6" (Or whatever [KEY] you've binded) in order to make a quicksave.
 4)Done! If you follow these step, your quicksave/quickload will always point at the right save file.
 
-With the workaround you will have 2 quicksave.zds, the "current" one in the dml 2.X and the "old" one in the gzdoom "Save".
+With the workaround you will have 2 quicksave.zds, the "current" one in the dml 2.X and the "old" one in the gzdoom correct place.
 The "current" one is the one thats gets updated each time you save for the current gzdoom session, the "old" one gets replaced  with the "current" one once you close gzdoom automatically by DML 2.X everytime you close your sourceport
 This way the next time you open gzdoom your last quicksave will be available.  
 If you don't quicksave after loading, and you try to quickload, gzdoom will now always quickload from the "old" quicksave until you close it.
 Note that this as the name suggest, it's a *workaround* for something happening on the gzdoom side and in which I have *zero* control, it works for now but it may break with future updates.
+ 
 
--WHAT DOES DO THE "AUTOLOAD PRESET" FIELD DO?
+-WHAT DOES DO THE "AUTOLOAD" FIELD DO?
 It enables to automatically load a group of mods everytime you start any sourceport with any games or mods. Useful if you have some quality-of-life-improvements mods, that you use 99% of the times, that way you don't have to add them every time to each preset,
-and if you update them and they change name you just have 1 preset to edit instead of N presets. For example I always load a mod that replace the plasmagun sound with the doom 3 one because it's less loaud. 
+and if you update them and they change name you just have 1 preset to edit instead of N presets. 
+For example I always load 3 mod, one that replace the dspistol sound with the doom 3 chaingun, one that replaces dsplasma with the doom 3 plasmagun sound, and one that change the Changunguy, SSWolfenstain and Spider Mastermind attack sound to use dspistol. 
+
 In order to use it: 
 1)Make a preset like you would normally do (if you don't know how, read the "HOW TO SAVE MODS IN PRESETS" section above)
-2)Select it in the "autoload preset" field. From now on that preset will always load (after all the other mods) everytime you play. 
+2)Select it in the "autoload" field. From now on that preset will always load (after all the other mods) everytime you play. 
 
 If you do not want to autoload anything anymore, just select "-" in the autoplay field. You can make multiple autoload preset and switch between them.
 The only limitation is that you have to select at least 2 mod in order to make a preset, but you can always select a second random mod and then delete it from the preset from mod load order menu before saving it.
-Note that by doing that the preset will no longer be editable via DML 2.X (as if just a single mod is selected it start right away as there is nothing to order) and you have to delete the preset it and make a new one.
-To delete an autoload preset, as it's just a normal preset, select it in the normal preset list and click "DELETE SELECTED PRESET"
+You can add/remove mods and edit the preset as it was a normal preset. Keep in mind that only the mod list will be used by the autoload and all other stored data in the preset will be ignored. 
 ============================CHANGELOG===========================
 (This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
 [??/04/2022 | 2.5 ]
 NEW FEATURES:
--Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
--Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
--Added "Mod list view mode" to manage the new 3 view mode of the file list: "ONLY FILE NAME" show only the mod name, "FOLDER AND FILE NAME" show the file name and the folder where it's placed and "FULL PATH" shows the full path to the mod. Can be changed in the preferences menu, default to "ONLY FILE NAME"
--Added welcome screen with some info about the software and how you can contact me.
--Mods in mod order window can now be directly pushed to the top or the bottom of the list by holding down "CTRL" while clicking on the "UP" or "DOWN" button.
--Mods now can be also ordered by folder and path.
--Mods in the Mod Loading Order window can be moved UP or DOWN with the arrow keys
--Mods in the Mod Loading Order window can be removed with the DELETE key
--Updated about box with new P36 Software logo, new support email, button links to my "business" twitter (@p36software) and to Tank Rider (my new game).
--Updated "unhandled exception" message to show the current software version.
--Updated assembly info
+-Now it works under Linux/Mac trough mono (Be sure to have downloaded the mono version, the one with "mono" in the exe name, and follow the instructions otherwise it will not work!)
+-The preset name it's now fully visible while browsing the preset list, no matter how long the preset is (#13).
+-Mods list "Order By" value it's now kept between application launches (#8).
+-Preset order can now be changed via the software settings. Possible order are "Alphabetical - Ascending", "Alphabetical - Descending" , "Date - Ascending" and "Date - Descending" (#11).
+-Mods list can now also be ordered by "Date - Ascending" and "Date - Descending".
+-Added a workaround that mitigate the gzdoom bug where quicksave made with 'BIND [KEY] "SAVE QUICKSAVE.ZDS"' are saved in the wrong folder. Can be enabled in DML 2.X preferences. (Windows/Linux only) (#14) .
+-In the mod order window, the selected mod can now be pushed directly to the top/bottom of the list  also by using pageUP/pageDOWN (#19).
+-Now the mod that you always use can be placed in a preset and loaded automatically each time you play, just select the preset in the "autoload" combobox in the "Game" section of DML 2.X (#20).
+-Updated the renderer selection in order to work with the newest gzdoom releases(#21).
+-Added a monero address in the welcome/about windows and readme txt, in case anyone wants to donate.
 
 BUGFIXES:
--Fixed bug where "search" and "extension" filter in mods list were resetted to default when clicking on "Reload resources"
--Fixed bug where "USE_ADVANCED_SELECTION_MODE" flag was ignored on appllication start until the user opened and closed the preferences window
--Fixed bug where application would crash if in the mod load order windows, the last mod was removed and, without selecting another mod, the user tried to move up or down a mod.
--Fixed bug where all mods name in Mod Load Order window will change to "DoomModLoader2.Entity.PathName" .
--Fixed bug where the select preset will reset to "-" when the user clicked on "Reload resources".
--Fixed bug where the latest added iwad file does not always get automatically selected.
--Fixed bug whe preset name with spaces at the beginning or end of the file will make resets DML2X ini values to defaults.
+-Fixed bug where the DMLv2.ini will store the whole path of the alternative sourceport configuration file instead of just the name, making DML 2.X not fully portable (#9) .
+-Fixed bug where the "please insert a preset name" error message had of a information icon instead of an error one (#18).
+
 
 NEW SETTINGS:
--FILE_VIEW_MODE
--CONFIG_VERSION
+-RENDERER2
+-FILE_ORDER_BY
+-PRESET_ORDER
+-GZDOOM_QUICKSAVE_FIX
+-AUTOLOAD_PRESET
 
 ===================INFO===================
 Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
@@ -180,18 +200,19 @@ Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
 If you like my work and you would like to support me, you can send monero to this address:
 83XoYbCK9bZLF93kvY3RVHfWRtnLZAjLELUCP1foBMqoRi6zKF8NKXzTH2CobxvoZyREPcfgb6WwVaAu36iZDM72PYh2TCM
 
-NOTE:Donation will NEVER ne required, but are more than welcome ;) 
-     Don't worry if you can't/don't want to donate as it will not change the way I work. I would not make my software open source if I just wanted to profit from it.
+Donation will NEVER ne required, but are more than welcome ;) 
+Don't worry if you can't/don't want to donate as it will not change the way I work. 
+I would not make my software open source if I just wanted to profit from it.
 
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
-🔗 Website: 	https://p36software.net
+🔗 Website: 		https://p36software.net
 ✉ Support e-mail: 	support@p36software.net (for reporting bug/give feedback/ask for help)
-✉ Info e-mail: 	info@p36software.net (for anything else)
-🐦 Twitter: 	https://twitter.com/p36software (@p36software, gets updated more often)
-📄 Github: 	https://github.com/Premo36
-🔧 ModDB: 	https://www.moddb.com/members/premo36
-🎮 IndieDB: 	https://www.indiedb.com/members/premo36
-🎥 Youtube: 	https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
+✉ Info e-mail: 		info@p36software.net (for anything else)
+🐦 Twitter: 		https://twitter.com/p36software (@p36software, gets updated more often)
+📄 Github: 		https://github.com/Premo36
+🔧 ModDB: 		https://www.moddb.com/members/premo36
+🎮 IndieDB: 		https://www.indiedb.com/members/premo36
+🎥 Youtube: 		https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
 
 =================LICENSE===================
 BSD 3-Clause License
