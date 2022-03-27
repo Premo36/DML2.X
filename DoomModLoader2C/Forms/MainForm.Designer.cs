@@ -345,9 +345,9 @@
             this.label9.AutoSize = true;
             this.label9.Location = new System.Drawing.Point(8, 71);
             this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(84, 13);
+            this.label9.Size = new System.Drawing.Size(52, 13);
             this.label9.TabIndex = 28;
-            this.label9.Text = "Autoload preset:";
+            this.label9.Text = "Autoload:";
             // 
             // cmbAutoloadPreset
             // 
@@ -355,9 +355,9 @@
             this.cmbAutoloadPreset.DisplayMember = "name";
             this.cmbAutoloadPreset.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cmbAutoloadPreset.FormattingEnabled = true;
-            this.cmbAutoloadPreset.Location = new System.Drawing.Point(98, 68);
+            this.cmbAutoloadPreset.Location = new System.Drawing.Point(66, 68);
             this.cmbAutoloadPreset.Name = "cmbAutoloadPreset";
-            this.cmbAutoloadPreset.Size = new System.Drawing.Size(445, 21);
+            this.cmbAutoloadPreset.Size = new System.Drawing.Size(477, 21);
             this.cmbAutoloadPreset.TabIndex = 27;
             // 
             // cmdAddSourcePort
