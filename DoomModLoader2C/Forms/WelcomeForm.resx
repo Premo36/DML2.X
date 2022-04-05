@@ -121,14 +121,14 @@
     <value>Thank you for downloading Doom Mod Loader 2.X!
 
 DML 2.X is an open source software licensed under the BSD 3.0 License. 
-You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the "README v2.4.txt" file.
+You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the "README v2.5.txt" file.
 You can find the software's sourcecode and beta releases on github at https://github.com/Premo36/DML2.X . 
 
 This software will automatically checks for update everytime you open it and will notify you if a new version it's available for download. 
-Note that it will only checks  for new STABLE releases, for the BETA releases you will have to check by yourself the releases on my github or keep an eye on my twitter (@p36software).
+Note that it will only checks for new STABLE releases, for the BETA releases you will have to check by yourself the releases on my github or keep an eye on my twitter (@p36software).
 You can disable this feature by un-tiking the check for update option.
 
-I designed this software to be user-friendly and straight-forward to use, but if you need help the "README v2.4.txt"  file inlcuded with the software should answer most of your questions.
+I designed this software to be user-friendly and straight-forward to use, but if you need help the "README v2.5.txt" file inlcuded with the software should answer most of your questions.
 If you can't find the answer you were looking for in the readme, want to report a bug, give me suggestions for new features or just let me know what you think about DML 2.X, feel free to write an email to support@p36software.net
 
 In order to use this software you have to accept both the BSD 3 license terms and, as it connects to my website to check for new versions, also my website privacy policy that you can read at https://p36software.net/privacy-policy
@@ -156,46 +156,42 @@ If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my ne
 https://p36software.net/projects/TankRider
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DML current version:  2.4 (21/04/2021)
+DML current version:  2.5 (??/04/2022)
 NEW FEATURES:
--Added support for loading ".iwad" and ".ipk3" file has an IWAD (Original game)
--Added file explorer shortcut to each "FILE" subfolder under the "Open" menu on the left of the software main window.
--Added "Mod list view mode" to manage the new 3 view mode of the file list: "ONLY FILE NAME", show only the mod name, "FOLDER AND FILE NAME" show the file name and the folder where it's placed and "FULL PATH" shows the full path to the mod. Can be changed in the preferences menu, default to "ONLY FILE NAME"
--Added welcome screen with some info about the software and how you can contact me.
--Mods in mod order window can now be directly pushed to the top or the bottom of the list by holding down "CTRL" while clicking on the "UP" or "DOWN" button.
--Mods now can be also ordered by folder and path.
--Mods in the Mod Loading Order window can be moved UP or DOWN with the arrow keys
--Mods in the Mod Loading Order window can be removed with the DELETE key
--Updated about box with new P36 Software logo, new support email, button links to my "business" twitter (@p36software) and to Tank Rider (my new game).
--Updated "unhandled exception" message to show the current software version.
--Updated assembly info.
+-Now it works under Linux/Mac trough mono (Be sure to have downloaded the mono version, the one with "mono" in the .exe name, and follow the instructions otherwise it will not work!)
+-The preset name it's now fully visible while browsing the preset list, no matter how long the preset is.
+-Mods list "Order By" value it's now kept between application launches.
+-Preset order can now be changed via the software settings. Possible order are "Alphabetical - Ascending", "Alphabetical - Descending" , "Date - Ascending" and "Date - Descending".
+-Mods list can now also be ordered by "Date - Ascending" and "Date - Descending".
+-Added a workaround that mitigate the gzdoom bug where quicksave made with 'BIND [KEY] "SAVE QUICKSAVE.ZDS"' are saved in the wrong folder. Can be enabled in DML 2.X preferences. (Windows/Linux only).
+-In the mod order window, the selected mod can now be pushed directly to the top/bottom of the list  also by using pageUP/pageDOWN.
+-Now the mod that you always use can be placed in a preset and loaded automatically each time you play, just select the preset in the "autoload" combobox in the "Game" section of DML 2.X.
+-Updated the renderer selection in order to work with the newest gzdoom releases.
+-Added a monero address in the welcome/about windows and readme txt, in case anyone wants to donate.
 
-BUG FIXES:
--Fixed bug where "search" and "extension" filter in mods list were resetted to default when clicking on "Reload resources"
--Fixed bug where "USE_ADVANCED_SELECTION_MODE" flag was ignored on appllication start until the user opened and closed the preferences window
--Fixed bug where application would crash if in the mod load order windows, the last mod was removed and, without selecting another mod, the user tried to move up or down a mod.
--Fixed bug where all mods name in Mod Load Order window will change to "DoomModLoader2.Entity.PathName" .
--Fixed bug where the select preset will reset to "-" when the user clicked on "Reload resources".
--Fixed bug where the latest added iwad file does not always get automatically selected.
--Fixed bug where preset name with spaces at the beginning or end of the file will make resets DML2X ini values to defaults.
--Fixed bug where if the preset saved in the "PRESET" field of the DMLv2.ini file was no longer present (or was renamed outside of DML 2.X) will cause a resets to default value of the .ini file. 
+BUGFIXES:
+-Fixed bug where the DMLv2.ini will store the whole path of the alternative sourceport configuration file instead of just the name, making DML 2.X not fully portable.
+-Fixed bug where the "please insert a preset name" error message had of a information icon instead of an error one.
 
 NEW SETTINGS:
--FILE_VIEW_MODE
--CONFIG_VERSION
+-RENDERER2
+-FILE_ORDER_BY
+-PRESET_ORDER
+-GZDOOM_QUICKSAVE_FIX
+-AUTOLOAD_PRESET
 
 As for this version, the only tested sourceport are:
 FULL COMPATIBILITY:
--GZdoom (v4.5.0), -height and -width do not work due to gzdoom way of handling resolution)
+-GZdoom (v4.7.2), -height and -width do not work due to gzdoom way of handling resolution)
 -LZdoom (v3.87c)
--Zandronum (3.0)
+-Zandronum (3.1)
 -Zdoom(2.8.1)
 -QZDoom (2.1.0)
 -Skulltag(98d)
 
 PARTIAL COMPATIBILITY (Some DML features will not work):
--Chocholate Doom (3.0.1)
--PrBoom+ (2.6um)
+-Chocolate Doom (3.0.1)
+-PrBoom+ (2.6.2)
 
 (As long as it follows the zdoom command line standard, any engine should work fine)
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
