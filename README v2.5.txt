@@ -1,28 +1,40 @@
-﻿Thank you for downloading Doom Mod Loader version 2.5 (Beta #7)!
-======================================================================================================
-PLEASE NOTE THAT YOU'RE USING A BETA VERSION, IT MAY BE LESS STABLE AND THIS README MAY BE INCOMPLTE!
-======================================================================================================
+﻿Thank you for downloading Doom Mod Loader version 2.5!
 If you're reading this file from the standard Windows notepad.exe you may want to enable Format->Word Wrap to avoid having to keep scrolling to the right.
 
 -How to use the Windows version:
 You will need Microsoft .net framework version 3.5 in order to use Doom Mod Loader 2.X!
 If your system is up-to-date you should have it already.
-If you don't have it or you're unsure if you have it installed, be sure to be connected to the internet the first time you open DML 2.X, so that Windows can prompt you to install it if yout don't have it installed. 
+If you don't have it or you're unsure if you have it installed, be sure to be connected to the internet the first time you open DML 2.X, so that Windows can prompt you to install it if yout don't have it already.
 If you're on an older Windows version that does not automatically install it, you can find it here and install it manually:
 https://www.microsoft.com/en-us/download/details.aspx?id=21
+The 2.5 version as been tested only in Windows 10 (21H2) but it should still run also on older windows version, like 8.1 or 7.
 
 -How to use the mono version (Linux/Mac OS) 
 What is mono? It's an open source implementation of Microsoft's .NET Framework. 
-Long story short, given that your C# application is not too much complex, you can make it work under mono in fairly low amount of time, and this will allow your Windows .net application to run under any OS where the mono runtime can be installed. 
-Tought I would NOT recommend it for new project, due to how old and limited the project technology is (it do not work with WPF or really anything newer then winform...) and by how scarce and outdated the documentation is.
 In order to use DML 2.X in Linux/Mac Os, you need to download and install the latest stable `mono-complete` for your operating system following the instruction on the official mono project website.
 
 https://www.mono-project.com/download/stable/
 
-If you're on a Linux based OS, you may have the mono-complete package available on your distro repos, but it's usually an older version so it's better that you still follow the instruction from the mono project website and install it that way.
-If you're on a Mac OS system, while DML 2.X under mono should work as well as on Linux, I couldn't test it myself as I don't own a mac.
-Once `mono-complete` is installed, you should be able to open DML 2.X by simply double-clicking on the `.exe`. If that does not work you may open it trough the console by navigating to the folder where the DML 2.X it's located, writing `mono "DML v2.5 mono.exe"` (note that the .exe name will be different during the beta, you have to write the precise, full `.exe` name, writing "mono DML" and then pressing tab should autocomplete to the correct name) and pressing "enter" on your keyboard.
-This version of mono is a modified version from the windows one, all the core functionality works and, as a plus,it follows the user dark/light theme (On Linux at least), but it may have some minor graphical issue and the check for update as been disabled as it would crash DML 2.X.
+If you're on a Linux based OS: 
+You may have the mono-complete package available on your distro repos, but it's usually an older version so it's better that you still follow the instruction from the mono project website and install it that way.
+Note that the mono version as been tested only Linux Mint 20.3 and Debian 11. It should work work fine on any debian based OS.
+For Ubuntu/Ubuntu-based distro (like Linux Mint) follow the Ubuntu instructions.
+For Debian/Debian-based distro (that are not Ubuntu/Ubuntu-based) follow the Debian instructions.
+For CentOS, Red Hat Entriprise Linux or distro based on those, follow the CentOS/RHES instructions (note that DML 2.5 mono as NEVER been tested under those OS).
+For Fedora/Fedora-based distro, you've guessed right! Follow the Fedora instructions. (note that DML 2.5 mono as NEVER been tested under Fedora).
+For Arch/Arch-based system, like Manjaro etc... the official mono project does not have official packages for those distro. You may find it something on your distro repos (note that DML 2.5 mono as NEVER been tested under Arch).  
+
+If you're on a Mac OS system, the "mono-complete" package should be the only avaiable download for that platform. I call it "mono-complete" because on Linux it's modular.
+While DML 2.X under mono should work as well as on Linux, I couldn't test it myself as I don't own a mac. It's even more "as is" under that OS. I've never even had the possibility too boot it up on a Mac, let alone fix bugs.
+Also note that at 99.9% the 'Bind [KEY] "save quicksave.zds"' workaround will NOT work on Mac OS. 
+
+Once `mono-complete` is installed, you should be able to open DML 2.X by simply double-clicking on the `.exe`. If that does not work you may open it trough the console by navigating to the folder where the DML 2.X it's located, 
+writing `mono "DML v2.5 mono.exe"` (note that the .exe name will be different during the beta, you have to write the precise, full `.exe` name, writing "mono DML" and then pressing tab should autocomplete to the correct name) 
+and pressing "enter" on your keyboard.
+
+This version of DML 2.X is a slighted different version from the windows one: All the core functionality works and, as a plus,it follows the user dark/light theme (On Linux at least), but it may have some minor graphical issues
+and the "check for update" functionality has been disabled as it would crash DML 2.X.
+
 On Linux, to quickly found where a sourceport is installed (assuming you've installed trough your package manager) you can write in the console `whereis gzdoom` (where gzdoom is your sourceport name), which will output the path to the executable.
 
 NOTE: The mono version may be less stable then the Windows one and if you use it on Mac OS keep in mind I've NEVER tested DML 2.X under Mac OS, as I don't own a mac.
@@ -43,8 +55,8 @@ FULL COMPATIBILITY:
 -Skulltag(98d)
 
 PARTIAL COMPATIBILITY (Some DML features will not work):
--Chocholate Doom (3.0.1)
--PrBoom+ (2.6um)
+-Chocolate Doom (3.0.1)
+-PrBoom+ (2.6.2)
 
 (As long as it follows the zdoom command line standard, any engine should work fine)
 ============================"HOW-TO" QUICK START GUIDE============================
@@ -55,27 +67,27 @@ If you don't want to load a file in dml, write it's full name (with the extensio
 
 NOTE:If you place a file inside a folder while DML is running, you have to click on "Reload resources", otherwise it will not show up!
 
-Neither of the two methods has a max file number constraint like the old DML 1.0/1.1 had, so you can add as many file as you want!
+Neither of the two methods have a max file number constraint like the old DML 1.0/1.1 had, so you can add as many file as you want!
 
 -HOW TO PLAY JUST THE ORIGINAL GAME:
 1)Add your iwad's to the "IWAD" folder inside the "FILE" folder next to "DML vX.X.exe" 
-   NOTE: In order to be recognised you game must have one of the following extension: ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh", ".iwad", ".ipk3". 
-   1b)Add your iwad (original game) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC. 
-   NOTE:If your game is not in the .wad format you'll need to change the filter in the file dialog to see it. 
-   NOTE: If it does not follow the "IWAD 4 byte standard",a warning will pop-up,but you can still add it)
+	NOTE: In order to be recognised you game must have one of the following extension: ".wad", ".pk3", ".zip", ".pak", ".pk7", ".grp", ".rff", ".deh", ".iwad", ".ipk3". 
+   	1b)Add your iwad (original game) trough the "ADD" button in the IWAD section, you can add as many as you like, from any folder of your PC. 
+   	NOTE:If your game is not in the .wad format you'll need to change the filter in the file dialog to see it. 
+   	NOTE: If it does not follow the "IWAD 4 byte standard",a warning will pop-up,but you can still add it)
 2)Add your sourceports to the PORT folder inside the "FILE" folder next to "DML vX.X.exe" 
-2b)Add your sourceports trough the "ADD" button in the Source Port section.
+	2b)Add your sourceports trough the "ADD" button in the Source Port section.
 3)Select from the relative combobox the sourceport and the game you want to play. 
 4)Hit "PLAY".
-	NOTE: Your sourceport must be able to launch trough the "-iwad" parameter your original game in order to work. Not all sourceport may support all types of file supported by DML 2.X
+	NOTE: Your sourceport must be able to start using the "-iwad" parameter to set your original game in order to work. Note that not all sourceports may supports all types of file supported by DML 2.X
 
 -HOW TO PLAY WITH MODS:
 1)If you didn't have already, do step 1 to 3 of the previous how-to.
 2)Add your mods to the "PWAD" folder inside the "FILE" folder next to "DML vX.X.exe" 
-2b)Add your mods through the "Open file manager" button in the MODS section, you can add single file or whole folders (and also include subfolders), drag & drop is supported.
+	2b)Add your mods through the "Open file manager" button in the MODS section, you can add single file or whole folders (and also include subfolders), drag & drop is supported.
 3)Select them in the list on the left (click to select, click again to deselect)
 4)Hit "PLAY", if it's just 1 mod it will start right away, if are multiple mods a window will pop up, if so:
-4b)Change the mod loading order. You can use the "UP" and "DOWN" button or the up/down arrow keys on your keyboard to move by one position a mod. 
+	4b)Change the mod loading order. You can use the "UP" and "DOWN" button or the up/down arrow keys on your keyboard to move by one position a mod. 
 	NOTE: You can use the arrow key to move the selected mod up/down, the delete key to remove it and pageUp/pageDown (Or the combo CTRL + UP/DOWN arrows/buttons) to move it to the top or the bottom of the list.
 
 Files in the list will be loaded starting from the top, remember that each time a file is loaded it will replace any stuff loaded previously.
@@ -103,8 +115,8 @@ If you play many mods togheter, you can save them in a preset. Next time you wan
 6)Write a name for the preset
 7)Check any additional info you want to save with preset (IWAD, SOURCEPORT, ALTERNATIVE CONFIGURATION, RENDERER and COMMANDLINE)
 8)Click on "save as new..." if it's a new preset of you want to make a copy
-8b)Click on update if you want that any changes you made will overwrite the current preset data.
-8c)Click on "update and play" if you want to update the preset and launch the game right away.  
+	8b)Click on update if you want that any changes you made will overwrite the current preset data.
+	8c)Click on "update and play" if you want to update the preset and launch the game right away.  
 	NOTE: You can use the arrow key to move the selected mod up/down, the delete key to remove it and pageUp/pageDown (Or the combo CTRL + UP/DOWN arrows/buttons) to move it to the top or the bottom of the list.
 
 -HOW TO START FROM LEVEL X
@@ -117,17 +129,18 @@ If you're playng a custom iwad that does not follow neither of the previus schem
 The configuration files stores any settings of the sourceport. Sometimes can be useful to quick switch between the sourceport default one and another.  
 For example, I use the standard .ini in the sourceport folder to play modern-like doom mod, and i have an alternative .ini that i use to play classic doom mod.
 This can be useful also to share the same configuration between compatible sourceport.
+NOTE: Not all sourceport have this functionality.
 1)Again, If you don't have already, do step 1 to 3 of the first how-to.
 2)Tick the "Use alternative engine configuration file" in the alternative sourceport configuration file section.
 3)Add your configuration to the "PORT_CONFIG" folder inside the "FILE" folder next to "DML vX.X.exe" 
-3b)Add the alternative/s .ini o .cfg trough the "ADD" button.
+	3b)Add the alternative/s .ini o .cfg trough the "ADD" button. 
 (don't add the one in the same folder of the engine as it's already loaded by default, instead make a copy of it somewhere else and add that copy). 
 4)Select the one you want to use from the combobox. 
 5)Hit "play". Now any settings will be read and saved in that ini/cfg file. If you want to use again the original just untick the box.
 
 -HOW TO REMOVE STUFF?
 1)Select the item you want to remove from the combobox
-1b)Select the mod/s you want to remove from the list in the file manager
+	1b)Select the mod/s you want to remove from the list in the file manager
 2)Click "remove", a confirmation message will pop-up if you have DELETE/WARNING messages enabled.
 
 -HOW TO DISPLAY ALSO THE FOLDER IN WHICH THE FILE IS LOCATED OR THE FULL PATH TO THE MOD IN THE MOD LIST?
@@ -137,7 +150,7 @@ This can be useful also to share the same configuration between compatible sourc
 
 -HOW DO I ENABLE/DISABLE SOME OR ALL MESSAGE BOX?
 1)Click on "Preferences".
-2)Check/Uncheck all types of message you want/don't want to see. By default all type of message are enabled.
+2)Check/Uncheck all types of message you want/don't want to see. By default all type of messages are enabled.
 3)Click on "Save".
 
 -I USE SOMETHING LIKE 'BIND [KEY] "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X MY QUICKSAVE DISAPPEAR WHEN I RESTART GZDOOM!

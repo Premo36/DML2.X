@@ -160,11 +160,11 @@
             // chk_GZDOOM_QUICKSAVE_FIX
             // 
             this.chk_GZDOOM_QUICKSAVE_FIX.AutoSize = true;
-            this.chk_GZDOOM_QUICKSAVE_FIX.Location = new System.Drawing.Point(15, 181);
+            this.chk_GZDOOM_QUICKSAVE_FIX.Location = new System.Drawing.Point(12, 181);
             this.chk_GZDOOM_QUICKSAVE_FIX.Name = "chk_GZDOOM_QUICKSAVE_FIX";
-            this.chk_GZDOOM_QUICKSAVE_FIX.Size = new System.Drawing.Size(276, 17);
+            this.chk_GZDOOM_QUICKSAVE_FIX.Size = new System.Drawing.Size(291, 17);
             this.chk_GZDOOM_QUICKSAVE_FIX.TabIndex = 11;
-            this.chk_GZDOOM_QUICKSAVE_FIX.Text = "Workaround for \'BIND F6 \"save QUICKSAVE.ZDS\" \'";
+            this.chk_GZDOOM_QUICKSAVE_FIX.Text = "Workaround for \'BIND [KEY] \"save QUICKSAVE.ZDS\" \'";
             this.chk_GZDOOM_QUICKSAVE_FIX.UseVisualStyleBackColor = true;
             // 
             // Options
