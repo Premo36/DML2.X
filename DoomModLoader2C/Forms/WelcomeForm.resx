@@ -120,20 +120,23 @@
   <data name="textBox1.Text" xml:space="preserve">
     <value>Thank you for downloading Doom Mod Loader 2.X!
 
-PLEASE NOTE: This version is slighty modified in order to make it run under mono, the major difference is that the "Check for update" is not working in this version, so you'll have to check by yourself if a newer version is available
+====================================================WARNING====================================================
+This version is slighty modified in order to run under mono, the major difference is that the "Check for update" is not working in this version, so you'll have to check by yourself if a newer version is available.
+It was tested under Linux Mint 20.3 and Debian 11, but on Mac OS and other Linux distro it was NEVER tested.
+The workaround that makes 'bind [KEY] "save quicksave.zds" ' works properly it's only been implemented (and tested) for recent Gzdoom/Zandronum version on Windows/Linux. On Mac OS the workaorund will not work so do not enable it. 
+If you enable it on Mac OS will try to work using the linux locations and just do nothing or rise some sort of exception. 
+&gt;&gt;&gt;The mono version on Mac OS should be considered an alpha&lt;&lt;&lt;
+A proper Linux/Mac OS version is one of the key features I would like to implement in DML 3.X, but for now this mono-compatible edition is the best I can do.
+=================================================================================================================
 
 DML 2.X is an open source software licensed under the BSD 3.0 License. 
 You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the "README v2.5.txt" file.
 You can find the software's sourcecode and beta releases on github at https://github.com/Premo36/DML2.X . 
 
-This software will automatically checks for update everytime you open it and will notify you if a new version it's available for download. 
-Note that it will only checks for new STABLE releases, for the BETA releases you will have to check by yourself the releases on my github or keep an eye on my twitter (@p36software).
-You can disable this feature by un-tiking the check for update option.
-
 I designed this software to be user-friendly and straight-forward to use, but if you need help the "README v2.5.txt" file inlcuded with the software should answer most of your questions.
 If you can't find the answer you were looking for in the readme, want to report a bug, give me suggestions for new features or just let me know what you think about DML 2.X, feel free to write an email to support@p36software.net
 
-In order to use this software you have to accept both the BSD 3 license terms and, as it connects to my website to check for new versions, also my website privacy policy that you can read at https://p36software.net/privacy-policy
+In order to use this software you have to accept the BSD 3 license terms.
 
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
 -Website: https://p36software.net
