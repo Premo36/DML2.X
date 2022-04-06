@@ -897,7 +897,7 @@ namespace DoomModLoader2
                 }
                 else
                 {
-                    wads = cachedPWADs.Where(F => Path.GetExtension(F.path) == cmbFileFilter.Text).ToList();
+                    wads = cachedPWADs.Where(F => Path.GetExtension(F.path).ToUpper() == cmbFileFilter.Text.ToUpper()).ToList();
                 }
 
                 if (wads != null && wads.Count > 0)
