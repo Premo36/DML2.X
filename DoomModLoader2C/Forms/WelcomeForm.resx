@@ -156,7 +156,7 @@ If you enjoy the endless runner/ shoot'em up genres, check out Tank Rider, my ne
 https://p36software.net/projects/TankRider
 
 -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-DML current version:  2.5 (??/04/2022)
+DML current version:  2.5 (22/04/2022)
 NEW FEATURES:
 -Now it works under Linux/Mac trough mono (Be sure to have downloaded the mono version, the one with "mono" in the .exe name, and follow the instructions otherwise it will not work!)
 -The preset name it's now fully visible while browsing the preset list, no matter how long the preset is.
@@ -172,6 +172,7 @@ NEW FEATURES:
 BUGFIXES:
 -Fixed bug where the DMLv2.ini will store the whole path of the alternative sourceport configuration file instead of just the name, making DML 2.X not fully portable.
 -Fixed bug where the "please insert a preset name" error message had of a information icon instead of an error one.
+-Fixed bug where the mods list extension filter only showed matching file that had a lowercase extension. Now it shows all matches.
 
 NEW SETTINGS:
 -RENDERER2
@@ -182,7 +183,7 @@ NEW SETTINGS:
 
 As for this version, the only tested sourceport are:
 FULL COMPATIBILITY:
--GZdoom (v4.7.2), -height and -width do not work due to gzdoom way of handling resolution)
+-GZdoom (v4.7.1), -height and -width do not work due to gzdoom way of handling resolution)
 -LZdoom (v3.87c)
 -Zandronum (3.1)
 -Zdoom(2.8.1)

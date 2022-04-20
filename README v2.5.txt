@@ -1,12 +1,60 @@
 ﻿Thank you for downloading Doom Mod Loader version 2.5!
 If you're reading this file from the standard Windows notepad.exe you may want to enable Format->Word Wrap to avoid having to keep scrolling to the right.
 
--How to use the Windows version:
+============================CHANGELOG===========================
+(This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt . The number between parentheses is the issue number on the DML2.X github)
+[22/04/2022 | 2.5 ]
+NEW FEATURES:
+-Now it works under Linux/Mac trough mono (Be sure to have downloaded the mono version, the one with "mono" in the exe name, and follow the instructions otherwise it will not work!)
+-The preset name it's now fully visible while browsing the preset list, no matter how long the preset is (#13).
+-Mods list "Order By" value it's now kept between application launches (#8).
+-Preset order can now be changed via the software settings. Possible order are "Alphabetical - Ascending", "Alphabetical - Descending" , "Date - Ascending" and "Date - Descending" (#11).
+-Mods list can now also be ordered by "Date - Ascending" and "Date - Descending".
+-Added a workaround that mitigate the gzdoom bug where quicksave made with 'BIND [KEY] "SAVE QUICKSAVE.ZDS"' are saved in the wrong folder. Can be enabled in DML 2.X preferences. (Windows/Linux only) (#14) .
+-In the mod order window, the selected mod can now be pushed directly to the top/bottom of the list  also by using pageUP/pageDOWN (#19).
+-Now the mod that you always use can be placed in a preset and loaded automatically each time you play, just select the preset in the "autoload" combobox in the "Game" section of DML 2.X (#20).
+-Updated the renderer selection in order to work with the newest gzdoom releases(#21).
+-Added a monero address in the welcome/about windows and readme txt, in case anyone wants to donate.
+
+BUGFIXES:
+-Fixed bug where the DMLv2.ini will store the whole path of the alternative sourceport configuration file instead of just the name, making DML 2.X not fully portable (#9) .
+-Fixed bug where the "please insert a preset name" error message had of a information icon instead of an error one (#18).
+-Fixed bug where the mods list extension filter only showed matching file that had a lowercase extension. Now it shows all matches (#24).
+
+NEW SETTINGS:
+-RENDERER2
+-FILE_ORDER_BY
+-PRESET_ORDER
+-GZDOOM_QUICKSAVE_FIX
+-AUTOLOAD_PRESET
+
+As for this version, the only tested sourceport are:
+(Remember that as long as it follows the zdoom command line standard, any engine will work fine)
+FULL COMPATIBILITY:
+-GZdoom (v4.7.1), -height and -width do not work due to gzdoom way of handling resolution)
+-LZdoom (v3.87c)
+-Zandronum (3.1)
+-Zdoom(2.8.1)
+-QZDoom (2.1.0)
+-Skulltag(98d)
+
+PARTIAL COMPATIBILITY (Some DML features will not work):
+-Chocolate Doom (3.0.1)
+-PrBoom+ (2.6.2)
+===============================HOW TO RUN DML 2.X ON WINDOWS/LINUX/MAC===============================================
+
+-How to use the WINDOWS version:
+The lateset version as been tested only on Windows 10 (21H2), but it should still work under older Windows 10 version and even 8.1/7 (If fully up to date!).
+On XP it's not been tested, it should techincally work but you'll probably need install .net framework 3.5 manually, where the other os will do it for you automatically (after asking and if connected to the internet)
 You will need Microsoft .net framework version 3.5 in order to use Doom Mod Loader 2.X!
 If your system is up-to-date you should have it already.
 If you don't have it or you're unsure if you have it installed, be sure to be connected to the internet the first time you open DML 2.X, so that Windows can prompt you to install it if yout don't have it already.
+
 If you're on an older Windows version that does not automatically install it, you can find it here and install it manually:
 https://www.microsoft.com/en-us/download/details.aspx?id=21
+
+If the PC you wish to use DML 2.X cannot connect to the inernet, be sure to download the "Full Redistributable Package" that you'll find the link on the same page linked above under "Install Instructions".
+
 The 2.5 version as been tested only in Windows 10 (21H2) but it should still run also on older windows version, like 8.1 or 7.
 
 -How to use the mono version (Linux/Mac OS) 
@@ -22,18 +70,18 @@ For Ubuntu/Ubuntu-based distro (like Linux Mint) follow the Ubuntu instructions.
 For Debian/Debian-based distro (that are not Ubuntu/Ubuntu-based) follow the Debian instructions.
 For CentOS, Red Hat Entriprise Linux or distro based on those, follow the CentOS/RHES instructions (note that DML 2.5 mono as NEVER been tested under those OS).
 For Fedora/Fedora-based distro, you've guessed right! Follow the Fedora instructions. (note that DML 2.5 mono as NEVER been tested under Fedora).
-For Arch/Arch-based system, like Manjaro etc... the official mono project does not have official packages for those distro. You may find it something on your distro repos (note that DML 2.5 mono as NEVER been tested under Arch).  
+For Arch/Arch-based system, like Manjaro etc... the official mono project does not have official packages for those distro. You may find something on your distro repos (note that DML 2.5 mono as NEVER been tested under Arch).  
 
 If you're on a Mac OS system, the "mono-complete" package should be the only avaiable download for that platform. I call it "mono-complete" because on Linux it's modular.
 While DML 2.X under mono should work as well as on Linux, I couldn't test it myself as I don't own a mac. It's even more "as is" under that OS. I've never even had the possibility too boot it up on a Mac, let alone fix bugs.
 Also note that at 99.9% the 'Bind [KEY] "save quicksave.zds"' workaround will NOT work on Mac OS. 
 
-Once `mono-complete` is installed, you should be able to open DML 2.X by simply double-clicking on the `.exe`. If that does not work you may open it trough the console by navigating to the folder where the DML 2.X it's located, 
-writing `mono "DML v2.5 mono.exe"` (note that the .exe name will be different during the beta, you have to write the precise, full `.exe` name, writing "mono DML" and then pressing tab should autocomplete to the correct name) 
+Once `mono-complete` is installed, you should be able to open DML 2.X by simply double-clicking on the `.exe`. If that does not work you may open it trough your system terminal by navigating to the folder where the DML 2.X it's located, 
+writing `mono "DML v2.5 mono.exe"` (you have to write the precise, full `.exe` name, writing "mono DML" and then pressing tab should autocomplete to the correct name) 
 and pressing "enter" on your keyboard.
 
 This version of DML 2.X is a slighted different version from the windows one: All the core functionality works and, as a plus,it follows the user dark/light theme (On Linux at least), but it may have some minor graphical issues
-and the "check for update" functionality has been disabled as it would crash DML 2.X.
+and the "check for update" functionality has been disabled as it would just crash DML 2.X, and I didn't bother find a solution as this version should be the last of the 2.X era (excluding an eventual bugfix release of course)
 
 On Linux, to quickly found where a sourceport is installed (assuming you've installed trough your package manager) you can write in the console `whereis gzdoom` (where gzdoom is your sourceport name), which will output the path to the executable.
 
@@ -45,20 +93,7 @@ NOTE: The mono version may be less stable then the Windows one and if you use it
 3)Microsoft Net Framework 3.5 (On Windows) / Latest "mono-complete" package (Linux/Mac OS)
 
 
-As for this version, the only tested sourceport are:
-FULL COMPATIBILITY:
--GZdoom (v4.7.2), -height and -width do not work due to gzdoom way of handling resolution)
--LZdoom (v3.87c)
--Zandronum (3.1)
--Zdoom(2.8.1)
--QZDoom (2.1.0)
--Skulltag(98d)
 
-PARTIAL COMPATIBILITY (Some DML features will not work):
--Chocolate Doom (3.0.1)
--PrBoom+ (2.6.2)
-
-(As long as it follows the zdoom command line standard, any engine should work fine)
 ============================"HOW-TO" QUICK START GUIDE============================
 BEFORE YOU ADD ANY FILE:Starting from version 2.2, DML has become fully portable, meaning that you can also place your file in the relative subfolder inside the "FILE" folder next to "DML vX.X.exe" (X is the version number)  and they will be read. 
 Importing file trough the "ADD" buttons and the file manager it's still supported but you cant take advantage of the portability. 
@@ -180,32 +215,6 @@ In order to use it:
 If you do not want to autoload anything anymore, just select "-" in the autoplay field. You can make multiple autoload preset and switch between them.
 The only limitation is that you have to select at least 2 mod in order to make a preset, but you can always select a second random mod and then delete it from the preset from mod load order menu before saving it.
 You can add/remove mods and edit the preset as it was a normal preset. Keep in mind that only the mod list will be used by the autoload and all other stored data in the preset will be ignored. 
-============================CHANGELOG===========================
-(This is the latest changelog. You can read all changelogs here https://p36software.net/downloads/dml2/changelog.txt)
-[??/04/2022 | 2.5 ]
-NEW FEATURES:
--Now it works under Linux/Mac trough mono (Be sure to have downloaded the mono version, the one with "mono" in the exe name, and follow the instructions otherwise it will not work!)
--The preset name it's now fully visible while browsing the preset list, no matter how long the preset is (#13).
--Mods list "Order By" value it's now kept between application launches (#8).
--Preset order can now be changed via the software settings. Possible order are "Alphabetical - Ascending", "Alphabetical - Descending" , "Date - Ascending" and "Date - Descending" (#11).
--Mods list can now also be ordered by "Date - Ascending" and "Date - Descending".
--Added a workaround that mitigate the gzdoom bug where quicksave made with 'BIND [KEY] "SAVE QUICKSAVE.ZDS"' are saved in the wrong folder. Can be enabled in DML 2.X preferences. (Windows/Linux only) (#14) .
--In the mod order window, the selected mod can now be pushed directly to the top/bottom of the list  also by using pageUP/pageDOWN (#19).
--Now the mod that you always use can be placed in a preset and loaded automatically each time you play, just select the preset in the "autoload" combobox in the "Game" section of DML 2.X (#20).
--Updated the renderer selection in order to work with the newest gzdoom releases(#21).
--Added a monero address in the welcome/about windows and readme txt, in case anyone wants to donate.
-
-BUGFIXES:
--Fixed bug where the DMLv2.ini will store the whole path of the alternative sourceport configuration file instead of just the name, making DML 2.X not fully portable (#9) .
--Fixed bug where the "please insert a preset name" error message had of a information icon instead of an error one (#18).
-
-
-NEW SETTINGS:
--RENDERER2
--FILE_ORDER_BY
--PRESET_ORDER
--GZDOOM_QUICKSAVE_FIX
--AUTOLOAD_PRESET
 
 ===================INFO===================
 Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
