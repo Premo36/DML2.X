@@ -22,7 +22,7 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 </ul>
 
 # TESTED SOURCEPORTS (v2.5)
-####FULL COMPATIBILITY:
+#### FULL COMPATIBILITY:
 <ul>
 <li>GZdoom (v4.7.1), -height and -width do not work due to gzdoom way of handling resolution)</li>
 <li>LZdoom (v3.87c)</li>
@@ -32,7 +32,7 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <li>Skulltag(98d)</li>
 </ul>
 
-####PARTIAL COMPATIBILITY (Some DML features will not work):
+#### PARTIAL COMPATIBILITY (Some DML features will not work):
 <ul>
 <li>Chocolate Doom (3.0.1)</li>
 <li>PrBoom+ (2.6.2)</li>
