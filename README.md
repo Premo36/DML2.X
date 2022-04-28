@@ -44,12 +44,12 @@ You can use the DML 2.X source code in any way you like as long as you follow th
 # DOWNLOADS
 <p>(Need <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work)</p>
 
-<p>You can read stuff about the 2.5 version and the future of the project <a href="https://www.moddb.com/mods/doom-mod-loader/news/doom-mod-loader-v25-is-out-now-also-for-linux-mac-os">here on moddb</a></p>
+<p>You can read stuff about the 2.5 version and the future of the project <a href="https://www.moddb.com/mods/doom-mod-loader/news/doom-mod-loader-v25-is-out-now-also-for-linux-mac-os">here on moddb</a>.</p>
 
-<p>You can find the latest windows stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.5-windows">here on github</a> and on ModDB:</p>
+<p>You can find the latest Windows stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.5-windows">here on github</a> and on ModDB:</p>
 <p><a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v25-windows" title="Download Doom Mod Loader v2.5 (Windows) - Mod DB" target="_blank"><img src="https://button.moddb.com/download/medium/231407.png" alt="Doom Mod Loader v2.5 (Windows)" /></a></p>
 
-<p>You can find the latest Linux/MacOS (Mono) stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.5-mono">here on github</a> and on ModDB:</p>
+<p>You can find the latest Linux/MacOS (Mono) stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.5-mono">here on github</a>.</p>
 
 <p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/rating/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
 <p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/popularity/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
