@@ -38,6 +38,14 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <li>PrBoom+ (2.6.2)</li>
 </ul>
 
+# WORKAROUDS FOR KNOWN ISSUE:
+<strong>Q:</strong> I use a custom save function like 'BIND [KEY] "save QUICKSAVE.ZDS" '" in order to save my game in gzdoom/zandronum, but after I exit the game my save is gone! </br>
+<strong>A:</strong> Your save is not gone, it's just saved in the wrong folder due to a weird behavior of gzdoom (or Zandronum) when you save a game this way while you started the sourceport from DML 2.X. Your missing save is in the same folder as the DML 2.X exe in Windows or in your "home" folder in Linux, move it to where your sourceport usually store your saves and then follow <a href="https://github.com/Premo36/DML2.X/issues/14#issuecomment-1066148267">this steps</a> so you dont have to always manually move the saves.<br><br>
+<strong>Q:</strong> I use woof! on Windows as a sourceport but when I start it through DML 2.X using the fluidsinth backend I get an error and it reset to the system default one.</br>
+<strong>A:</strong> Follow the workaround section <a href="https://github.com/Premo36/DML2.X/issues/28">here</a>. Please also note that woof! it's not a sourceport that I personally tested, although it seems to work good enough to be considered partially compatible, it's not officially supported for the time being.<br><br>
+Take a look to the readme .txt bundled with DML 2.X for more Q/A.
+
+
 # LICENSE
 You can use the DML 2.X source code in any way you like as long as you follow the <a href ="https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt"> BSD 3-Clause "New" or "Revised" License</a> terms.
 
