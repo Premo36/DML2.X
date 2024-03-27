@@ -85,6 +85,10 @@ namespace DoomModLoader2
 
         }
 
+        private bool WasStartedSuccessfullyFromCli()
+        {
+            return cliEventArgs != null && cliEventArgs.GetType() == typeof(CliEventArgs);
+        }
 
 
         private void FormMod_Load(object sender, EventArgs e)
@@ -94,7 +98,7 @@ namespace DoomModLoader2
 
             UpdatePresetNameLabel(presetName);
 
-            if (cliEventArgs != null && cliEventArgs.GetType() == typeof(CliEventArgs))
+            if (WasStartedSuccessfullyFromCli())
             {
                 cmdPlay_Click(this, e);
             }
@@ -158,7 +162,11 @@ namespace DoomModLoader2
             pro.StartInfo.FileName = sourcePort.path;
             pro.Start();
 
-
+            pro.WaitForExit();
+            if (WasStartedSuccessfullyFromCli())
+            {
+                Environment.Exit(0);
+            }
         }
 
         /// <summary>
