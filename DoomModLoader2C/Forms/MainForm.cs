@@ -54,6 +54,7 @@ namespace DoomModLoader2
     /// </summary>
     public partial class MainForm : Form
     {
+        private string[] cmdLineArgs;
 
         private string dmlConfigPath;
         private string userFiles_path;
@@ -99,9 +100,10 @@ namespace DoomModLoader2
         }
 
         #region FORM 
-        public MainForm()
+        public MainForm(string[] args)
         {
             InitializeComponent();
+            cmdLineArgs = args;
         }
 
         private void MainForm_Load(object sender, EventArgs e)
@@ -176,7 +178,7 @@ namespace DoomModLoader2
 
                     PathName config = (PathName)(chkCustomConfiguration.Checked == true ? cmbPortConfig.SelectedItem : null);
 
-                    using (FormMod formMod = new FormMod(foldPRESET, (PathName)cmbIWAD.SelectedItem, vidRendermode, config, saveWithPreset, txtCommandLine.Text, param, vidPreferbackend))
+                    using (FormMod formMod = new FormMod(e, foldPRESET, (PathName)cmbIWAD.SelectedItem, vidRendermode, config, saveWithPreset, txtCommandLine.Text, param, vidPreferbackend))
                     {
 
                         foreach (PathName p in items)
@@ -1976,11 +1978,38 @@ namespace DoomModLoader2
             presets = presets.OrderFile(SharedVar.PRESET_ORDER);
             presets.Insert(0, none);
             cmbPreset.DataSource = presets;
-            cmbPreset.SelectedItem = currentPreset;
+            if (cmdLineArgs.Length == 1)
+            {
+                StartGameFromCmdLinePreset(cmdLineArgs[0], presets);
+            } 
+            else
+            {
+                cmbPreset.SelectedItem = currentPreset;
+            }            
         }
 
+        /// <summary>
+        /// Start the game using the preset given on the command line.
+        /// </summary>
+        /// <param name="cmdLinePresetName">The preset to use, passed as a command line arg.</param>
+        /// <param name="presets">The known presets.</param>
+        private void StartGameFromCmdLinePreset(string cmdLinePresetName, List<PathName> presets)
+        {
+            PathName cmdLinePresetToPlay = presets.Find(item => item.name == cmdLinePresetName);
+            if (cmdLinePresetToPlay != null)
+            {
+                cmbPreset.SelectedItem = cmdLinePresetToPlay;
+                cmdPlay_Click(this, new CliEventArgs());
+            }
+            else
+            {
+                StringBuilder error = new StringBuilder();
+                error.AppendLine("Cannot find preset " + cmdLinePresetName);
+                error.AppendLine("Please fix commandline invocation.");
 
-
+                MessageBox.Show(error.ToString(), "ERROR", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
 
         private void OnSourceportClosed(string sppath)
         {

@@ -60,6 +60,7 @@ namespace DoomModLoader2
         public List<PathName> pwads;
         public PathName sourcePort;
 
+        private EventArgs cliEventArgs;
         private PathName IWAD { get; }
         private PathName config { get; }
         private string presetPath { get; }
@@ -68,9 +69,10 @@ namespace DoomModLoader2
         private List<string> saveWithPreset;
         private string commandLine { get; }
 
-        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> vidRendermode, PathName config, List<string> saveWithPreset, string commandLine, string parameters, KeyValuePair<int, string> vidPreferbackend)
+        public FormMod(EventArgs cliEventArgs, string presetPath, PathName IWAD, KeyValuePair<int, string> vidRendermode, PathName config, List<string> saveWithPreset, string commandLine, string parameters, KeyValuePair<int, string> vidPreferbackend)
         {
             InitializeComponent();
+            this.cliEventArgs = cliEventArgs;
             this.presetPath = presetPath;
             this.config = config;
             this.IWAD = IWAD;
@@ -92,6 +94,10 @@ namespace DoomModLoader2
 
             UpdatePresetNameLabel(presetName);
 
+            if (cliEventArgs != null && cliEventArgs.GetType() == typeof(CliEventArgs))
+            {
+                cmdPlay_Click(this, e);
+            }
         }
 
 
@@ -128,7 +134,7 @@ namespace DoomModLoader2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void cmdPlay_Click(object sender, EventArgs e)
+        public void cmdPlay_Click(object sender, EventArgs e)
         {
             string files = string.Empty;
             foreach (PathName p in lstPwad.Items)
