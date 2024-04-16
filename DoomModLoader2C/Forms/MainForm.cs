@@ -139,6 +139,11 @@ namespace DoomModLoader2
             {
                 CheckForUpdate(true);
             }
+
+            if (cmdLineArgs.Length == 1)
+            {
+                StartGameFromCmdLinePreset(cmdLineArgs[0], (List<PathName>)cmbPreset.DataSource);
+            }
         }
 
         /// <summary>
@@ -1978,14 +1983,7 @@ namespace DoomModLoader2
             presets = presets.OrderFile(SharedVar.PRESET_ORDER);
             presets.Insert(0, none);
             cmbPreset.DataSource = presets;
-            if (cmdLineArgs.Length == 1)
-            {
-                StartGameFromCmdLinePreset(cmdLineArgs[0], presets);
-            } 
-            else
-            {
-                cmbPreset.SelectedItem = currentPreset;
-            }            
+            cmbPreset.SelectedItem = currentPreset;
         }
 
         /// <summary>

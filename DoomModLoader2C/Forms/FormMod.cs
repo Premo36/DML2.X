@@ -162,7 +162,6 @@ namespace DoomModLoader2
             pro.StartInfo.FileName = sourcePort.path;
             pro.Start();
 
-            pro.WaitForExit();
             if (WasStartedSuccessfullyFromCli())
             {
                 Environment.Exit(0);
