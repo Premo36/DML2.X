@@ -138,7 +138,7 @@ namespace DoomModLoader2
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void cmdPlay_Click(object sender, EventArgs e)
+        private void cmdPlay_Click(object sender, EventArgs e)
         {
             string files = string.Empty;
             foreach (PathName p in lstPwad.Items)
@@ -162,7 +162,7 @@ namespace DoomModLoader2
             pro.StartInfo.FileName = sourcePort.path;
             pro.Start();
 
-            if (WasStartedSuccessfullyFromCli())
+            if (!SharedVar.GZDOOM_QUICKSAVE_FIX && WasStartedSuccessfullyFromCli())
             {
                 Environment.Exit(0);
             }
@@ -347,6 +347,10 @@ namespace DoomModLoader2
                     File.Delete(Path.Combine(savepath, quicksaveName));
                     File.Move(quicksave, Path.Combine(savepath, quicksaveName));
                 }
+            }
+
+            if (WasStartedSuccessfullyFromCli()) { 
+                Environment.Exit(0); 
             }
         }
     }
