@@ -60,6 +60,7 @@ namespace DoomModLoader2
         public List<PathName> pwads;
         public PathName sourcePort;
 
+        private EventArgs cliEventArgs;
         private PathName IWAD { get; }
         private PathName config { get; }
         private string presetPath { get; }
@@ -68,9 +69,10 @@ namespace DoomModLoader2
         private List<string> saveWithPreset;
         private string commandLine { get; }
 
-        public FormMod(string presetPath, PathName IWAD, KeyValuePair<int, string> vidRendermode, PathName config, List<string> saveWithPreset, string commandLine, string parameters, KeyValuePair<int, string> vidPreferbackend)
+        public FormMod(EventArgs cliEventArgs, string presetPath, PathName IWAD, KeyValuePair<int, string> vidRendermode, PathName config, List<string> saveWithPreset, string commandLine, string parameters, KeyValuePair<int, string> vidPreferbackend)
         {
             InitializeComponent();
+            this.cliEventArgs = cliEventArgs;
             this.presetPath = presetPath;
             this.config = config;
             this.IWAD = IWAD;
@@ -83,6 +85,10 @@ namespace DoomModLoader2
 
         }
 
+        private bool WasStartedSuccessfullyFromCli()
+        {
+            return cliEventArgs != null && cliEventArgs.GetType() == typeof(CliEventArgs);
+        }
 
 
         private void FormMod_Load(object sender, EventArgs e)
@@ -92,6 +98,10 @@ namespace DoomModLoader2
 
             UpdatePresetNameLabel(presetName);
 
+            if (WasStartedSuccessfullyFromCli())
+            {
+                cmdPlay_Click(this, e);
+            }
         }
 
 
@@ -152,7 +162,10 @@ namespace DoomModLoader2
             pro.StartInfo.FileName = sourcePort.path;
             pro.Start();
 
-
+            if (!SharedVar.GZDOOM_QUICKSAVE_FIX && WasStartedSuccessfullyFromCli())
+            {
+                Environment.Exit(0);
+            }
         }
 
         /// <summary>
@@ -334,6 +347,10 @@ namespace DoomModLoader2
                     File.Delete(Path.Combine(savepath, quicksaveName));
                     File.Move(quicksave, Path.Combine(savepath, quicksaveName));
                 }
+            }
+
+            if (WasStartedSuccessfullyFromCli()) { 
+                Environment.Exit(0); 
             }
         }
     }

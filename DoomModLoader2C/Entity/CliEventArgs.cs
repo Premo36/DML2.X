@@ -1,4 +1,4 @@
-﻿// Copyright (c) 2016 - 2022, Matteo Premoli (P36 Software)
+﻿// Copyright (c) 2016 - 2024, Matteo Premoli (P36 Software)
 // All rights reserved.
 
 #region LICENSE
@@ -36,41 +36,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 #endregion
 
 using System;
-using System.Threading;
-using System.Windows.Forms;
 
-namespace DoomModLoader2
+namespace DoomModLoader2.Entity
 {
-    static class Program
+    /// <summary>
+    /// Marker event type to indicate CLI startup.
+    /// </summary>
+    class CliEventArgs : EventArgs
     {
-        /// <summary>
-        /// Application start point
-        /// </summary>
-        [STAThread]
-        static void Main(string[] args)
-        {
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new MainForm(args));
-
-
-        }
-
-        //Handling for unhandled exception 
-        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
-        {
-            MessageBox.Show("Sorry, an unexpected error occured... the software will close." + Environment.NewLine +
-                                "ERROR MESSAGE: " + e.Exception.ToString() + Environment.NewLine +
-                                $"Please send an email to 'support@p36software.net' with object 'DML {SharedVar.LOCAL_VERSION} unexpected error'. In the mail write the error message, and how to recreate it. Thank you!");
-            Environment.Exit(-1);
-        }
-
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
-        {
-            MessageBox.Show("Sorry, an unexpected error occured... the software will close.");
-            Environment.Exit(-1);
-        }
     }
 }

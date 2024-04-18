@@ -224,7 +224,7 @@ namespace DoomModLoader2.Forms
                     //If i've changed the preset name, and there is already a preset with the same name, if the user want this kind of message to be displayed, it will get a warning.
                     if (File.Exists(path))
                     {
-                        if (!name.ToUpper().Equals(presetName.ToUpper()) && SharedVar.SHOW_OVERWRITE_MESSAGE)
+                        if (!name.ToUpper().Equals(presetName?.ToUpper()) && SharedVar.SHOW_OVERWRITE_MESSAGE)
                         {
                             answer = MessageBox.Show("A preset named '" + Path.GetFileNameWithoutExtension(path) + "' already exists." + Environment.NewLine +
                                                      "Do you want to overwrite it?", "WARNING", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
