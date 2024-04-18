@@ -64,6 +64,9 @@ You can use the DML 2.X source code in any way you like as long as you follow th
 <p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/popularity/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
 <p>You can find the beta releases <a href ="https://github.com/Premo36/DML2.X/releases">here on github</a>.</p>
 
+# CREDITS
+See <a href="https://github.com/Premo36/DML2.X/blob/master/CREDITS.md">CREDITS.md</a>
+
 # DONATE
 If you like my work and you would like to support me, you can send monero to this address:
 ```
