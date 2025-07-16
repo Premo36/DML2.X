@@ -21,10 +21,10 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <li>Use an alternative sourceport .ini file without the need of swapping them manually.</li>
 </ul>
 
-# TESTED SOURCEPORTS (v2.5)
+# TESTED SOURCEPORTS (v2.6)
 #### FULL COMPATIBILITY:
 <ul>
-<li>GZdoom (v4.7.1), -height and -width do not work due to gzdoom way of handling resolution)</li>
+<li>GZdoom (v4.14), -height and -width do not work due to gzdoom way of handling resolution)</li>
 <li>LZdoom (v3.87c)</li>
 <li>Zandronum (3.1)</li>
 <li>Zdoom(2.8.1)</li>
@@ -77,7 +77,6 @@ NOTE: Donation will NEVER be required, but are more than welcome ;) Don't worry 
 # CONTACTS
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:<br>
 🔗 Website: <a href="https://p36software.net">https://p36software.net</a> <br>
-✉ Support e-mail: <a href="mailto:support@p36software.net">support@p36software.net</a> (for reporting bug/give feedback/ask for help)  <br>
 ✉ Info e-mail: <a href="mailto:info@p36software.net">info@p36software.net</a> (for anything else) <br>
 🐦 Twitter: <a href="https://twitter.com/p36software">https://twitter.com/p36software</a> (@p36software, gets updated more often)  <br>
 📄 Github: <a href="https://github.com/Premo36">https://github.com/Premo36 </a><br>

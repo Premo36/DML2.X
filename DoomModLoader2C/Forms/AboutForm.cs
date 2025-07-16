@@ -38,7 +38,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Diagnostics;
 using System.Windows.Forms;
-
+using System.Drawing;
 namespace DoomModLoader2
 {
     /// <summary>
@@ -49,12 +49,10 @@ namespace DoomModLoader2
         public AboutForm()
         {
             InitializeComponent();
+            _ = this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             txtInfo.Text = txtInfo.Text.Replace("{LOCAL_VERSION}", SharedVar.LOCAL_VERSION);
             txtInfo.Text = txtInfo.Text.Replace("{CURRENT_YEAR}", DateTime.Today.Year.ToString());
-
-
-            
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

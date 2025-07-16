@@ -44,7 +44,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Media;
-using System.Timers;
+using System.Drawing;
 using System.Windows.Forms;
 
 namespace DoomModLoader2
@@ -72,6 +72,7 @@ namespace DoomModLoader2
         public FormMod(EventArgs cliEventArgs, string presetPath, PathName IWAD, KeyValuePair<int, string> vidRendermode, PathName config, List<string> saveWithPreset, string commandLine, string parameters, KeyValuePair<int, string> vidPreferbackend)
         {
             InitializeComponent();
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             this.cliEventArgs = cliEventArgs;
             this.presetPath = presetPath;
             this.config = config;

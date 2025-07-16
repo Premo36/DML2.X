@@ -42,6 +42,7 @@ using System.IO;
 using System.Net;
 using System.Text;
 using System.Windows.Forms;
+using System.Drawing;
 
 namespace DoomModLoader2
 {
@@ -57,6 +58,7 @@ namespace DoomModLoader2
         public VersionForm()
         {
             InitializeComponent();
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
 
         }
@@ -99,8 +101,10 @@ namespace DoomModLoader2
                 serverVersion = info["version"];
                 lblServerVersion.Text = serverVersion;
                 urlDownloadChangeLog = info["url_changelog"].Replace(@"\", @"").Replace(@"\", @""); ;
-                urlDownloadLatestVersion = info["url_download_page"].Replace(@"\", @"").Replace(@"\", @""); ;
+                urlDownloadLatestVersion = info["url_download_page"].Replace(@"\", @"").Replace(@"\", @"");
 
+                ToolTip toolTip1 = new ToolTip();
+                toolTip1.SetToolTip(cmdOpenDownload, $"Open {urlDownloadLatestVersion}");
             }
 
             return serverVersion;

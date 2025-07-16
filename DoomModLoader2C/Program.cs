@@ -54,9 +54,8 @@ namespace DoomModLoader2
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new MainForm(args));
-
-
         }
+
 
         //Handling for unhandled exception 
         static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
@@ -69,8 +68,9 @@ namespace DoomModLoader2
 
         static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            MessageBox.Show("Sorry, an unexpected error occured... the software will close.");
+            MessageBox.Show("Sorry, an unexpected error occured... the software will close." + e.ExceptionObject);
             Environment.Exit(-1);
         }
+
     }
 }
