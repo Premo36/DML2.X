@@ -53,6 +53,7 @@ namespace DoomModLoader2
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
             txtInfo.Text = txtInfo.Text.Replace("{LOCAL_VERSION}", SharedVar.LOCAL_VERSION);
             txtInfo.Text = txtInfo.Text.Replace("{CURRENT_YEAR}", DateTime.Today.Year.ToString());
+            lblMono.Text = lblMono.Text.Replace("{isMono}", SharedVar.IS_RUNNING_UNDER_MONO.ToString());
         }
 
         private void pictureBox2_Click(object sender, EventArgs e)

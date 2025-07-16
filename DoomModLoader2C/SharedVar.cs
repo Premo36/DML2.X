@@ -59,7 +59,7 @@ namespace DoomModLoader2
         public static order PRESET_ORDER { get; set; } = order.NAME_ASCENDING;
         public static bool GZDOOM_QUICKSAVE_FIX { get; set; } = false;
 
-        //public static bool IS_RUNNING_UNDER_MONO { get; } = Type.GetType("Mono.Runtime") != null; TODO MP: CHECK IF WORKING, LEAVE COMMENTED IF IT IS BUT UNEEDED, DELETE IF NOT WORKING
+        public static bool IS_RUNNING_UNDER_MONO { get; } = Type.GetType("Mono.Runtime") != null;
        
     }
 }
