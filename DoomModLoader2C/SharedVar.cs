@@ -43,7 +43,7 @@ namespace DoomModLoader2
     /// </summary>
     public static class SharedVar
     {
-        public static string LOCAL_VERSION { get; } = "2.6 - Beta #2";
+        public static string LOCAL_VERSION { get; } = "2.6";
         public static string CONFIG_VERSION { get; set; }
         public static bool CHECK_FOR_UPDATE { get; set; }
         public static string UrlVersion { get; } = @"https://p36software.net/downloads/download_page.php?id=DML2&toJSON";

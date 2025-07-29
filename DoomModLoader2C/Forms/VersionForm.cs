@@ -38,11 +38,12 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.IO;
 using System.Net;
+using System.Security;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing;
 
 namespace DoomModLoader2
 {
@@ -58,9 +59,9 @@ namespace DoomModLoader2
         public VersionForm()
         {
             InitializeComponent();
+            cmdOpenDownload.Enabled = false;
             this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             this.Text += " - DML v" + SharedVar.LOCAL_VERSION;
-
         }
 
         /// <summary>
@@ -69,7 +70,13 @@ namespace DoomModLoader2
         /// <returns></returns>
         public bool isLatestVersion()
         {
-            return GetLatestVersionInfo().Equals(SharedVar.LOCAL_VERSION) ? true : false;
+            string latestVersion = GetLatestVersionInfo();
+            
+            //If latest version == ??? it means that for any reason, we couldn't fetch the last public version, so we return true.
+            if (latestVersion == "???")
+                return true;
+            
+            return latestVersion.Equals(SharedVar.LOCAL_VERSION) ? true : false;
         }
 
         /// <summary>
@@ -79,36 +86,111 @@ namespace DoomModLoader2
         /// <returns></returns>
         private string GetLatestVersionInfo()
         {
-
-            string serverVersion ="";
-            lblServerVersion.Text = "???";
-           
-
-            using (WebClient wc = new WebClient())
+            string serverVersion = "???";
+            lblServerVersion.Text = serverVersion;
+            cmdOpenDownload.Enabled = false;
+            try
             {
-                string json = wc.DownloadString(SharedVar.UrlVersion);
+                using (WebClient wc = new WebClient())
+                {
+                    string json = wc.DownloadString(SharedVar.UrlVersion);
 
-                json = json.Replace("{", "");
-                json = json.Replace("}", "");
-                json = json.Replace("\"", "");
+                    json = json.Replace("{", "");
+                    json = json.Replace("}", "");
+                    json = json.Replace("\"", "");
 
 
-                string[] versionInfo = json.Split(',');
+                    string[] versionInfo = json.Split(',');
 
-                Dictionary<string, string> info = new Dictionary<string, string>();
-                info = versionInfo.ToKeyValueDictionary();
+                    Dictionary<string, string> info = new Dictionary<string, string>();
+                    info = versionInfo.ToKeyValueDictionary();
 
-                serverVersion = info["version"];
-                lblServerVersion.Text = serverVersion;
-                urlDownloadChangeLog = info["url_changelog"].Replace(@"\", @"").Replace(@"\", @""); ;
-                urlDownloadLatestVersion = info["url_download_page"].Replace(@"\", @"").Replace(@"\", @"");
 
-                ToolTip toolTip1 = new ToolTip();
-                toolTip1.SetToolTip(cmdOpenDownload, $"Open {urlDownloadLatestVersion}");
+                    if (!info.ContainsKey("version") ||
+                        !info.ContainsKey("url_changelog") ||
+                        !info.ContainsKey("url_download_page"))
+                    {
+                        throw new FormatException("Incomplete version data from server.");
+                    }
+
+                    //This is required due to me messing up the url escaping in the json...
+                    string tmpUrlChangelog = info["url_changelog"]?.Replace(@"\/", "/").Replace(@"\\", @"\");
+                    string tmpUrlDownloadPage = info["url_download_page"]?.Replace(@"\/", "/").Replace(@"\\", @"\");
+
+             
+
+                    // Validate URLs
+                    if (!IsValidHttpsUrl(tmpUrlChangelog))
+                        throw new UriFormatException("Invalid 'url_changelog' URL\nPlease send an email at info@p36software.net");
+
+                    if (!IsValidHttpsUrl(tmpUrlDownloadPage))
+                        throw new UriFormatException("Invalid 'url_download_page' URL\nPlease send an email at info@p36software.net");
+
+                    // Restrict to p36software domains
+                    if (!IsTrustedHost(tmpUrlChangelog))
+                        throw new SecurityException("'url_changelog' host is not from p36software.net.\nPlease send an email at info@p36software.net");
+
+                    if (!IsTrustedHost(tmpUrlDownloadPage))
+                        throw new SecurityException("'url_download_page' host is not from p36software.net\nPlease send an email at info@p36software.net");
+
+                    serverVersion = info["version"];
+                    lblServerVersion.Text = serverVersion;
+                    urlDownloadChangeLog = tmpUrlChangelog;
+                    urlDownloadLatestVersion = tmpUrlDownloadPage;
+
+                    if (!string.IsNullOrEmpty(urlDownloadLatestVersion))
+                    {
+                        ToolTip toolTip1 = new ToolTip();
+                        toolTip1.SetToolTip(cmdOpenDownload, "Open " + urlDownloadLatestVersion);
+                        cmdOpenDownload.Enabled = true;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error checking for update:\n" + ex.Message,
+                                "Update Error",
+                                MessageBoxButtons.OK,
+                                MessageBoxIcon.Warning);
+                
             }
 
             return serverVersion;
         }
+
+     
+
+        //Check if url is https
+        private bool IsValidHttpsUrl(string url)
+        {
+            Uri uriResult;
+            return Uri.TryCreate(url, UriKind.Absolute, out uriResult)
+                   && uriResult.Scheme == Uri.UriSchemeHttps;
+        }
+
+        //Check if url is from a p36software.net domain
+        private bool IsTrustedHost(string url)
+        {
+            Uri uriResult;
+            if (!Uri.TryCreate(url, UriKind.Absolute, out uriResult))
+                return false;
+
+            // Whitelist p36software domains
+            string[] trustedHosts = new string[]
+            {
+                "p36software.net",
+                "www.p36software.net"
+            };
+
+            foreach (string host in trustedHosts)
+            {
+                if (uriResult.Host.Equals(host, StringComparison.OrdinalIgnoreCase))
+                    return true;
+            }
+
+            return false;
+        }
+
 
         private void VersionForm_Load(object sender, EventArgs e)
         {
@@ -166,7 +248,21 @@ namespace DoomModLoader2
         /// <param name="e"></param>
         private void cmdOpenDownload_Click(object sender, EventArgs e)
         {
-            Process.Start(urlDownloadLatestVersion);
+            try
+            {
+                if (!string.IsNullOrEmpty(urlDownloadLatestVersion) && IsValidHttpsUrl(urlDownloadLatestVersion) && IsTrustedHost(urlDownloadLatestVersion))
+                {
+                    Process.Start(urlDownloadLatestVersion);
+                }
+                else
+                {
+                    MessageBox.Show("Download link is either empty, invalid or untrusted.\nPlease send an email at info@p36software.net", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Failed to open browser: " + ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
