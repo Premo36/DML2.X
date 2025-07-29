@@ -26,7 +26,7 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <ul>
 <li>GZdoom (v4.14), -height and -width do not work due to gzdoom way of handling resolution)</li>
 <li>LZdoom (v3.87c)</li>
-<li>Zandronum (3.1)</li>
+<li>Zandronum (3.2)</li>
 <li>Zdoom(2.8.1)</li>
 <li>QZDoom (2.1.0)</li>
 <li>Skulltag(98d)</li>
@@ -37,6 +37,10 @@ It's the revamped and updated <strong>C#</strong> version of the <a href="https:
 <li>Chocolate Doom (3.0.1)</li>
 <li>PrBoom+ (2.6.2)</li>
 </ul>
+
+# HELP!
+Take a look at [HELP.txt](HELP.txt), it's a comprehensive guide that should answer to most of your question.  
+An offline version of this file is included with your dml download.
 
 # WORKAROUDS FOR KNOWN ISSUE:
 <strong>Q:</strong> I use a custom save function like 'BIND [KEY] "save QUICKSAVE.ZDS" '" in order to save my game in gzdoom/zandronum, but after I exit the game my save is gone! </br>
@@ -66,13 +70,6 @@ You can use the DML 2.X source code in any way you like as long as you follow th
 
 # CREDITS
 See <a href="https://github.com/Premo36/DML2.X/blob/master/CREDITS.md">CREDITS.md</a>
-
-# DONATE
-If you like my work and you would like to support me, you can send monero to this address:
-```
-83XoYbCK9bZLF93kvY3RVHfWRtnLZAjLELUCP1foBMqoRi6zKF8NKXzTH2CobxvoZyREPcfgb6WwVaAu36iZDM72PYh2TCM
-```
-NOTE: Donation will NEVER be required, but are more than welcome ;) Don't worry if you can't/don't want to donate as it will not change the way I work. I would not make my software open source if I just wanted to profit from it.
 
 # CONTACTS
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:<br>

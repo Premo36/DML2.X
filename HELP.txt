@@ -1,0 +1,265 @@
+Thank you for downloading Doom Mod Loader version 2.6!
+If you're reading this file with Windows Notepad, enable Format > Word Wrap to avoid scrolling horizontally.
+
+============================ CHANGELOG ============================
+(This is the latest changelog. Full history: https://p36software.net/downloads/dml2/changelog.txt - numbers in parentheses refer to GitHub issues)
+
+[31/07/2025 | v2.6]
+New Features:
+- Start a preset directly by passing its name as a command-line argument to the DML executable. This allows creating desktop shortcuts that launch specific presets. (#29 – thanks to @StephenChamberlain)
+- New version notification system now works under Mono. (#37)
+
+Bug Fixes:
+- Fixed potential security issues in the version notification system.
+
+Other:
+- Removed support email; use info@p36software.net for all contact. (#39)
+- Removed Tank Rider links. (#38 – see GitHub for details)
+- General improvements to help texts.
+
+PARTIAL COMPATIBILITY (Some features may not work):
+- Chocolate Doom (3.0.1)
+- PrBoom+ (2.6.2)
+
+===================== HOW TO RUN DML 2.X ON WINDOWS / LINUX / MAC =====================
+
+-- WINDOWS --
+Tested on Windows 10 (21H2). Should also work on older Windows 10 versions and on Windows 8.1 / 7 (if fully updated).
+On Windows XP, it might work, but you'll likely need to manually install .NET Framework 3.5.
+
+You must have Microsoft .NET Framework 3.5 to run Doom Mod Loader 2.X. If your system is up to date, it’s probably already installed.
+If not, or if you’re unsure, make sure you're connected to the internet the first time you run DML 2.X so Windows can prompt for installation.
+
+Manual download link:
+https://www.microsoft.com/en-us/download/details.aspx?id=21
+
+For offline systems, download the “Full Redistributable Package” found under “Install Instructions” on that page.
+
+-- LINUX / MAC (via Mono) --
+Mono is an open-source implementation of Microsoft’s .NET Framework.
+To use DML 2.X on Linux or macOS, install the latest stable version of `mono-complete` using instructions from:
+https://www.mono-project.com/download/stable/
+
+Linux Notes:
+- You can install from your distro’s repositories, but those packages are often outdated. Use the Mono website’s guide instead.
+- Tested on Linux Mint 20.3, Debian 11 and PopOS! 22.04. Should work fine on any Debian-based distro.
+- Follow distro-specific install instructions:
+  Ubuntu-based distros (like Mint): use Ubuntu guide
+  Debian-based (non-Ubuntu): use Debian guide
+  Fedora, RHEL, CentOS, Arch, etc.: follow their specific instructions (note: DML is NOT tested on these).
+- On Linux, If you're using a dark theme it might start with a sort of "automatic dark mode" that I did not code in, so some text might be hard to read. 
+  If that the case, prepend GTK_DATA_PREFIX= to the console command. 
+  For example: 
+      GTK_DATA_PREFIX= mono DML_v2.6.exe
+
+Mac Notes:
+- Only `mono-complete` is available.
+- DML should work under Mono, but it's untested on macOS. Functionality is "as-is". I don’t own a Mac and haven’t been able to test or fix anything for that platform.
+- At 99.9% certainty, the workaround for `bind [KEY] "save quicksave.zds"` will NOT work on macOS.
+
+Running DML under Mono:
+1. Open a terminal and navigate to the folder containing DML.
+2. Run:
+   mono DML_v2.6.exe
+   (Use Tab to auto-complete the filename if needed.)
+
+To find sourceport locations on Linux (if installed via package manager):
+   whereis gzdoom
+
+
+
+-- REQUIREMENTS TO USE DML 2.X --
+1) A modern Doom sourceport that supports ZDoom command-line parameters.
+2) An original game (IWAD) such as doom.wad, freedoom.wad, etc.
+3) Microsoft .NET Framework 3.5 (Windows) or latest mono-complete (Linux/Mac)
+
+============================ QUICK START GUIDE ============================
+
+PORTABILITY:
+Starting with version 2.2, DML is fully portable. Place your files in the corresponding folders inside "FILE" (next to "DML_vX.X.exe") and DML will detect them automatically.
+
+You can still use the “ADD” buttons to import files via file manager, but using the folders is more flexible.
+
+To exclude a file from loading, add its name (with extension) to blacklist.txt (e.g., chocolate-midiproc.exe in PORT/blacklist.txt).
+
+NOTE: If you add files while DML is running, click "Reload resources" to see them.
+
+There’s no longer a max file limit. Add as many files as you want!
+
+-- PLAYING THE ORIGINAL GAME --
+1) Place your IWADs in the "FILE/IWAD" folder or use the "ADD" button in the IWAD section.
+   Supported extensions: .wad, .pk3, .zip, .pak, .pk7, .grp, .rff, .deh, .iwad, .ipk3
+   NOTE: If a game isn't recognized as a valid IWAD, a warning will appear, but you can still load it.
+
+2) Add your sourceports to the "FILE/PORT" folder or via the "ADD" button.
+
+3) Select both the IWAD and sourceport from the dropdowns.
+
+4) Click "PLAY".
+   NOTE: Your sourceport must support the "-iwad" parameter. Some sourceports may not support all file types.
+
+-- PLAYING WITH MODS --
+1) Complete steps 1–3 above.
+2) Place mods in the "FILE/PWAD" folder or add them via the MODS section file manager.
+3) Select the mods you want from the list (click to select/deselect).
+4) Click "PLAY".
+   If multiple mods are selected, you’ll be prompted to set the load order.
+
+   Load order matters! Mods are loaded top to bottom.
+   Use UP/DOWN buttons or arrow keys to reorder.
+   Delete removes a mod from the list.
+   PageUp/PageDown (or Ctrl+Up/Down) moves to top/bottom.
+
+Example:
+- Game: doom.wad
+- Mod A: GunsAndMonsters.wad
+- Mod B: JustGuns.wad
+To keep Mod A’s monsters and Mod B’s guns:
+  → Load Mod A first, Mod B second.
+
+If mods modify different things (e.g., Mod C replaces Imps, Mod D replaces Demons), order doesn’t matter.
+
+-- SAVING MODS AS PRESETS --
+1) Follow steps to load your mods.
+2) Select 2 or more mods.
+3) Click "Play".
+4) Adjust mod load order if needed.
+5) Click "Save Preset".
+6) Name the preset.
+7) Optionally select extra data to save (IWAD, sourceport, config, renderer, command line).
+8) Choose:
+   - "Save as new…" to create a new preset
+   - "Update" to overwrite current preset
+   - "Update and Play" to save and immediately start the game
+
+-- START FROM A SPECIFIC LEVEL --
+Use the “Start from level” field.
+- For doom.wad: E1M1, E1M4, etc.
+- For doom2.wad: MAP01, MAP07, etc.
+- For custom IWADs: use their specific map lump names.
+
+-- USE ALTERNATIVE SOURCEPORT CONFIG FILES (.ini or .cfg) --
+1) Check “Use alternative engine configuration file”.
+2) Place config files in "FILE/PORT_CONFIG" or use the “ADD” button.
+   Don’t use the original .ini from the sourceport folder—make a copy elsewhere.
+3) Select your custom config from the dropdown.
+4) Click "Play".
+
+-- REMOVE FILES --
+1) Select the file in its list or combobox.
+2) Click “Remove”. Confirmation will appear if warnings are enabled.
+
+-- DISPLAY MOD PATHS --
+1) Go to "Preferences".
+2) Set "Mod list view mode" to:
+   - ONLY FILE NAME (default)
+   - LAST FOLDER AND FILE NAME
+   - FULL PATH
+3) Click "Save".
+
+-- ENABLE/DISABLE MESSAGE BOXES --
+1) Go to "Preferences".
+2) Check/uncheck the messages you want shown or hidden.
+3) Click "Save".
+
+-I USE SOMETHING LIKE 'BIND [KEY] "save QUICKSAVE.ZDS" ' TO MAKE MY QUICKSAVE, BUT WITH DML 2.X MY QUICKSAVE DISAPPEAR WHEN I RESTART GZDOOM!
+NOTE: The following workaround as been tested only in recent Windows/Linux gzdoom/zandronum version, with the Linux version installed trough apt. It will NOT work on Mac OS, and probably will not work on older Linux version.
+Gzdoom will place the "quicksave.zds" file in the DML v2.X folder (On Windows) or in the "home" folder (on Linux) instead of the gzdoom correct one when using this custom method of quicksaving. I don't know why. In order to solve this:
+1)Go into the DML 2.X preferences and enable "Workaround for 'BIND [KEY] "save QUICKSAVE.ZDS" '". 
+2)Every time you boot up gzdoom and wish to have a working quicksave, load your quicksave trough the "load" menu.
+3)Right after it loads your quicksave, press right away "F6" (Or whatever [KEY] you've binded) in order to make a quicksave.
+4)Done! If you follow these step, your quicksave/quickload will always point at the right save file.
+
+With the workaround you will have 2 quicksave.zds, the "current" one in the dml 2.X and the "old" one in the gzdoom correct place.
+The "current" one is the one thats gets updated each time you save for the current gzdoom session, the "old" one gets replaced  with the "current" one once you close gzdoom automatically by DML 2.X everytime you close your sourceport
+This way the next time you open gzdoom your last quicksave will be available.  
+If you don't quicksave after loading, and you try to quickload, gzdoom will now always quickload from the "old" quicksave until you close it.
+
+
+-- WHAT IS THE “AUTOLOAD” FIELD? --
+Autoload lets you always load a set of mods with any preset, game, or sourceport.
+Useful for quality-of-life mods you use 99% of the time.
+
+How to use:
+1) Create a preset as normal.
+2) Select it in the “Autoload” field.
+   That preset’s mods will be appended to any play session.
+3) To disable autoload, choose “-”.
+
+Only the mod list is used from the autoload preset. Other settings are ignored.
+
+-- HOW TO DIRECTLY PLAY A PRESET ON APP LAUNCH --
+Be sure to configure/test the preset beforehand within DML 2.X. 
+Note: Requires at least the sourceport/iwad to be saved in the preset, otherwise it will default to the last used ones, which are not granted to be the correct one. 
+Note: Preset name with spaces are not handled correctly, update the preset name to use "_" instead of spaces.
+
+Example, your preset is "Psychophobia UnofficialPatch". First of all update it so the name does not contain spaces. 
+Now that you have "Psychophobia_UnofficialPatch", be sure that the all the mod are included and in the correct order and that the sourceport and the original game are saved in it aswell.
+Give it a test within DML 2.x and tweak if needed. 
+Once satisfied close DML 2.X.
+Note: preset name is CASE SENSITIVE, so "Psychophobia_UnofficialPatch" != "PsychoPhobia_UnofficialPatch".
+
+Example on Windows:
+DML_v2.6-Beta2.exe Psychophobia_UnofficialPatch
+
+Example on Linux/Mac (same as windows but you have to prepend everything with "mono"):
+mono DML_v2.6-Beta2.exe Psychophobia_UnofficialPatch
+
+Once ensured that the command is working, you can create shortcut/shell script to start your favorite modpack right away!
+
+================== CREDITS ==================
+(Full credits: https://github.com/Premo36/DML2.X/blob/master/CREDITS.md)
+
+- Matteo "Premo36" Premoli → Lead, Design, Programming, Testing
+- EvilTechno → Design, Testing
+- StephenChamberlain → Additional Programming (PR #33)
+
+================== INFO ==================
+Copyright (c) 2016–2025, Matteo Premoli (P36 Software)
+
+
+If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:
+🔗 Website: 		https://p36software.net
+✉ E-mail: 		info@p36software.net
+🐦 Twitter: 		https://twitter.com/p36software (@p36software, gets updated more often)
+📄 Github: 		https://github.com/Premo36
+🔧 ModDB: 		https://www.moddb.com/members/premo36
+🎮 IndieDB: 		https://www.indiedb.com/members/premo36
+🎥 Youtube: 		https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
+
+
+If you're playing Doom 2: PsychoPhobia and would like a version that is not broken under newest gzdoom and has many other fixes, check out my Unofficial Patch:
+https://github.com/Premo36/PsychoPhobia-Unofficial-Patch
+
+=================LICENSE===================
+BSD 3-Clause License
+
+Copyright (c) 2016 - 2025, Matteo Premoli (P36 Software)
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+1. Redistributions of source code must retain the above copyright notice, this
+   list of conditions and the following disclaimer.
+
+2. Redistributions in binary form must reproduce the above copyright notice,
+   this list of conditions and the following disclaimer in the documentation
+   and/or other materials provided with the distribution.
+
+3. Neither the name of the copyright holder nor the names of its
+   contributors may be used to endorse or promote products derived from
+   this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+
