@@ -17,10 +17,6 @@ Other:
 - Removed Tank Rider links. (#38 – see GitHub for details)
 - General improvements to help texts.
 
-PARTIAL COMPATIBILITY (Some features may not work):
-- Chocolate Doom (3.0.1)
-- PrBoom+ (2.6.2)
-
 ===================== HOW TO RUN DML 2.X ON WINDOWS / LINUX / MAC =====================
 
 -- WINDOWS --
