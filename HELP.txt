@@ -102,9 +102,9 @@ There’s no longer a max file limit. Add as many files as you want!
    If multiple mods are selected, you’ll be prompted to set the load order.
 
    Load order matters! Mods are loaded top to bottom.
-   Use UP/DOWN buttons or arrow keys to reorder.
-   Delete removes a mod from the list.
-   PageUp/PageDown (or Ctrl+Up/Down) moves to top/bottom.
+   Use UP/DOWN buttons (or up/down arrow keys) to reorder.
+   REMOVE (or del key) removes a mod from the list.
+   Ctrl+UP/Ctrl+DOWN moves mod to top/bottom of the list.
 
 Example:
 - Game: doom.wad
@@ -137,7 +137,6 @@ Use the “Start from level” field.
 -- USE ALTERNATIVE SOURCEPORT CONFIG FILES (.ini or .cfg) --
 1) Check “Use alternative engine configuration file”.
 2) Place config files in "FILE/PORT_CONFIG" or use the “ADD” button.
-   Don’t use the original .ini from the sourceport folder—make a copy elsewhere.
 3) Select your custom config from the dropdown.
 4) Click "Play".
 
@@ -191,15 +190,15 @@ Note: Preset name with spaces are not handled correctly, update the preset name 
 
 Example, your preset is "Psychophobia UnofficialPatch". First of all update it so the name does not contain spaces. 
 Now that you have "Psychophobia_UnofficialPatch", be sure that the all the mod are included and in the correct order and that the sourceport and the original game are saved in it aswell.
-Give it a test within DML 2.x and tweak if needed. 
+Give it a test within DML 2.X and tweak if needed. 
 Once satisfied close DML 2.X.
 Note: preset name is CASE SENSITIVE, so "Psychophobia_UnofficialPatch" != "PsychoPhobia_UnofficialPatch".
 
 Example on Windows:
-DML_v2.6-Beta2.exe Psychophobia_UnofficialPatch
+DML_v2.6.exe Psychophobia_UnofficialPatch
 
 Example on Linux/Mac (same as windows but you have to prepend everything with "mono"):
-mono DML_v2.6-Beta2.exe Psychophobia_UnofficialPatch
+mono DML_v2.6.exe Psychophobia_UnofficialPatch
 
 Once ensured that the command is working, you can create shortcut/shell script to start your favorite modpack right away!
 
@@ -224,7 +223,7 @@ If you're interested in my softwares, games, open source projects or just want t
 🎥 Youtube: 		https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
 
 
-If you're playing Doom 2: PsychoPhobia and would like a version that is not broken under newest gzdoom and has many other fixes, check out my Unofficial Patch:
+If you're playing Doom 2: PsychoPhobia and would like a version that is not broken under modern gzdoom and has many other fixes, check out my Unofficial Patch:
 https://github.com/Premo36/PsychoPhobia-Unofficial-Patch
 
 =================LICENSE===================
