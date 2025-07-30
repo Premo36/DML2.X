@@ -121,31 +121,31 @@
     <value>Thank you for downloading Doom Mod Loader 2.X!
 
 DML 2.X is an open-source software licensed under the BSD 3.0 License.
-You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt, and in the "README v2.6.txt" file.
-You can find the software's source code and beta releases on GitHub at https://github.com/Premo36/DML2.X.
+You can read the license at the end of this text, at https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt and in the "HELP.txt" file.
+You can find the software's source code and beta releases on GitHub at https://github.com/Premo36/DML2.X
 
 This software will automatically check for updates every time you open it and will notify you if a new version is available for download.
-Note that it will only check for new STABLE releases; for BETA releases, you will have to check the releases on my GitHub or keep an eye on my Twitter (@p36software).
-You can disable this feature by un-ticking the "Check for updates" option.
+Note that it will only check for new STABLE releases; for BETA releases, you will have to check the releases on my GitHub or keep an eye on my Twitter (now "X") @p36software
+You can disable this feature by un-checking the "Check for updates" option.
 
-I designed this software to be user-friendly and straightforward, but if you need help, the "README v2.6.txt" file included with the software should answer most of your questions.
-If you can't find the answer you're looking for in the README, want to report a bug, give me suggestions for new features, or just want to let me know what you think about DML 2.X, feel free to email me at info@p36software.net.
+I designed this software to be user-friendly and straightforward, but if you need help, the "HELP.txt" file included with the software should answer most of your questions.
+If you can't find the answer you're looking for in the HELP file, want to report a bug, give me suggestions for new features, or just want to let me know what you think about DML 2.X, feel free to email me at info@p36software.net
 
-In order to use this software, you must accept both the BSD 3.0 license terms and, since it connects to my website to check for new versions, my website’s privacy policy, which you can read at https://p36software.net/privacy-policy.
+In order to use this software, you must accept both the BSD 3.0 license terms and, since it connects to my website to check for new versions, my website’s privacy policy, which you can read at https://p36software.net/privacy-policy
 
-For credits, see "README v2.6.txt" or https://github.com/Premo36/DML2.X/blob/master/CREDITS.md.
+For credits, see "HELP.txt" or https://github.com/Premo36/DML2.X/blob/master/CREDITS.md
 
 If you're interested in my software, games, open-source projects, or just want to contact me, you can find me here:
 -Website: https://p36software.net
 -Email: info@p36software.net
--Twitter: https://twitter.com/p36software (@p36software, updated more often)
+-Twitter: https://twitter.com/p36software (@p36software)
 -GitHub: https://github.com/Premo36
 -ModDB: https://www.moddb.com/members/premo36
 -IndieDB: https://www.indiedb.com/members/premo36
 -YouTube: https://www.youtube.com/channel/UC9yqO2r6CJeLcKebDr142eA
 
 DML Current Version: 2.6 (31/07/2025)
-(You can read all changelogs here: https://p36software.net/downloads/dml2/changelog.txt. The number in parentheses is the issue number on the DML2.X GitHub)
+(You can read all changelogs here: https://p36software.net/downloads/dml2/changelog.txt - The number in parentheses is the issue number on the DML2.X GitHub)
 New Features:
 -Start a preset directly by passing the preset name as a command-line argument to the DML executable. This way, you can have multiple shortcuts on your desktop, each one starting a preset directly (#29 - Thanks to @StephenChamberlain).
 -New version notification is now available under Mono (#37).
