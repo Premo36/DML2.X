@@ -103,6 +103,7 @@ namespace DoomModLoader2
         public MainForm(string[] args)
         {
             InitializeComponent();
+            this.Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath);
             cmdLineArgs = args;
         }
 
@@ -145,6 +146,8 @@ namespace DoomModLoader2
                 StartGameFromCmdLinePreset(cmdLineArgs[0], (List<PathName>)cmbPreset.DataSource);
             }
         }
+
+
 
         /// <summary>
         /// "PLAY" button.
@@ -294,12 +297,13 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "*.exe|*.exe";
+                openFileDialog.Filter = "Win Executable|*.exe|Linux Executable|*|Mac OS Executable|*.app";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     string[] path = openFileDialog.FileNames;
+
                     foreach (string p in path)
                     {
                         Storage storage = new Storage(cfgPORT);
@@ -320,7 +324,7 @@ namespace DoomModLoader2
         {
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "Initialization file |*.ini| Configuration file| *.cfg";
+                openFileDialog.Filter = "Initialization file|*.ini| Configuration file| *.cfg";
                 openFileDialog.RestoreDirectory = true;
                 openFileDialog.Multiselect = true;
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
@@ -415,8 +419,12 @@ namespace DoomModLoader2
             for (int i = 0; i < lstPWAD.Items.Count; i++)
             {
                 lstPWAD.SetSelected(i, false);
-
             }
+
+            //I have to set the first one again to 0 or in mono it will be selected, I don't know why...
+            if (lstPWAD.Items.Count > 0)
+                lstPWAD.SetSelected(0, false);
+
             PathName selectedItem = (PathName)cmbPreset.SelectedItem;
 
             if (selectedItem.name.Trim().Equals("-"))
@@ -558,16 +566,28 @@ namespace DoomModLoader2
         /// <param name="e"></param>
         private void cmdOpenFileManager_Click(object sender, EventArgs e)
         {
-            using (FileManager fm = new FileManager(cfgPWAD))
+
+            try
             {
-                this.Hide();
-                fm.ShowDialog();
+                using (FileManager fm = new FileManager(cfgPWAD))
+                {
+
+                    this.Hide();
+                    fm.ShowDialog();
+                }
+
+                this.Show();
+                UpdateSelectedPWADitems(pwadUpdateMode.DELETE);
+                cachedPWADs = null;
+                LoadPWAD();
+                cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+
             }
-            this.Show();
-            UpdateSelectedPWADitems(pwadUpdateMode.DELETE);
-            cachedPWADs = null;
-            LoadPWAD();
-            cmbPreset.SelectedItem = cmbPreset.Items.Cast<PathName>().Where(P => P.name.Equals("-")).FirstOrDefault();
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+
 
         }
 
@@ -871,7 +891,7 @@ namespace DoomModLoader2
         {
             List<string> pathPORT = File.ReadAllLines(cfgPORT).ToList();
             pathPORT.Add(PORTfolderPath);
-            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe" }, true);
+            cmbSourcePort.DataSource = GetAllPaths(pathPORT, new string[] { ".exe", ".app", "" }, true);
         }
 
         /// <summary>
@@ -2030,7 +2050,5 @@ namespace DoomModLoader2
         }
 
         #endregion
-
-
     }
 }
