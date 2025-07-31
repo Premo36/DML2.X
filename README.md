@@ -55,14 +55,13 @@ Take a look to the readme .txt bundled with DML 2.X for more Q/A.
 You can use the DML 2.X source code in any way you like as long as you follow the <a href ="https://github.com/Premo36/DML2.X/blob/master/LICENSE.txt"> BSD 3-Clause "New" or "Revised" License</a> terms.
 
 # DOWNLOADS
-<p>(Need <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work)</p>
+Note: On windows requires <a href="https://www.microsoft.com/en-US/download/details.aspx?id=21">Microsoft .Net Framework 3.5</a> to work.  
+Note: On Linux requires <a href="https://www.mono-project.com/download/stable/">mono-complete</a> to work.
+<p>You can read stuff about the 2.6 version <a href="https://www.moddb.com/mods/doom-mod-loader/news/doom-mod-loader-v26-is-out-security-fixes-and-launch-presets-from-desktop-shortcuts">here on moddb</a> and on  <a href="https://p36software.net/blog/doom-mod-loader-v2-6">my website</a>.</p>
 
-<p>You can read stuff about the 2.5 version and the future of the project <a href="https://www.moddb.com/mods/doom-mod-loader/news/doom-mod-loader-v25-is-out-now-also-for-linux-mac-os">here on moddb</a>.</p>
+<p>You can find the latest stable for all supported platforms <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.6">here on github</a> and on ModDB:</p>
+<p><a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v26" title="Download Doom Mod Loader v2.6 - ModDB" target="_blank"><img src="https://button.moddb.com/download/medium/294387.png" alt="Doom Mod Loader v2.6" /></a></p>
 
-<p>You can find the latest Windows stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.5-windows">here on github</a> and on ModDB:</p>
-<p><a href="https://www.moddb.com/mods/doom-mod-loader/downloads/doom-mod-loader-v25-windows" title="Download Doom Mod Loader v2.5 (Windows) - Mod DB" target="_blank"><img src="https://button.moddb.com/download/medium/231407.png" alt="Doom Mod Loader v2.5 (Windows)" /></a></p>
-
-<p>You can find the latest Linux/MacOS (Mono) stable <a href ="https://github.com/Premo36/DML2.X/releases/tag/v2.5-mono">here on github</a>.</p>
 
 <p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/rating/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
 <p><a href="https://www.moddb.com/mods/doom-mod-loader" target="_blank" title="View Doom Mod Loader on Mod DB" rel="noopener"><img src="https://button.moddb.com/popularity/medium/mods/43024.png" alt="Doom Mod Loader"></a></p>
@@ -74,8 +73,8 @@ See <a href="https://github.com/Premo36/DML2.X/blob/master/CREDITS.md">CREDITS.m
 # CONTACTS
 If you're interested in my softwares, games, open source projects or just want to contact me, you can find me here:<br>
 🔗 Website: <a href="https://p36software.net">https://p36software.net</a> <br>
-✉ Info e-mail: <a href="mailto:info@p36software.net">info@p36software.net</a> (for anything else) <br>
-🐦 Twitter: <a href="https://twitter.com/p36software">https://twitter.com/p36software</a> (@p36software, gets updated more often)  <br>
+✉ Info e-mail: <a href="mailto:info@p36software.net">info@p36software.net</a> <br>
+🐦 Twitter: <a href="https://twitter.com/p36software">https://twitter.com/p36software</a> (@p36software)  <br>
 📄 Github: <a href="https://github.com/Premo36">https://github.com/Premo36 </a><br>
 🔧 ModDB: <a href="https://www.moddb.com/members/premo36">https://www.moddb.com/members/premo36</a><br>
 🎮 IndieDB: <a href="https://www.indiedb.com/members/premo36">https://www.indiedb.com/members/premo36</a><br>
